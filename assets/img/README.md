@@ -1,10 +1,10 @@
 # Fotos
 
-Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natürliches Licht, keine Menschen in Pose, keine KI-/Roboter-Motive.
+Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natürliches Licht, keine Menschen in Pose. Ausnahme: Hero-Bild `buero-ki.jpg` auf Wunsch des Auftraggebers.
 
 | Datei | Einsatz | Motiv-Idee | Format |
 |---|---|---|---|
-| `industrie.jpg` | Hero (rechts) | ruhige Werkhalle, Stahl/Beton, Tageslicht | Hochformat 4:5, ca. 1200 × 1500 px |
+| `buero-ki.jpg` | Hero (rechts) | Büro mit Bildschirmarbeitsplatz und Netzwerkdarstellung | Hochformat 4:5, ca. 1200 × 1500 px |
 | `natur.jpg` | Bildband vor „Wissensbasis“ | weite Landschaft, Nebel, Wasser oder Wald | Querformat, ca. 2400 × 1000 px |
 
 Fehlt eine Datei, zeigt die Seite eine ruhige Tonfläche (kein kaputtes Bild).
@@ -14,5 +14,5 @@ JPG, komprimiert auf unter 300 KB.
 
 | Datei | Quelle | Urheber | Lizenz | Nutzungsrecht | Abrufdatum |
 |---|---|---|---|---|---|
-| industrie.jpg | | | | | |
+| buero-ki.jpg | vom Auftraggeber bereitgestellt, KI-generiert (Generator ergänzen) | | Nutzungsbedingungen des Generators prüfen | | 21.10.2026 |
 | natur.jpg | | | | | |
