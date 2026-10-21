@@ -76,11 +76,17 @@
     }
   });
 
-  /* ---------- Zertifikatsstatus ---------- */
-  document.querySelectorAll("[data-cert-note]").forEach(function (el) {
-    if (config.certificateNote) el.textContent = config.certificateNote;
-    else el.hidden = true;
-  });
+  /* ---------- Ablauf-Kette: springender Punkt, sobald sichtbar ---------- */
+  var chain = document.querySelector(".chain");
+  if (chain && "IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    chain.classList.add("is-ready");
+    var chainObserver = new IntersectionObserver(function (entries) {
+      if (!entries[0].isIntersecting) return;
+      chain.classList.add("is-playing");
+      chainObserver.disconnect();
+    }, { threshold: 0.6 });
+    chainObserver.observe(chain);
+  }
 
   /* ---------- Kontaktformular ---------- */
   var form = document.getElementById("contact-form");
@@ -113,6 +119,7 @@
     email: "Bitte geben Sie eine gültige E-Mail-Adresse an, z. B. name@firma.de.",
     topic: "Bitte wählen Sie ein Thema aus – „Noch unsicher“ ist ebenfalls möglich.",
     company: "Für Unternehmensangebote benötigen wir den Namen Ihres Unternehmens.",
+    phone: "Bitte geben Sie eine Telefonnummer an, unter der ich Sie erreiche.",
     privacy: "Bitte bestätigen Sie den Datenschutzhinweis.",
   };
 
@@ -130,7 +137,9 @@
     if (el) el.textContent = "";
   }
 
-  ["name", "email", "topic", "company", "privacy"].forEach(function (name) {
+  var VALIDATED = ["company", "name", "email", "phone", "topic", "privacy"];
+
+  VALIDATED.forEach(function (name) {
     var field = form.elements[name];
     field.addEventListener(field.type === "checkbox" || field.tagName === "SELECT" ? "change" : "blur", function () {
       if (field.checkValidity()) clearError(field);
@@ -147,7 +156,7 @@
     setStatus("");
 
     var firstInvalid = null;
-    ["name", "email", "topic", "company", "privacy"].forEach(function (name) {
+    VALIDATED.forEach(function (name) {
       var field = form.elements[name];
       if (field.checkValidity()) {
         clearError(field);
@@ -190,7 +199,7 @@
         "E-Mail: " + data.get("email"),
         "Thema: " + data.get("topic"),
         "Unternehmen: " + (data.get("company") || "–"),
-        "Telefon: " + (data.get("phone") || "–"),
+        "Telefon: " + data.get("phone"),
         "",
         data.get("message") || "",
       ];

@@ -22,7 +22,4 @@ window.SITE_CONFIG = {
     phone: "",
     formEndpoint: "",   // optional: URL eines Formular-Dienstes (POST, FormData); hat Vorrang vor E-Mail
   },
-
-  // Zertifikatsstatus (PRD §26): erst nach Abschluss ändern
-  certificateNote: "Consultant Zertifikat folgt!",
 };
