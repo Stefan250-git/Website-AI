@@ -17,7 +17,6 @@
   --line: #e3ded3;
 
   --font: "Segoe UI", Arial, sans-serif;
-  --serif: "Palatino Linotype", Palatino, "Book Antiqua", Georgia, serif;
   --max: 1140px;
   --gutter: 24px;
   --radius: 14px;
@@ -59,11 +58,10 @@ a:hover { color: var(--green-dark); }
 .container { width: 100%; max-width: var(--max); margin: 0 auto; padding: 0 var(--gutter); }
 
 /* ---------- Typografie ---------- */
-h1, h2, h3 { color: var(--navy); font-weight: 600; line-height: 1.15; }
-h1, h2 { font-family: var(--serif); letter-spacing: -0.01em; }
-h1 { font-size: clamp(2.6rem, 5.6vw, 4.2rem); font-weight: 500; }
-h2 { font-size: clamp(1.9rem, 3.6vw, 2.7rem); font-weight: 500; }
-h3 { font-size: 1.25rem; line-height: 1.35; }
+h1, h2, h3 { color: var(--navy); font-weight: 700; line-height: 1.12; letter-spacing: -0.015em; }
+h1 { font-size: clamp(2.5rem, 6vw, 4.5rem); }
+h2 { font-size: clamp(1.9rem, 4vw, 2.9rem); }
+h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 
 .kicker {
   display: inline-flex; align-items: center; gap: 12px;
@@ -199,7 +197,7 @@ h3 { font-size: 1.25rem; line-height: 1.35; }
 
 /* ---------- Übersicht ---------- */
 .overview { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
-.overview-group h3 { font-family: var(--serif); font-size: 1.7rem; font-weight: 500; margin-bottom: 16px; }
+.overview-group h3 { font-size: 1.6rem; margin-bottom: 16px; }
 .overview-group h3 a { color: var(--navy); text-decoration: none; }
 .overview-group h3 a:hover { color: var(--green); }
 .jump-list { list-style: none; border-top: 1px solid var(--line); }
@@ -221,7 +219,7 @@ h3 { font-size: 1.25rem; line-height: 1.35; }
 .feature-link:hover { background: #dde9e2; color: var(--navy); }
 .feature-link::after { content: "→"; grid-column: 3; grid-row: 1 / span 2; color: var(--green); font-size: 1.3rem; }
 .feature-label { font-size: .75rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--green-dark); }
-.feature-link strong { font-family: var(--serif); font-weight: 500; font-size: 1.5rem; line-height: 1.25; }
+.feature-link strong { font-size: 1.4rem; line-height: 1.25; color: var(--navy); }
 .feature-text { grid-column: 2; color: var(--muted); }
 
 /* ---------- Ablauf-Kette (Mensch → … → KI) ---------- */
@@ -239,7 +237,7 @@ h3 { font-size: 1.25rem; line-height: 1.35; }
   padding: 56px 0; border-top: 1px solid var(--line);
 }
 .offer:last-child { padding-bottom: 0; }
-.offer h3 { font-family: var(--serif); font-size: 1.6rem; font-weight: 500; }
+.offer h3 { font-size: 1.5rem; }
 .offer-sub { margin-top: 8px; color: var(--muted); }
 .offer-body > p { color: var(--muted); max-width: var(--measure); }
 .offer-body > * + * { margin-top: 20px; }
@@ -281,7 +279,7 @@ h3 { font-size: 1.25rem; line-height: 1.35; }
   background: var(--white); border-radius: var(--radius);
   padding: 40px 36px 32px; box-shadow: var(--shadow);
 }
-.card h3 { font-family: var(--serif); font-size: 1.5rem; font-weight: 500; }
+.card h3 { font-size: 1.4rem; }
 .card p { color: var(--muted); }
 .card .price { margin-top: auto; }
 .card .text-link { margin-top: auto; }
@@ -295,7 +293,7 @@ h3 { font-size: 1.25rem; line-height: 1.35; }
 .about .split { align-items: center; }
 .portrait {
   aspect-ratio: 4 / 5; border-radius: var(--radius); background: var(--sand);
-  display: grid; place-items: center; color: var(--navy-80); font-family: var(--serif); font-size: 3.5rem; letter-spacing: .08em;
+  display: grid; place-items: center; color: var(--navy-80); font-size: 3.5rem; font-weight: 300; letter-spacing: .08em;
 }
 .cert-note {
   display: inline-block; margin-top: 28px; padding: 8px 16px; border-radius: 999px;
