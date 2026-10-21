@@ -15,6 +15,7 @@
   --text: #0d1d37;
   --muted: #5d6578;
   --line: #e3ded3;
+  --logo-blue: #234d97;
 
   --font: "Segoe UI", Arial, sans-serif;
   --max: 1140px;
@@ -106,18 +107,29 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   backdrop-filter: blur(10px);
   border-bottom: 1px solid var(--line);
 }
+.header-inner > .text-link { white-space: nowrap; }
 .header-inner { display: flex; align-items: center; justify-content: space-between; gap: 24px; min-height: 76px; }
 
-.brand { display: flex; flex-direction: column; text-decoration: none; color: var(--navy); line-height: 1.15; }
-.brand:hover { color: var(--navy); }
-.brand-name { font-weight: 700; letter-spacing: .1em; font-size: .95rem; }
-.brand-name span { color: var(--green); }
-.brand-sub { font-size: .75rem; letter-spacing: .16em; text-transform: uppercase; color: var(--muted); }
+/* Logo als Text: transparenter Hintergrund, passt sich dem jeweiligen Abschnitt an */
+.logo {
+  --logo-ink: var(--navy); --logo-tag: var(--logo-blue); --logo-rule: rgba(13, 29, 55, .4);
+  display: flex; align-items: center; gap: 14px; flex-shrink: 0; white-space: nowrap;
+  text-decoration: none; color: var(--logo-ink); line-height: 1.2;
+}
+.logo:hover { color: var(--logo-ink); }
+.logo-mark {
+  font-size: 2.5rem; font-weight: 300; line-height: 1; letter-spacing: -.02em;
+  padding: 4px 14px 4px 0; border-right: 1px solid var(--logo-rule);
+}
+.logo-text { display: grid; gap: 4px; }
+.logo-name { font-size: .88rem; letter-spacing: .2em; text-transform: uppercase; }
+.logo-tag { font-size: .62rem; font-weight: 700; letter-spacing: .08em; text-transform: uppercase; color: var(--logo-tag); }
+.logo-light { --logo-ink: var(--white); --logo-tag: #a9c0e8; --logo-rule: rgba(255, 255, 255, .4); }
 
 .nav-list { display: flex; align-items: center; gap: 4px; list-style: none; }
 .nav-list > li { position: relative; display: flex; align-items: center; }
 .nav-list a {
-  display: block; padding: 10px 12px; color: var(--navy); text-decoration: none; font-weight: 500; font-size: .95rem;
+  display: block; padding: 10px 12px; color: var(--navy); text-decoration: none; font-weight: 500; font-size: .95rem; white-space: nowrap;
   border-radius: 6px;
 }
 .nav-list a:hover { color: var(--green); }
@@ -333,8 +345,6 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 /* ---------- Footer ---------- */
 .site-footer { background: var(--navy); color: #c3cad7; padding: 56px 0; }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
-.footer-brand strong { display: block; color: var(--white); letter-spacing: .06em; }
-.footer-brand span { font-size: .95rem; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 4px 24px; list-style: none; }
 .footer-links a { display: inline-block; padding: 10px 0; color: #e3e7ee; text-decoration: none; }
 .footer-links a:hover { color: var(--green-light); text-decoration: underline; }
@@ -351,7 +361,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   .nav-list a { padding: 10px 9px; }
 }
 
-@media (max-width: 1080px) {
+@media (max-width: 1180px) {
   .nav-toggle { display: inline-flex; }
   .site-nav {
     display: none; position: absolute; top: 100%; left: 0; right: 0;
@@ -385,6 +395,10 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 @media (max-width: 600px) {
   :root { --gutter: 16px; --section: 72px; }
   body { font-size: 1rem; }
+  .logo { gap: 10px; }
+  .logo-mark { font-size: 2rem; padding-right: 10px; }
+  .logo-name { font-size: .78rem; letter-spacing: .16em; }
+  .site-header .logo-tag { display: none; }
   .hero .lead { font-size: 1.12rem; }
   .hero-actions .btn { width: 100%; }
   .section-head { margin-bottom: 40px; }
