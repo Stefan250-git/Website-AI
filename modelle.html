@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Modelle – AI Work Lab · Stefan Hansen</title>
+  <meta name="description" content="Welches KI-Modell passt zu welcher Aufgabe? Die fünf führenden Modelle je Aufgabe, laufend aktualisiert auf Basis des Arena-Leaderboards.">
+  <meta name="theme-color" content="#0d1d37">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+  <!-- ===================== Header ===================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="Stefan Hansen – zur Startseite">
+        <span class="logo-mark">SH</span>
+        <span class="logo-text">
+          <span class="logo-name">Stefan Hansen</span>
+          <span class="logo-tag">Entwicklung. Organisation. Transformation.</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Menü öffnen">
+        <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+
+      <nav class="site-nav" id="main-nav" aria-label="Hauptnavigation">
+        <ul class="nav-list">
+          <li class="has-sub">
+            <a href="index.html#unternehmen">Unternehmen</a>
+            <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-unternehmen">
+              <span class="visually-hidden">Untermenü Unternehmen</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <ul class="submenu" id="sub-unternehmen">
+              <li><a href="index.html#ki-start">KI Einstieg für Unternehmen</a></li>
+              <li><a href="index.html#mitarbeiter">KI Einstieg für Mitarbeiter</a></li>
+              <li><a href="index.html#auszubildende">Young Starter für Auszubildende</a></li>
+              <li><a href="index.html#wissensbasis">Wissensbasis für Unternehmen</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <a href="index.html#einsteiger">Einsteiger</a>
+            <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-einsteiger">
+              <span class="visually-hidden">Untermenü Einsteiger</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <ul class="submenu" id="sub-einsteiger">
+              <li><a href="index.html#erwachsene">KI Einstieg für Erwachsene</a></li>
+              <li><a href="index.html#young-starter">KI Einstieg Young Starter</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html#ueber-mich">Über mich</a></li>
+          <li><a href="modelle.html" aria-current="page">Modelle</a></li>
+          <li class="nav-cta"><a class="btn btn-primary" href="index.html#kontakt">Anfrage</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inhalt">
+    <section class="section models-page" aria-labelledby="modelle-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">Modelle</p>
+          <h1 id="modelle-title">Welches Modell passt zu welcher Aufgabe?</h1>
+          <p class="lead">Die fünf führenden KI-Modelle je Aufgabe. Grundlage ist die Arena: Dort vergleichen Menschen anonym die Antworten zweier Modelle und wählen die bessere.</p>
+          <p class="models-updated" id="models-updated"></p>
+        </div>
+
+        <div class="models-grid" id="models-grid">
+          <p class="models-empty">Die Ranglisten werden geladen. Falls nichts erscheint, ist JavaScript deaktiviert oder die Daten fehlen.</p>
+        </div>
+
+        <div class="models-note">
+          <p><strong>So lesen Sie die Werte:</strong> Der Balken zeigt den Abstand zum führenden Modell, gemessen bis Platz 20. Varianten eines Modells (z. B. „High“ oder „Max“ für mehr Rechenaufwand) erscheinen nur einmal – mit ihrem besten Ergebnis.</p>
+          <p>Eine gute Platzierung sagt nichts darüber, ob ein Modell bei Ihnen freigegeben ist oder zu Ihren Datenregeln passt. Das klären wir im <a href="index.html#kontakt">Erstgespräch</a>.</p>
+          <p class="small">Daten: <a href="https://arena.ai/leaderboard" rel="noopener">arena.ai/leaderboard</a>, bereitgestellt als <a href="https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset" rel="noopener">Datensatz</a> unter CC BY 4.0. Die Zuordnung der Arena-Kategorien zu Aufgaben ist eine eigene Auswahl.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="logo logo-light">
+        <span class="logo-mark">SH</span>
+        <span class="logo-text">
+          <span class="logo-name">Stefan Hansen</span>
+          <span class="logo-tag">Entwicklung. Organisation. Transformation.</span>
+        </span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <!-- Ranglisten: assets/data/modelle.js wird von .github/workflows/modelle.yml erzeugt -->
+  <script src="assets/data/modelle.js"></script>
+  <script src="assets/js/modelle.js"></script>
+</body>
+</html>

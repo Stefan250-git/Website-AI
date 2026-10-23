@@ -1,0 +1,43 @@
+# Aktualisiert die Modell-Ranglisten (assets/data/modelle.js) aus dem Arena-Leaderboard.
+# Auf Abruf: GitHub → Actions → „Modelle aktualisieren“ → „Run workflow“.
+name: Modelle aktualisieren
+
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: "17 5 * * *"   # täglich ca. 07:17 Uhr MESZ
+
+permissions:
+  contents: write
+
+concurrency:
+  group: modelle
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - name: Abhängigkeit installieren
+        run: pip install pyarrow
+
+      - name: Leaderboard abrufen
+        run: python scripts/update_models.py
+
+      - name: Änderungen übernehmen
+        run: |
+          if git diff --quiet -- assets/data/modelle.js; then
+            echo "Keine neuen Daten."
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add assets/data/modelle.js
+          git commit -m "Modell-Ranglisten aktualisiert"
+          git push
