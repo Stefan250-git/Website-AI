@@ -15,10 +15,35 @@ window.PAUL_WISSEN = {
   fallback: "Dazu weiß ich leider nichts Genaues. Frag am besten Stefan direkt – er meldet sich gern bei Dir.",
   fallbackLink: { label: "Erstgespräch anfragen", url: "index.html#kontakt" },
 
-  // Kurze Unterhaltung (regulärer Ausdruck auf die kleingeschriebene Frage)
+  // Wird eine Frage mit „id“ in einer Sitzung erneut gestellt, setzt Paul diesen Satz davor
+  repeatIntro: "Das hab ich Dir doch schon gesagt, aber ich sage es gern nochmal:",
+
+  // Kurze Unterhaltung (regulärer Ausdruck auf die kleingeschriebene Frage, ß als „ss“).
+  // Reihenfolge zählt: „Warum heißt Du Paul?“ muss vor „Wie heißt Du?“ geprüft werden.
+  // Absätze in Antworten mit \n\n trennen.
   smalltalk: [
     { match: "^(hallo|hi|hey|moin|servus|guten (morgen|tag|abend))\\b", answer: "Hallo! Schön, dass Du da bist. Frag mich zum Beispiel nach den Angeboten, den Preisen oder dem KI-Kompass." },
-    { match: "wer bist du|was bist du|wie heisst du|wer ist paul|^paul$", answer: "Ich bin Paul, der Website-Kater von Stefan Hansen. Ich kenne die Inhalte dieser Seite und springe mit Dir direkt an die passende Stelle." },
+    {
+      id: "name-herkunft",
+      match: "(warum|wieso|weshalb) (heisst du|ist dein name|nennt man dich)|woher (kommt|hast du) dein(en)? name|warum der name",
+      answer: "Meine Familie hat mich gefunden, als ich noch ein winziges Kätzchen war. Aber eines war damals schon klar: Ich war von Kopf bis Pfote tiefschwarz, und mein Fell glänzte wie frisch poliert!\n\nEin kleiner schwarzer Panther eben – nur in der handlicheren Ausgabe.\n\nUnd weil ich schon damals jede Menge Flausen im Kopf hatte, war die Verbindung zu Paulchen Panther, dem berühmten rosaroten Schlingel, schnell hergestellt. Genauso schlau, charmant, genauso frech und immer für einen kleinen Unsinn zu haben!\n\nSo wurde aus dem kleinen schwarzen Fellknäuel Paulchen Panther. Nur die Farbe stimmt nicht ganz – aber Pink hätte mir sowieso nicht gestanden!",
+    },
+    {
+      id: "name",
+      match: "wie heisst du|wie ist dein name|was ist dein name|wie lautet dein name|hast du einen namen",
+      answer: "Ich bin Paul. Das stammt aus dem Lateinischen und bedeutet übersetzt „der Kleine“. Paul ist vermutlich der einzige Name, bei dem man schon bei der Geburt als „der Kleine“ vorgestellt wird – und anschließend ein ganzes Leben Zeit hat, das Gegenteil zu beweisen.",
+    },
+    {
+      id: "alter",
+      match: "wie alt bist du|dein alter|wann hast du geburtstag|wann bist du geboren",
+      answer: "Mein Alter? Gute Frage! Ich habe keine Geburtstage, sondern Updates. Ich sammle keine Lebensjahre, sondern Wissen. Und während Menschen mit dem Alter erfahrener werden, werde ich hoffentlich mit jeder neuen Version ein bisschen schlauer. Falten bekomme ich übrigens nur, wenn jemand meinen Code schlecht programmiert.",
+    },
+    {
+      id: "herkunft",
+      match: "wo kommst du (denn )?her|woher kommst du|wo bist du her|wo stammst du her|woher stammst du",
+      answer: "Aus einer guten Familie. Wir konnten uns sogar leisten, neugierige Fragen unbeantwortet zu lassen.",
+    },
+    { match: "wer bist du|was bist du|wer ist paul|^paul$", answer: "Ich bin Paul, der Website-Kater von Stefan Hansen. Ich kenne die Inhalte dieser Seite und springe mit Dir direkt an die passende Stelle." },
     { match: "^(danke|vielen dank|merci|super|toll|prima)", answer: "Gern geschehen! Wenn Du noch etwas wissen möchtest, frag einfach." },
     { match: "^(tschüss|tschuess|ciao|bis bald|auf wiedersehen)", answer: "Bis bald! Du findest mich jederzeit hier unten rechts." },
   ],
