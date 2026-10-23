@@ -94,8 +94,40 @@ window.PAUL_WISSEN = {
     {
       title: "Vorgehen: Mensch vor Werkzeug",
       url: "index.html#ansatz-title",
-      keywords: ["vorgehen", "ansatz", "methode", "ablauf", "verantwortung", "arbeitsweise", "prinzip", "philosophie"],
+      keywords: ["vorgehen", "ansatz", "methode", "ablauf", "arbeitsweise", "prinzip", "philosophie", "kette"],
       answer: "Es geht nicht beim Werkzeug los, sondern bei Deinen täglichen Aufgaben: Mensch → Aufgabe → Arbeitsprozess → Verantwortung → geeignete KI.",
+    },
+    // Die fünf Schritte aus „KI im Unternehmen“ (Kette mit der springenden Katze)
+    {
+      title: "Schritt 1: Mensch",
+      url: "index.html#ansatz-title",
+      keywords: ["mensch", "menschen", "team wissen"],
+      answer: "Am Anfang stehen die Menschen im Team: ihr Wissen, ihre Erfahrung und ihre Fragen zu KI. Ohne sie hilft auch kein Werkzeug weiter.",
+    },
+    {
+      title: "Schritt 2: Aufgabe",
+      url: "index.html#ansatz-title",
+      keywords: ["aufgabe", "aufgaben", "zeitfresser", "wiederkehrend"],
+      answer: "Welche wiederkehrenden Aufgaben kosten Zeit? Dort liegt der Ansatzpunkt für KI – nicht beim Werkzeug.",
+    },
+    {
+      title: "Schritt 3: Arbeitsprozess",
+      url: "index.html#ansatz-title",
+      keywords: ["arbeitsprozess", "arbeitsablauf", "geschäftsprozess"],
+      answer: "Wie läuft die Aufgabe heute ab? Erst ein klarer Ablauf zeigt, wo KI wirklich entlastet.",
+    },
+    {
+      title: "Schritt 4: Verantwortung",
+      url: "index.html#ansatz-title",
+      keywords: ["verantwortung", "verantwortlich", "wer prüft", "haftung", "kontrolle"],
+      answer: "Wer prüft das Ergebnis, welche Daten dürfen genutzt werden? Die Entscheidung bleibt beim Menschen.",
+    },
+    {
+      title: "Schritt 5: geeignete KI",
+      url: "index.html#ansatz-title",
+      keywords: ["geeignete ki", "geeignet", "passende ki", "passendes werkzeug"],
+      answer: "Erst jetzt wird das Werkzeug gewählt: passend zu Aufgabe, Daten und Team, nicht umgekehrt. Einen Überblick über Modelle gibt der KI-Kompass.",
+      more: { label: "KI-Kompass: Modelle", url: "ki-kompass.html#modelle" },
     },
     {
       title: "Über Stefan Hansen",

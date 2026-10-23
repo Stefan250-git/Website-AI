@@ -338,17 +338,23 @@
   }
 
   /* ---------- Öffnen, schließen, ausblenden ---------- */
-  function open() {
+  // hover = kurz durch Darüberfahren geöffnet; pinned = per Klick geöffnet
+  var mode = null;
+
+  function open(how) {
     if (root.classList.contains("is-away")) return comeBack();
+    mode = how === "hover" ? "hover" : "pinned";
     reset();
     teaser.hidden = true;
     bubble.hidden = false;
     catBtn.setAttribute("aria-expanded", "true");
     catBtn.setAttribute("aria-label", "Chat mit Paul schließen");
-    input.focus();
+    if (mode === "pinned") input.focus();
   }
 
   function close() {
+    mode = null;
+    clearTimeout(leaveTimer);
     bubble.hidden = true;
     reset();
     catBtn.setAttribute("aria-expanded", "false");
@@ -389,9 +395,52 @@
 
   catBtn.addEventListener("click", function () {
     if (root.classList.contains("is-away")) return comeBack();
-    if (bubble.hidden) open(); else close();
+    if (bubble.hidden) return open();
+    // Durch Darüberfahren geöffnet: Klick hält die Blase offen
+    if (mode === "hover") {
+      mode = "pinned";
+      input.focus();
+      return;
+    }
+    close();
   });
-  teaser.addEventListener("click", open);
+  teaser.addEventListener("click", function () { open(); });
+
+  /* ---------- Darüberfahren: Paul blinzelt, die Blase geht kurz auf; nach dem Verlassen
+     des Bereichs schließt sie sich nach etwa 3 Sekunden (nicht, solange getippt wird) ---------- */
+  var LEAVE_DELAY = 3000;
+  var leaveTimer = null;
+  var inside = false;
+
+  function blink() {
+    root.classList.remove("is-blink");
+    void root.offsetWidth;
+    root.classList.add("is-blink");
+  }
+
+  function closeLater() {
+    clearTimeout(leaveTimer);
+    leaveTimer = setTimeout(function () {
+      if (!inside && document.activeElement !== input && !bubble.hidden) close();
+    }, LEAVE_DELAY);
+  }
+
+  root.addEventListener("pointerenter", function (e) {
+    inside = true;
+    clearTimeout(leaveTimer);
+    if (e.pointerType !== "mouse") return;
+    var busyJumping = root.classList.contains("is-exit") || root.classList.contains("is-enter");
+    if (root.classList.contains("is-away") || busyJumping) return;
+    blink();
+    if (bubble.hidden) open("hover");
+  });
+  root.addEventListener("pointerleave", function () {
+    inside = false;
+    if (!bubble.hidden) closeLater();
+  });
+  input.addEventListener("blur", function () {
+    if (!inside && !bubble.hidden) closeLater();
+  });
   hideBtn.addEventListener("click", goAway);
   root.querySelector(".paul-close").addEventListener("click", function () {
     close();
