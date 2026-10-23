@@ -112,17 +112,20 @@
     '</g>' +
     // Weggeklickt: schaut über den unteren Rand – Ohren, Augen, links und rechts die Pfoten
     '<g class="pose-peek">' +
-    '<path d="M30 112l-5-34 27 20zM90 112l5-34-27 20z" fill="' + BLACK + '" stroke="' + BLACK + '" stroke-width="5" stroke-linejoin="round"/>' +
-    '<path d="M33 104l-3-19 14 11zM87 104l3-19-14 11z" fill="' + SOFT + '"/>' +
-    '<ellipse cx="60" cy="140" rx="40" ry="38" fill="' + BLACK + '"/>' +
+    // Ohren mit dem Ansatz im Kopf (der Kopf überdeckt ihn), damit sie geschlossen am Kopf sitzen
+    '<path d="M27 80l4 41 23-17zM93 80l-4 41-23-17z" fill="' + BLACK + '" stroke="' + BLACK + '" stroke-width="5" stroke-linejoin="round"/>' +
+    '<path d="M30 88l3 25 15-9zM90 88l-3 25-15-9z" fill="' + SOFT + '"/>' +
+    '<ellipse cx="60" cy="140" rx="36" ry="38" fill="' + BLACK + '"/>' +
+    // Augen sitzen auf der Kante: nur die obere Hälfte ist zu sehen
     '<g class="paul-eyes">' +
-    '<ellipse cx="45" cy="120" rx="10.5" ry="11.5" fill="' + EYE + '"/><ellipse cx="75" cy="120" rx="10.5" ry="11.5" fill="' + EYE + '"/>' +
+    '<ellipse cx="45" cy="131" rx="10.5" ry="11.5" fill="' + EYE + '"/><ellipse cx="75" cy="131" rx="10.5" ry="11.5" fill="' + EYE + '"/>' +
     '<g class="paul-pupils">' +
-    '<ellipse cx="46" cy="121.5" rx="6.4" ry="7.6" fill="#0d1d37"/><ellipse cx="74" cy="121.5" rx="6.4" ry="7.6" fill="#0d1d37"/>' +
-    '<circle cx="49" cy="116" r="2.8" fill="#fff"/><circle cx="79" cy="116" r="2.8" fill="#fff"/>' +
+    '<ellipse cx="46" cy="132.5" rx="6.4" ry="7.6" fill="#0d1d37"/><ellipse cx="74" cy="132.5" rx="6.4" ry="7.6" fill="#0d1d37"/>' +
+    '<circle cx="49" cy="126" r="2.8" fill="#fff"/><circle cx="79" cy="126" r="2.8" fill="#fff"/>' +
     '</g></g>' +
-    '<ellipse cx="20" cy="128" rx="15" ry="8" fill="' + BLACK + '"/><ellipse cx="100" cy="128" rx="15" ry="8" fill="' + BLACK + '"/>' +
-    '<path d="M14 124v6M20 123v7M26 124v6M94 124v6M100 123v7M106 124v6" stroke="' + LINE + '" stroke-width="1.6" stroke-linecap="round"/>' +
+    // Pfoten links und rechts, mit minimalem Abstand zum Kopf
+    '<ellipse cx="11" cy="128" rx="12" ry="7" fill="' + BLACK + '"/><ellipse cx="109" cy="128" rx="12" ry="7" fill="' + BLACK + '"/>' +
+    '<path d="M6 124.5v5M11 123.5v6M16 124.5v5M104 124.5v5M109 123.5v6M114 124.5v5" stroke="' + LINE + '" stroke-width="1.6" stroke-linecap="round"/>' +
     '</g>' +
     '</svg>';
 
