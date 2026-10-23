@@ -124,6 +124,30 @@
       '</g>' +
       '</svg>';
     stage.appendChild(cat);
+
+    // Kurzinfo je Feld (Text aus data-info): als Blase unter dem Feld,
+    // auf dem Smartphone in einem Kasten unter der Kette
+    var infoBox = document.createElement("p");
+    infoBox.className = "chain-info";
+    infoBox.setAttribute("aria-live", "polite");
+    stage.insertBefore(infoBox, cat);
+    items.forEach(function (li, k) {
+      var text = li.getAttribute("data-info");
+      if (!text) return;
+      var tip = document.createElement("span");
+      tip.className = "chain-tip";
+      tip.textContent = text;
+      li.querySelector("span").appendChild(tip);
+      li.addEventListener("click", function () { info(k); });
+    });
+
+    function info(i) {
+      items.forEach(function (li, k) { li.classList.toggle("is-info", k === i); });
+      infoBox.textContent = i >= 0 ? items[i].getAttribute("data-info") || "" : "";
+      infoBox.classList.toggle("is-visible", i >= 0);
+    }
+
+    var SIT = 3000, SIT_LAST = 3500; // Sitzzeit je Feld, damit die Kurzinfo gelesen werden kann
     var svg = cat.firstChild;
     var current = 0;
     var jumping = false;
@@ -210,23 +234,27 @@
     function run() {
       var p = wait(400).then(function () {
         items[0].classList.add("is-on");
-        return wait(700);
+        info(0);
+        return wait(SIT);
       });
       var i;
       for (i = 1; i <= last; i++) {
         (function (i) {
           p = p.then(function () {
+            info(-1);
             items[i].classList.add("is-linked");
             return jump(i - 1, i);
           }).then(function () {
             items[i].classList.add("is-on");
-            return wait(i === last ? 1500 : 650);
+            info(i);
+            return wait(i === last ? SIT_LAST : SIT);
           });
         })(i);
       }
       for (i = last; i >= 1; i--) {
         (function (i) {
           p = p.then(function () {
+            info(-1);
             items[i].classList.remove("is-on", "is-linked");
             return jump(i, i - 1);
           }).then(function () {
