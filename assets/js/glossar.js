@@ -360,7 +360,22 @@
   window.addEventListener("scroll", function () { if (!box.hidden) hide(); }, { passive: true });
   window.addEventListener("resize", hide);
 
-  window.Glossar = { mark: mark, find: find, chip: chip, decorate: decorate };
+  // Für Paul: Begriffe unabhängig von Groß-/Kleinschreibung finden und Erklärung abrufen
+  var lowerLookup = {};
+  Object.keys(lookup).forEach(function (w) { lowerLookup[w.toLowerCase()] = lookup[w]; });
+  var loosePattern = new RegExp(pattern.source, "gi");
+  function findLoose(text) {
+    var keys = [];
+    String(text).replace(loosePattern, function (all, before, word) {
+      var key = lowerLookup[word.toLowerCase()];
+      if (key && keys.indexOf(key) === -1) keys.push(key);
+      return all;
+    });
+    return keys;
+  }
+  function entry(key) { return TERMS[key]; }
+
+  window.Glossar = { mark: mark, find: find, findLoose: findLoose, entry: entry, chip: chip, decorate: decorate };
 
   document.querySelectorAll("[data-glossar]").forEach(decorate);
 })();
