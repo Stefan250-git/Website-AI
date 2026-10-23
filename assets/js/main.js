@@ -91,8 +91,16 @@
     chain.parentNode.insertBefore(stage, chain);
     stage.appendChild(chain);
 
-    // Katze, Blick nach rechts: sitzend (Kopf zum Betrachter, Schwanz um den Körper) und gestreckt im Sprung
+    // Katze mit Pauls Gesicht: sitzend (Kopf zum Betrachter, Schwanz um den Körper) und gestreckt im Sprung
     var EYE = "#9fd0bd";
+    // Auge wie bei Paul (paul.js): grün, große dunkle Pupille, Glanzpunkt
+    function paulEye(x, y, r) {
+      return '<g class="eye">' +
+        '<ellipse cx="' + x + '" cy="' + y + '" rx="' + r + '" ry="' + (r * 1.12) + '" fill="' + EYE + '" stroke="none"/>' +
+        '<ellipse cx="' + (x + r * .12) + '" cy="' + (y + r * .16) + '" rx="' + (r * .6) + '" ry="' + (r * .74) + '" fill="#0d1d37" stroke="none"/>' +
+        '<circle cx="' + (x + r * .4) + '" cy="' + (y - r * .32) + '" r="' + (r * .28) + '" fill="#fff" stroke="none"/>' +
+        "</g>";
+    }
     var cat = document.createElement("span");
     cat.className = "chain-cat";
     cat.setAttribute("aria-hidden", "true");
@@ -101,19 +109,18 @@
       '<g class="pose-sit">' +
       '<path d="M10 38c-1-9 2-17 10-18 7 0 9 9 8 18z" stroke="none"/>' +
       '<path class="tail-wrap" pathLength="1" d="M10.5 32c-8 0-9.5 7.5-1.5 7.5h15c4.5 0 7-1.5 7-6" fill="none" stroke-width="2.8"/>' +
-      '<circle cx="21" cy="15" r="7" stroke="none"/>' +
-      '<path d="M14.5 11l.5-8 5.5 5zM22 8l5.5-5 .5 8z" stroke="none"/>' +
-      '<ellipse class="eye" cx="18.3" cy="15" rx="1.6" ry="1.9" fill="' + EYE + '" stroke="none"/>' +
-      '<ellipse class="eye" cx="23.7" cy="15" rx="1.6" ry="1.9" fill="' + EYE + '" stroke="none"/>' +
+      '<path d="M13.5 11.5l.4-9 6 5zM22.1 7.5l6-5 .4 9z" stroke="none"/>' +
+      '<ellipse cx="21" cy="15" rx="9" ry="8" stroke="none"/>' +
+      paulEye(17.6, 15.2, 2.5) + paulEye(24.4, 15.2, 2.5) +
+      '<path d="M19.5 19.2q.75.8 1.5 0 .75.8 1.5 0" fill="none" stroke="#454a54" stroke-width=".6"/>' +
       '</g>' +
       '<g class="pose-leap">' +
       '<path d="M9 22.5C6 22 3 21.5-1 20.5" fill="none" stroke-width="2.6"/>' +
       '<path d="M8 24c2-5 9-7 16-6 4 1 6 3 6 5-1 3-7 4-13 4-5 0-8-1-9-3z" stroke="none"/>' +
       '<path d="M26 24l9 4M24 25l8 6M12 26l-8 4M14 27l-7 6" fill="none" stroke-width="2.6"/>' +
-      '<circle cx="31" cy="18" r="5.6" stroke="none"/>' +
-      '<path d="M27 15l1-6 4 4zM32 13l3-5 1 6z" stroke="none"/>' +
-      '<ellipse cx="31.6" cy="17.4" rx="1.1" ry="1.3" fill="' + EYE + '" stroke="none"/>' +
-      '<ellipse cx="34.3" cy="17.7" rx="1.1" ry="1.3" fill="' + EYE + '" stroke="none"/>' +
+      '<path d="M26.5 15.5l1-6.5 4.5 4.2zM32 13l3.4-5.4 1 6.6z" stroke="none"/>' +
+      '<ellipse cx="31.5" cy="18" rx="6.6" ry="6" stroke="none"/>' +
+      paulEye(30.4, 17.6, 1.7) + paulEye(34.4, 17.9, 1.7) +
       '</g>' +
       '</svg>';
     stage.appendChild(cat);
