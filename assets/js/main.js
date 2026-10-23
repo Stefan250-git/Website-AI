@@ -324,6 +324,25 @@
     status.className = "form-status" + (type ? " is-" + type : "");
   }
 
+  /* ---------- Ergebnis des Unternehmens-KI-Checks als sichtbarer Anhang (ki-check.js) ---------- */
+  var attach = document.getElementById("check-attach");
+  var attachBody = document.getElementById("check-attach-body");
+  var attachToggle = document.getElementById("f-check");
+
+  function showCheckAttachment() {
+    if (!attach) return;
+    var text = null;
+    try { text = (JSON.parse(sessionStorage.getItem("ki-check") || "null") || {}).summary; } catch (err) { text = null; }
+    attach.hidden = !text;
+    if (text) attachBody.textContent = text;
+  }
+  showCheckAttachment();
+  document.addEventListener("kicheck:done", showCheckAttachment);
+
+  function checkAttachment() {
+    return attach && !attach.hidden && attachToggle.checked ? attachBody.textContent : "";
+  }
+
   form.addEventListener("submit", function (e) {
     e.preventDefault();
     setStatus("");
@@ -348,6 +367,8 @@
     var contact = config.contact || {};
     var data = new FormData(form);
     data.set("topic", topic.options[topic.selectedIndex].text);
+    var checkText = checkAttachment();
+    if (checkText) data.set("ki_check", checkText);
 
     if (contact.formEndpoint) {
       var button = form.querySelector('button[type="submit"]');
@@ -376,6 +397,7 @@
         "",
         data.get("message") || "",
       ];
+      if (checkText) lines.push("", "Unternehmens-KI-Check:", checkText);
       window.location.href = "mailto:" + contact.email +
         "?subject=" + encodeURIComponent("Anfrage Erstgespräch: " + data.get("topic")) +
         "&body=" + encodeURIComponent(lines.join("\n"));
