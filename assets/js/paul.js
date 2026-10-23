@@ -36,18 +36,38 @@
   /* ---------- Figur: kindlich, großer Kopf, große Augen ---------- */
   // Komplett schwarz, Details nur mit wenig Kontrast – auffällig sind allein die grünen Augen
   var BLACK = "#16181d", EYE = "#9fd0bd", SOFT = "#2b2e35", LINE = "#454a54";
+  // Auge in Seitenansicht (Blick nach rechts): grün, Pupille nach vorn, Glanzpunkt
+  function sideEye(x, y, rx, ry) {
+    return '<ellipse cx="' + x + '" cy="' + y + '" rx="' + rx + '" ry="' + ry + '" fill="' + EYE + '"/>' +
+      '<ellipse cx="' + (x + rx * .25) + '" cy="' + (y + ry * .12) + '" rx="' + (rx * .6) + '" ry="' + (ry * .68) + '" fill="#0d1d37"/>' +
+      '<circle cx="' + (x + rx * .5) + '" cy="' + (y - ry * .35) + '" r="' + (rx * .28) + '" fill="#fff"/>';
+  }
+  // Kopf in Seitenansicht (Blick nach rechts); (x, y) = Kopfmitte, k = Größe
+  function sideHead(x, y, k) {
+    function n(v) { return Math.round(v * 10) / 10; }
+    return '<path d="M' + n(x - 20 * k) + ' ' + n(y - 12 * k) + 'l' + n(-2 * k) + ' ' + n(-30 * k) + ' ' + n(24 * k) + ' ' + n(18 * k) + 'zM' +
+      n(x + 6 * k) + ' ' + n(y - 22 * k) + 'l' + n(14 * k) + ' ' + n(-24 * k) + ' ' + n(6 * k) + ' ' + n(32 * k) + 'z" fill="' + BLACK + '" stroke="' + BLACK + '" stroke-width="' + n(4 * k) + '" stroke-linejoin="round"/>' +
+      '<path d="M' + n(x - 18 * k) + ' ' + n(y - 16 * k) + 'l' + n(-1.5 * k) + ' ' + n(-18 * k) + ' ' + n(13 * k) + ' ' + n(11 * k) + 'z" fill="' + SOFT + '"/>' +
+      '<ellipse cx="' + x + '" cy="' + y + '" rx="' + n(34 * k) + '" ry="' + n(30 * k) + '" fill="' + BLACK + '"/>' +
+      sideEye(n(x - 6 * k), n(y), n(9.5 * k), n(11 * k)) + sideEye(n(x + 17 * k), n(y), n(8 * k), n(10 * k)) +
+      '<path d="M' + n(x + 29 * k) + ' ' + n(y + 12 * k) + 'q' + n(3 * k) + ' ' + n(-2 * k) + ' ' + n(5 * k) + ' ' + n(1 * k) + '-' + n(3 * k) + ' ' + n(3 * k) + '-' + n(5 * k) + '-' + n(1 * k) + 'z" fill="' + SOFT + '"/>' +
+      '<path d="M' + n(x + 20 * k) + ' ' + n(y + 17 * k) + 'q' + n(4 * k) + ' ' + n(4 * k) + ' ' + n(8 * k) + ' 0" fill="none" stroke="' + LINE + '" stroke-width="' + n(2 * k) + '" stroke-linecap="round"/>';
+  }
+
   var CAT_SVG =
     '<svg class="paul-svg" viewBox="0 0 120 132" aria-hidden="true">' +
+    // Vorderansicht (Ruhe)
+    '<g class="pose-front">' +
     '<path class="paul-tail" d="M82 120c22-1 30-20 18-34" fill="none" stroke="' + BLACK + '" stroke-width="9" stroke-linecap="round"/>' +
     '<ellipse class="paul-body" cx="60" cy="106" rx="28" ry="23" fill="' + BLACK + '"/>' +
-    '<ellipse cx="49" cy="127" rx="9" ry="5" fill="' + BLACK + '"/>' +
     '<ellipse cx="71" cy="127" rx="9" ry="5" fill="' + BLACK + '"/>' +
+    '<g class="paul-head">' +
     '<g class="paul-ears" fill="' + BLACK + '" stroke="' + BLACK + '" stroke-width="5" stroke-linejoin="round">' +
     '<path class="paul-ear-l" d="M27 42L22 7l29 19z"/><path class="paul-ear-r" d="M93 42l5-35-29 19z"/>' +
     '</g>' +
     '<path d="M31 35l-3-20 15 12zM89 35l3-20-15 12z" fill="' + SOFT + '"/>' +
     '<ellipse cx="60" cy="58" rx="39" ry="34" fill="' + BLACK + '"/>' +
-        '<g class="paul-eyes">' +
+    '<g class="paul-eyes">' +
     '<ellipse cx="44" cy="58" rx="11.5" ry="13" fill="' + EYE + '"/>' +
     '<ellipse cx="76" cy="58" rx="11.5" ry="13" fill="' + EYE + '"/>' +
     '<g class="paul-pupils">' +
@@ -56,9 +76,54 @@
     '<circle cx="48.5" cy="55.5" r="3.2" fill="#fff"/><circle cx="78.5" cy="55.5" r="3.2" fill="#fff"/>' +
     '<circle cx="42.5" cy="64" r="1.5" fill="#fff"/><circle cx="72.5" cy="64" r="1.5" fill="#fff"/>' +
     '</g></g>' +
-        '<path d="M56 72q4-3 8 0-4 5-8 0z" fill="' + SOFT + '"/>' +
+    '<path d="M56 72q4-3 8 0-4 5-8 0z" fill="' + SOFT + '"/>' +
     '<path d="M51 78q4.5 5 9 0 4.5 5 9 0" fill="none" stroke="' + LINE + '" stroke-width="2.2" stroke-linecap="round"/>' +
     '<path d="M27 70l-16-4M27 75l-16 2M93 70l16-4M93 75l16 2" stroke="' + SOFT + '" stroke-width="1.5" stroke-linecap="round"/>' +
+    '</g>' +
+    // Linke Vorderpfote: hebt sich beim Putzen zum Maul (Drehpunkt am Ellenbogen)
+    '<g class="paul-paw">' +
+    '<rect x="41" y="106" width="17" height="27" rx="8.5" fill="' + BLACK + '"/>' +
+    '<path class="paul-toes" d="M46 127.5v3.5M49.5 127v4.5M53 127.5v3.5" stroke="' + LINE + '" stroke-width="1.5" stroke-linecap="round"/>' +
+    '</g>' +
+    // Rosa Zunge, nur beim Pfote-Lecken sichtbar
+    '<ellipse class="paul-tongue" cx="60" cy="84" rx="3.4" ry="3.4" fill="#f0a8b0"/>' +
+    '</g>' +
+    // Seitlich sitzend, Blick nach rechts (Drehung vor dem Sprung, Stehen nach der Landung)
+    '<g class="pose-side">' +
+    '<path d="M34 122c-22 0-28-20-15-32" fill="none" stroke="' + BLACK + '" stroke-width="9" stroke-linecap="round"/>' +
+    '<ellipse cx="52" cy="106" rx="30" ry="22" fill="' + BLACK + '"/>' +
+    '<path d="M64 102h11v24a5.5 5.5 0 0 1-11 0zM76 100h11v26a5.5 5.5 0 0 1-11 0z" fill="' + BLACK + '"/>' +
+    sideHead(74, 60, 1) +
+    '</g>' +
+    // Geduckt zum Absprung bzw. nach der Landung: Kopf und Brust tief, Hinterteil hoch
+    '<g class="pose-crouch">' +
+    '<path d="M18 104c-14-6-22-4-30 2" fill="none" stroke="' + BLACK + '" stroke-width="8" stroke-linecap="round"/>' +
+    '<ellipse cx="52" cy="112" rx="38" ry="16" transform="rotate(9 52 112)" fill="' + BLACK + '"/>' +
+    '<ellipse cx="26" cy="127" rx="11" ry="5" fill="' + BLACK + '"/>' +
+    '<path d="M84 120c8 4 16 6 24 6" fill="none" stroke="' + BLACK + '" stroke-width="9" stroke-linecap="round"/>' +
+    sideHead(90, 100, .85) +
+    '</g>' +
+    // Gestreckt im Sprung: Vorderpfoten voraus, Hinterbeine und Schwanz nach hinten
+    '<g class="pose-leap">' +
+    '<path d="M14 84C2 82-8 82-20 86" fill="none" stroke="' + BLACK + '" stroke-width="8" stroke-linecap="round"/>' +
+    '<ellipse cx="54" cy="88" rx="44" ry="15" fill="' + BLACK + '"/>' +
+    '<path d="M86 94l26 12M82 98l22 18M24 94L0 104M28 98L8 116" fill="none" stroke="' + BLACK + '" stroke-width="8" stroke-linecap="round"/>' +
+    sideHead(100, 70, .72) +
+    '</g>' +
+    // Weggeklickt: schaut über den unteren Rand – Ohren, Augen, links und rechts die Pfoten
+    '<g class="pose-peek">' +
+    '<path d="M30 112l-5-34 27 20zM90 112l5-34-27 20z" fill="' + BLACK + '" stroke="' + BLACK + '" stroke-width="5" stroke-linejoin="round"/>' +
+    '<path d="M33 104l-3-19 14 11zM87 104l3-19-14 11z" fill="' + SOFT + '"/>' +
+    '<ellipse cx="60" cy="140" rx="40" ry="38" fill="' + BLACK + '"/>' +
+    '<g class="paul-eyes">' +
+    '<ellipse cx="45" cy="120" rx="10.5" ry="11.5" fill="' + EYE + '"/><ellipse cx="75" cy="120" rx="10.5" ry="11.5" fill="' + EYE + '"/>' +
+    '<g class="paul-pupils">' +
+    '<ellipse cx="46" cy="121.5" rx="6.4" ry="7.6" fill="#0d1d37"/><ellipse cx="74" cy="121.5" rx="6.4" ry="7.6" fill="#0d1d37"/>' +
+    '<circle cx="49" cy="116" r="2.8" fill="#fff"/><circle cx="79" cy="116" r="2.8" fill="#fff"/>' +
+    '</g></g>' +
+    '<ellipse cx="20" cy="128" rx="15" ry="8" fill="' + BLACK + '"/><ellipse cx="100" cy="128" rx="15" ry="8" fill="' + BLACK + '"/>' +
+    '<path d="M14 124v6M20 123v7M26 124v6M94 124v6M100 123v7M106 124v6" stroke="' + LINE + '" stroke-width="1.6" stroke-linecap="round"/>' +
+    '</g>' +
     '</svg>';
 
   var ICON_MIC = '<svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg>';
@@ -69,24 +134,23 @@
   root.className = "paul";
   root.innerHTML =
     '<div class="paul-bubble" id="paul-bubble" role="dialog" aria-label="Chat mit Paul" hidden>' +
-    '<div class="paul-head"><strong>Paul</strong><span>Dein Website-Kater</span>' +
-    '<button type="button" class="paul-close" aria-label="Chat schließen">×</button></div>' +
-    '<div class="paul-log" aria-live="polite"></div>' +
+    '<button type="button" class="paul-close" aria-label="Chat schließen">×</button>' +
+    '<div class="paul-say" aria-live="polite"></div>' +
     '<form class="paul-form">' +
     '<label class="visually-hidden" for="paul-input">Deine Frage an Paul</label>' +
     '<input id="paul-input" type="text" autocomplete="off" maxlength="200" placeholder="Frage eingeben …">' +
     '<button type="button" class="paul-mic" aria-label="Frage diktieren" hidden>' + ICON_MIC + '</button>' +
     '<button type="submit" class="paul-send" aria-label="Frage senden">' + ICON_SEND + '</button>' +
     '</form>' +
-    '<p class="paul-note" hidden>Die Spracheingabe nutzt den Spracherkennungsdienst Deines Browsers.</p>' +
+    '<p class="paul-note" hidden>Spracheingabe über den Dienst Deines Browsers</p>' +
     '</div>' +
     '<button type="button" class="paul-teaser" hidden>' + esc(W.greeting) + '</button>' +
-    '<button type="button" class="paul-cat" aria-expanded="false" aria-controls="paul-bubble" aria-label="Paul fragen – Chat öffnen">' + CAT_SVG + '</button>' +
+    '<button type="button" class="paul-cat" data-pose="front" aria-expanded="false" aria-controls="paul-bubble" aria-label="Paul fragen – Chat öffnen">' + CAT_SVG + '</button>' +
     '<button type="button" class="paul-hide" aria-label="Paul ausblenden">×</button>';
   document.body.appendChild(root);
 
   var bubble = root.querySelector(".paul-bubble");
-  var log = root.querySelector(".paul-log");
+  var say = root.querySelector(".paul-say");
   var form = root.querySelector(".paul-form");
   var input = root.querySelector("#paul-input");
   var mic = root.querySelector(".paul-mic");
@@ -94,51 +158,29 @@
   var teaser = root.querySelector(".paul-teaser");
   var catBtn = root.querySelector(".paul-cat");
   var hideBtn = root.querySelector(".paul-hide");
-  var pupils = root.querySelector(".paul-pupils");
+  var pupils = root.querySelectorAll(".paul-pupils");
+  var svg = root.querySelector(".paul-svg");
 
-  /* ---------- Verlauf (bleibt beim Seitenwechsel innerhalb der Sitzung erhalten) ---------- */
-  var history = [];
-  try { history = JSON.parse(load("sessionStorage", "paul-log") || "[]"); } catch (e) { history = []; }
-
-  function persist() {
-    save("sessionStorage", "paul-log", JSON.stringify(history.slice(-20)));
-  }
+  /* ---------- Textblase: immer leer beginnen, genau ein Vorschlag ---------- */
+  var suggestion = Math.floor(Math.random() * W.suggestions.length);
 
   function text(s) {
     return G ? G.mark(esc(s)) : esc(s);
   }
 
-  function renderMessage(m) {
-    var el = document.createElement("div");
-    el.className = "paul-msg paul-msg-" + m.who;
-    var html = '<p>' + (m.who === "paul" ? text(m.text) : esc(m.text)) + '</p>';
-    if (m.links && m.links.length) {
-      html += '<ul class="paul-links">' + m.links.map(function (l) {
-        return '<li><a class="paul-link" href="' + esc(l.url) + '">' + esc(l.label) + '</a></li>';
-      }).join("") + '</ul>';
-    }
-    if (m.chips && m.chips.length) {
-      html += '<div class="paul-chips">' + m.chips.map(function (c) {
-        return '<button type="button" class="paul-chip">' + esc(c) + '</button>';
-      }).join("") + '</div>';
-    }
-    el.innerHTML = html;
-    log.appendChild(el);
-    log.scrollTop = log.scrollHeight;
+  // Leerer Zustand: Begrüßung und ein Vorschlag (wechselt bei jedem Öffnen)
+  function reset() {
+    var tip = W.suggestions[suggestion++ % W.suggestions.length];
+    say.innerHTML = '<p>' + esc(W.greeting) + '</p><button type="button" class="paul-chip">' + esc(tip) + '</button>';
+    input.value = "";
   }
 
-  function add(m) {
-    history.push(m);
-    persist();
-    renderMessage(m);
+  function show(answer) {
+    var links = (answer.links || []).slice(0, 2);
+    say.innerHTML = '<p>' + text(answer.text) + '</p>' + (links.length ? '<ul class="paul-links">' + links.map(function (l) {
+      return '<li><a class="paul-link" href="' + esc(l.url) + '">' + esc(l.label) + '</a></li>';
+    }).join("") + '</ul>' : '');
   }
-
-  function ensureGreeting() {
-    if (history.length) return;
-    add({ who: "paul", text: W.greeting, chips: W.suggestions });
-  }
-
-  history.forEach(renderMessage);
 
   /* ---------- Antworten aus dem Website-Wissen ---------- */
   function normalize(s) {
@@ -222,18 +264,12 @@
     question = question.trim();
     if (!question || busy) return;
     busy = true;
-    add({ who: "user", text: question });
-    var typing = document.createElement("div");
-    typing.className = "paul-msg paul-msg-paul paul-typing";
-    typing.innerHTML = '<p><span></span><span></span><span></span><span class="visually-hidden">Paul denkt nach</span></p>';
-    log.appendChild(typing);
-    log.scrollTop = log.scrollHeight;
+    say.innerHTML = '<p class="paul-typing"><span></span><span></span><span></span><span class="visually-hidden">Paul denkt nach</span></p>';
 
     var local = localAnswer(question);
     var answer = endpoint ? remoteAnswer(question, local) : Promise.resolve(local);
     Promise.all([answer, wait(reduceMotion ? 0 : 650)]).then(function (r) {
-      typing.remove();
-      add({ who: "paul", text: r[0].text, links: r[0].links });
+      show(r[0]);
       busy = false;
     });
   }
@@ -244,7 +280,7 @@
     input.value = "";
   });
 
-  log.addEventListener("click", function (e) {
+  say.addEventListener("click", function (e) {
     var chip = e.target.closest(".paul-chip");
     if (chip) ask(chip.textContent);
     var link = e.target.closest(".paul-link");
@@ -258,7 +294,6 @@
   var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
   if (Recognition) {
     mic.hidden = false;
-    note.hidden = false;
     var rec = null;
     mic.addEventListener("click", function () {
       if (rec) { rec.stop(); return; }
@@ -274,14 +309,16 @@
         }
       };
       rec.onerror = function () {
-        add({ who: "paul", text: "Ich konnte Dich leider nicht verstehen. Versuch es noch einmal oder tipp Deine Frage ein." });
+        show({ text: "Ich konnte Dich leider nicht verstehen. Versuch es noch einmal oder tipp Deine Frage ein." });
       };
       rec.onend = function () {
         rec = null;
+        note.hidden = true;
         mic.classList.remove("is-listening");
         mic.setAttribute("aria-label", "Frage diktieren");
       };
       mic.classList.add("is-listening");
+      note.hidden = false;
       mic.setAttribute("aria-label", "Diktat beenden");
       rec.start();
     });
@@ -290,35 +327,51 @@
   /* ---------- Öffnen, schließen, ausblenden ---------- */
   function open() {
     if (root.classList.contains("is-away")) return comeBack();
-    ensureGreeting();
+    reset();
     teaser.hidden = true;
     bubble.hidden = false;
     catBtn.setAttribute("aria-expanded", "true");
     catBtn.setAttribute("aria-label", "Chat mit Paul schließen");
-    log.scrollTop = log.scrollHeight;
     input.focus();
   }
 
   function close() {
     bubble.hidden = true;
+    reset();
     catBtn.setAttribute("aria-expanded", "false");
     catBtn.setAttribute("aria-label", "Paul fragen – Chat öffnen");
   }
 
-  // Wegklicken: Paul taucht ab, nur die Ohren bleiben am unteren Rand
+  // Wegklicken: Paul taucht ab und schaut über den unteren Rand (Ohren, Augen, Pfoten)
   function goAway() {
     close();
     teaser.hidden = true;
-    root.classList.add("is-away");
     catBtn.setAttribute("aria-label", "Paul wieder aufrufen");
     save("localStorage", "paul-away", "1");
+    dive(function () {
+      pose("peek");
+      root.classList.add("is-away");
+    });
   }
 
   function comeBack() {
-    root.classList.remove("is-away");
     catBtn.setAttribute("aria-label", "Paul fragen – Chat öffnen");
     save("localStorage", "paul-away", null);
-    bounce();
+    dive(function () {
+      root.classList.remove("is-away");
+      pose("front");
+    });
+  }
+
+  // Abtauchen, Haltung wechseln, wieder auftauchen
+  function dive(change) {
+    if (reduceMotion) return change();
+    root.classList.add("is-diving");
+    wait(320).then(function () {
+      change();
+      void catBtn.offsetWidth;
+      root.classList.remove("is-diving");
+    });
   }
 
   catBtn.addEventListener("click", function () {
@@ -338,14 +391,93 @@
     }
   });
 
-  /* ---------- Sprünge: hinaus nach rechts, hinein von rechts ---------- */
+  /* ---------- Sprünge wie eine echte Katze: drehen, ducken, Po wackeln, gestreckt springen ---------- */
   function play(name, ms) {
-    root.classList.remove("is-exit", "is-enter", "is-bounce");
+    root.classList.remove(name);
     void root.offsetWidth;
     root.classList.add(name);
-    return wait(ms).then(function () { if (name !== "is-exit") root.classList.remove(name); });
+    return wait(ms).then(function () { root.classList.remove(name); });
   }
   function bounce() { if (!reduceMotion) play("is-bounce", 500); }
+
+  function pose(name) { catBtn.setAttribute("data-pose", name); }
+
+  // Ein Zeitabschnitt: fn(t) mit t von 0 bis 1
+  function phase(ms, fn) {
+    return new Promise(function (resolve) {
+      var start = null;
+      function frame(now) {
+        if (start === null) start = now;
+        var t = Math.min(1, (now - start) / ms);
+        fn(t);
+        if (t < 1) requestAnimationFrame(frame); else resolve();
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+
+  // face: 1 = Blick nach rechts, -1 = nach links; r > 0 hebt die Nase
+  function place(o, face) {
+    svg.style.transform = "translate(" + (o.x || 0) + "px," + (o.y || 0) + "px) rotate(" + (-(o.r || 0) * face) + "deg) scale(" +
+      (face * (o.sx || 1)) + "," + (o.sy || 1) + ")";
+  }
+
+  // Drehung: Körper wird kurz schmal, in der Mitte wechselt die Haltung
+  function turn(to, face) {
+    var swapped = false;
+    return phase(240, function (t) {
+      if (!swapped && t >= .5) { pose(to); swapped = true; }
+      place({ sx: 1 - .45 * Math.sin(Math.PI * t) }, face);
+    });
+  }
+
+  var LEAP = 380; // Sprungweite nach rechts (px), sicher aus dem Bild
+
+  function jumpOut() {
+    root.classList.add("is-exit");
+    return turn("side", 1).then(function () {
+      return phase(160, function () { place({}, 1); });
+    }).then(function () {
+      pose("crouch");
+      // Ducken und Po-Wackeln, zum Schluss kurz zusammenziehen
+      return phase(620, function (t) {
+        var wiggle = t < .8 ? Math.sin(t * Math.PI * 6) * 3 : 0;
+        var load = t > .8 ? (t - .8) / .2 : 0;
+        place({ x: -6 * Math.min(1, t * 3), r: wiggle, sx: 1 + .05 * load, sy: 1 - .1 * load }, 1);
+      });
+    }).then(function () {
+      pose("leap");
+      return phase(560, function (t) {
+        place({ x: LEAP * t, y: 18 * t - 110 * 4 * t * (1 - t), r: 22 - 44 * t }, 1);
+      });
+    }).then(function () {
+      svg.style.opacity = "0";
+    });
+  }
+
+  function jumpIn() {
+    root.classList.add("is-enter");
+    svg.style.opacity = "1";
+    pose("leap");
+    return phase(560, function (t) {
+      place({ x: LEAP * (1 - t), y: -30 * (1 - t) - 100 * 4 * t * (1 - t), r: 20 - 42 * t }, -1);
+    }).then(function () {
+      pose("crouch");
+      // Landung: abfedern
+      return phase(300, function (t) {
+        var squash = Math.sin((1 - t) * Math.PI / 2);
+        place({ sx: 1 + .08 * squash, sy: 1 - .14 * squash }, -1);
+      });
+    }).then(function () {
+      pose("side");
+      return phase(260, function () { place({}, -1); });
+    }).then(function () {
+      return turn("front", -1);
+    }).then(function () {
+      svg.style.transform = "";
+      root.classList.remove("is-enter", "is-exit");
+    });
+  }
 
   function samePage(url) {
     function path(p) { return p.replace(/index\.html$/, ""); }
@@ -359,36 +491,113 @@
       location.href = url.href;
       return;
     }
-    play("is-exit", 650).then(function () {
+    jumpOut().then(function () {
       if (samePage(url)) {
         location.hash = url.hash;
-        return wait(450).then(function () { return play("is-enter", 750); });
+        return wait(450).then(jumpIn);
       }
       save("sessionStorage", "paul-enter", "1");
       location.href = url.href;
     });
   }
 
+  /* ---------- Putzen: nach längerer Ruhe leckt Paul sich die Pfote (dezent, selten) ---------- */
+  var LICK = 2800;              // Dauer, abgestimmt auf die CSS-Animationen „paul-lick-…“
+  var LICK_STROKES = [.24, .44, .64]; // Zeitpunkte, an denen die Zunge die Pfote berührt
+  var idleTimer = null;
+
+  function scheduleLick(first) {
+    clearTimeout(idleTimer);
+    idleTimer = setTimeout(lick, first ? 30000 : 45000 + Math.random() * 30000);
+  }
+
+  function lick() {
+    var resting = bubble.hidden && !document.hidden && catBtn.getAttribute("data-pose") === "front" &&
+      !root.classList.contains("is-away") && !root.classList.contains("is-exit") && !root.classList.contains("is-enter");
+    if (!resting) return scheduleLick();
+    root.classList.add("is-licking");
+    LICK_STROKES.forEach(function (at) { lickSound(at * LICK / 1000); });
+    wait(LICK).then(function () {
+      root.classList.remove("is-licking");
+      scheduleLick();
+    });
+  }
+
+  // Jede Beschäftigung mit Paul unterbricht das Putzen und startet die Wartezeit neu
+  function stopLick() {
+    root.classList.remove("is-licking");
+    scheduleLick(true);
+  }
+
+  /* Leises Schlecken, im Browser erzeugt (keine Audiodatei). Erst nach der ersten Nutzer-Aktion
+     möglich – Browser spielen vorher keinen Ton ab. Abschaltbar über SITE_CONFIG.paul.sound = false. */
+  var audio = null, noise = null;
+  function unlockAudio() {
+    if (audio || (config.paul || {}).sound === false) return;
+    var Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return;
+    try {
+      audio = new Ctx();
+      noise = audio.createBuffer(1, Math.round(audio.sampleRate * .09), audio.sampleRate);
+      var data = noise.getChannelData(0);
+      for (var i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
+    } catch (e) { audio = null; }
+  }
+  document.addEventListener("pointerdown", unlockAudio, { once: true });
+  document.addEventListener("keydown", unlockAudio, { once: true });
+
+  function lickSound(delay) {
+    if (!audio || audio.state !== "running") return;
+    var t = audio.currentTime + delay;
+    var src = audio.createBufferSource();
+    var filter = audio.createBiquadFilter();
+    var gain = audio.createGain();
+    src.buffer = noise;
+    filter.type = "bandpass";
+    filter.frequency.setValueAtTime(2600, t);
+    filter.frequency.linearRampToValueAtTime(3600, t + .07);
+    filter.Q.value = 1.4;
+    gain.gain.setValueAtTime(0, t);
+    gain.gain.linearRampToValueAtTime(.022, t + .012);
+    gain.gain.exponentialRampToValueAtTime(.0005, t + .085);
+    src.connect(filter);
+    filter.connect(gain);
+    gain.connect(audio.destination);
+    src.start(t);
+    src.stop(t + .09);
+  }
+
+  if (!reduceMotion) {
+    scheduleLick(true);
+    [catBtn, teaser, input].forEach(function (el) {
+      el.addEventListener("pointerdown", stopLick);
+      el.addEventListener("focus", stopLick);
+    });
+  }
+
   /* ---------- Freundlicher Blick: Pupillen folgen leicht dem Mauszeiger ---------- */
   var frame = null;
   document.addEventListener("mousemove", function (e) {
-    if (frame || reduceMotion || root.classList.contains("is-away")) return;
+    if (frame || reduceMotion) return;
     frame = requestAnimationFrame(function () {
       frame = null;
       var r = catBtn.getBoundingClientRect();
       var dx = e.clientX - (r.left + r.width / 2), dy = e.clientY - (r.top + r.height * .45);
       var d = Math.sqrt(dx * dx + dy * dy) || 1;
       var k = Math.min(1, d / 300) * 2.4;
-      pupils.setAttribute("transform", "translate(" + (dx / d * k).toFixed(2) + " " + (dy / d * k).toFixed(2) + ")");
+      var move = "translate(" + (dx / d * k).toFixed(2) + " " + (dy / d * k).toFixed(2) + ")";
+      pupils.forEach(function (g) { g.setAttribute("transform", move); });
     });
   });
 
   /* ---------- Start ---------- */
   if (load("localStorage", "paul-away") === "1") {
     root.classList.add("is-away");
+    pose("peek");
     catBtn.setAttribute("aria-label", "Paul wieder aufrufen");
   } else if (load("sessionStorage", "paul-enter") === "1" && !reduceMotion) {
-    play("is-enter", 750);
+    svg.style.opacity = "0";
+    setTimeout(jumpIn, 250);
   } else if (!load("sessionStorage", "paul-greeted")) {
     // Einmal pro Sitzung grüßt Paul mit einer kleinen Sprechblase
     setTimeout(function () {
