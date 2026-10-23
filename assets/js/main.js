@@ -91,17 +91,30 @@
     chain.parentNode.insertBefore(stage, chain);
     stage.appendChild(chain);
 
-    // Sitzende Katze im Profil, Blick nach rechts
+    // Katze, Blick nach rechts: sitzend (Kopf zum Betrachter, Schwanz um den Körper) und gestreckt im Sprung
+    var EYE = "#9fd0bd";
     var cat = document.createElement("span");
     cat.className = "chain-cat";
     cat.setAttribute("aria-hidden", "true");
     cat.innerHTML =
-      '<svg viewBox="0 0 40 40" fill="#16181d">' +
-      '<path d="M11 37c-7-1-9-8-4-12" fill="none" stroke="#16181d" stroke-width="3" stroke-linecap="round"/>' +
-      '<path d="M9 38c-1-9 2-17 10-18 7 0 9 9 8 18z"/>' +
-      '<circle cx="25" cy="15" r="7"/>' +
-      '<path d="M19 12l1-8 5 5zM26 9l4-5 1 8z"/>' +
-      '<circle cx="28.4" cy="14" r="1.2" fill="#9fd0bd"/>' +
+      '<svg viewBox="0 0 40 40" fill="#16181d" stroke="#16181d" stroke-linecap="round">' +
+      '<g class="pose-sit">' +
+      '<path d="M10 38c-1-9 2-17 10-18 7 0 9 9 8 18z" stroke="none"/>' +
+      '<path class="tail-wrap" pathLength="1" d="M10.5 32c-8 0-9.5 7.5-1.5 7.5h15c4.5 0 7-1.5 7-6" fill="none" stroke-width="2.8"/>' +
+      '<circle cx="21" cy="15" r="7" stroke="none"/>' +
+      '<path d="M14.5 11l.5-8 5.5 5zM22 8l5.5-5 .5 8z" stroke="none"/>' +
+      '<ellipse class="eye" cx="18.3" cy="15" rx="1.6" ry="1.9" fill="' + EYE + '" stroke="none"/>' +
+      '<ellipse class="eye" cx="23.7" cy="15" rx="1.6" ry="1.9" fill="' + EYE + '" stroke="none"/>' +
+      '</g>' +
+      '<g class="pose-leap">' +
+      '<path d="M9 22.5C6 22 3 21.5-1 20.5" fill="none" stroke-width="2.6"/>' +
+      '<path d="M8 24c2-5 9-7 16-6 4 1 6 3 6 5-1 3-7 4-13 4-5 0-8-1-9-3z" stroke="none"/>' +
+      '<path d="M26 24l9 4M24 25l8 6M12 26l-8 4M14 27l-7 6" fill="none" stroke-width="2.6"/>' +
+      '<circle cx="31" cy="18" r="5.6" stroke="none"/>' +
+      '<path d="M27 15l1-6 4 4zM32 13l3-5 1 6z" stroke="none"/>' +
+      '<ellipse cx="31.6" cy="17.4" rx="1.1" ry="1.3" fill="' + EYE + '" stroke="none"/>' +
+      '<ellipse cx="34.3" cy="17.7" rx="1.1" ry="1.3" fill="' + EYE + '" stroke="none"/>' +
+      '</g>' +
       '</svg>';
     stage.appendChild(cat);
     var svg = cat.firstChild;
@@ -124,68 +137,105 @@
       return new Promise(function (resolve) { setTimeout(resolve, ms); });
     }
 
-    // Sprung im Bogen; Katze neigt sich beim Absprung nach oben und beim Landen nach unten
-    function jump(from, to, duration, height) {
+    var CROUCH = 170, FLIGHT = 540, LAND = 220;
+
+    // Hinsetzen: Schwanz schwingt um den Körper, danach einmal blinzeln (CSS-Animationen)
+    function sitDown() {
+      cat.classList.remove("is-sitting");
+      void cat.offsetWidth;
+      cat.classList.add("is-sitting");
+    }
+
+    // Ein Sprung: ducken → gestreckt im Bogen fliegen (Neigung folgt der Flugbahn) → abfedern
+    function jump(from, to) {
       jumping = true;
       var a = spot(from), b = spot(to);
-      var flip = b.x < a.x - 1 ? -1 : 1;
+      var dx = b.x - a.x, dy = b.y - a.y;
+      // Flacher Bogen: bleibt im Freiraum über den Feldern (Text darüber, Nachbarfelder)
+      var column = getComputedStyle(chain).flexDirection === "column";
+      var height = column ? 10 : Math.min(32, Math.max(22, Math.abs(dx) * .18));
+      var flip = dx < -1 ? -1 : 1;
       var start = null;
+
+      function pose(rotate, sx, sy) {
+        svg.style.transform = "scaleX(" + flip + ") rotate(" + rotate + "deg) scale(" + sx + "," + sy + ")";
+      }
+
       return new Promise(function (resolve) {
         function frame(now) {
           if (start === null) start = now;
-          var t = Math.min(1, (now - start) / duration);
-          var e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
-          place({ x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e - height * 4 * t * (1 - t) });
-          svg.style.transform = "scaleX(" + flip + ") rotate(" + (t - .5) * 36 + "deg) scaleY(" + (1 + .1 * Math.sin(Math.PI * t)) + ")";
-          if (t < 1) return requestAnimationFrame(frame);
-          svg.style.transform = "scaleX(" + flip + ")";
-          cat.classList.remove("is-landing");
-          void cat.offsetWidth;
-          cat.classList.add("is-landing");
-          current = to;
-          jumping = false;
-          resolve();
+          var ms = now - start;
+
+          if (ms < CROUCH) {
+            if (ms > CROUCH / 2) cat.classList.remove("is-sitting");
+            var c = Math.sin(ms / CROUCH * Math.PI / 2);
+            place(a);
+            pose(0, 1 + .12 * c, 1 - .24 * c);
+          } else if (ms < CROUCH + FLIGHT) {
+            var t = (ms - CROUCH) / FLIGHT;
+            cat.classList.add("is-leaping");
+            place({ x: a.x + dx * t, y: a.y + dy * t - height * 4 * t * (1 - t) });
+            var vy = dy - height * 4 * (1 - 2 * t);
+            var angle = Math.atan2(vy, Math.max(Math.abs(dx), 60)) * 180 / Math.PI;
+            pose(Math.max(-40, Math.min(40, angle)), 1.05, .95);
+          } else if (ms < CROUCH + FLIGHT + LAND) {
+            var l = (ms - CROUCH - FLIGHT) / LAND;
+            cat.classList.remove("is-leaping");
+            place(b);
+            var squash = Math.sin((1 - l) * Math.PI / 2);
+            pose(0, 1 + .14 * squash, 1 - .22 * squash);
+          } else {
+            place(b);
+            pose(0, 1, 1);
+            sitDown();
+            current = to;
+            jumping = false;
+            return resolve();
+          }
+          requestAnimationFrame(frame);
         }
         requestAnimationFrame(frame);
       });
     }
 
-    function hopHeight(from, to) {
-      var a = spot(from), b = spot(to);
-      return Math.min(70, Math.max(34, Math.abs(b.x - a.x) * .35));
-    }
-
+    // Hin: Feld für Feld, jedes Feld wird beim Landen grün.
+    // Zurück: Feld für Feld, das verlassene Feld wird wieder weiß, die Linie verschwindet.
     function run() {
-      var p = wait(500).then(function () {
+      var p = wait(400).then(function () {
         items[0].classList.add("is-on");
         return wait(700);
       });
-      for (var i = 1; i <= last; i++) {
+      var i;
+      for (i = 1; i <= last; i++) {
         (function (i) {
           p = p.then(function () {
             items[i].classList.add("is-linked");
-            return jump(i - 1, i, 620, hopHeight(i - 1, i));
+            return jump(i - 1, i);
           }).then(function () {
             items[i].classList.add("is-on");
-            return wait(i === last ? 1600 : 420);
+            return wait(i === last ? 1500 : 650);
           });
         })(i);
       }
-      // Großer Satz zurück zum Anfang; Felder und Linien setzen sich nacheinander zurück
+      for (i = last; i >= 1; i--) {
+        (function (i) {
+          p = p.then(function () {
+            items[i].classList.remove("is-on", "is-linked");
+            return jump(i, i - 1);
+          }).then(function () {
+            return wait(650);
+          });
+        })(i);
+      }
       p.then(function () {
-        for (var k = last; k >= 0; k--) {
-          (function (k) {
-            setTimeout(function () { items[k].classList.remove("is-on", "is-linked"); }, (last - k) * 90);
-          })(k);
-        }
-        return jump(last, 0, 1000, 120);
-      }).then(function () {
-        return wait(800);
+        items[0].classList.remove("is-on");
+        return wait(900);
       }).then(run);
     }
 
     chain.classList.add("is-animated");
     place(spot(0));
+    sitDown();
     window.addEventListener("resize", function () { if (!jumping) place(spot(current)); });
 
     // Ohne Bewegung: Endzustand zeigen, Katze sitzt auf „geeignete KI“
