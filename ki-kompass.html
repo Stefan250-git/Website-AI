@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>KI-Kompass – AI Work Lab · Stefan Hansen</title>
+  <meta name="description" content="Welches KI-Modell passt zu Ihren Aufgaben, und welche Architektur zu Ihrem Unternehmen? Zwei interaktive Wegweiser auf Basis aktueller Arena-Daten und einer Entscheidungsmatrix.">
+  <meta name="theme-color" content="#0d1d37">
+
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
+
+  <!-- ===================== Header ===================== -->
+  <header class="site-header">
+    <div class="container header-inner">
+      <a class="logo" href="index.html" aria-label="Stefan Hansen – zur Startseite">
+        <span class="logo-mark">SH</span>
+        <span class="logo-text">
+          <span class="logo-name">Stefan Hansen</span>
+          <span class="logo-tag">Entwicklung. Organisation. Transformation.</span>
+        </span>
+      </a>
+
+      <button class="nav-toggle" type="button" aria-controls="main-nav" aria-expanded="false" aria-label="Menü öffnen">
+        <svg class="icon-open" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 6h18M3 12h18M3 18h18"/></svg>
+        <svg class="icon-close" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>
+      </button>
+
+      <nav class="site-nav" id="main-nav" aria-label="Hauptnavigation">
+        <ul class="nav-list">
+          <li class="has-sub">
+            <a href="index.html#unternehmen">Unternehmen</a>
+            <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-unternehmen">
+              <span class="visually-hidden">Untermenü Unternehmen</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <ul class="submenu" id="sub-unternehmen">
+              <li><a href="index.html#ki-start">KI Einstieg für Unternehmen</a></li>
+              <li><a href="index.html#mitarbeiter">KI Einstieg für Mitarbeiter</a></li>
+              <li><a href="index.html#auszubildende">Young Starter für Auszubildende</a></li>
+              <li><a href="index.html#wissensbasis">Wissensbasis für Unternehmen</a></li>
+            </ul>
+          </li>
+          <li class="has-sub">
+            <a href="index.html#einsteiger">Einsteiger</a>
+            <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-einsteiger">
+              <span class="visually-hidden">Untermenü Einsteiger</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <ul class="submenu" id="sub-einsteiger">
+              <li><a href="index.html#erwachsene">KI Einstieg für Erwachsene</a></li>
+              <li><a href="index.html#young-starter">KI Einstieg Young Starter</a></li>
+            </ul>
+          </li>
+          <li><a href="index.html#ueber-mich">Über mich</a></li>
+          <li class="has-sub">
+            <a href="ki-kompass.html" aria-current="page">KI-Kompass</a>
+            <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-kompass">
+              <span class="visually-hidden">Untermenü KI-Kompass</span>
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
+            </button>
+            <ul class="submenu" id="sub-kompass">
+              <li><a href="ki-kompass.html#modelle">Modelle</a></li>
+              <li><a href="ki-kompass.html#infrastruktur">Infrastruktur</a></li>
+            </ul>
+          </li>
+          <li class="nav-cta"><a class="btn btn-primary" href="index.html#kontakt">Anfrage</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <main id="inhalt">
+
+    <!-- ===================== Einstieg ===================== -->
+    <section class="kompass-hero" aria-labelledby="kompass-title">
+      <div class="container">
+        <p class="kicker">KI-Kompass</p>
+        <h1 id="kompass-title">Orientierung für Ihre KI-Entscheidung.</h1>
+        <p class="lead">Zwei kurze Wegweiser: welches Modell zu Ihren Aufgaben passt – und welche Architektur zu Ihrem Unternehmen.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#modelle">Modelle</a>
+          <a class="btn btn-secondary" href="#infrastruktur">Infrastruktur</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Modelle ===================== -->
+    <section class="section section-white" id="modelle" aria-labelledby="modelle-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">Modelle</p>
+          <h2 id="modelle-title">Welches Modell passt zu Ihren Aufgaben?</h2>
+          <p class="lead">Bewerten Sie, was Ihnen wichtig ist. Die Empfehlung passt sich sofort an.</p>
+        </div>
+
+        <div class="picker">
+          <form class="panel picker-panel" id="model-picker" novalidate>
+            <div class="panel-head">
+              <h3>Was ist mir wichtig?</h3>
+              <button class="link-btn" type="reset">Zurücksetzen</button>
+            </div>
+            <div class="progress" aria-hidden="true"><span id="picker-progress"></span></div>
+            <p class="progress-label" id="picker-progress-label"></p>
+
+            <div id="picker-rows">
+              <p class="muted">Die Themen werden geladen. Falls nichts erscheint, ist JavaScript deaktiviert oder die Daten fehlen.</p>
+            </div>
+          </form>
+
+          <aside class="panel result-panel" aria-labelledby="result-title">
+            <h3 id="result-title">Empfohlene Modelle</h3>
+            <div id="model-result" aria-live="polite"></div>
+            <p class="result-foot" id="models-updated"></p>
+          </aside>
+        </div>
+
+        <div class="kompass-note" data-glossar>
+          <p><strong>So entsteht die Empfehlung:</strong> Je Thema erhält das führende Modell 100 Punkte, Platz 25 erhält 0. Diese Werte werden mit Ihrer Gewichtung verrechnet – „sehr wichtig“ zählt doppelt. Varianten eines Modells (z. B. „High“ oder „Max“ für mehr Rechenaufwand) sind zusammengefasst.</p>
+          <p>Eine gute Platzierung sagt nichts darüber, ob ein Modell bei Ihnen freigegeben ist oder zu Ihren Datenregeln passt. Dabei hilft der Wegweiser zur Infrastruktur.</p>
+          <p class="small">Daten: <a href="https://arena.ai/leaderboard" rel="noopener">arena.ai/leaderboard</a> – dort vergleichen Menschen anonym die Antworten zweier Modelle und wählen die bessere. Bereitgestellt als <a href="https://huggingface.co/datasets/lmarena-ai/leaderboard-dataset" rel="noopener">Datensatz</a> unter CC BY 4.0. Die Zuordnung der Arena-Kategorien zu Themen ist eine eigene Auswahl.</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== Infrastruktur ===================== -->
+    <section class="section" id="infrastruktur" aria-labelledby="infra-title">
+      <div class="container">
+        <div class="section-head">
+          <p class="kicker">Infrastruktur</p>
+          <h2 id="infra-title">Welche Architektur erfüllt die Anforderungen an Ihr Unternehmen?</h2>
+          <p class="lead" data-glossar>Nach dem Golden Circle fragen wir zuerst nach dem Warum – Ziel und Daten. Dann nach dem Wie – Betrieb und Verantwortung. Zuletzt nach dem Was – der konkreten Lösung.</p>
+        </div>
+
+        <div class="panel wizard" id="infra-wizard">
+          <p class="muted">Der Wegweiser wird geladen. Falls nichts erscheint, ist JavaScript deaktiviert.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===================== Footer ===================== -->
+  <footer class="site-footer">
+    <div class="container footer-inner">
+      <div class="logo logo-light">
+        <span class="logo-mark">SH</span>
+        <span class="logo-text">
+          <span class="logo-name">Stefan Hansen</span>
+          <span class="logo-tag">Entwicklung. Organisation. Transformation.</span>
+        </span>
+      </div>
+      <ul class="footer-links">
+        <li><a href="index.html#kontakt">Kontakt</a></li>
+        <li><a href="impressum.html">Impressum</a></li>
+        <li><a href="datenschutz.html">Datenschutz</a></li>
+      </ul>
+    </div>
+  </footer>
+
+  <script src="assets/js/config.js"></script>
+  <script src="assets/js/main.js"></script>
+  <!-- Ranglisten: assets/data/modelle.js wird von .github/workflows/modelle.yml erzeugt -->
+  <script src="assets/js/glossar.js"></script>
+  <script src="assets/data/modelle.js"></script>
+  <script src="assets/js/modelle.js"></script>
+  <script src="assets/js/infrastruktur.js"></script>
+</body>
+</html>
