@@ -180,7 +180,8 @@
 
   function show(answer) {
     var links = (answer.links || []).slice(0, 2);
-    say.innerHTML = '<p>' + text(answer.text) + '</p>' + (links.length ? '<ul class="paul-links">' + links.map(function (l) {
+    var paragraphs = String(answer.text).split(/\n\n+/).map(function (part) { return '<p>' + text(part) + '</p>'; }).join("");
+    say.innerHTML = paragraphs + (links.length ? '<ul class="paul-links">' + links.map(function (l) {
       return '<li><a class="paul-link" href="' + esc(l.url) + '">' + esc(l.label) + '</a></li>';
     }).join("") + '</ul>' : '');
   }
@@ -215,7 +216,16 @@
     var words = q.split(" ").filter(function (w) { return w.length > 1; });
 
     for (var i = 0; i < W.smalltalk.length; i++) {
-      if (new RegExp(W.smalltalk[i].match).test(q)) return { text: W.smalltalk[i].answer, links: [] };
+      var talk = W.smalltalk[i];
+      if (!new RegExp(talk.match).test(q)) continue;
+      // Feste Antworten: beim zweiten Mal in derselben Sitzung mit freundlichem Hinweis davor
+      if (talk.id) {
+        var asked = (load("sessionStorage", "paul-asked") || "").split(",");
+        if (asked.indexOf(talk.id) !== -1) return { text: W.repeatIntro + "\n\n" + talk.answer, links: [] };
+        asked.push(talk.id);
+        save("sessionStorage", "paul-asked", asked.filter(Boolean).join(","));
+      }
+      return { text: talk.answer, links: [] };
     }
 
     var ranked = W.entries.map(function (e) { return { entry: e, points: score(e, q, words) }; })

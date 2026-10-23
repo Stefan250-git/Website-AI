@@ -673,8 +673,10 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   background: none; color: var(--muted); font-size: 1.25rem; line-height: 1; cursor: pointer;
 }
 .paul-close:hover { background: var(--bg); color: var(--navy); }
-.paul-say { padding-right: 22px; font-size: .9rem; line-height: 1.45; color: var(--navy); }
+/* Längere Antworten scrollen innerhalb der Blase, statt sie wachsen zu lassen */
+.paul-say { max-height: min(46vh, 300px); overflow-y: auto; padding-right: 22px; font-size: .9rem; line-height: 1.45; color: var(--navy); }
 .paul-say > p { margin: 0; }
+.paul-say > p + p { margin-top: .6em; }
 .paul-links { list-style: none; margin-top: 8px; display: grid; gap: 6px; }
 .paul-link {
   display: flex; justify-content: space-between; align-items: center; gap: 10px; padding: 7px 12px;
