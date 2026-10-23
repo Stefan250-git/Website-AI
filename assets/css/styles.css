@@ -249,37 +249,26 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   content: ""; width: 44px; height: 2px;
   background: repeating-linear-gradient(90deg, var(--green) 0 6px, transparent 6px 11px);
 }
-.chain li + li::after {
-  content: ""; position: absolute; left: -5px; top: calc(50% - 5px);
-  width: 10px; height: 10px; border-radius: 50%; background: var(--green); opacity: 0;
-}
-.chain li:nth-child(2) { --d: .2s; }
-.chain li:nth-child(3) { --d: .9s; }
-.chain li:nth-child(4) { --d: 1.6s; }
-.chain li:nth-child(5) { --d: 2.3s; }
+/* Animation (main.js): Katze springt von Feld zu Feld. .is-animated blendet die Linien aus;
+   .is-linked zeichnet die Linie vor einem Feld, .is-on färbt das Feld grün. */
+.chain-stage { position: relative; padding-top: 36px; }
+.chain-stage .chain { row-gap: 52px; }
+.chain li span { transition: background-color .35s, border-color .35s, color .35s; }
+.chain.is-animated li + li::before { clip-path: inset(0 100% 0 0); transition: clip-path .5s ease-out; }
+.chain.is-animated li.is-linked::before { clip-path: inset(0 0 0 0); }
+.chain.is-animated li:last-child span { background: var(--white); border-color: rgba(13, 29, 55, .2); color: var(--navy); }
+.chain.is-animated li.is-on span { background: var(--green); border-color: var(--green); color: var(--white); }
 
-/* Animation: main.js setzt .is-ready (Linien verborgen) und beim Sichtbarwerden .is-playing */
-.chain.is-ready li + li::before { clip-path: inset(0 100% 0 0); }
-.chain.is-ready li:last-child span { background: var(--white); border-color: rgba(13, 29, 55, .2); color: var(--navy); }
-.chain.is-playing li + li::before { animation: chain-draw .7s ease-out var(--d) forwards; }
-.chain.is-playing li + li::after { animation: chain-hop .7s ease-in-out var(--d) forwards; }
-.chain.is-playing li + li span { animation: chain-reach .3s ease-out calc(var(--d) + .6s) forwards; }
-.chain.is-playing li:last-child span { animation-name: chain-fill; }
-
-@keyframes chain-draw { to { clip-path: inset(0 0 0 0); } }
-@keyframes chain-hop {
-  0%   { opacity: 1; transform: translate(0, 0); }
-  50%  { transform: translate(22px, -14px); }
-  85%  { opacity: 1; transform: translate(44px, 0); }
-  100% { opacity: 0; transform: translate(44px, 0); }
+.chain-cat {
+  position: absolute; left: 0; top: 0; z-index: 2; width: 34px; height: 34px;
+  color: var(--navy); pointer-events: none; will-change: transform;
 }
-@keyframes chain-reach { to { border-color: var(--green); } }
-@keyframes chain-fill { to { background: var(--green); border-color: var(--green); color: var(--white); } }
-@keyframes chain-hop-v {
-  0%   { opacity: 1; transform: translate(0, 0); }
-  50%  { transform: translate(14px, 14px); }
-  85%  { opacity: 1; transform: translate(0, 28px); }
-  100% { opacity: 0; transform: translate(0, 28px); }
+.chain-cat svg { width: 100%; height: 100%; transform-origin: 50% 100%; overflow: visible; }
+.chain-cat.is-landing svg { animation: cat-land .28s ease-out; }
+@keyframes cat-land {
+  0%   { transform: scale(1.08, .82); }
+  60%  { transform: scale(.96, 1.05); }
+  100% { transform: scale(1, 1); }
 }
 
 /* ---------- Angebote für Unternehmen ---------- */
@@ -672,9 +661,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
     width: 2px; height: 28px; margin-left: 20px;
     background: repeating-linear-gradient(180deg, var(--green) 0 6px, transparent 6px 11px);
   }
-  .chain li + li::after { left: 16px; top: -5px; }
-  .chain.is-ready li + li::before { clip-path: inset(0 0 100% 0); }
-  .chain.is-playing li + li::after { animation-name: chain-hop-v; }
+  .chain-stage .chain { row-gap: 8px; }
+  .chain.is-animated li + li::before { clip-path: inset(0 0 100% 0); }
   .offer { padding: 44px 0; }
   .card { padding: 28px 22px 22px; }
   .panel { padding: 24px 18px; }

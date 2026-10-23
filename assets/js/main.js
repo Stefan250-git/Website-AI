@@ -76,16 +76,132 @@
     }
   });
 
-  /* ---------- Ablauf-Kette: springender Punkt, sobald sichtbar ---------- */
+  /* ---------- Ablauf-Kette: Katze springt von Feld zu Feld (Endlosschleife) ---------- */
   var chain = document.querySelector(".chain");
-  if (chain && "IntersectionObserver" in window && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    chain.classList.add("is-ready");
-    var chainObserver = new IntersectionObserver(function (entries) {
+  if (chain && window.Promise) initChainCat(chain);
+
+  function initChainCat(chain) {
+    var items = chain.querySelectorAll("li");
+    var last = items.length - 1;
+    var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    // Bühne um die Liste, damit die Katze kein Kind des <ol> ist
+    var stage = document.createElement("div");
+    stage.className = "chain-stage";
+    chain.parentNode.insertBefore(stage, chain);
+    stage.appendChild(chain);
+
+    // Sitzende Katze im Profil, Blick nach rechts
+    var cat = document.createElement("span");
+    cat.className = "chain-cat";
+    cat.setAttribute("aria-hidden", "true");
+    cat.innerHTML =
+      '<svg viewBox="0 0 40 40" fill="#16181d">' +
+      '<path d="M11 37c-7-1-9-8-4-12" fill="none" stroke="#16181d" stroke-width="3" stroke-linecap="round"/>' +
+      '<path d="M9 38c-1-9 2-17 10-18 7 0 9 9 8 18z"/>' +
+      '<circle cx="25" cy="15" r="7"/>' +
+      '<path d="M19 12l1-8 5 5zM26 9l4-5 1 8z"/>' +
+      '<circle cx="28.4" cy="14" r="1.2" fill="#9fd0bd"/>' +
+      '</svg>';
+    stage.appendChild(cat);
+    var svg = cat.firstChild;
+    var current = 0;
+    var jumping = false;
+
+    // Sitzplatz oben auf einem Feld; im Spaltenlayout (Smartphone) rechts, neben der Linie
+    function spot(i) {
+      var s = items[i].querySelector("span").getBoundingClientRect();
+      var b = stage.getBoundingClientRect();
+      var column = getComputedStyle(chain).flexDirection === "column";
+      return { x: (column ? s.right - 26 : s.left + s.width / 2) - b.left, y: s.top - b.top + 2 };
+    }
+
+    function place(p) {
+      cat.style.transform = "translate(" + (p.x - cat.offsetWidth / 2) + "px," + (p.y - cat.offsetHeight) + "px)";
+    }
+
+    function wait(ms) {
+      return new Promise(function (resolve) { setTimeout(resolve, ms); });
+    }
+
+    // Sprung im Bogen; Katze neigt sich beim Absprung nach oben und beim Landen nach unten
+    function jump(from, to, duration, height) {
+      jumping = true;
+      var a = spot(from), b = spot(to);
+      var flip = b.x < a.x - 1 ? -1 : 1;
+      var start = null;
+      return new Promise(function (resolve) {
+        function frame(now) {
+          if (start === null) start = now;
+          var t = Math.min(1, (now - start) / duration);
+          var e = t < .5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+          place({ x: a.x + (b.x - a.x) * e, y: a.y + (b.y - a.y) * e - height * 4 * t * (1 - t) });
+          svg.style.transform = "scaleX(" + flip + ") rotate(" + (t - .5) * 36 + "deg) scaleY(" + (1 + .1 * Math.sin(Math.PI * t)) + ")";
+          if (t < 1) return requestAnimationFrame(frame);
+          svg.style.transform = "scaleX(" + flip + ")";
+          cat.classList.remove("is-landing");
+          void cat.offsetWidth;
+          cat.classList.add("is-landing");
+          current = to;
+          jumping = false;
+          resolve();
+        }
+        requestAnimationFrame(frame);
+      });
+    }
+
+    function hopHeight(from, to) {
+      var a = spot(from), b = spot(to);
+      return Math.min(70, Math.max(34, Math.abs(b.x - a.x) * .35));
+    }
+
+    function run() {
+      var p = wait(500).then(function () {
+        items[0].classList.add("is-on");
+        return wait(700);
+      });
+      for (var i = 1; i <= last; i++) {
+        (function (i) {
+          p = p.then(function () {
+            items[i].classList.add("is-linked");
+            return jump(i - 1, i, 620, hopHeight(i - 1, i));
+          }).then(function () {
+            items[i].classList.add("is-on");
+            return wait(i === last ? 1600 : 420);
+          });
+        })(i);
+      }
+      // Großer Satz zurück zum Anfang; Felder und Linien setzen sich nacheinander zurück
+      p.then(function () {
+        for (var k = last; k >= 0; k--) {
+          (function (k) {
+            setTimeout(function () { items[k].classList.remove("is-on", "is-linked"); }, (last - k) * 90);
+          })(k);
+        }
+        return jump(last, 0, 1000, 120);
+      }).then(function () {
+        return wait(800);
+      }).then(run);
+    }
+
+    chain.classList.add("is-animated");
+    place(spot(0));
+    window.addEventListener("resize", function () { if (!jumping) place(spot(current)); });
+
+    // Ohne Bewegung: Endzustand zeigen, Katze sitzt auf „geeignete KI“
+    if (reduceMotion || !("IntersectionObserver" in window)) {
+      items.forEach(function (li) { li.classList.add("is-on", "is-linked"); });
+      current = last;
+      place(spot(last));
+      return;
+    }
+
+    var observer = new IntersectionObserver(function (entries) {
       if (!entries[0].isIntersecting) return;
-      chain.classList.add("is-playing");
-      chainObserver.disconnect();
+      observer.disconnect();
+      run();
     }, { threshold: 0.6 });
-    chainObserver.observe(chain);
+    observer.observe(stage);
   }
 
   /* ---------- Kontaktformular ---------- */
