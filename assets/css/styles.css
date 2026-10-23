@@ -606,6 +606,87 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 
 
 /* =========================================================
+   Unternehmens-KI-Check (ki-check.js) – Button, Dialog, Anhang im Kontaktformular
+   ========================================================= */
+.btn-check { background: var(--green); color: var(--white); }
+.btn-check:hover { background: var(--green-dark); color: var(--white); }
+.check-teaser { margin-top: 28px; }
+.check-teaser p { margin-top: 10px; font-size: .9rem; color: var(--muted); }
+
+.check-dialog {
+  width: min(620px, calc(100vw - 32px)); max-height: calc(100vh - 48px); padding: 0;
+  border: 0; border-radius: 20px; background: var(--white); color: var(--navy);
+  box-shadow: 0 24px 60px rgba(13, 29, 55, .3); overflow: hidden;
+}
+.check-dialog[open] { display: flex; flex-direction: column; animation: paul-pop .3s ease-out; }
+.check-dialog::backdrop { background: rgba(13, 29, 55, .45); backdrop-filter: blur(2px); }
+.check-close {
+  position: absolute; top: 12px; right: 12px; z-index: 1; width: 40px; height: 40px; padding: 0;
+  border: 0; border-radius: 50%; background: none; color: var(--muted); font-size: 1.5rem; line-height: 1; cursor: pointer;
+}
+.check-close:hover { background: var(--bg); color: var(--navy); }
+.check-progress { height: 5px; background: var(--line); }
+.check-progress span { display: block; width: 0; height: 100%; background: var(--green); transition: width .4s ease-out; }
+
+.check-stage { padding: 36px 40px 32px; overflow-y: auto; transition: opacity .18s, transform .18s; }
+.check-stage.is-leaving { opacity: 0; transform: translateX(-10px); }
+.check-step { animation: step-in .3s ease-out; }
+.check-step > .kicker { display: flex; }
+.check-step h2 { font-size: clamp(1.5rem, 3.4vw, 2rem); padding-right: 32px; }
+.check-step h3 { font-size: clamp(1.25rem, 3vw, 1.5rem); padding-right: 32px; }
+.check-step h2:focus, .check-step h3:focus { outline: none; }
+.check-lead { margin-top: 14px; color: var(--muted); }
+.check-how { margin-top: 20px; }
+.check-rules { margin: 8px 0 0 20px; color: var(--navy-80); }
+.check-rules li + li { margin-top: 4px; }
+.check-count { font-size: .78rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--green); margin-bottom: 10px; }
+.check-hint { margin-top: 6px; font-size: .9rem; color: var(--muted); }
+
+.check-options { display: grid; gap: 8px; margin: 20px 0 0; padding: 0; border: 0; min-width: 0; }
+.check-option {
+  display: flex; align-items: flex-start; gap: 12px; padding: 12px 16px; border-radius: 12px;
+  background: var(--bg); border: 1px solid transparent; cursor: pointer;
+  transition: background-color .2s, border-color .2s;
+  animation: option-in .35s ease-out backwards; animation-delay: calc(var(--i) * 45ms);
+}
+.check-option:hover { border-color: rgba(13, 29, 55, .2); }
+.check-option.is-on { background: var(--green-soft); border-color: var(--green); }
+.check-option input { width: 20px; height: 20px; margin: 2px 0 0; flex-shrink: 0; accent-color: var(--green); }
+.check-option:has(input:disabled) { opacity: .5; cursor: not-allowed; }
+.check-option:has(input:focus-visible) { outline: 3px solid var(--green); outline-offset: 2px; }
+
+.check-nav { display: flex; justify-content: space-between; align-items: center; gap: 12px; margin-top: 24px; }
+.check-nav-right { display: flex; align-items: center; gap: 16px; }
+.check-skip { color: var(--muted); }
+.check-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; margin-top: 24px; }
+.check-claim { margin: 18px 0 14px; font-weight: 700; color: var(--navy); }
+
+.check-level { display: inline-block; padding: 6px 18px; border-radius: 999px; font-size: 1.4rem !important; background: var(--green-soft); color: var(--green-dark); }
+.check-level-expert { background: var(--green); color: var(--white); }
+.check-level-newbie { background: var(--sand); color: var(--navy); }
+/* Statustext: höchstens zwei Zeilen */
+.check-status {
+  margin-top: 14px; font-size: 1.05rem; font-weight: 600; color: var(--navy);
+  display: -webkit-box; -webkit-line-clamp: 2; line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
+}
+.check-sub { margin-top: 22px; font-size: 1rem !important; }
+.check-tips { margin: 8px 0 0 20px; color: var(--navy-80); }
+.check-tips li + li { margin-top: 6px; }
+.check-offer { margin-top: 16px; }
+.check-offer a { font-weight: 600; }
+.check-note { margin-top: 12px; font-size: .85rem; color: var(--muted); }
+
+.check-attach { padding: 16px 18px; border-radius: 12px; background: var(--green-soft); }
+.check-attach-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+.check-attach-head strong { color: var(--navy); }
+.check-attach-toggle { display: inline-flex; align-items: center; gap: 8px; font-weight: 400 !important; color: var(--navy-80) !important; cursor: pointer; }
+.check-attach-toggle input { width: 18px; height: 18px; min-height: 0; accent-color: var(--green); }
+.check-attach-body {
+  max-height: 180px; overflow-y: auto; margin: 10px 0 0; padding: 12px 14px; border-radius: 8px;
+  background: var(--white); font: inherit; font-size: .85rem; line-height: 1.5; color: var(--navy-80); white-space: pre-wrap;
+}
+
+/* =========================================================
    Paul, der Website-Kater (paul.js) – unten rechts auf jeder Seite
    ========================================================= */
 .paul { --paul-bottom: 12px; position: fixed; right: 16px; bottom: var(--paul-bottom); z-index: 150; pointer-events: none; }
@@ -828,6 +909,9 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .chain.is-animated li + li::before { clip-path: inset(0 0 100% 0); }
   .offer { padding: 44px 0; }
   .card { padding: 28px 22px 22px; }
+  .check-stage { padding: 28px 20px 24px; }
+  .check-nav { flex-wrap: wrap; }
+  .check-actions .btn { width: 100%; }
   .paul { --paul-bottom: 8px; right: 10px; }
   .paul-cat { width: 76px; height: 84px; }
   .paul-hide { right: 26px; bottom: 88px; width: 24px; height: 24px; }

@@ -56,6 +56,12 @@ window.PAUL_WISSEN = {
       answer: "Für Unternehmen gibt es den KI Einstieg: zuerst ein kostenloses Screening (10–15 Minuten), dann eine Auftragsklärung (60 Minuten) und einen Arbeitsworkshop (3 × 45 Minuten). Kalkuliert wird individuell nach der Auftragsklärung.",
     },
     {
+      title: "Unternehmens-KI-Check",
+      url: "index.html#ki-start",
+      keywords: ["check", "test", "selbsttest", "potenzial", "reifegrad", "einschätz", "standort", "quiz", "fragebogen"],
+      answer: "Mit dem Unternehmens-KI-Check findest Du in etwa zwei Minuten heraus, wo KI Euren Arbeitsalltag erleichtern könnte. Sechs kurze Fragen – am Ende gibt es eine erste Einschätzung und eine Empfehlung. Den Button findest Du beim KI Einstieg für Unternehmen.",
+    },
+    {
       title: "KI Einstieg für Mitarbeiter",
       url: "index.html#mitarbeiter",
       keywords: ["mitarbeit", "team", "training", "schulung", "kurs", "teilnehm", "arbeitsstandard", "belegschaft", "kollegen", "seminar"],

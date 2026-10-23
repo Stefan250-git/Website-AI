@@ -14,7 +14,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=10">
+  <link rel="stylesheet" href="assets/css/styles.css?v=11">
 
   <script type="application/ld+json">
   {
@@ -181,6 +181,11 @@
           <div class="offer-head">
             <h3>KI Einstieg für Unternehmen</h3>
             <p class="offer-sub">Beratung für Geschäftsführung und Fachverantwortliche</p>
+            <!-- Unternehmens-KI-Check: Dialog unten im Dokument, Logik in assets/js/ki-check.js -->
+            <div class="check-teaser">
+              <button class="btn btn-check" type="button" data-open-check aria-haspopup="dialog">Unternehmens-KI-Check!</button>
+              <p>Sechs kurze Fragen, etwa zwei Minuten.</p>
+            </div>
           </div>
           <div class="offer-body">
             <p>Wir klären, wo im Arbeitsalltag unnötige Reibung entsteht und ob KI dort tatsächlich hilft. Der Arbeitsworkshop ist die Grundlage für mögliche weitere Module oder Workshops.</p>
@@ -368,6 +373,14 @@
                 <label for="f-message">Nachricht <span class="opt">(optional)</span></label>
                 <textarea id="f-message" name="message" rows="4"></textarea>
               </div>
+              <!-- Ergebnis des Unternehmens-KI-Checks (main.js füllt es, wenn in dieser Sitzung vorhanden) -->
+              <div class="field field-full check-attach" id="check-attach" hidden>
+                <div class="check-attach-head">
+                  <strong>Ihr Unternehmens-KI-Check</strong>
+                  <label class="check-attach-toggle"><input id="f-check" type="checkbox" checked> mitsenden</label>
+                </div>
+                <pre class="check-attach-body" id="check-attach-body"></pre>
+              </div>
               <div class="field field-full">
                 <div class="checkbox">
                   <input id="f-privacy" name="privacy" type="checkbox" required aria-describedby="privacy-error">
@@ -385,6 +398,13 @@
       </div>
     </section>
   </main>
+
+  <!-- ===================== Unternehmens-KI-Check (Dialog) ===================== -->
+  <dialog class="check-dialog" id="ki-check" aria-labelledby="check-title">
+    <button class="check-close" type="button" aria-label="Check schließen">×</button>
+    <div class="check-progress" aria-hidden="true"><span></span></div>
+    <div class="check-stage"></div>
+  </dialog>
 
   <!-- ===================== Footer ===================== -->
   <footer class="site-footer">
@@ -404,10 +424,11 @@
     </div>
   </footer>
 
-  <script src="assets/js/config.js?v=10"></script>
-  <script src="assets/js/main.js?v=10"></script>
-  <script src="assets/js/glossar.js?v=10"></script>
-  <script src="assets/js/paul-wissen.js?v=10"></script>
-  <script src="assets/js/paul.js?v=10"></script>
+  <script src="assets/js/config.js?v=11"></script>
+  <script src="assets/js/main.js?v=11"></script>
+  <script src="assets/js/ki-check.js?v=11"></script>
+  <script src="assets/js/glossar.js?v=11"></script>
+  <script src="assets/js/paul-wissen.js?v=11"></script>
+  <script src="assets/js/paul.js?v=11"></script>
 </body>
 </html>
