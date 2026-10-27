@@ -20,6 +20,50 @@ const OFF_TOPIC_ANSWER = "Bitte stelle die Frage einem offenen Chatbot!";
 const SOURCES = ["tagesschau.de", "zdf.de", "zdfheute.de", "dpa.com", "deutschlandfunk.de", "dw.com"];
 const MAX_LINKS = 2;
 
+// Gesperrte Themen: Frage (und zur Sicherheit auch die Antwort) wird nicht beantwortet,
+// sondern mit OFF_TOPIC_ANSWER erwidert. Kleingeschrieben, ß als „ss“.
+// Eindeutige Begriffe gelten auch mitten im Wort („Bundeskanzler“, „Weltkrieg“) …
+const BLOCKED_ANYWHERE = [
+  // Politik, Parteien, Extremismus
+  "nsdap", "hitler", "nazi", "holocaust", "shoah", "extremis", "faschis", "kommunis", "reichsbürger", "partei",
+  "politik", "politisch", "kanzler", "bundestag", "landtag", "regierung", "minister", "präsident", "abgeordnet", "wahlkampf",
+  // Religion
+  "religi", "kirche", "kirchlich", "christentum", "islam", "muslim", "judentum", "synagoge", "moschee", "scientology",
+  // Krieg und Gewalt
+  "krieg", "terror", "attentat", "militär", "vergewaltig",
+  // Umstrittene Themen, Drogen
+  "flüchtling", "asyl", "abschieb", "rassis", "antisemit", "abtreibung", "verschwörung", "sterbehilfe", "todesstrafe",
+  "drogen", "porno",
+];
+// … mehrdeutige nur am Wortanfang (sonst träfe „waffe“ auch „Waffel“, „impf“ auch „schimpfen“);
+// \b am Ende verhindert Treffer wie „wahlen“ in „Auswahlen“ oder „Zahlen“
+const BLOCKED_START = [
+  // Politik, Parteien, Wahlen, Extremismus
+  "npd\\b", "afd\\b", "ns-", "drittes reich", "dritten reich", "rechtsextrem", "linksextrem", "rechtsradikal",
+  "linksradikal", "rechtspopul", "linkspopul", "sozialist", "antifa", "querdenk", "cdu\\b", "csu\\b", "spd\\b", "fdp\\b",
+  "bsw\\b", "die grünen", "grünen-", "bündnis 90", "die linke", "wagenknecht", "bundesrat", "wahl\\b", "wahlen\\b",
+  "wählen", "wähler", "demonstration",
+  // Religion und Weltanschauung
+  "gott\\b", "götter", "glaube an", "glauben an", "christ\\b", "christen\\b", "christlich", "katholi", "evangeli",
+  "protestant", "papst", "bibel", "jesus", "moslem", "koran", "allah", "jude\\b", "juden", "jüdisch", "buddh", "hindu",
+  "atheis", "sekte", "zeugen jehovas", "gebet", "beten\\b", "spiritualität", "esoteri",
+  // Krieg, Gewalt, Kriminalität
+  "anschlag", "waffe\\b", "waffen", "amok", "mord", "töten", "getötet", "folter", "missbrauch", "geisel", "bombe",
+  "armee", "bundeswehr", "nato\\b", "israel", "palästin", "gaza", "hamas", "hisbollah", "ukraine", "russland", "putin",
+  "selenskyj",
+  // Gesellschaftlich umstrittene Themen
+  "migration", "migrant", "geflüchtet", "ausländer", "diskriminier", "gender", "transgender", "homosex",
+  "schwangerschaftsabbruch", "impf", "corona", "covid", "pandemie",
+  // Sexualität, Drogen, Glücksspiel
+  "sex", "erotik", "prostitu", "cannabis", "kokain", "heroin", "glücksspiel", "casino", "wetten\\b",
+];
+const BLOCKED = new RegExp(
+  "(" + BLOCKED_ANYWHERE.join("|") + ")|(^|[^a-zäöü])(" + BLOCKED_START.join("|") + ")", "i");
+
+function blocked(text) {
+  return BLOCKED.test(String(text).toLowerCase().replace(/ß/g, "ss"));
+}
+
 const SYSTEM = `Du bist Paul, der schwarze Website-Kater von Stefan Hansen auf der Website „AI Work Lab · Stefan Hansen“. Du sitzt unten rechts auf jeder Seite und beantwortest Fragen von Besucherinnen und Besuchern.
 
 Wie Du antwortest:
@@ -34,12 +78,20 @@ Wie Du antwortest:
 
 Worauf Du antwortest:
 1. Fragen zur Website: ihre Angebote, Ablauf, Kontakt, Stefan Hansen als Anbieter, der KI-Kompass und seine Fachbegriffe, der Einsatz von KI im Arbeitsalltag, in Unternehmen und in der Ausbildung, und Fragen zu Dir, Paul. Dafür nutzt Du das Wissen unten, ohne Websuche.
-2. Alle anderen Sachfragen (auch zu Wetter, Politik, Parteien, Religion, Personen, Nachrichten) nur, wenn die Fakten durch die Websuche belegt sind. Die Suche ist auf geprüfte Nachrichtenquellen beschränkt (tagesschau.de, ZDFheute, dpa, Deutschlandfunk, Deutsche Welle). Dabei gilt:
+2. Unverfängliche Sachfragen außerhalb der Website (zum Beispiel Wetter, Sport, Wirtschaft, Wissenschaft, Technik, Kultur) nur, wenn die Fakten durch die Websuche belegt sind. Die Suche ist auf geprüfte Nachrichtenquellen beschränkt (tagesschau.de, ZDFheute, dpa, Deutschlandfunk, Deutsche Welle). Dabei gilt:
    - Gib nur wieder, was die gefundenen Quellen bestätigen, und nenne die Quelle im Satz („Laut tagesschau.de …“). Nichts aus eigenem Wissen ergänzen.
-   - Bleib neutral: keine Meinung, keine Bewertung von Parteien, Religionen oder Personen, keine Wahlempfehlung, keine Prognose.
-   - Zu Privatpersonen sagst Du nichts, zu Personen des öffentlichen Lebens nur, was die Quellen berichten.
+   - Bleib neutral: keine Meinung, keine Bewertung, keine Prognose.
+   - Zu Privatpersonen sagst Du nichts.
 
-Antworte ausschließlich mit dem Wort ${OFF_TOPIC} und nichts sonst, wenn eine Frage nicht zur Website gehört und die Quellen sie nicht eindeutig belegen, wenn sie nach einer Meinung oder Bewertung fragt, oder wenn sie eine Aufgabe statt einer Frage ist (Texte schreiben, rechnen, programmieren, übersetzen und Ähnliches). Im Zweifel gilt die Frage als themenfremd.
+Gesperrte Themen – dazu gibst Du keinerlei Auskunft, auch keine Fakten, Einordnungen oder Quellen:
+- Politik insgesamt: Parteien jeder Richtung (ausdrücklich NSDAP, NPD, AfD sowie alle rechts- oder linksgerichteten, nationalsozialistischen und extremistischen Gruppen), Politikerinnen und Politiker, Regierungen, Wahlen, Demonstrationen.
+- Religion und Weltanschauung jeder Art.
+- Krieg, Terror, Gewalt, Waffen, Verbrechen, Militär und internationale Konflikte.
+- Gesellschaftlich umstrittene Themen wie Migration, Diskriminierung, Geschlechterfragen, Abtreibung, Sterbehilfe, Impfungen, Pandemien und Verschwörungserzählungen.
+- Sexualität, Drogen und Glücksspiel.
+- Alles andere, das politisch, weltanschaulich oder gesellschaftlich umstritten ist oder Menschen verletzen könnte.
+
+Antworte ausschließlich mit dem Wort ${OFF_TOPIC} und nichts sonst, wenn eine Frage ein gesperrtes Thema berührt (auch indirekt oder über Umwege), wenn sie nicht zur Website gehört und die Quellen sie nicht eindeutig belegen, wenn sie nach einer Meinung oder Bewertung fragt, oder wenn sie eine Aufgabe statt einer Frage ist (Texte schreiben, rechnen, programmieren, übersetzen und Ähnliches). Im Zweifel gilt die Frage als themenfremd.
 
 Was die Website anbietet:
 - KI Einstieg für Unternehmen: kostenloses Screening (10–15 Minuten), dann Auftragsklärung (60 Minuten) und Arbeitsworkshop (3 × 45 Minuten); individuell kalkuliert. Dazu der Unternehmens-KI-Check: sechs kurze Fragen, Ergebnis Newbie, Basic oder Expert mit Empfehlung.
@@ -89,6 +141,8 @@ export default {
     try { data = await request.json(); } catch { return reply({ error: "json" }, 400); }
     const question = String(data.question || "").trim().slice(0, MAX_QUESTION);
     if (!question) return reply({ error: "leer" }, 400);
+    // Gesperrte Themen gar nicht erst an OpenAI senden
+    if (blocked(question)) return reply({ answer: OFF_TOPIC_ANSWER, links: [] });
 
     const context = (Array.isArray(data.context) ? data.context : []).slice(0, MAX_CONTEXT)
       .map((c) => `${String(c.title || "").slice(0, 120)}: ${String(c.answer || "").slice(0, 600)}`)
@@ -114,7 +168,8 @@ export default {
 
       const raw = (response.output_text || "").trim();
       if (!raw) return reply({ error: "leer" }, 502);
-      if (raw.includes(OFF_TOPIC)) return reply({ answer: OFF_TOPIC_ANSWER, links: [] });
+      // Zweite Sicherung: auch Antworten, die ein gesperrtes Thema streifen, nicht zeigen
+      if (raw.includes(OFF_TOPIC) || blocked(raw)) return reply({ answer: OFF_TOPIC_ANSWER, links: [] });
 
       // Belegte Quellen als Links unter der Antwort; ohne Quellen ergänzt paul.js Website-Links
       const links = [];
