@@ -23,7 +23,7 @@ Ohne Proxy antwortet Paul wie bisher aus `assets/js/paul-wissen.js`. Feste Antwo
 Solange das Cloudflare-Secret `ACCESS_KEY` gesetzt ist, antwortet das Sprachmodell nur Browsern mit diesem Testschlüssel; alle anderen Besucher bekommen Pauls lokale Antworten, und es entstehen keine Kosten.
 
 - Testschlüssel im Browser aktivieren: die Website einmal mit `?paul=SCHLÜSSEL` öffnen (der Browser merkt ihn sich, die Adresszeile wird bereinigt). Beenden: `?paul=` (leer).
-- Schlüssel ändern: `npx.cmd wrangler secret put ACCESS_KEY` (danach auf allen Testgeräten neu aktivieren).
+- Mehrere Schlüssel durch Komma getrennt, z. B. ein eigener und einer für die Familie. Einen Schlüssel sperren: `npx.cmd wrangler secret put ACCESS_KEY` und nur die verbleibenden eingeben (die gesperrten Geräte antworten dann lokal).
 - Für alle freischalten (Launch): `npx.cmd wrangler secret delete ACCESS_KEY` und in `assets/js/paul.js` die Schlüsselprüfung entfernen; außerdem `noindex` in `index.html` und `ki-kompass.html` entfernen.
 
 ## Vor dem Freischalten
