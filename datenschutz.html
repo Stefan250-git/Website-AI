@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Datenschutz – AI Work Lab · Stefan Hansen</title>
   <meta name="robots" content="noindex">
-  <link rel="stylesheet" href="assets/css/styles.css?v=12">
+  <link rel="stylesheet" href="assets/css/styles.css?v=13">
 </head>
 <body>
   <header class="site-header">
@@ -22,10 +22,103 @@
   </header>
 
   <main class="page-simple">
-    <div class="container prose">
-      <h1>Datenschutzerklärung</h1>
-      <!-- TODO vor Launch (PRD §53): Datenschutzerklärung inkl. Kontaktformular, Hosting und ggf. Formular-Dienst ergänzen. -->
-      <p>Die Datenschutzerklärung wird vor dem öffentlichen Start ergänzt.</p>
+    <div class="container prose legal">
+      <h1>Datenschutzerklärung und KI-Hinweise</h1>
+      <!-- ENTWURF – vor Launch rechtlich prüfen lassen (PRD §53). Platzhalter in [eckigen Klammern] ersetzen. -->
+      <p>Diese Seite erklärt, welche personenbezogenen Daten beim Besuch dieser Website verarbeitet werden, auf Grundlage der Datenschutz-Grundverordnung (DSGVO). Außerdem informiert sie nach der europäischen KI-Verordnung (EU AI Act, Verordnung (EU) 2024/1689) darüber, wo auf dieser Website künstliche Intelligenz eingesetzt wird.</p>
+      <p class="small">Stand: Oktober 2026</p>
+
+      <nav aria-label="Inhalt dieser Seite">
+        <ul>
+          <li><a href="#verantwortlich">Verantwortlicher</a></li>
+          <li><a href="#hosting">Bereitstellung der Website</a></li>
+          <li><a href="#speicher">Keine Cookies, kein Tracking</a></li>
+          <li><a href="#kontakt">Kontaktformular</a></li>
+          <li><a href="#werkzeuge">KI-Check und KI-Kompass</a></li>
+          <li><a href="#paul">Chat-Assistent Paul</a></li>
+          <li><a href="#ki-verordnung">KI-Transparenz nach EU AI Act</a></li>
+          <li><a href="#links">Links zu anderen Websites</a></li>
+          <li><a href="#rechte">Ihre Rechte</a></li>
+        </ul>
+      </nav>
+
+      <h2 id="verantwortlich">Verantwortlicher</h2>
+      <p>Stefan Hansen<br>[Straße und Hausnummer]<br>[PLZ und Ort]<br>E-Mail: [E-Mail-Adresse]</p>
+      <p>Eine Datenschutzbeauftragte oder ein Datenschutzbeauftragter ist nicht bestellt, weil die gesetzlichen Voraussetzungen dafür nicht vorliegen.</p>
+
+      <h2 id="hosting">Bereitstellung der Website</h2>
+      <p>Die Website wird über GitHub Pages bereitgestellt, einen Dienst der GitHub, Inc., 88 Colin P. Kelly Jr. Street, San Francisco, CA 94107, USA. Beim Aufruf jeder Seite verarbeitet GitHub technisch notwendige Daten, vor allem Ihre IP-Adresse, Datum und Uhrzeit, die aufgerufene Seite und Angaben zu Browser und Betriebssystem. Das ist nötig, um die Seiten auszuliefern und vor Angriffen zu schützen.</p>
+      <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt in einer sicheren und stabilen Bereitstellung der Website. Die Übermittlung in die USA stützt sich auf das EU-US Data Privacy Framework, unter dem GitHub zertifiziert ist [bitte prüfen]. Wie lange GitHub diese Daten speichert, beschreibt GitHub in seiner eigenen Datenschutzerklärung.</p>
+
+      <h2 id="speicher">Keine Cookies, kein Tracking</h2>
+      <p>Diese Website setzt keine Cookies, keine Analyse- oder Werbedienste und lädt keine Schriften oder Skripte von fremden Servern. Damit einzelne Funktionen bequem bleiben, legt sie nur wenige kurze Einträge im Speicher Ihres Browsers ab. Diese verlassen Ihr Gerät nicht:</p>
+      <ul>
+        <li>ob Sie Paul ausgeblendet haben (bleibt gespeichert, bis Sie ihn wieder aufrufen),</li>
+        <li>ob Paul Sie in dieser Sitzung schon begrüßt hat und welche festen Fragen Sie ihm gestellt haben,</li>
+        <li>das Ergebnis des Unternehmens-KI-Checks, damit Sie es dem Kontaktformular beifügen können.</li>
+      </ul>
+      <p>Bis auf den ersten Eintrag löscht Ihr Browser alles, sobald Sie den Tab schließen. Rechtsgrundlage ist § 25 Abs. 2 Nr. 2 TDDDG, weil diese Speicherung für die von Ihnen gewünschten Funktionen unbedingt erforderlich ist.</p>
+
+      <h2 id="kontakt">Kontaktformular</h2>
+      <p>Wenn Sie das Kontaktformular nutzen, werden Ihr Name, Ihre E-Mail-Adresse, das gewählte Thema sowie, wenn Sie sie angeben, Telefonnummer, Nachricht und das Ergebnis des KI-Checks verarbeitet. Die Angaben dienen ausschließlich dazu, Ihre Anfrage zu beantworten und gegebenenfalls ein Erstgespräch zu vereinbaren.</p>
+      <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. b DSGVO (Anbahnung eines Vertrags) und, für die Kontaktaufnahme selbst, Ihre Einwilligung nach Art. 6 Abs. 1 lit. a DSGVO, die Sie jederzeit für die Zukunft widerrufen können. Die Daten werden gelöscht, sobald die Anfrage erledigt ist und keine gesetzlichen Aufbewahrungspflichten entgegenstehen.</p>
+      <p>[Je nach Einrichtung eine der beiden Varianten behalten:] Die Angaben werden über den Formular-Dienst [Name und Anschrift des Anbieters] übermittelt, mit dem ein Vertrag zur Auftragsverarbeitung besteht. / Die Angaben werden in Ihrem eigenen E-Mail-Programm als E-Mail vorbereitet und erst versendet, wenn Sie dort auf „Senden“ klicken.</p>
+
+      <h2 id="werkzeuge">Unternehmens-KI-Check und KI-Kompass</h2>
+      <p>Der Unternehmens-KI-Check, die Modellauswahl und der Infrastruktur-Wegweiser im KI-Kompass rechnen vollständig in Ihrem Browser. Ihre Antworten werden nicht übertragen. Die Empfehlungen entstehen nach festen, nachvollziehbaren Regeln (Punkte und Gewichtungen), nicht durch künstliche Intelligenz. Die Ranglisten der Modelle stammen aus einem öffentlichen Datensatz, der einmal täglich unabhängig von Ihrem Besuch aktualisiert wird.</p>
+
+      <h2 id="paul">Chat-Assistent Paul</h2>
+      <p>Paul, der Kater unten rechts, beantwortet Fragen zu dieser Website. Die Nutzung ist freiwillig. Sie können Paul jederzeit über das kleine × ausblenden.</p>
+
+      <h3>So arbeitet Paul</h3>
+      <p>Begrüßungen, kurze Unterhaltungen und Erklärungen von Fachbegriffen beantwortet Paul direkt in Ihrem Browser, ohne dass Daten übertragen werden. Alle anderen Fragen beantwortet ein Sprachmodell, also eine künstliche Intelligenz. Dafür wird Ihre Frage übermittelt (siehe unten). Ist dieser Dienst nicht erreichbar, antwortet Paul aus dem gespeicherten Wissen der Website.</p>
+      <p>Fragen, die nicht diese Website betreffen, beantwortet Paul nur, wenn er die Fakten bei ausgewählten Nachrichtenangeboten findet (tagesschau.de, ZDF, dpa, Deutschlandfunk und Deutsche Welle). Er nennt dann die Quelle. Meinungsfragen und Aufgaben wie das Schreiben von Texten beantwortet er nicht.</p>
+
+      <h3>Welche Daten verarbeitet werden</h3>
+      <ul>
+        <li>der Text Ihrer Frage (höchstens 500 Zeichen),</li>
+        <li>die Seite, auf der Sie die Frage stellen, und passende Textausschnitte dieser Website,</li>
+        <li>technisch bedingt Ihre IP-Adresse beim Abruf des Vermittlungsdienstes.</li>
+      </ul>
+      <p><strong>Bitte geben Sie in Ihre Fragen keine Namen, Kontaktdaten, Gesundheitsangaben oder andere persönliche Informationen ein.</strong> Paul braucht sie nicht. Für persönliche Anliegen nutzen Sie bitte das Kontaktformular.</p>
+
+      <h3>Empfänger</h3>
+      <ul>
+        <li><strong>Cloudflare</strong> (Cloudflare, Inc., 101 Townsend Street, San Francisco, CA 94107, USA) betreibt den Vermittlungsdienst zwischen dieser Website und dem Sprachmodell. Er leitet Ihre Frage weiter und speichert sie nicht. Er zählt kurzfristig Anfragen pro IP-Adresse, um Missbrauch zu begrenzen (höchstens zehn Fragen pro Minute).</li>
+        <li><strong>OpenAI</strong> ([OpenAI Ireland Ltd., 1st Floor, The Liffey Trust Centre, 117–126 Sheriff Street Upper, Dublin 1, Irland – bitte prüfen]) erzeugt die Antwort mit einem Sprachmodell und führt bei Bedarf die Suche in den genannten Nachrichtenangeboten aus. OpenAI wird angewiesen, die Anfragen nicht zu speichern. Zur Missbrauchserkennung kann OpenAI sie nach eigenen Angaben bis zu 30 Tage aufbewahren. OpenAI verwendet Daten aus seiner Programmierschnittstelle nach eigenen Angaben nicht zum Training seiner Modelle.</li>
+      </ul>
+      <p>Mit beiden Anbietern bestehen Verträge zur Auftragsverarbeitung nach Art. 28 DSGVO [bitte prüfen: Data Processing Addendum bei OpenAI und Cloudflare abschließen]. Eine Verarbeitung in den USA ist möglich. Sie stützt sich auf das EU-US Data Privacy Framework und ergänzend auf die EU-Standardvertragsklauseln [bitte prüfen].</p>
+
+      <h3>Rechtsgrundlage und Speicherdauer</h3>
+      <p>Rechtsgrundlage ist Art. 6 Abs. 1 lit. f DSGVO. Das berechtigte Interesse liegt darin, Fragen zur Website schnell und verständlich zu beantworten. Auf dieser Website selbst wird nichts gespeichert. Pauls Antwort verschwindet, sobald Sie eine neue Frage stellen oder die Seite verlassen.</p>
+
+      <h3>Spracheingabe</h3>
+      <p>Über das Mikrofon können Sie Ihre Frage diktieren. Diese Funktion stellt Ihr Browser bereit, nicht diese Website. Je nach Browser wird Ihre Sprache dafür an dessen Anbieter übertragen und dort in Text umgewandelt, zum Beispiel bei Chrome an Google und bei Edge an Microsoft. Es gelten deren Datenschutzbestimmungen. Diese Website erhält nur den erkannten Text. Das Mikrofon wird erst aktiv, wenn Sie darauf tippen und der Freigabe in Ihrem Browser zustimmen.</p>
+
+      <h2 id="ki-verordnung">KI-Transparenz nach EU AI Act</h2>
+      <p>Die europäische KI-Verordnung (EU AI Act) verlangt, dass Menschen erkennen können, wann sie mit einer künstlichen Intelligenz zu tun haben. Diese Website setzt KI ausschließlich bei Paul ein.</p>
+
+      <h3>Einordnung</h3>
+      <ul>
+        <li>Paul ist ein KI-System im Sinne von Art. 3 Nr. 1 KI-Verordnung, das direkt mit Menschen interagiert. Er beruht auf einem KI-Modell mit allgemeinem Verwendungszweck von OpenAI.</li>
+        <li>Paul gehört nicht zu den verbotenen Praktiken (Art. 5) und ist kein Hochrisiko-KI-System (Art. 6 und Anhang III). Er trifft keine Entscheidungen über Personen, bewertet niemanden und erstellt keine Profile.</li>
+        <li>Es gelten die Transparenzpflichten nach Art. 50: Paul weist in seinem Chatfenster darauf hin, dass seine Antworten mit KI entstehen, und verlinkt auf diese Seite.</li>
+      </ul>
+
+      <h3>Grenzen und Verantwortung</h3>
+      <p>KI-Antworten können unvollständig oder falsch sein. Pauls Antworten sind keine Rechts-, Steuer-, Medizin- oder Finanzberatung und kein verbindliches Angebot. Verbindlich sind nur Absprachen mit Stefan Hansen. Damit Paul möglichst wenig erfindet, gelten feste Regeln: kurze, neutrale Antworten, keine Meinungen und keine Preisangaben, und Fakten außerhalb dieser Website nur mit Quelle aus den genannten Nachrichtenangeboten.</p>
+      <p>Stefan Hansen legt Pauls Regeln und Wissen fest und überprüft sie regelmäßig. Wenn Ihnen eine falsche oder unangemessene Antwort auffällt, schreiben Sie bitte an [E-Mail-Adresse].</p>
+
+      <h3>Ohne KI</h3>
+      <p>Alle Inhalte dieser Website sind auch ohne Paul erreichbar. Unternehmens-KI-Check und KI-Kompass arbeiten nach festen Regeln und nicht mit KI (siehe <a href="#werkzeuge">oben</a>).</p>
+
+      <h2 id="links">Links zu anderen Websites</h2>
+      <p>Diese Website und Paul verlinken auf andere Angebote, etwa Nachrichtenquellen oder Datensätze. Erst wenn Sie einem solchen Link folgen, gelangen Daten wie Ihre IP-Adresse an deren Betreiber. Dort gelten deren Datenschutzerklärungen.</p>
+
+      <h2 id="rechte">Ihre Rechte</h2>
+      <p>Sie haben jederzeit das Recht auf Auskunft (Art. 15 DSGVO), Berichtigung (Art. 16), Löschung (Art. 17), Einschränkung der Verarbeitung (Art. 18) und Datenübertragbarkeit (Art. 20). Eine erteilte Einwilligung können Sie jederzeit für die Zukunft widerrufen (Art. 7 Abs. 3). Eine formlose Nachricht an die oben genannte Adresse genügt.</p>
+      <p><strong>Widerspruchsrecht:</strong> Soweit eine Verarbeitung auf Art. 6 Abs. 1 lit. f DSGVO beruht, können Sie ihr aus Gründen, die sich aus Ihrer besonderen Situation ergeben, jederzeit widersprechen (Art. 21 DSGVO).</p>
+      <p>Sie haben außerdem das Recht, sich bei einer Datenschutz-Aufsichtsbehörde zu beschweren (Art. 77 DSGVO), etwa bei der Behörde Ihres Wohnorts oder der für den Verantwortlichen zuständigen Behörde: [Name der Landesdatenschutzbehörde].</p>
     </div>
   </main>
 
@@ -45,9 +138,9 @@
       </ul>
     </div>
   </footer>
-  <script src="assets/js/config.js?v=12"></script>
+  <script src="assets/js/config.js?v=14"></script>
   <script src="assets/js/glossar.js?v=12"></script>
   <script src="assets/js/paul-wissen.js?v=12"></script>
-  <script src="assets/js/paul.js?v=12"></script>
+  <script src="assets/js/paul.js?v=15"></script>
 </body>
 </html>

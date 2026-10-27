@@ -1,0 +1,19 @@
+{
+  "name": "paul-proxy",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy"
+  },
+  "dependencies": {
+    "openai": "latest"
+  },
+  "devDependencies": {
+    "wrangler": "latest"
+  },
+  "allowScripts": {
+    "esbuild@0.28.2": true,
+    "workerd@1.20261023.1": true
+  }
+}

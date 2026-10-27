@@ -1,0 +1,13 @@
+name = "paul-proxy"
+main = "worker.js"
+compatibility_date = "2026-10-01"
+
+[vars]
+# Nur diese Websites dürfen Paul-Fragen schicken (kommagetrennt)
+ALLOWED_ORIGINS = "https://stefan250-git.github.io"
+
+# Höchstens 10 Fragen pro Minute und Besucher (IP)
+[[ratelimits]]
+name = "RATE_LIMITER"
+namespace_id = "1001"
+simple = { limit = 10, period = 60 }
