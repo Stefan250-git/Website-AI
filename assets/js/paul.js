@@ -6,7 +6,6 @@
   var W = window.PAUL_WISSEN;
   if (!W) return;
   var config = window.SITE_CONFIG || {};
-  var endpoint = (config.paul || {}).endpoint || "";
   var G = window.Glossar;
   var reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -22,6 +21,20 @@
       if (value === null) storage(type).removeItem(key); else storage(type).setItem(key, value);
     } catch (e) { /* ohne Speicher weiter */ }
   }
+
+  // Testbetrieb: Das Sprachmodell antwortet nur mit Testschlüssel. Einmal die Seite mit
+  // ?paul=SCHLÜSSEL öffnen, der Browser merkt ihn sich; ?paul= (leer) beendet den Testbetrieb.
+  // Der Proxy prüft den Schlüssel selbst (Secret ACCESS_KEY), ohne ihn antwortet Paul lokal.
+  var keyParam = new URLSearchParams(location.search).get("paul");
+  if (keyParam !== null) {
+    save("localStorage", "paul-key", keyParam.trim() || null);
+    // Schlüssel aus der Adresszeile entfernen, damit er nicht versehentlich mit geteilt wird
+    var clean = new URL(location.href);
+    clean.searchParams.delete("paul");
+    history.replaceState(history.state, "", clean.href);
+  }
+  var accessKey = load("localStorage", "paul-key") || "";
+  var endpoint = accessKey ? (config.paul || {}).endpoint || "" : "";
 
   function esc(s) {
     return String(s).replace(/[&<>"]/g, function (c) {
@@ -268,7 +281,7 @@
     });
     return fetch(endpoint, {
       method: "POST",
-      headers: { "Content-Type": "application/json" },
+      headers: { "Content-Type": "application/json", "X-Paul-Key": accessKey },
       body: JSON.stringify({ question: question, page: location.pathname, context: context }),
     }).then(function (res) {
       if (!res.ok) throw new Error(res.status);

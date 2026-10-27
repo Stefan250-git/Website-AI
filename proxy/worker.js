@@ -120,7 +120,7 @@ export default {
     const cors = {
       "Access-Control-Allow-Origin": allowed.includes(origin) ? origin : allowed[0] || "",
       "Access-Control-Allow-Methods": "POST, OPTIONS",
-      "Access-Control-Allow-Headers": "Content-Type",
+      "Access-Control-Allow-Headers": "Content-Type, X-Paul-Key",
       "Vary": "Origin",
     };
     const reply = (body, status = 200) =>
@@ -129,6 +129,12 @@ export default {
     if (request.method === "OPTIONS") return new Response(null, { status: 204, headers: cors });
     if (request.method !== "POST") return reply({ error: "method" }, 405);
     if (!allowed.includes(origin)) return reply({ error: "origin" }, 403);
+    // Testbetrieb: nur mit Testschlüssel (Secret ACCESS_KEY, mehrere durch Komma getrennt,
+    // z. B. eigener und Familien-Schlüssel); ohne Secret für alle offen
+    const accessKeys = (env.ACCESS_KEY || "").split(",").map((k) => k.trim()).filter(Boolean);
+    if (accessKeys.length && !accessKeys.includes((request.headers.get("X-Paul-Key") || "").trim())) {
+      return reply({ error: "zugang" }, 403);
+    }
 
     // Optionales Rate Limiting (Binding RATE_LIMITER in wrangler.toml)
     if (env.RATE_LIMITER) {

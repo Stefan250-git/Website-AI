@@ -18,6 +18,14 @@ Ohne Proxy antwortet Paul wie bisher aus `assets/js/paul-wissen.js`. Feste Antwo
 4. Die angezeigte Adresse (z. B. `https://paul-proxy.<name>.workers.dev`) in `assets/js/config.js` unter `paul.endpoint` eintragen.
 5. Bei eigener Domain: diese in `wrangler.toml` unter `ALLOWED_ORIGINS` ergänzen und neu deployen.
 
+## Testbetrieb (aktuell aktiv)
+
+Solange das Cloudflare-Secret `ACCESS_KEY` gesetzt ist, antwortet das Sprachmodell nur Browsern mit diesem Testschlüssel; alle anderen Besucher bekommen Pauls lokale Antworten, und es entstehen keine Kosten.
+
+- Testschlüssel im Browser aktivieren: die Website einmal mit `?paul=SCHLÜSSEL` öffnen (der Browser merkt ihn sich, die Adresszeile wird bereinigt). Beenden: `?paul=` (leer).
+- Mehrere Schlüssel durch Komma getrennt, z. B. ein eigener und einer für die Familie. Einen Schlüssel sperren: `npx.cmd wrangler secret put ACCESS_KEY` und nur die verbleibenden eingeben (die gesperrten Geräte antworten dann lokal).
+- Für alle freischalten (Launch): `npx.cmd wrangler secret delete ACCESS_KEY` und in `assets/js/paul.js` die Schlüsselprüfung entfernen; außerdem `noindex` in `index.html` und `ki-kompass.html` entfernen.
+
 ## Vor dem Freischalten
 
 - **Datenschutzerklärung ergänzen:** Fragen an Paul werden an Cloudflare (Worker) und OpenAI (Sprachmodell und Websuche, USA) übertragen. Der Worker speichert nichts, OpenAI wird angewiesen, die Unterhaltung nicht zu speichern (`store: false`).
