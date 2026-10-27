@@ -26,11 +26,11 @@ window.SITE_CONFIG = {
   // Paul, der Website-Kater (assets/js/paul.js)
   paul: {
     // Leer = Paul antwortet aus assets/js/paul-wissen.js (keine Daten verlassen den Browser).
-    // Optional: URL eines eigenen Proxys zu einem Sprachmodell. Paul sendet POST (JSON)
-    // { question, page, context: [{ title, url, answer }] } und erwartet
-    // { answer: "…", links: [{ label, url }] }. API-Schlüssel nie hier eintragen!
+    // Optional: URL des Sprachmodell-Proxys (Cloudflare Worker, siehe proxy/README.md).
+    // Paul sendet POST (JSON) { question, page, context: [{ title, url, answer }] } und erwartet
+    // { answer: "…", links?: [{ label, url }] }. API-Schlüssel nie hier eintragen!
     // Vor Aktivierung Datenschutzerklärung ergänzen.
-    endpoint: "",
+    endpoint: "https://paul-proxy.biese250.workers.dev",
     // Leises Schlecken, wenn Paul sich die Pfote leckt (false = stumm)
     sound: true,
   },

@@ -76,6 +76,15 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .prose p { max-width: var(--measure); color: var(--muted); }
 .prose p + p { margin-top: 1em; }
 .prose .small, .small { font-size: .93rem; }
+/* Rechtstexte (Datenschutz, Impressum) */
+.legal h2 { margin-top: 2.2em; font-size: 1.35rem; scroll-margin-top: 90px; }
+.legal h3 { margin-top: 1.5em; font-size: 1.05rem; }
+.legal h2 + p, .legal h3 + p, .legal h2 + ul, .legal h3 + ul { margin-top: .6em; }
+.legal ul { max-width: var(--measure); margin: 1em 0 0 1.2em; padding: 0; list-style: disc; color: var(--muted); }
+.legal li + li { margin-top: .35em; }
+.legal ul + p, .legal p + ul { margin-top: 1em; }
+.legal nav ul { list-style: none; margin-left: 0; columns: 2; column-gap: 32px; }
+@media (max-width: 600px) { .legal nav ul { columns: 1; } }
 .muted { color: var(--muted); }
 
 /* ---------- Buttons ---------- */
@@ -820,6 +829,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 @keyframes paul-listen { 50% { box-shadow: 0 0 0 8px rgba(180, 35, 24, .18); } }
 .paul-note { margin-top: 6px; font-size: .72rem; color: var(--muted); }
 .paul-note[hidden] { display: none; }
+.paul-ai { margin-top: 8px; font-size: .72rem; line-height: 1.4; color: var(--muted); }
+.paul-ai a { color: inherit; text-decoration: underline; }
 
 /* Sprünge: nach rechts hinaus, von rechts herein, Auftauchen nach dem Wegklicken */
 /* Putzen (.is-licking): Pfote zum Maul, Kopf neigt sich, Zunge leckt dreimal, Augen entspannt mit Blinzeln */

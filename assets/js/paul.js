@@ -146,6 +146,8 @@
     '<button type="submit" class="paul-send" aria-label="Frage senden">' + ICON_SEND + '</button>' +
     '</form>' +
     '<p class="paul-note" hidden>Spracheingabe über den Dienst Deines Browsers</p>' +
+    // Transparenzpflicht nach Art. 50 KI-Verordnung, sobald ein Sprachmodell antwortet
+    (endpoint ? '<p class="paul-ai">Paul antwortet mit Hilfe von KI und kann sich irren. Bitte gib keine persönlichen Daten ein. <a href="datenschutz.html#paul">Mehr dazu</a></p>' : '') +
     '</div>' +
     '<button type="button" class="paul-teaser" hidden>' + esc(W.greeting) + '</button>' +
     '<button type="button" class="paul-cat" data-pose="front" aria-expanded="false" aria-controls="paul-bubble" aria-label="Paul fragen – Chat öffnen">' + CAT_SVG + '</button>' +
@@ -182,7 +184,10 @@
     var links = (answer.links || []).slice(0, 2);
     var paragraphs = String(answer.text).split(/\n\n+/).map(function (part) { return '<p>' + text(part) + '</p>'; }).join("");
     say.innerHTML = paragraphs + (links.length ? '<ul class="paul-links">' + links.map(function (l) {
-      return '<li><a class="paul-link" href="' + esc(l.url) + '">' + esc(l.label) + '</a></li>';
+      // Quellen anderer Websites (z. B. tagesschau.de) im neuen Tab, Paul bleibt hier
+      var external = new URL(l.url, location.href).origin !== location.origin;
+      return '<li><a class="paul-link" href="' + esc(l.url) + '"'
+        + (external ? ' target="_blank" rel="noopener"' : '') + '>' + esc(l.label) + '</a></li>';
     }).join("") + '</ul>' : '');
   }
 
@@ -221,11 +226,11 @@
       // Feste Antworten: beim zweiten Mal in derselben Sitzung mit freundlichem Hinweis davor
       if (talk.id) {
         var asked = (load("sessionStorage", "paul-asked") || "").split(",");
-        if (asked.indexOf(talk.id) !== -1) return { text: W.repeatIntro + "\n\n" + talk.answer, links: [] };
+        if (asked.indexOf(talk.id) !== -1) return { text: W.repeatIntro + "\n\n" + talk.answer, links: [], fixed: true };
         asked.push(talk.id);
         save("sessionStorage", "paul-asked", asked.filter(Boolean).join(","));
       }
-      return { text: talk.answer, links: [] };
+      return { text: talk.answer, links: [], fixed: true };
     }
 
     var ranked = W.entries.map(function (e) { return { entry: e, points: score(e, q, words) }; })
@@ -240,10 +245,11 @@
       return {
         text: terms[0] + ": " + t.text + (t.example ? " Beispiel: " + t.example : ""),
         links: [{ label: "Mehr im KI-Kompass", url: "ki-kompass.html#infrastruktur" }],
+        fixed: true,
       };
     }
 
-    if (!ranked.length) return { text: W.fallback, links: [W.fallbackLink] };
+    if (!ranked.length) return { text: W.fallback, links: [W.fallbackLink], fallback: true };
 
     var best = ranked[0].entry;
     var links = [{ label: best.title, url: best.url }];
@@ -254,7 +260,8 @@
     return { text: resolveAnswer(best), links: links, context: ranked.slice(0, 3) };
   }
 
-  // Mit Proxy: Sprachmodell erhält die Frage und die passenden Website-Inhalte als Kontext
+  // Mit Proxy: Sprachmodell erhält die Frage und die passenden Website-Inhalte als Kontext.
+  // Feste Antworten (Smalltalk, Glossar) bleiben lokal; ist der Proxy nicht erreichbar, ebenso.
   function remoteAnswer(question, local) {
     var context = (local.context || []).map(function (r) {
       return { title: r.entry.title, url: r.entry.url, answer: resolveAnswer(r.entry) };
@@ -268,7 +275,8 @@
       return res.json();
     }).then(function (data) {
       if (!data || !data.answer) throw new Error("leer");
-      return { text: data.answer, links: data.links || local.links };
+      // Allgemeine Fragen ohne Bezug zur Website: kein Kontakt-Link unter der Antwort
+      return { text: data.answer, links: data.links || (local.fallback ? [] : local.links) };
     }).catch(function () { return local; });
   }
 
@@ -280,7 +288,7 @@
     say.innerHTML = '<p class="paul-typing"><span></span><span></span><span></span><span class="visually-hidden">Paul denkt nach</span></p>';
 
     var local = localAnswer(question);
-    var answer = endpoint ? remoteAnswer(question, local) : Promise.resolve(local);
+    var answer = endpoint && !local.fixed ? remoteAnswer(question, local) : Promise.resolve(local);
     Promise.all([answer, wait(reduceMotion ? 0 : 650)]).then(function (r) {
       show(r[0]);
       busy = false;
@@ -297,45 +305,57 @@
     var chip = e.target.closest(".paul-chip");
     if (chip) ask(chip.textContent);
     var link = e.target.closest(".paul-link");
-    if (link && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
+    if (link && !link.target && !e.ctrlKey && !e.metaKey && !e.shiftKey && e.button === 0) {
       e.preventDefault();
       go(link.href);
     }
   });
 
-  /* ---------- Spracheingabe (falls der Browser sie anbietet) ---------- */
+  /* ---------- Spracheingabe (über den Spracherkennungsdienst des Browsers) ---------- */
   var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
-  if (Recognition) {
-    mic.hidden = false;
-    var rec = null;
-    mic.addEventListener("click", function () {
-      if (rec) { rec.stop(); return; }
-      rec = new Recognition();
-      rec.lang = "de-DE";
-      rec.interimResults = true;
-      rec.onresult = function (e) {
-        var result = e.results[e.results.length - 1];
-        input.value = result[0].transcript;
-        if (result.isFinal) {
-          ask(input.value);
-          input.value = "";
-        }
-      };
-      rec.onerror = function () {
-        show({ text: "Ich konnte Dich leider nicht verstehen. Versuch es noch einmal oder tipp Deine Frage ein." });
-      };
-      rec.onend = function () {
-        rec = null;
-        note.hidden = true;
-        mic.classList.remove("is-listening");
-        mic.setAttribute("aria-label", "Frage diktieren");
-      };
-      mic.classList.add("is-listening");
-      note.hidden = false;
-      mic.setAttribute("aria-label", "Diktat beenden");
-      rec.start();
-    });
-  }
+  var MIC_ERRORS = {
+    "not-allowed": "Ich darf Dein Mikrofon nicht benutzen. Erlaube den Zugriff oben in der Adresszeile Deines Browsers und versuch es noch einmal.",
+    "service-not-allowed": "Ich darf Dein Mikrofon nicht benutzen. Erlaube den Zugriff oben in der Adresszeile Deines Browsers und versuch es noch einmal.",
+    "audio-capture": "Ich finde kein Mikrofon. Prüf bitte, ob eines angeschlossen und eingeschaltet ist.",
+    "no-speech": "Ich habe nichts gehört. Tipp noch einmal auf das Mikrofon und sprich dann Deine Frage.",
+    "network": "Die Spracherkennung Deines Browsers ist gerade nicht erreichbar. Tipp Deine Frage bitte ein.",
+  };
+  mic.hidden = false;
+  var rec = null;
+  mic.addEventListener("click", function () {
+    if (!Recognition) {
+      show({ text: "Dein Browser bietet leider keine Spracheingabe an. In Chrome, Edge oder Safari klappt es. Oder Du nutzt die Diktierfunktion Deiner Tastatur." });
+      input.focus();
+      return;
+    }
+    if (rec) { rec.stop(); return; }
+    if (mode === "hover") mode = "pinned";  // Blase bleibt offen, während Du sprichst
+    rec = new Recognition();
+    rec.lang = "de-DE";
+    rec.interimResults = true;
+    rec.onresult = function (e) {
+      var result = e.results[e.results.length - 1];
+      input.value = result[0].transcript;
+      if (result.isFinal) {
+        ask(input.value);
+        input.value = "";
+      }
+    };
+    rec.onerror = function (e) {
+      if (e.error === "aborted") return;
+      show({ text: MIC_ERRORS[e.error] || "Ich konnte Dich leider nicht verstehen. Versuch es noch einmal oder tipp Deine Frage ein." });
+    };
+    rec.onend = function () {
+      rec = null;
+      note.hidden = true;
+      mic.classList.remove("is-listening");
+      mic.setAttribute("aria-label", "Frage diktieren");
+    };
+    mic.classList.add("is-listening");
+    note.hidden = false;
+    mic.setAttribute("aria-label", "Diktat beenden");
+    rec.start();
+  });
 
   /* ---------- Öffnen, schließen, ausblenden ---------- */
   // hover = kurz durch Darüberfahren geöffnet; pinned = per Klick geöffnet
@@ -421,7 +441,7 @@
   function closeLater() {
     clearTimeout(leaveTimer);
     leaveTimer = setTimeout(function () {
-      if (!inside && document.activeElement !== input && !bubble.hidden) close();
+      if (!inside && document.activeElement !== input && !rec && !bubble.hidden) close();
     }, LEAVE_DELAY);
   }
 
