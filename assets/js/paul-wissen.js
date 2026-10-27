@@ -22,6 +22,11 @@ window.PAUL_WISSEN = {
   // Reihenfolge zählt: „Warum heißt Du Paul?“ muss vor „Wie heißt Du?“ geprüft werden.
   // Absätze in Antworten mit \n\n trennen.
   smalltalk: [
+    // Menschen in einer Krise bekommen immer den Hinweis auf Hilfe (geht nicht an das Sprachmodell)
+    {
+      match: "suizid|selbstmord|mich umbringen|nicht mehr leben|sterben will|ritzen|selbstverletz",
+      answer: "Das klingt, als ginge es Dir gerade nicht gut. Bitte sprich mit jemandem: Die TelefonSeelsorge ist rund um die Uhr kostenlos und anonym erreichbar unter 0800 111 0 111 oder 0800 111 0 222, auch per Chat auf telefonseelsorge.de.\n\nIn akuter Gefahr wähl bitte sofort 112.",
+    },
     { match: "^(hallo|hi|hey|moin|servus|guten (morgen|tag|abend))\\b", answer: "Hallo! Schön, dass Du da bist. Frag mich zum Beispiel nach den Angeboten, den Preisen oder dem KI-Kompass." },
     {
       id: "name-herkunft",
