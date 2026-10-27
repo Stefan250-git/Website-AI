@@ -263,12 +263,7 @@ def main():
         "extra": [build_task(t, boards[t["board"]]) for t in EXTRA_TASKS],
     }
 
-    # Nur schreiben, wenn sich die Ranglisten geändert haben – vermeidet leere Commits
-    if OUT.exists():
-        old = json.loads(OUT.read_text(encoding="utf-8")[len(PREFIX):].rstrip().rstrip(";"))
-        if old.get("tasks") == data["tasks"] and old.get("extra") == data["extra"]:
-            print("Keine Änderung.")
-            return
+    # Immer schreiben: Auch ohne neue Ranglisten muss das Abrufdatum auf der Website aktuell sein
     OUT.parent.mkdir(parents=True, exist_ok=True)
     OUT.write_text(PREFIX + json.dumps(data, ensure_ascii=False, separators=(",", ":")) + ";\n", encoding="utf-8")
     print("Geschrieben:", OUT)
