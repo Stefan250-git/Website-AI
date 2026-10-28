@@ -454,19 +454,28 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .flow-cat.is-leaping svg { transform: scaleX(-1); }
 .flow-col { display: grid; gap: 8px; align-content: center; }
 .flow-label { font-size: .72rem; font-weight: 600; letter-spacing: .14em; text-transform: uppercase; color: var(--muted); }
-.flow-item {
-  padding: 9px 12px; border-radius: 10px; border: 1px solid var(--line); background: var(--white);
-  font-size: .88rem; line-height: 1.35; color: var(--navy);
+.flow-icons { position: absolute; width: 0; height: 0; overflow: hidden; }
+.flow-tiles { display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px; }
+.flow-tile {
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 6px;
+  min-height: 84px; padding: 10px 6px; border-radius: 12px; border: 1px solid var(--line); background: var(--white);
+  font-size: .78rem; font-weight: 600; line-height: 1.25; text-align: center; color: var(--navy);
 }
+.flow-tile svg, .flow-core svg {
+  width: 28px; height: 28px; fill: none; stroke: currentColor; stroke-width: 1.7; stroke-linecap: round; stroke-linejoin: round;
+}
+.flow-tile svg { color: var(--navy-80); }
 .flow-tool { border-color: var(--green-light); }
-.flow-tool strong { display: block; color: var(--green-dark); }
-.flow-out { background: var(--green-soft); border-color: transparent; font-weight: 600; }
+.flow-tool svg { color: var(--green); }
+.flow-out { background: var(--green-soft); border-color: transparent; }
+.flow-out svg { color: var(--green-dark); }
 .flow-core {
-  display: grid; gap: 8px; padding: 28px 22px; border-radius: 14px;
-  background: var(--navy); color: #c3cad7; font-size: .88rem; line-height: 1.45; text-align: center;
+  display: grid; justify-items: center; gap: 8px; padding: 28px 18px; border-radius: 14px;
+  background: var(--navy); color: #c3cad7; font-size: .85rem; line-height: 1.4; text-align: center;
   box-shadow: 0 0 0 6px rgba(159, 208, 189, .35);
 }
-.flow-core strong { color: var(--white); font-size: 1.15rem; line-height: 1.2; }
+.flow-core svg { width: 56px; height: 56px; stroke-width: 1.4; color: var(--green-light); }
+.flow-core strong { color: var(--white); font-size: 1.1rem; line-height: 1.2; }
 .flow-core .tip { color: var(--white); }
 
 .flow-arrow { position: relative; height: 0; border-top: 1.5px dashed var(--green); }
@@ -475,7 +484,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   border-left: 8px solid var(--green); border-top: 5px solid transparent; border-bottom: 5px solid transparent;
 }
 
-.flow-item, .flow-core { transition: opacity .5s, transform .5s; }
+.flow-tile, .flow-core { transition: opacity .5s, transform .5s; }
 .flow-arrow { transform-origin: left center; transition: transform .6s ease-out; }
 .flow.is-armed .flow-step:not(.is-on) { opacity: 0; transform: translateY(8px); }
 .flow.is-armed .flow-arrow:not(.is-on) { opacity: 1; transform: scaleX(0); }
@@ -1071,7 +1080,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .stats, .familiar-list { grid-template-columns: 1fr; }
   .familiar { margin-top: 72px; padding-top: 48px; }
   .familiar-cta { flex-direction: column; align-items: flex-start; }
-  .flow { grid-template-columns: 1fr; gap: 0; padding: 20px 16px; }
+  .flow { grid-template-columns: 1fr; gap: 0; padding: 20px 16px 48px; }
+  .flow-tiles-6 { grid-template-columns: repeat(3, 1fr); }
   .flow-arrow { justify-self: center; width: 0; height: 36px; margin: 6px 0; border-top: 0; border-left: 1.5px dashed var(--green); }
   .flow-arrow::after {
     right: auto; top: auto; left: -6px; bottom: -2px;
