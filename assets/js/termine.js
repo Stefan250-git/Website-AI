@@ -58,7 +58,7 @@
     save(text);
     chosen.hidden = !text;
     chosen.querySelector("strong").textContent = text;
-    opener.textContent = text ? "Termin ändern" : "Termin";
+    opener.textContent = text ? "Termin ändern" : "Termin vereinbaren";
   }
 
   function render() {
