@@ -81,7 +81,7 @@ window.PAUL_WISSEN = {
     {
       title: "Wissensbasis für Unternehmen",
       url: "index.html#wissensbasis",
-      keywords: ["wissen", "wissensbasis", "geschäftswissen", "dokumentation", "ablage", "suchen", "finden", "version", "einarbeitung", "onboarding", "intranet", "atlassian", "studie"],
+      keywords: ["wissen", "wissensbasis", "geschäftswissen", "dokumentation", "ablage", "suchen", "finden", "version", "einarbeitung", "onboarding", "intranet", "atlassian", "studie", "single source", "n8n"],
       answer: "Bei der Wissensbasis wird Unternehmenswissen so geordnet, dass es auffindbar wird: Welche Quelle gilt, und wer pflegt sie? Erst dann kann KI beim Finden und Zusammenfassen helfen. Laut der Atlassian-Studie „The State of Teams 2025“ müssen 56 % der Befragten häufig andere fragen oder ein Meeting ansetzen, um an Informationen zu kommen.",
     },
     {

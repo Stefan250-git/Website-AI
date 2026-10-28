@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=18">
+  <link rel="stylesheet" href="assets/css/styles.css?v=20">
 
   <script type="application/ld+json">
   {
@@ -321,6 +321,7 @@
             <li>Mehrere Versionen existieren – welche gilt?</li>
             <li>Neue Mitarbeitende brauchen lange Einarbeitung.</li>
           </ul>
+          <button class="btn btn-outline-light familiar-flow" type="button" data-open-flow aria-haspopup="dialog">So kann eine Lösung aussehen</button>
           <div class="familiar-cta">
             <p class="lead">Erst wenn klar ist, welche Quelle gilt und wer sie pflegt, kann KI beim Finden und Zusammenfassen helfen.</p>
             <a class="btn btn-on-dark" href="#kontakt" data-topic="wissensbasis">Erstgespräch anfragen</a>
@@ -485,6 +486,55 @@
     </div>
   </dialog>
 
+  <!-- ===================== Lösungsskizze Wissensbasis (Dialog) =====================
+       Felder und Pfeile mit .flow-step erscheinen in Dokument-Reihenfolge, Ablauf in assets/js/wissensfluss.js -->
+  <dialog class="check-dialog flow-dialog" id="flow-dialog" aria-labelledby="flow-title">
+    <button class="check-close" type="button" aria-label="Lösungsskizze schließen">×</button>
+    <div class="check-stage">
+      <p class="kicker">Lösungsskizze</p>
+      <h2 id="flow-title">So kann eine Lösung aussehen.</h2>
+      <p class="check-lead" data-glossar>Viele Quellen fließen in eine gepflegte Single Source of Truth. Darauf greifen Automatisierung und KI zu.</p>
+
+      <div class="flow" data-glossar>
+        <div class="flow-col">
+          <p class="flow-label">Quellen</p>
+          <span class="flow-step flow-item">E-Mails</span>
+          <span class="flow-step flow-item">Dateien und Laufwerke</span>
+          <span class="flow-step flow-item">Meetings und Protokolle</span>
+          <span class="flow-step flow-item">Chats</span>
+          <span class="flow-step flow-item">Daten aus ERP und CRM</span>
+          <span class="flow-step flow-item">Erfahrung der Mitarbeitenden</span>
+        </div>
+        <span class="flow-step flow-arrow" aria-hidden="true"></span>
+        <div class="flow-col">
+          <p class="flow-label">Gemeinsame Wissensbasis</p>
+          <div class="flow-step flow-core">
+            <strong>Single Source of Truth</strong>
+            <span>Jede Information an einer Stelle, geprüft und mit festen Verantwortlichen.</span>
+          </div>
+        </div>
+        <span class="flow-step flow-arrow" aria-hidden="true"></span>
+        <div class="flow-col">
+          <p class="flow-label">Angedockt</p>
+          <span class="flow-step flow-item flow-tool"><strong>n8n</strong> Abläufe automatisieren</span>
+          <span class="flow-step flow-item flow-tool"><strong>KI-Modell</strong> suchen und zusammenfassen</span>
+          <span class="flow-step flow-item flow-tool"><strong>Zugriffsrechte</strong> wer was sehen darf</span>
+          <span class="flow-step flow-item flow-tool"><strong>Fachliche Prüfung</strong> Mensch gibt frei</span>
+        </div>
+        <span class="flow-step flow-arrow" aria-hidden="true"></span>
+        <div class="flow-col">
+          <p class="flow-label">Ausgabe</p>
+          <span class="flow-step flow-item flow-out">Antwort mit Quellenangabe</span>
+          <span class="flow-step flow-item flow-out">Zusammenfassung und Bericht</span>
+          <span class="flow-step flow-item flow-out">Unterlage zur Einarbeitung</span>
+          <span class="flow-step flow-item flow-out">Entwurf für Angebot oder E-Mail</span>
+        </div>
+      </div>
+
+      <p class="check-note">Beispielhafte Skizze. Welche Bausteine bei Ihnen passen, klären wir im Erstgespräch.</p>
+    </div>
+  </dialog>
+
   <!-- ===================== Footer ===================== -->
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -506,9 +556,10 @@
   <script src="assets/js/config.js?v=16"></script>
   <script src="assets/js/main.js?v=16"></script>
   <script src="assets/js/ki-check.js?v=12"></script>
-  <script src="assets/js/glossar.js?v=12"></script>
+  <script src="assets/js/glossar.js?v=13"></script>
   <script src="assets/js/termine.js?v=2"></script>
-  <script src="assets/js/paul-wissen.js?v=16"></script>
+  <script src="assets/js/wissensfluss.js?v=1"></script>
+  <script src="assets/js/paul-wissen.js?v=17"></script>
   <script src="assets/js/paul.js?v=16"></script>
 </body>
 </html>
