@@ -229,7 +229,7 @@
       '<p>' + esc(c.question) + '</p>' +
       '<div class="check-actions">' +
       '<button type="button" class="btn btn-check" data-go="result">Ergebnisse ansehen</button>' +
-      '<button type="button" class="btn btn-secondary" data-contact>Unverbindliches Orientierungsgespräch anfragen</button>' +
+      '<button type="button" class="btn btn-secondary" data-contact>Anfragen</button>' +
       '</div></div>'
     );
   }
@@ -246,7 +246,7 @@
       '<p class="check-offer">Passendes Angebot: <a href="' + r.offer.url + '" data-close>' + esc(r.offer.label) + '</a></p>' +
       '<p class="check-note">Ihr Ergebnis bleibt nur in diesem Browser-Tab gespeichert. Bei einer Anfrage können Sie es mitsenden.</p>' +
       '<div class="check-actions">' +
-      '<button type="button" class="btn btn-check" data-contact>Unverbindliches Orientierungsgespräch anfragen</button>' +
+      '<button type="button" class="btn btn-check" data-contact>Anfragen</button>' +
       '<button type="button" class="link-btn" data-go="restart">Check wiederholen</button>' +
       '</div></div>'
     );
