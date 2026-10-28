@@ -906,14 +906,16 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 @keyframes paul-tail { from { transform: rotate(-6deg); } to { transform: rotate(9deg); } }
 @keyframes paul-ear { 0%, 88%, 94%, 100% { transform: none; } 91% { transform: rotate(-9deg); } }
 
-/* × mittig knapp über den Ohrenspitzen */
-.paul-hide {
-  position: absolute; right: 39px; bottom: 118px; display: grid; place-items: center;
-  width: 26px; height: 26px; padding: 0; border: 0; border-radius: 50%;
-  background: var(--white); color: var(--muted); font-size: 1rem; line-height: 1; cursor: pointer;
-  box-shadow: 0 2px 8px rgba(13, 29, 55, .2); transition: opacity .2s;
+/* × ohne Kreis links unten, etwas abgerückt von Pauls linker Pfote; vor dunklem Hintergrund (.is-dark) hell */
+.paul .paul-hide {
+  position: absolute; left: -26px; bottom: 2px; display: grid; place-items: center;
+  width: 24px; height: 24px; padding: 0; border: 0; border-radius: 4px;
+  background: none; color: var(--muted); font-size: 1.6rem; font-weight: 400; line-height: 1; cursor: pointer;
+  transition: opacity .2s, color .3s;
 }
-.paul-hide:hover { color: var(--navy); }
+.paul .paul-hide:hover { color: var(--navy); }
+.paul.is-dark .paul-hide { color: #d6dbe5; }
+.paul.is-dark .paul-hide:hover { color: var(--white); }
 
 /* Wegklicken: Paul taucht ab und schaut über den Rand (Haltung „peek“); nur die Figur ist anklickbar */
 .paul.is-diving .paul-cat { transform: translateY(115%); }
@@ -941,7 +943,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 .paul-close {
   position: absolute; top: 4px; right: 4px; width: 30px; height: 30px; padding: 0; border: 0; border-radius: 50%;
-  background: none; color: var(--muted); font-size: 1.25rem; line-height: 1; cursor: pointer;
+  background: none; color: var(--muted); font-size: 1.6rem; font-weight: 400; line-height: 1; cursor: pointer;
 }
 .paul-close:hover { background: var(--bg); color: var(--navy); }
 /* Längere Antworten scrollen innerhalb der Blase, statt sie wachsen zu lassen */
@@ -1177,7 +1179,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .check-actions .btn { width: 100%; }
   .paul { --paul-bottom: 8px; right: 10px; }
   .paul-cat { width: 76px; height: 84px; }
-  .paul-hide { right: 26px; bottom: 88px; width: 24px; height: 24px; }
+  .paul .paul-hide { left: -22px; bottom: 0; }
   .paul-lamp { right: 0; bottom: 116px; width: 36px; height: 106px; }
   .paul-light { right: -46px; bottom: 0; width: 124px; height: 160px; }
   .paul-light::after { right: 26px; width: 110px; height: 96px; }
