@@ -719,6 +719,33 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 
 /* =========================================================
+   Terminauswahl (termine.js) – Feld im Kontaktbereich, Dialog mit den nächsten Terminen
+   ========================================================= */
+.termin-panel { margin-top: 20px; padding: 24px; border-radius: 16px; background: var(--white); border: 1px solid var(--line); }
+.termin-panel > p:first-child { color: var(--navy-80); }
+.termin-panel .btn { margin-top: 16px; }
+.termin-chosen { margin-top: 16px; font-size: .95rem; color: var(--navy-80); }
+.termin-chosen strong { color: var(--green-dark); }
+.termin-remove { margin-left: 6px; padding: 0; border: 0; background: none; font: inherit; color: var(--muted); text-decoration: underline; cursor: pointer; }
+.termin-remove:hover { color: var(--navy); }
+
+.termin-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
+.termin-slot {
+  display: flex; flex-direction: column; gap: 2px; width: 100%; padding: 14px 16px; text-align: left;
+  border: 1px solid var(--line); border-radius: 12px; background: var(--white); color: var(--navy); font: inherit; cursor: pointer;
+  transition: border-color .2s, background .2s;
+}
+.termin-slot span { font-size: .9rem; color: var(--navy-80); }
+.termin-slot strong { font-size: 1.15rem; }
+.termin-slot small { font-size: .8rem; color: var(--muted); }
+.termin-slot:hover:not(:disabled) { border-color: var(--green); }
+.termin-slot.is-on { background: var(--green-soft); border-color: var(--green); }
+.termin-slot:focus-visible { outline: 3px solid var(--green); outline-offset: 2px; }
+.termin-slot:disabled { background: var(--bg); color: var(--muted); opacity: .55; cursor: not-allowed; }
+.termin-slot:disabled span, .termin-slot:disabled strong { color: var(--muted); text-decoration: line-through; }
+.termin-empty { grid-column: 1 / -1; color: var(--muted); }
+
+/* =========================================================
    Paul, der Website-Kater (paul.js) – unten rechts auf jeder Seite
    ========================================================= */
 .paul { --paul-bottom: 12px; position: fixed; right: 16px; bottom: var(--paul-bottom); z-index: 150; pointer-events: none; }
@@ -955,6 +982,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .card { padding: 28px 22px 22px; }
   .check-stage { padding: 28px 20px 24px; }
   .check-nav { flex-wrap: wrap; }
+  .termin-list { grid-template-columns: 1fr; }
   .check-actions .btn { width: 100%; }
   .paul { --paul-bottom: 8px; right: 10px; }
   .paul-cat { width: 76px; height: 84px; }
