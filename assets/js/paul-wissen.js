@@ -27,7 +27,7 @@ window.PAUL_WISSEN = {
       match: "suizid|selbstmord|mich umbringen|nicht mehr leben|sterben will|ritzen|selbstverletz",
       answer: "Das klingt, als ginge es Dir gerade nicht gut. Bitte sprich mit jemandem: Die TelefonSeelsorge ist rund um die Uhr kostenlos und anonym erreichbar unter 0800 111 0 111 oder 0800 111 0 222, auch per Chat auf telefonseelsorge.de.\n\nIn akuter Gefahr wähl bitte sofort 112.",
     },
-    { match: "^(hallo|hi|hey|moin|servus|guten (morgen|tag|abend))\\b", answer: "Hallo! Schön, dass Du da bist. Frag mich zum Beispiel nach den Angeboten, den Preisen oder dem KI-Kompass." },
+    { match: "^(hallo|hi|hey|moin|servus|guten (morgen|tag|abend))\\b", answer: "Hallo! Schön, dass Du da bist. Frag mich zum Beispiel nach den Angeboten, den Terminen oder dem KI-Kompass." },
     {
       id: "name-herkunft",
       match: "(warum|wieso|weshalb) (heisst du|ist dein name|nennt man dich)|woher (kommt|hast du) dein(en)? name|warum der name",
@@ -58,7 +58,7 @@ window.PAUL_WISSEN = {
       title: "KI Einstieg für Unternehmen",
       url: "index.html#ki-start",
       keywords: ["unternehmen", "firma", "betrieb", "geschäftsführ", "beratung", "einstieg", "workshop", "auftragsklärung", "screening", "mittelstand", "chef", "zusammenarbeit", "läuft", "schritte", "starten", "loslegen"],
-      answer: "Für Unternehmen gibt es den KI Einstieg: zuerst ein kostenloses Screening (10–15 Minuten), dann eine Auftragsklärung (60 Minuten) und einen Arbeitsworkshop (3 × 45 Minuten). Kalkuliert wird individuell nach der Auftragsklärung.",
+      answer: "Für Unternehmen gibt es den KI Einstieg: zuerst ein kostenloses Screening (10–15 Minuten), dann eine Auftragsklärung (60 Minuten) und einen Arbeitsworkshop (3 × 45 Minuten).",
     },
     {
       title: "Unternehmens-KI-Check",
@@ -160,19 +160,12 @@ window.PAUL_WISSEN = {
       },
     },
     {
-      title: "Preise",
-      url: "index.html#mitarbeiter",
+      // Preise stehen nicht auf der Website: Kosten klärt Stefan persönlich
+      title: "Anfragen",
+      url: "index.html#kontakt",
       keywords: ["preis", "kost", "euro", "teuer", "günstig", "budget", "honorar", "bezahl", "gebühr"],
-      boost: 2, // Preisfragen haben Vorrang vor dem Angebot, nach dem gefragt wird
-      // Antwort hängt von SHOW_PRICES in config.js ab
-      answer: function (config) {
-        var p = config.prices || {};
-        if (config.SHOW_PRICES && p.learningOffer) {
-          return "Das Kennenlernangebot für die Trainings kostet " + p.learningOffer + " €, der geplante reguläre Preis liegt bei " + p.regular + " €. Beratung für Unternehmen wird nach der Auftragsklärung individuell kalkuliert.";
-        }
-        return "Die Preise gibt es auf Anfrage. Das Screening im Erstgespräch ist kostenlos – dort klärt Stefan mit Dir, was passt und was es kostet.";
-      },
-      more: { label: "Anfragen", url: "index.html#kontakt" },
+      boost: 2, // Kostenfragen haben Vorrang vor dem Angebot, nach dem gefragt wird
+      answer: "Die Kosten bespricht Stefan persönlich mit Dir. Das Screening im Erstgespräch ist kostenlos.",
     },
     {
       title: "KI-Kompass: Welches Modell passt?",
