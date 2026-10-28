@@ -300,6 +300,9 @@
     clearTimeout(hideTimer);
     if (current && current !== trigger) current.removeAttribute("aria-describedby");
     current = trigger;
+    // Offene Dialoge liegen über der Seite: Quickinfo dort einhängen, sonst bleibt sie verdeckt
+    var host = trigger.closest("dialog") || document.body;
+    if (box.parentNode !== host) host.appendChild(box);
     box.querySelector(".tooltip-term").textContent = trigger.textContent;
     box.querySelector(".tooltip-text").textContent = entry.text;
     box.querySelector(".tooltip-example").textContent = entry.example ? "Beispiel: " + entry.example : "";
