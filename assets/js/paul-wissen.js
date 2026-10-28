@@ -13,7 +13,7 @@ window.PAUL_WISSEN = {
   ],
 
   fallback: "Dazu weiß ich leider nichts Genaues. Frag am besten Stefan direkt – er meldet sich gern bei Dir.",
-  fallbackLink: { label: "Erstgespräch anfragen", url: "index.html#kontakt" },
+  fallbackLink: { label: "Anfragen", url: "index.html#kontakt" },
 
   // Wird eine Frage mit „id“ in einer Sitzung erneut gestellt, setzt Paul diesen Satz davor
   repeatIntro: "Das hab ich Dir doch schon gesagt, aber ich sage es gern nochmal:",
@@ -141,7 +141,7 @@ window.PAUL_WISSEN = {
       answer: "Stefan Hansen verbindet Management-Erfahrung mit dem pragmatischen Einsatz von KI. Sein Hintergrund: Organisationsentwicklung, Management und Vertrieb im Healthcaresektor.",
     },
     {
-      title: "Erstgespräch anfragen",
+      title: "Anfragen",
       url: "index.html#kontakt",
       keywords: ["kontakt", "anfrag", "erstgespräch", "anruf", "telefon", "mail", "erreich", "melden", "schreiben"],
       answer: "Über das Kontaktformular kannst Du ein kostenloses Erstgespräch anfragen – ein unverbindliches Kennenlerngespräch am Telefon von etwa 15 Minuten. Danach weißt Du, welches Angebot passt, und entscheidest in Ruhe.",
@@ -172,7 +172,7 @@ window.PAUL_WISSEN = {
         }
         return "Die Preise gibt es auf Anfrage. Das Screening im Erstgespräch ist kostenlos – dort klärt Stefan mit Dir, was passt und was es kostet.";
       },
-      more: { label: "Erstgespräch anfragen", url: "index.html#kontakt" },
+      more: { label: "Anfragen", url: "index.html#kontakt" },
     },
     {
       title: "KI-Kompass: Welches Modell passt?",
