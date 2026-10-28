@@ -229,24 +229,37 @@
     return typeof entry.answer === "function" ? entry.answer(config) : entry.answer;
   }
 
+  // Für Antworten nach Schlagwörtern (und als Kontext für das Sprachmodell) zählen auch die
+  // Fragen aus Webseiten-Wissen und Basiswissen; ihr erster Link wird zum Ziel-Link
+  var scored = W.entries.concat((W.webseite || []).concat(W.basiswissen || []).map(function (t) {
+    var links = t.links || [];
+    return {
+      title: t.title, keywords: t.keywords || [], answer: t.answer,
+      url: links[0] && links[0].url, label: links[0] && links[0].label, more: links[1],
+    };
+  }));
+
   function localAnswer(question) {
     var q = normalize(question);
     var words = q.split(" ").filter(function (w) { return w.length > 1; });
 
-    for (var i = 0; i < W.smalltalk.length; i++) {
-      var talk = W.smalltalk[i];
+    // Feste Antworten: Smalltalk, Webseiten-Wissen, Basiswissen (in dieser Reihenfolge)
+    var fixed = W.smalltalk.concat(W.webseite || [], W.basiswissen || []);
+    for (var i = 0; i < fixed.length; i++) {
+      var talk = fixed[i];
       if (!new RegExp(talk.match).test(q)) continue;
-      // Feste Antworten: beim zweiten Mal in derselben Sitzung mit freundlichem Hinweis davor
+      var links = talk.links || [];
+      // Beim zweiten Mal in derselben Sitzung mit freundlichem Hinweis davor
       if (talk.id) {
         var asked = (load("sessionStorage", "paul-asked") || "").split(",");
-        if (asked.indexOf(talk.id) !== -1) return { text: W.repeatIntro + "\n\n" + talk.answer, links: [], fixed: true };
+        if (asked.indexOf(talk.id) !== -1) return { text: W.repeatIntro + "\n\n" + talk.answer, links: links, fixed: true };
         asked.push(talk.id);
         save("sessionStorage", "paul-asked", asked.filter(Boolean).join(","));
       }
-      return { text: talk.answer, links: [], fixed: true };
+      return { text: talk.answer, links: links, fixed: true };
     }
 
-    var ranked = W.entries.map(function (e) { return { entry: e, points: score(e, q, words) }; })
+    var ranked = scored.map(function (e) { return { entry: e, points: score(e, q, words) }; })
       .filter(function (r) { return r.points >= 2; })
       .sort(function (a, b) { return b.points - a.points; });
 
@@ -265,16 +278,20 @@
     if (!ranked.length) return { text: W.fallback, links: [W.fallbackLink], fallback: true };
 
     var best = ranked[0].entry;
-    var links = [{ label: best.title, url: best.url }];
+    var links = best.url ? [{ label: best.label || best.title, url: best.url }] : [];
     if (best.more) links.push(best.more);
     ranked.slice(1, 3).forEach(function (r) {
-      if (r.points >= ranked[0].points - 1 && links.length < 3) links.push({ label: r.entry.title, url: r.entry.url });
+      var e = r.entry;
+      if (e.url && r.points >= ranked[0].points - 1 && links.length < 3 && !links.some(function (l) { return l.url === e.url; })) {
+        links.push({ label: e.label || e.title, url: e.url });
+      }
     });
     return { text: resolveAnswer(best), links: links, context: ranked.slice(0, 3) };
   }
 
   // Mit Proxy: Sprachmodell erhält die Frage und die passenden Website-Inhalte als Kontext.
-  // Feste Antworten (Smalltalk, Glossar) bleiben lokal; ist der Proxy nicht erreichbar, ebenso.
+  // Feste Antworten (Smalltalk, Webseiten-Wissen, Basiswissen, Glossar) bleiben lokal;
+  // ist der Proxy nicht erreichbar, ebenso.
   function remoteAnswer(question, local) {
     var context = (local.context || []).map(function (r) {
       return { title: r.entry.title, url: r.entry.url, answer: resolveAnswer(r.entry) };
