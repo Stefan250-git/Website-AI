@@ -121,6 +121,12 @@
   function save(data) {
     try { sessionStorage.setItem(STORE, JSON.stringify(data)); } catch (e) { /* ohne Speicher weiter */ }
   }
+  // Zwischenstand merken, damit der Check von jedem Einstieg aus dort weitergeht (ersetzt ein altes Ergebnis)
+  function saveProgress() {
+    var had = load();
+    save({ answers: answers, step: current });
+    if (had && had.summary) document.dispatchEvent(new CustomEvent("kicheck:done"));
+  }
 
   /* ---------- Auswertung ---------- */
   function evaluate() {
@@ -189,6 +195,7 @@
   function showQuestion(qi) {
     current = qi;
     progress(qi);
+    saveProgress();
     var q = CHECK.questions[qi];
     var picked = answers[qi] || [];
     var full = picked.length >= CHECK.maxAnswers;
@@ -267,6 +274,7 @@
       box.closest(".check-option").classList.toggle("is-on", box.checked);
     });
     answers[current] = picked;
+    saveProgress();
     var full = picked.length >= CHECK.maxAnswers;
     stage.querySelectorAll(".check-options input").forEach(function (box) {
       box.disabled = !box.checked && full;
@@ -308,13 +316,19 @@
     if (e.target === dialog) dialog.close();
   });
 
+  // Gespeicherten Stand fortsetzen: Ergebnis, angefangene Frage oder Einleitung
+  function open() {
+    var stored = load();
+    answers = stored && stored.answers ? stored.answers : [];
+    stage.innerHTML = "";
+    dialog.showModal();
+    if (stored && stored.summary) showResult();
+    else if (stored && stored.step >= 0 && stored.step < CHECK.questions.length) showQuestion(stored.step);
+    else showIntro();
+  }
+  window.KiCheck = { open: open };
+
   document.querySelectorAll("[data-open-check]").forEach(function (btn) {
-    btn.addEventListener("click", function () {
-      var stored = load();
-      answers = stored && stored.answers ? stored.answers : [];
-      stage.innerHTML = "";
-      dialog.showModal();
-      if (stored) showResult(); else showIntro();
-    });
+    btn.addEventListener("click", open);
   });
 })();

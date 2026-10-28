@@ -374,18 +374,68 @@
   var attachBody = document.getElementById("check-attach-body");
   var attachToggle = document.getElementById("f-check");
 
+  /* Ausgefüllt (Zusammenfassung in sessionStorage): Ergebnis sichtbar, Haken gesetzt.
+     Nicht ausgefüllt: kein Haken, „mitsenden?“. Haken setzen öffnet den Check; wird er ohne Abschluss
+     geschlossen, fällt der Haken weg und Quickinfo plus Hinweis erklären, dass nichts mitgeschickt wird. */
+  var attachQ = document.getElementById("check-attach-q");
+  var attachTip = document.getElementById("check-attach-tip");
+  var attachNote = document.getElementById("check-attach-note");
+  var checkDialog = document.getElementById("ki-check");
+  var openedFromForm = false;
+  var tipTimer = null;
+
+  function checkSummary() {
+    try { return (JSON.parse(sessionStorage.getItem("ki-check") || "null") || {}).summary || ""; } catch (err) { return ""; }
+  }
+
   function showCheckAttachment() {
     if (!attach) return;
-    var text = null;
-    try { text = (JSON.parse(sessionStorage.getItem("ki-check") || "null") || {}).summary; } catch (err) { text = null; }
-    attach.hidden = !text;
-    if (text) attachBody.textContent = text;
+    if (!checkDialog || typeof checkDialog.showModal !== "function") return;
+    var text = checkSummary();
+    attach.hidden = false;
+    attachBody.hidden = !text;
+    attachBody.textContent = text;
+    attachQ.hidden = !!text;
+    if (text) { attachToggle.checked = true; attachNote.hidden = true; hideTip(); }
+    else attachToggle.checked = false;
   }
-  showCheckAttachment();
-  document.addEventListener("kicheck:done", showCheckAttachment);
+
+  function showTip(ms) {
+    clearTimeout(tipTimer);
+    attachTip.hidden = false;
+    if (ms) tipTimer = setTimeout(hideTip, ms);
+  }
+  function hideTip() {
+    clearTimeout(tipTimer);
+    attachTip.hidden = true;
+  }
+
+  if (attach) {
+    showCheckAttachment();
+    document.addEventListener("kicheck:done", showCheckAttachment);
+
+    attachToggle.addEventListener("change", function () {
+      if (!attachToggle.checked || checkSummary() || !window.KiCheck) return;
+      openedFromForm = true;
+      hideTip();
+      window.KiCheck.open();
+    });
+
+    if (checkDialog) checkDialog.addEventListener("close", function () {
+      if (!openedFromForm) return;
+      openedFromForm = false;
+      showCheckAttachment();
+      if (checkSummary()) return;
+      attachNote.hidden = false;
+      showTip(6000);
+    });
+
+    attachQ.addEventListener("mouseenter", function () { showTip(); });
+    attachQ.addEventListener("mouseleave", hideTip);
+  }
 
   function checkAttachment() {
-    return attach && !attach.hidden && attachToggle.checked ? attachBody.textContent : "";
+    return attach && !attach.hidden && attachToggle.checked ? checkSummary() : "";
   }
 
   form.addEventListener("submit", function (e) {

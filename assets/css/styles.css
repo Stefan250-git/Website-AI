@@ -837,7 +837,18 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .check-note { margin-top: 12px; font-size: .85rem; color: var(--muted); }
 
 .check-attach { padding: 16px 18px; border-radius: 12px; background: var(--green-soft); }
-.check-attach-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
+.check-attach[hidden], .check-attach [hidden] { display: none; }
+.check-attach-q { margin-left: -6px; font-weight: 700; color: var(--green-dark); }
+.check-attach-tip {
+  position: absolute; z-index: 5; top: calc(100% + 10px); right: 0; width: max-content; max-width: min(300px, 100%);
+  padding: 12px 14px; border-radius: 12px; background: var(--navy); color: #d6dbe5;
+  font-size: .88rem; line-height: 1.5; box-shadow: 0 12px 32px rgba(13, 29, 55, .25); animation: tip-in .15s ease-out;
+}
+.check-attach-tip::before {
+  content: ""; position: absolute; top: -6px; right: 22px; width: 12px; height: 12px; background: var(--navy); transform: rotate(45deg);
+}
+.check-attach-note { margin: 8px 0 0; font-size: .88rem; color: var(--navy-80); }
+.check-attach-head { position: relative; display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 8px 16px; }
 .check-attach-head strong { color: var(--navy); }
 .check-attach-toggle { display: inline-flex; align-items: center; gap: 8px; font-weight: 400 !important; color: var(--navy-80) !important; cursor: pointer; }
 .check-attach-toggle input { width: 18px; height: 18px; min-height: 0; accent-color: var(--green); }
