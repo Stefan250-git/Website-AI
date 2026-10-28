@@ -685,6 +685,92 @@
     });
   });
 
+  /* ---------- Kellerlampe: Licht für Paul vor dunklem Hintergrund ----------
+     Liegt hinter Paul eine dunkle Fläche, erscheint am rechten Rand über seinem Kopf eine Glühlampe
+     mit Zugkette (.is-dark). Bleibt es dunkel, zieht Paul an der Kette: Sie wackelt, die Lampe geht an
+     und beleuchtet ihn, das Fell schimmert leicht (.is-lit). Wird es hell, verschwindet die Lampe – beliebig oft.
+     Ein Klick auf die Lampe schaltet das Licht aus oder wieder an; „aus“ gilt für die Sitzung. */
+  var LIGHT_DELAY = 1400; // so lange muss es dunkel bleiben, bevor das Licht angeht
+  var lampOff = load("sessionStorage", "paul-lamp") === "off";
+  var lamp = document.createElement("button");
+  lamp.type = "button";
+  lamp.className = "paul-lamp";
+  lamp.tabIndex = -1;
+  lamp.setAttribute("aria-hidden", "true");
+  lamp.setAttribute("aria-label", "Licht für Paul");
+  lamp.innerHTML =
+    '<svg viewBox="0 0 44 130" fill="none" stroke-linecap="round" stroke-linejoin="round">' +
+    '<path d="M18 0v44" stroke="#3a3f48" stroke-width="1.6"/>' +
+    '<rect x="12" y="44" width="12" height="13" rx="2" fill="#5b616c"/>' +
+    '<path d="M13 49h10M13 53h10" stroke="#3f444d" stroke-width="1"/>' +
+    '<path class="paul-lamp-bulb" d="M14 57h8c0 4 7 7 7 16a11 11 0 0 1-22 0c0-9 7-12 7-16z" stroke="#9aa3ae" stroke-width="1.2"/>' +
+    '<path class="paul-lamp-wire" d="M16 57v9l2 4 2-4v-9" stroke-width="1"/>' +
+    '<g class="paul-lamp-chain"><path d="M24 54v52" stroke="#9aa3ae" stroke-width="1.6" stroke-dasharray="1.6 2.4"/>' +
+    '<circle cx="24" cy="109" r="2.6" fill="#9aa3ae"/></g>' +
+    '</svg>';
+  root.insertBefore(lamp, catBtn);
+  var light = document.createElement("div");
+  light.className = "paul-light";
+  light.setAttribute("aria-hidden", "true");
+  root.insertBefore(light, catBtn);
+
+  // Erste sichtbare Hintergrundfarbe hinter einem Punkt; Paul selbst wird übersprungen
+  function backgroundAt(x, y) {
+    var stack = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [];
+    for (var i = 0; i < stack.length; i++) {
+      if (root.contains(stack[i])) continue;
+      var m = getComputedStyle(stack[i]).backgroundColor.match(/[\d.]+/g);
+      if (m && (m[3] === undefined || +m[3] > .5)) return m.map(Number);
+    }
+    return [255, 255, 255];
+  }
+
+  function isDarkBehind() {
+    var r = catBtn.getBoundingClientRect();
+    var c = backgroundAt(r.left + r.width / 2, r.top + r.height * .4);
+    return (.2126 * c[0] + .7152 * c[1] + .0722 * c[2]) / 255 < .35;
+  }
+
+  var lightTimer = null, checkFrame = null;
+  function checkLight() {
+    checkFrame = null;
+    var dark = !root.classList.contains("is-away") && isDarkBehind();
+    if (dark === root.classList.contains("is-dark")) return;
+    clearTimeout(lightTimer);
+    root.classList.toggle("is-dark", dark);
+    // Nur sichtbar bedienbar: bei hellem Hintergrund nicht fokussierbar und für Screenreader verborgen
+    lamp.tabIndex = dark ? 0 : -1;
+    lamp.setAttribute("aria-hidden", dark ? "false" : "true");
+    if (!dark) { root.classList.remove("is-lit", "is-pulling"); return; }
+    setLamp(false);
+    if (!lampOff) lightTimer = setTimeout(function () { switchLamp(true); }, reduceMotion ? 0 : LIGHT_DELAY);
+  }
+
+  function setLamp(on) {
+    root.classList.toggle("is-lit", on);
+    lamp.setAttribute("aria-pressed", on ? "true" : "false");
+  }
+  // Licht schalten wie mit der Zugkette: Kette wackelt, dann an oder aus
+  function switchLamp(on) {
+    setLamp(on);
+    if (!reduceMotion) play("is-pulling", 1200);
+  }
+  lamp.addEventListener("click", function () {
+    if (!root.classList.contains("is-dark")) return;
+    clearTimeout(lightTimer);
+    var on = !root.classList.contains("is-lit");
+    lampOff = !on;
+    save("sessionStorage", "paul-lamp", on ? null : "off");
+    switchLamp(on);
+  });
+  function scheduleLight() {
+    if (!checkFrame) checkFrame = requestAnimationFrame(checkLight);
+  }
+  window.addEventListener("scroll", scheduleLight, { passive: true });
+  window.addEventListener("resize", scheduleLight);
+  setInterval(checkLight, 1000); // auch ohne Scrollen, z. B. nach Wegklicken oder geöffneten Bereichen
+  setTimeout(scheduleLight, 600);
+
   /* ---------- Start ---------- */
   if (load("localStorage", "paul-away") === "1") {
     root.classList.add("is-away");
