@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=32">
+  <link rel="stylesheet" href="assets/css/styles.css?v=33">
 
   <script type="application/ld+json">
   {
@@ -439,13 +439,15 @@
                 <label for="f-message">Nachricht <span class="opt">(optional)</span></label>
                 <textarea id="f-message" name="message" rows="4"></textarea>
               </div>
-              <!-- Ergebnis des Unternehmens-KI-Checks (main.js füllt es, wenn in dieser Sitzung vorhanden) -->
+              <!-- Unternehmens-KI-Check als Anhang (main.js): ausgefüllt → Ergebnis, sonst „mitsenden?“ – Haken öffnet den Check -->
               <div class="field field-full check-attach" id="check-attach" hidden>
                 <div class="check-attach-head">
                   <strong>Ihr Unternehmens-KI-Check</strong>
-                  <label class="check-attach-toggle"><input id="f-check" type="checkbox" checked> mitsenden</label>
+                  <label class="check-attach-toggle"><input id="f-check" type="checkbox"> mitsenden<span class="check-attach-q" id="check-attach-q" aria-describedby="check-attach-tip" hidden>?</span></label>
+                  <span class="check-attach-tip" id="check-attach-tip" role="tooltip" hidden>Der Check ist nicht ausgefüllt und wird nicht als Gesprächsvorbereitung mitgeschickt. Haken setzen öffnet den Check.</span>
                 </div>
-                <pre class="check-attach-body" id="check-attach-body"></pre>
+                <p class="check-attach-note" id="check-attach-note" hidden>Nicht ausgefüllt – wird nicht als Gesprächsvorbereitung mitgeschickt.</p>
+                <pre class="check-attach-body" id="check-attach-body" hidden></pre>
               </div>
               <div class="field field-full">
                 <div class="checkbox">
@@ -578,8 +580,8 @@
   </footer>
 
   <script src="assets/js/config.js?v=16"></script>
-  <script src="assets/js/main.js?v=16"></script>
-  <script src="assets/js/ki-check.js?v=13"></script>
+  <script src="assets/js/main.js?v=17"></script>
+  <script src="assets/js/ki-check.js?v=14"></script>
   <script src="assets/js/glossar.js?v=14"></script>
   <script src="assets/js/termine.js?v=2"></script>
   <script src="assets/js/wissensfluss.js?v=4"></script>
