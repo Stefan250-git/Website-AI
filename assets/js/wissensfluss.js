@@ -71,27 +71,22 @@
     })(0);
   }
 
-  // Katze taucht rechts unterhalb der Karte auf und springt im Bogen nach unten rechts auf die Karte
+  // Katze springt in einem Satz von rechts unten im Bogen auf die Karte und setzt sich unten rechts
   function catJump() {
     if (!cat || !cat.animate) return;
     cat.classList.remove("is-sitting", "is-leaping");
     cat.classList.add("is-in");
+    cat.classList.add("is-leaping");
     cat.animate([
-      { transform: "translate(30px, 76px)", opacity: 0 },
-      { transform: "translate(30px, 56px)", opacity: 1 }
-    ], { duration: 500, easing: "ease-out", fill: "forwards" });
-    catTimers.push(setTimeout(function () {
-      cat.classList.add("is-leaping");
-      cat.animate([
-        { transform: "translate(30px, 56px)" },
-        { transform: "translate(14px, -16px)", offset: .55 },
-        { transform: "translate(0, 0)" }
-      ], { duration: 650, easing: "ease-in-out", fill: "forwards" });
-    }, 1200));
+      { transform: "translate(30px, 56px)", opacity: 0 },
+      { transform: "translate(22px, 14px)", opacity: 1, offset: .3 },
+      { transform: "translate(10px, -18px)", offset: .65 },
+      { transform: "translate(0, 0)", opacity: 1 }
+    ], { duration: 750, easing: "ease-in-out", fill: "forwards" });
     catTimers.push(setTimeout(function () {
       cat.classList.remove("is-leaping");
       cat.classList.add("is-sitting");
-    }, 1850));
+    }, 750));
   }
 
   function reset() {
