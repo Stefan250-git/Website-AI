@@ -143,8 +143,21 @@ window.PAUL_WISSEN = {
     {
       title: "Erstgespräch anfragen",
       url: "index.html#kontakt",
-      keywords: ["kontakt", "anfrag", "erstgespräch", "termin", "anruf", "telefon", "mail", "erreich", "melden", "buchen", "schreiben"],
-      answer: "Über das Kontaktformular kannst Du ein kostenloses Erstgespräch anfragen – ein Screening von etwa 15 Minuten. Danach weißt Du, welches Angebot passt, und entscheidest in Ruhe.",
+      keywords: ["kontakt", "anfrag", "erstgespräch", "anruf", "telefon", "mail", "erreich", "melden", "schreiben"],
+      answer: "Über das Kontaktformular kannst Du ein kostenloses Erstgespräch anfragen – ein Screening von etwa 10 Minuten. Danach weißt Du, welches Angebot passt, und entscheidest in Ruhe.",
+    },
+    {
+      title: "Termin wählen",
+      url: "index.html#kontakt",
+      keywords: ["termin", "uhrzeit", "datum", "zeitfenster", "verfügbar", "buchen", "reservier", "kalender", "montag", "dienstag", "mittwoch", "donnerstag", "freitag", "wochenende", "verschieb", "absag"],
+      // Nächste freie Termine aus config.js (termine), berechnet in termine.js
+      answer: function () {
+        var T = window.TERMINE;
+        var free = T ? T.slots().filter(function (s) { return !s.blocked; }) : [];
+        var base = "Feste Screening-Termine gibt es montags und mittwochs um 16:30 Uhr sowie dienstags und donnerstags um 9:00 Uhr, jeweils 15 Minuten. ";
+        if (!free.length) return base + "In den nächsten zwei Wochen ist leider alles vergeben. Schick trotzdem eine Anfrage über das Kontaktformular – Stefan meldet sich bei Dir.";
+        return base + "Als Nächstes frei: " + free.slice(0, 3).map(T.label).join("; ") + ". Im Kontaktbereich wählst Du über „Termin“ einen Zeitpunkt aus und sendest ihn mit Deiner Anfrage mit; Stefan bestätigt ihn dann. Verschieben oder absagen kannst Du per Nachricht an Stefan.";
+      },
     },
     {
       title: "Preise",

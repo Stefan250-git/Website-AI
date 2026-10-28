@@ -23,6 +23,22 @@ window.SITE_CONFIG = {
     formEndpoint: "",   // optional: URL eines Formular-Dienstes (POST, FormData); hat Vorrang vor E-Mail
   },
 
+  // Terminauswahl für das Screening (assets/js/termine.js) – Dialog im Kontaktbereich, Antworten von Paul
+  termine: {
+    // Feste Wochentermine: day 1 = Montag … 5 = Freitag, Uhrzeit, Blocklänge in Minuten
+    slots: [
+      { day: 1, time: "16:30", minutes: 15 },
+      { day: 2, time: "09:00", minutes: 15 },
+      { day: 3, time: "16:30", minutes: 15 },
+      { day: 4, time: "09:00", minutes: 15 },
+    ],
+    show: 6,          // so viele Termine zeigt der Dialog
+    days: 14,         // Zeitraum ab heute
+    blockFirst: 2,    // die nächsten zwei Termine ab heute sind immer ausgegraut (Vorlauf)
+    // Bereits vergebene Termine – werden ausgegraut. Format "JJJJ-MM-TT HH:MM", z. B. "2026-11-02 16:30"
+    booked: [],
+  },
+
   // Paul, der Website-Kater (assets/js/paul.js)
   paul: {
     // Leer = Paul antwortet aus assets/js/paul-wissen.js (keine Daten verlassen den Browser).

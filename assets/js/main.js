@@ -406,7 +406,9 @@
           if (!res.ok) throw new Error(res.status);
           form.reset();
           updateCompanyRequirement();
-          setStatus("Vielen Dank. Ihre Anfrage ist angekommen – ich melde mich zur Terminabstimmung für das Screening.", "success");
+          setStatus(data.get("termin")
+            ? "Vielen Dank. Ihre Anfrage ist angekommen – ich bestätige Ihnen den Termin " + data.get("termin") + "."
+            : "Vielen Dank. Ihre Anfrage ist angekommen – ich melde mich zur Terminabstimmung für das Screening.", "success");
         })
         .catch(function () {
           setStatus("Die Anfrage konnte leider nicht gesendet werden. Bitte versuchen Sie es später erneut.", "error");
@@ -422,6 +424,7 @@
         "Thema: " + data.get("topic"),
         "Unternehmen: " + (data.get("company") || "–"),
         "Telefon: " + data.get("phone"),
+        "Wunschtermin Screening: " + (data.get("termin") || "–"),
         "",
         data.get("message") || "",
       ];
