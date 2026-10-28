@@ -1084,8 +1084,9 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   to { filter: drop-shadow(0 0 1.5px rgba(255, 232, 185, 1)) drop-shadow(-2px -3px 8px rgba(255, 210, 130, .5)); }
 }
 .paul.is-away .paul-lamp, .paul.is-away .paul-light { display: none; }
-/* Sprechblasen haben Vorrang: solange eine offen ist, bleibt die Lampe unsichtbar */
-.paul-bubble:not([hidden]) ~ .paul-lamp, .paul-teaser:not([hidden]) ~ .paul-lamp { opacity: 0; pointer-events: none; }
+/* Solange die Lampe da ist, rücken die Sprechblasen nach links, damit die Lampe erreichbar bleibt */
+.paul.is-dark .paul-bubble { right: 56px; width: min(290px, calc(100vw - 104px)); }
+.paul.is-dark .paul-teaser { right: 60px; }
 
 @media print { .paul { display: none; } }
 
@@ -1185,6 +1186,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .paul-light::after { right: 26px; width: 110px; height: 96px; }
   .paul-teaser { bottom: 118px; max-width: 200px; }
   .paul-bubble { bottom: 118px; right: -2px; }
+  .paul.is-dark .paul-bubble { right: 42px; width: min(290px, calc(100vw - 72px)); }
+  .paul.is-dark .paul-teaser { right: 44px; }
   .panel { padding: 24px 18px; }
   .theme { grid-template-columns: 1fr; }
   .seg { display: flex; }
