@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=15">
+  <link rel="stylesheet" href="assets/css/styles.css?v=21">
 
   <script type="application/ld+json">
   {
@@ -237,36 +237,96 @@
             <p class="offer-sub">Für Ausbildungsbetriebe und Bildungsträger</p>
           </div>
           <div class="offer-body">
-            <p>Wann hilft KI bei der Arbeit – und wann braucht es eigenes Fachwissen? Auszubildende lernen den Umgang mit Unternehmensdaten und üben, Ergebnisse fachlich zu prüfen.</p>
+            <p>Wann hilft KI bei der Arbeit – und wann braucht es eigenes Fachwissen? Auszubildende arbeiten mit Aufgaben aus ihrem Betrieb und lernen, wo KI ihnen hilft und wo ihr Fachwissen gefragt ist:</p>
+            <ol class="standard">
+              <li>Freigaben im Betrieb kennen</li>
+              <li>Unternehmensdaten schützen</li>
+              <li>Quellen prüfen</li>
+              <li>Ergebnis fachlich prüfen</li>
+              <li>Verantwortung übernehmen</li>
+              <li>Bei Unsicherheit nachfragen</li>
+            </ol>
+            <p class="offer-meta">Inhalte und Umfang stimmen wir mit Ausbildungsbetrieb oder Bildungsträger ab.</p>
             <a class="text-link" href="#kontakt" data-topic="young-ausbildung">Anfragen</a>
           </div>
         </article>
       </div>
     </section>
 
-    <!-- ===================== Bildband ===================== -->
-    <!-- Foto: Natur, ruhig und weit (Datei: assets/img/natur.jpg, Bildrechte dokumentieren – PRD §31) -->
+    <!-- ===================== Bildband =====================
+         Ausgeblendet, bis assets/img/natur.jpg vorliegt (ohne Foto bleibt nur eine leere Tonfläche).
+         Foto: Natur, ruhig und weit, Bildrechte dokumentieren – PRD §31
     <div class="photo photo-band photo-natur" aria-hidden="true"></div>
+    -->
 
     <!-- ===================== Wissensbasis (hervorgehoben) ===================== -->
-    <section class="section section-navy" id="wissensbasis" aria-labelledby="wissen-title">
-      <div class="container split">
-        <div class="span-6">
+    <section class="section section-navy wissen" id="wissensbasis" aria-labelledby="wissen-title">
+      <div class="container">
+        <div class="section-head">
           <p class="kicker">Geschäftswissen / Wissensbasis</p>
-          <h2 id="wissen-title">Wissen finden, wenn es gebraucht wird.</h2>
-          <p class="lead">Erst wenn klar ist, welche Quelle gilt und wer sie pflegt, kann KI beim Finden und Zusammenfassen helfen.</p>
-          <div class="hero-actions">
-            <a class="btn btn-on-dark" href="#kontakt" data-topic="wissensbasis">Erstgespräch anfragen</a>
-          </div>
+          <h2 id="wissen-title">Wissen ist vorhanden. Aber wie schnell ist es verfügbar?</h2>
+          <p class="lead">Die Atlassian-Studie „The State of Teams 2025“ hat Teams und Führungskräfte befragt. Das Ergebnis:</p>
         </div>
-        <div class="span-6">
+
+        <!-- Kennzahlen: Atlassian, The State of Teams 2025, S. 8 und 10 – Werte nicht umdeuten -->
+        <div class="stats" data-reveal>
+          <figure class="stat">
+            <div class="week" aria-hidden="true">
+              <div class="week-people"><i class="is-hit"></i><i></i><i></i><i></i><span>1 von 4 Befragten</span></div>
+              <div class="week-bar">
+                <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span>
+                <b class="week-search">Suchen</b>
+              </div>
+            </div>
+            <p class="stat-figure">25&#8239;<span>%</span></p>
+            <figcaption>der Befragten verbringen etwa <strong>ein Viertel ihrer Arbeitswoche</strong> mit der Suche nach Informationen.</figcaption>
+          </figure>
+
+          <figure class="stat">
+            <svg class="dots" viewBox="0 0 100 100" aria-hidden="true">
+              <defs>
+                <pattern id="wissen-dot" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="3.4" fill="#fff" /></pattern>
+                <mask id="wissen-dots"><rect width="100" height="100" fill="url(#wissen-dot)" /></mask>
+              </defs>
+              <!-- 100 Punkte, davon 56 markiert (5 Reihen + 6) -->
+              <g mask="url(#wissen-dots)">
+                <rect class="dots-rest" width="100" height="100" />
+                <g class="dots-hit">
+                  <rect y="50" width="100" height="50" />
+                  <rect x="40" y="40" width="60" height="10" />
+                </g>
+              </g>
+            </svg>
+            <p class="stat-figure">56&#8239;<span>%</span></p>
+            <figcaption>müssen häufig <strong>andere fragen oder ein Meeting ansetzen</strong>, um benötigte Informationen zu bekommen.</figcaption>
+          </figure>
+
+          <figure class="stat">
+            <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
+              <circle class="ring-rest" cx="60" cy="60" r="50" pathLength="100" />
+              <circle class="ring-hit" cx="60" cy="60" r="50" pathLength="100" />
+            </svg>
+            <p class="stat-figure">71&#8239;<span>%</span></p>
+            <figcaption>der Teams schöpfen die Möglichkeiten von KI beim Verwalten und Finden von Informationen <strong>nicht vollständig aus</strong>.</figcaption>
+          </figure>
+        </div>
+
+        <p class="stats-source">Quelle: <a href="https://atlassianblog.wpengine.com/wp-content/uploads/2025/03/the-state-of-teams-2025.pdf" target="_blank" rel="noopener noreferrer">Atlassian, The State of Teams 2025</a>
+          <small>Abschnitt „Challenges“, S. 8 und 10. Befragung von 12.000 Wissensarbeitenden in den USA, Großbritannien, Australien, Indien, Deutschland und Frankreich sowie 200 Führungskräften aus Fortune-1000-Unternehmen (den 1.000 umsatzstärksten US-Firmen; 88 % in den USA).</small></p>
+
+        <div class="familiar" data-reveal>
           <h3>Kommt Ihnen das bekannt vor?</h3>
-          <ul class="problem-list">
+          <ul class="familiar-list">
             <li>Informationen werden gesucht statt gefunden.</li>
             <li>Wissen steckt in einzelnen Köpfen.</li>
             <li>Mehrere Versionen existieren – welche gilt?</li>
             <li>Neue Mitarbeitende brauchen lange Einarbeitung.</li>
           </ul>
+          <button class="btn btn-outline-light familiar-flow" type="button" data-open-flow aria-haspopup="dialog">So kann eine Lösung aussehen</button>
+          <div class="familiar-cta">
+            <p class="lead">Erst wenn klar ist, welche Quelle gilt und wer sie pflegt, kann KI beim Finden und Zusammenfassen helfen.</p>
+            <a class="btn btn-on-dark" href="#kontakt" data-topic="wissensbasis">Erstgespräch anfragen</a>
+          </div>
         </div>
       </div>
     </section>
@@ -427,6 +487,55 @@
     </div>
   </dialog>
 
+  <!-- ===================== Lösungsskizze Wissensbasis (Dialog) =====================
+       Felder und Pfeile mit .flow-step erscheinen in Dokument-Reihenfolge, Ablauf in assets/js/wissensfluss.js -->
+  <dialog class="check-dialog flow-dialog" id="flow-dialog" aria-labelledby="flow-title">
+    <button class="check-close" type="button" aria-label="Lösungsskizze schließen">×</button>
+    <div class="check-stage">
+      <p class="kicker">Lösungsskizze</p>
+      <h2 id="flow-title">So kann eine Lösung aussehen.</h2>
+      <p class="check-lead" data-glossar>Viele Quellen fließen in eine gepflegte Single Source of Truth. Darauf greifen Automatisierung und KI zu.</p>
+
+      <div class="flow" data-glossar>
+        <div class="flow-col">
+          <p class="flow-label">Quellen</p>
+          <span class="flow-step flow-item">E-Mails</span>
+          <span class="flow-step flow-item">Dateien und Laufwerke</span>
+          <span class="flow-step flow-item">Meetings und Protokolle</span>
+          <span class="flow-step flow-item">Chats</span>
+          <span class="flow-step flow-item">Daten aus ERP und CRM</span>
+          <span class="flow-step flow-item">Erfahrung der Mitarbeitenden</span>
+        </div>
+        <span class="flow-step flow-arrow" aria-hidden="true"></span>
+        <div class="flow-col">
+          <p class="flow-label">Gemeinsame Wissensbasis</p>
+          <div class="flow-step flow-core">
+            <strong>Single Source of Truth</strong>
+            <span>Jede Information an einer Stelle, geprüft und mit festen Verantwortlichen.</span>
+          </div>
+        </div>
+        <span class="flow-step flow-arrow" aria-hidden="true"></span>
+        <div class="flow-col">
+          <p class="flow-label">Angedockt</p>
+          <span class="flow-step flow-item flow-tool"><strong>n8n</strong> Abläufe automatisieren</span>
+          <span class="flow-step flow-item flow-tool"><strong>KI-Modell</strong> suchen und zusammenfassen</span>
+          <span class="flow-step flow-item flow-tool"><strong>Zugriffsrechte</strong> wer was sehen darf</span>
+          <span class="flow-step flow-item flow-tool"><strong>Fachliche Prüfung</strong> Mensch gibt frei</span>
+        </div>
+        <span class="flow-step flow-arrow" aria-hidden="true"></span>
+        <div class="flow-col">
+          <p class="flow-label">Ausgabe</p>
+          <span class="flow-step flow-item flow-out">Antwort mit Quellenangabe</span>
+          <span class="flow-step flow-item flow-out">Zusammenfassung und Bericht</span>
+          <span class="flow-step flow-item flow-out">Unterlage zur Einarbeitung</span>
+          <span class="flow-step flow-item flow-out">Entwurf für Angebot oder E-Mail</span>
+        </div>
+      </div>
+
+      <p class="check-note">Beispielhafte Skizze. Welche Bausteine bei Ihnen passen, klären wir im Erstgespräch.</p>
+    </div>
+  </dialog>
+
   <!-- ===================== Footer ===================== -->
   <footer class="site-footer">
     <div class="container footer-inner">
@@ -446,11 +555,12 @@
   </footer>
 
   <script src="assets/js/config.js?v=16"></script>
-  <script src="assets/js/main.js?v=14"></script>
+  <script src="assets/js/main.js?v=16"></script>
   <script src="assets/js/ki-check.js?v=12"></script>
-  <script src="assets/js/glossar.js?v=12"></script>
+  <script src="assets/js/glossar.js?v=13"></script>
   <script src="assets/js/termine.js?v=2"></script>
-  <script src="assets/js/paul-wissen.js?v=15"></script>
+  <script src="assets/js/wissensfluss.js?v=1"></script>
+  <script src="assets/js/paul-wissen.js?v=17"></script>
   <script src="assets/js/paul.js?v=16"></script>
 </body>
 </html>

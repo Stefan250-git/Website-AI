@@ -101,6 +101,14 @@
       text: "Systematische Prüfung, wie gut und zuverlässig die KI-Antworten sind.",
       example: "50 typische Fragen mit bekannten Antworten werden regelmäßig erneut getestet.",
     },
+    "Single Source of Truth": {
+      text: "Eine einzige, verbindliche Quelle für eine Information. Alle arbeiten mit derselben, gepflegten Fassung.",
+      example: "Die aktuelle Preisliste liegt an genau einer Stelle – keine Kopien in Mails oder auf dem Desktop.",
+    },
+    "n8n": {
+      text: "Werkzeug, das Abläufe zwischen Programmen automatisiert, weitgehend ohne Programmierung. Lässt sich auch selbst betreiben.",
+      example: "Neue Anfrage per Mail → Daten ins CRM → kurze Zusammenfassung an den Vertrieb.",
+    },
     "Patching": {
       text: "Einspielen von Updates, die Fehler und Sicherheitslücken schließen.",
       example: "Wie das monatliche Windows-Update – nur für Server und KI-Software, und in Ihrer Verantwortung.",
