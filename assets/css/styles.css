@@ -721,13 +721,14 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 /* =========================================================
    Terminauswahl (termine.js) – Feld im Kontaktbereich, Dialog mit den nächsten Terminen
    ========================================================= */
-.termin-panel { margin-top: 20px; padding: 24px; border-radius: 16px; background: var(--white); border: 1px solid var(--line); }
-.termin-panel > p:first-child { color: var(--navy-80); }
+.termin-panel { margin-top: 20px; padding: 24px; border-radius: 16px; background: var(--green); color: var(--white); }
 .termin-panel .btn { margin-top: 16px; }
-.termin-chosen { margin-top: 16px; font-size: .95rem; color: var(--navy-80); }
-.termin-chosen strong { color: var(--green-dark); }
-.termin-remove { margin-left: 6px; padding: 0; border: 0; background: none; font: inherit; color: var(--muted); text-decoration: underline; cursor: pointer; }
-.termin-remove:hover { color: var(--navy); }
+.btn-on-green { background: var(--white); color: var(--green); }
+.btn-on-green:hover { background: var(--green-soft); color: var(--green-dark); }
+.termin-chosen { margin-top: 16px; font-size: .95rem; }
+.termin-chosen strong { color: var(--white); }
+.termin-remove { margin-left: 6px; padding: 0; border: 0; background: none; font: inherit; color: var(--white); opacity: .8; text-decoration: underline; cursor: pointer; }
+.termin-remove:hover { opacity: 1; }
 
 .termin-list { display: grid; grid-template-columns: repeat(2, 1fr); gap: 10px; margin: 20px 0 0; padding: 0; list-style: none; }
 .termin-slot {

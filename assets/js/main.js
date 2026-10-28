@@ -387,7 +387,7 @@
     });
 
     if (firstInvalid) {
-      setStatus("Bitte prüfen Sie die markierten Felder.", "error");
+      setStatus("Bitte füllen Sie alle Pflichtfelder (*) aus – nur dann kann ich Kontakt zu Ihnen aufnehmen.", "error");
       firstInvalid.focus();
       return;
     }

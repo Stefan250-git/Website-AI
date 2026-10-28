@@ -144,7 +144,7 @@ window.PAUL_WISSEN = {
       title: "Erstgespräch anfragen",
       url: "index.html#kontakt",
       keywords: ["kontakt", "anfrag", "erstgespräch", "anruf", "telefon", "mail", "erreich", "melden", "schreiben"],
-      answer: "Über das Kontaktformular kannst Du ein kostenloses Erstgespräch anfragen – ein Screening von etwa 10 Minuten. Danach weißt Du, welches Angebot passt, und entscheidest in Ruhe.",
+      answer: "Über das Kontaktformular kannst Du ein kostenloses Erstgespräch anfragen – ein unverbindliches Kennenlerngespräch am Telefon von etwa 15 Minuten. Danach weißt Du, welches Angebot passt, und entscheidest in Ruhe.",
     },
     {
       title: "Termin wählen",
