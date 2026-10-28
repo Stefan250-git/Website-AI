@@ -362,9 +362,80 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .card .text-link { margin-top: auto; }
 .card .price + .text-link { margin-top: 0; }
 
-/* ---------- Wissensbasis ---------- */
-.problem-list { list-style: none; margin-top: 20px; border-top: 1px solid rgba(255, 255, 255, .16); }
-.problem-list li { padding: 16px 0; border-bottom: 1px solid rgba(255, 255, 255, .16); color: #d6dbe5; }
+/* ---------- Wissensbasis: Kennzahlen (Atlassian-Studie) ----------
+   CI-Hellgrün markiert den Anteil, um den es geht; der Rest bleibt gedämpft.
+   [data-reveal].is-armed setzt main.js – ohne JS steht der Endzustand. */
+.stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.stat {
+  display: flex; flex-direction: column; gap: 12px; padding: 36px 32px;
+  border: 1px solid rgba(255, 255, 255, .14); border-radius: var(--radius); background: rgba(255, 255, 255, .03);
+}
+.stat-figure { margin-top: 12px; color: var(--green-light); font-size: clamp(3.4rem, 6vw, 5rem); font-weight: 700; line-height: 1; letter-spacing: -.04em; font-variant-numeric: tabular-nums; }
+.stat-figure span { font-size: .5em; letter-spacing: 0; }
+.stat figcaption { color: #c3cad7; max-width: 46ch; }
+.stat strong { color: var(--white); font-weight: 600; }
+
+.week { display: grid; gap: 16px; align-content: end; min-height: 132px; }
+.week-people { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; font-size: .9rem; color: #9aa4b6; }
+.week-people i { width: 18px; height: 18px; border-radius: 50%; background: rgba(255, 255, 255, .18); }
+.week-people i.is-hit { background: var(--green-light); }
+.week-people span { margin-left: 8px; }
+.week-bar {
+  position: relative; display: grid; grid-template-columns: repeat(5, 1fr); gap: 4px;
+  height: 64px; border-radius: 10px; overflow: hidden;
+}
+.week-bar span {
+  display: flex; align-items: flex-end; padding: 0 0 8px 10px;
+  background: rgba(255, 255, 255, .08); color: #9aa4b6; font-size: .82rem;
+}
+.week-search {
+  position: absolute; top: 0; right: 0; bottom: 0; width: 25%;
+  display: flex; align-items: center; justify-content: center; overflow: hidden;
+  background: repeating-linear-gradient(135deg, var(--green-light) 0 10px, #8cc4ae 10px 20px);
+  color: var(--navy); font-weight: 700; font-size: .95rem;
+  transition: width 2.6s cubic-bezier(.3, .6, .2, 1) .6s;
+}
+
+.dots, .ring { width: 132px; height: 132px; }
+.dots-rest { fill: rgba(255, 255, 255, .16); }
+.dots-hit rect { fill: var(--green-light); transition: opacity 1.2s .6s; }
+.dots-hit rect + rect { transition-delay: 1.8s; }
+.ring { transform: rotate(-90deg); }
+.ring circle { fill: none; stroke-width: 16; }
+.ring-rest { stroke: rgba(255, 255, 255, .14); }
+.ring-hit { stroke: var(--green-light); stroke-dasharray: 71 100; transition: stroke-dasharray 3s cubic-bezier(.3, .6, .2, 1) .6s; }
+
+.is-armed:not(.is-visible) .week-search { width: 0; }
+.is-armed:not(.is-visible) .dots-hit rect { opacity: 0; }
+.is-armed:not(.is-visible) .ring-hit { stroke-dasharray: 0 100; }
+
+.stats-source { margin-top: 20px; font-size: .82rem; color: #9aa4b6; max-width: 90ch; }
+.section-navy .stats-source a { color: var(--green-light); }
+
+/* „Kommt Ihnen das bekannt vor?“ – Punkte haken sich nacheinander ab */
+.familiar { margin-top: 96px; padding-top: 64px; border-top: 1px solid rgba(255, 255, 255, .16); }
+.familiar h3 { font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -.02em; }
+.familiar-list { list-style: none; display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px 24px; margin-top: 40px; }
+.familiar-list li {
+  position: relative; padding: 22px 24px 22px 72px; border-radius: var(--radius);
+  background: rgba(255, 255, 255, .05); color: var(--white); font-size: 1.12rem; font-weight: 600;
+}
+.familiar-list li::before {
+  content: ""; position: absolute; left: 24px; top: 50%; width: 28px; height: 28px; margin-top: -14px;
+  border: 2px solid var(--green-light); border-radius: 6px;
+}
+.familiar-list li::after {
+  content: ""; position: absolute; left: 34px; top: 50%; width: 8px; height: 15px; margin-top: -11px;
+  border: solid var(--green-light); border-width: 0 3px 3px 0; transform: rotate(45deg);
+  transition: opacity .4s, transform .6s;
+}
+.familiar-list li:nth-child(2)::after { transition-delay: 1s; }
+.familiar-list li:nth-child(3)::after { transition-delay: 2s; }
+.familiar-list li:nth-child(4)::after { transition-delay: 3s; }
+.is-armed:not(.is-visible) .familiar-list li::after { opacity: 0; transform: rotate(45deg) scale(.4); }
+.familiar-cta { display: flex; align-items: center; justify-content: space-between; gap: 24px 48px; margin-top: 48px; }
+.familiar-cta .lead { margin-top: 0; }
+.familiar-cta .btn { flex: none; }
 
 /* ---------- Über mich ---------- */
 .about .split { align-items: center; }
@@ -950,6 +1021,9 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .picker { grid-template-columns: 1fr; }
   .result-panel { position: static; }
   .arch-facts { grid-template-columns: 1fr; }
+  .stats, .familiar-list { grid-template-columns: 1fr; }
+  .familiar { margin-top: 72px; padding-top: 48px; }
+  .familiar-cta { flex-direction: column; align-items: flex-start; }
 }
 
 @media (max-width: 600px) {
@@ -1002,6 +1076,11 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .ampel dl { grid-template-columns: 1fr; }
   .wiz-actions .btn { width: 100%; }
   .contact-panel { padding: 28px 20px; }
+  .stat { padding: 28px 22px; }
+  .familiar-list li { padding: 18px 18px 18px 64px; font-size: 1.02rem; }
+  .familiar-list li::before { left: 18px; }
+  .familiar-list li::after { left: 28px; }
+  .familiar-cta .btn { width: 100%; }
   .form-footer .btn { width: 100%; }
 }
 
