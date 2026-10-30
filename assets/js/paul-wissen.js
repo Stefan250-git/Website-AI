@@ -160,9 +160,9 @@ window.PAUL_WISSEN = {
     },
     {
       id: "W05", title: "Unternehmens-KI-Check",
-      match: "ki-?check|unternehmens-?check|selbsttest|ki-?reife|sechs fragen|ob ki bei uns sinn",
+      match: "ki-?check|unternehmens-?check|selbsttest|ki-?reife|sechs fragen|sieben fragen|ob ki bei uns sinn",
       keywords: ["check", "test", "selbsttest", "potenzial", "reifegrad", "einschätz", "quiz", "fragebogen"],
-      answer: "Der Unternehmens-KI-Check besteht aus sechs kurzen Fragen und dauert etwa zwei Minuten. Er hilft, unnötige Reibung im Arbeitsalltag zu erkennen und erste mögliche KI-Anwendungen zu betrachten. Er ist eine Orientierung, keine vollständige technische oder rechtliche Prüfung.",
+      answer: "Der Unternehmens-KI-Check besteht aus sieben kurzen Fragen und dauert etwa zwei Minuten. Er hilft, unnötige Reibung im Arbeitsalltag zu erkennen und erste mögliche KI-Anwendungen zu betrachten. Er ist eine Orientierung, keine vollständige technische oder rechtliche Prüfung.",
       links: [{ label: "KI-Check starten", url: "index.html#ki-start" }],
     },
     {
@@ -381,10 +381,10 @@ window.PAUL_WISSEN = {
     },
     {
       id: "B15", title: "EU AI Act",
-      match: "ai act|ki-?verordnung|schulungspflicht|artikel 4|ki-?kompetenz|leute in ki schulen|regeln gelten beim einsatz",
+      match: "ai act|ki-?verordnung|schulungspflicht|artikel 4|ki-?kompetenz|leute in ki schulen|muss .*schulen|schul.*pflicht|regeln gelten beim einsatz",
       keywords: ["ai act", "verordnung", "schulungspflicht", "kompetenz"],
       answer: "Der EU AI Act regelt den Einsatz bestimmter KI-Systeme nach ihrem Risiko. Artikel 4 verpflichtet Anbieter und Betreiber von KI-Systemen, die KI-Kompetenz ihrer Mitarbeitenden und weiterer betroffener Personen zu fördern. Umfang und Inhalte hängen vom Einsatz ab; ein bestimmter Abschluss oder Standardkurs ist nicht vorgeschrieben. Maßgeblich sind die amtlichen Texte – das ist keine Rechtsberatung.",
-      links: [{ label: "Quelle: EU-Kommission, Art. 4", url: "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4" }],
+      links: [{ label: "KI-Kompetenz nach EU AI Act", url: "index.html#ki-kompetenz" }, { label: "Quelle: EU-Kommission, Art. 4", url: "https://ai-act-service-desk.ec.europa.eu/en/ai-act/article-4" }],
     },
     {
       id: "B20", title: "Was ist RAG?",

@@ -1,14 +1,14 @@
 (function () {
   "use strict";
 
-  /* ---------- Unternehmens-KI-Check: sechs Fragen im Dialog, Ergebnis Newbie / Basic / Expert ----------
+  /* ---------- Unternehmens-KI-Check: sieben Fragen im Dialog, Ergebnis Newbie / Basic / Expert ----------
      Inhalte unten anpassen. „score“ (0–3) fließt in die Einstufung ein; ohne „score“ zählt eine
      Antwort neutral. „tip“ ergänzt die Empfehlung. Speicherung nur in der Sitzung (sessionStorage). */
   var CHECK = {
     title: "KI im Unternehmen. Aber womit anfangen?",
     intro: "Finden Sie in etwa zwei Minuten heraus, wo Künstliche Intelligenz Ihren Arbeitsalltag erleichtern könnte und was Ihr Team dafür braucht.",
     rules: [
-      "Sechs kurze Fragen",
+      "Sieben kurze Fragen",
       "Pro Frage sind bis zu zwei Antworten möglich.",
       "Alle Antworten sind freiwillig – Sie können jede Frage überspringen.",
       "Es gibt keine richtigen oder falschen Antworten.",
@@ -44,6 +44,16 @@
           { label: "Einzelne nutzen KI bereits sicher.", score: 2 },
           { label: "Unser Team verfügt über grundlegende KI-Kenntnisse.", score: 3 },
           { label: "Das kann ich nicht einschätzen." },
+        ],
+      },
+      {
+        q: "Sind Ihre Mitarbeitenden für den Einsatz von KI geschult?",
+        options: [
+          { label: "Nein, bisher nicht.", score: 0, tip: "Seit Februar 2025 verlangt der EU AI Act ausreichende KI-Kompetenz bei Mitarbeitenden, die KI nutzen. Ein Training an Ihren eigenen Aufgaben ist ein guter Anfang." },
+          { label: "Einzelne haben sich selbst eingearbeitet.", score: 1, tip: "Selbst angeeignetes Wissen ist ein Anfang. Eine gemeinsame Schulung sorgt für einheitliche Regeln und lässt sich belegen." },
+          { label: "Es gab eine Schulung für Teile des Teams.", score: 2 },
+          { label: "Alle, die KI nutzen, sind geschult – das ist dokumentiert.", score: 3 },
+          { label: "Das weiß ich nicht." },
         ],
       },
       {
