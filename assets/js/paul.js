@@ -207,6 +207,7 @@
 
   function show(answer) {
     pin.hidden = false;  // ab der ersten Antwort bleibt der EU-AI-Act-Hinweis oben angepinnt
+    introOpen = false;   // wer fragt, hat die Infoblase gesehen – ab jetzt normales Verhalten
     var links = (answer.links || []).slice(0, 2);
     var paragraphs = String(answer.text).split(/\n\n+/).map(function (part) { return '<p>' + text(part) + '</p>'; }).join("");
     say.innerHTML = paragraphs + (links.length ? '<ul class="paul-links">' + links.map(function (l) {
@@ -418,6 +419,7 @@
 
   function close() {
     mode = null;
+    introOpen = false;
     clearTimeout(leaveTimer);
     bubble.hidden = true;
     reset();
@@ -471,6 +473,12 @@
   /* ---------- Darüberfahren: Paul blinzelt, die Blase geht kurz auf; nach dem Verlassen
      des Bereichs schließt sie sich nach etwa 3 Sekunden (nicht, solange getippt wird) ---------- */
   var LEAVE_DELAY = 3000;
+  // Infoblase beim Start: kurzes Darüberstreifen zählt nicht; erst nach INTRO_DWELL auf Paul
+  // gilt sie als gelesen und schließt dann INTRO_LEAVE_DELAY nach dem Verlassen
+  var INTRO_DWELL = 1500;
+  var INTRO_LEAVE_DELAY = 8000;
+  var introOpen = false;
+  var enteredAt = 0;
   var leaveTimer = null;
   var inside = false;
 
@@ -480,15 +488,16 @@
     root.classList.add("is-blink");
   }
 
-  function closeLater() {
+  function closeLater(delay) {
     clearTimeout(leaveTimer);
     leaveTimer = setTimeout(function () {
       if (!inside && document.activeElement !== input && !rec && !bubble.hidden) close();
-    }, LEAVE_DELAY);
+    }, delay || LEAVE_DELAY);
   }
 
   root.addEventListener("pointerenter", function (e) {
     inside = true;
+    enteredAt = Date.now();
     clearTimeout(leaveTimer);
     if (e.pointerType !== "mouse") return;
     var busyJumping = root.classList.contains("is-exit") || root.classList.contains("is-enter");
@@ -498,8 +507,15 @@
   });
   root.addEventListener("pointerleave", function () {
     inside = false;
-    if (!bubble.hidden) closeLater();
+    if (bubble.hidden) return;
+    if (introOpen) {
+      if (Date.now() - enteredAt < INTRO_DWELL) return;  // nur vorbeigestreift: Infoblase bleibt
+      introOpen = false;
+      return closeLater(INTRO_LEAVE_DELAY);
+    }
+    closeLater();
   });
+  input.addEventListener("focus", function () { introOpen = false; });
   input.addEventListener("blur", function () {
     if (!inside && !bubble.hidden) closeLater();
   });
@@ -812,10 +828,13 @@
     setTimeout(showIntro, 1500);
   }
 
-  // Auf jeder Seite startet Paul mit der Infoblase. Sie bleibt stehen, bis die Maus darüber
-  // war; danach schließt sie wie beim Darüberfahren nach LEAVE_DELAY und kommt per Mouseover wieder.
+  // Auf jeder Seite startet Paul mit der Infoblase. Sie bleibt stehen, bis die Maus mindestens
+  // INTRO_DWELL auf Paul war, schließt dann INTRO_LEAVE_DELAY nach dem Verlassen und kommt per
+  // Mouseover wieder (dann mit dem normalen LEAVE_DELAY).
   function showIntro() {
-    if (bubble.hidden && !root.classList.contains("is-away")) open("hover");
+    if (!bubble.hidden || root.classList.contains("is-away")) return;
+    open("hover");
+    introOpen = true;
   }
   save("sessionStorage", "paul-enter", null);
 })();
