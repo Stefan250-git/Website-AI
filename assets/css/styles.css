@@ -324,6 +324,13 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .offer-law { padding: 48px; border-top: 0; border-radius: var(--radius); background: var(--green-soft); margin-bottom: 8px; }
 .offer-law .offer-body a { color: var(--green-dark); }
 .law-source { font-size: .88rem; }
+.eu-link {
+  display: inline-flex; align-items: center; gap: 12px; margin-top: 40px;
+  color: var(--navy-80); font-weight: 600; line-height: 1.2; text-decoration: none;
+}
+.eu-link:hover span { text-decoration: underline; }
+.eu-flag { width: 72px; height: 48px; flex: none; }
+@media (max-width: 900px) { .eu-link { margin-top: 20px; } }
 
 .steps-compact { list-style: none; counter-reset: step; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .steps-compact li {
