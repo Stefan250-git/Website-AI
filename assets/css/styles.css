@@ -978,8 +978,14 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .paul-link::after { content: "→"; transition: transform .2s; }
 .paul-link:hover { background: #dde9e2; color: var(--navy); }
 .paul-link:hover::after { transform: translateX(3px); }
-/* Überschrift der Infoblase (EU AI Act) */
+/* Überschrift der Infoblase (EU AI Act) und danach der kleine angepinnte Hinweis */
 .paul-intro-title { font-weight: 700; }
+.paul .paul-pin {
+  display: block; max-width: calc(100% - 30px); margin: 0 0 8px; padding: 3px 10px; border: 0; border-radius: 999px;
+  background: var(--sand); color: var(--navy); font-size: .76rem; font-weight: 700; text-align: left; cursor: pointer;
+}
+.paul .paul-pin:hover { background: var(--green-soft); color: var(--green-dark); }
+.paul-pin[hidden] { display: none; }
 .paul-say .paul-intro-title + p { margin-top: 4px; }
 .paul-chip {
   margin-top: 8px; padding: 5px 12px; border: 1px solid rgba(13, 29, 55, .2); border-radius: 999px; background: var(--white);
