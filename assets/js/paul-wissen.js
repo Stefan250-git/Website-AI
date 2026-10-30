@@ -2,15 +2,16 @@
 // Jeder Eintrag: Schlagwörter (Wortanfänge, klein), Antwort und Ziel-Link auf der Website.
 // Neue Inhalte der Website hier ergänzen, damit Paul sie findet.
 window.PAUL_WISSEN = {
-  greeting: "Hallo, ich bin Paul, welche Frage hast Du?",
-
-  // Vorschläge unter der Begrüßung
-  suggestions: [
-    "Angebote für Unternehmen",
-    "Was kostet das?",
-    "Welches KI-Modell passt zu mir?",
-    "Wie nehme ich Kontakt auf?",
-  ],
+  // Infoblase, mit der Paul auf jeder Seite startet (und die beim Darüberfahren wieder erscheint);
+  // Text vom Auftraggeber vorgegeben. chip: Vorschlag darunter, beantwortet von B15.
+  intro: {
+    title: "📌 EU AI Act: Artikel 4 gilt!",
+    text: [
+      "Nutzt Ihr Team ChatGPT, Copilot & Co. im Arbeitsalltag?",
+      "Seit Februar 2025 verpflichtet die EU alle Unternehmen zu aktiven Maßnahmen für die „KI-Kompetenz“ ihrer Mitarbeiter. Ich helfe Ihnen!",
+    ],
+    chip: "Was verlangt Artikel 4?",
+  },
 
   fallback: "Dazu weiß ich leider nichts Genaues. Frag am besten Stefan direkt – er meldet sich gern bei Dir.",
   fallbackLink: { label: "Anfragen", url: "index.html#kontakt" },
