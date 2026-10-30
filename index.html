@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=33">
+  <link rel="stylesheet" href="assets/css/styles.css?v=36">
 
   <script type="application/ld+json">
   {
@@ -66,6 +66,7 @@
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
             </button>
             <ul class="submenu" id="sub-unternehmen">
+              <li><a href="#ki-kompetenz">KI-Kompetenz nach EU AI Act</a></li>
               <li><a href="#ki-start">KI Einstieg für Unternehmen</a></li>
               <li><a href="#mitarbeiter">KI Einstieg für Mitarbeiter</a></li>
               <li><a href="#auszubildende">Young Starter für Auszubildende</a></li>
@@ -179,6 +180,36 @@
           <h2 id="unternehmen-title">Der passende Einstieg für Ihr Team.</h2>
         </div>
 
+        <!-- KI-Kompetenz nach EU AI Act: Pflicht einordnen, auf die Trainings verweisen – keine Rechtsberatung -->
+        <article class="offer offer-law" id="ki-kompetenz">
+          <div class="offer-head">
+            <h3>KI-Kompetenz ist seit 2025 Pflicht.</h3>
+            <p class="offer-sub">EU AI Act, Artikel 4</p>
+            <div class="law-logos">
+            <a class="eu-link" href="https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer" aria-label="EU AI Act im Amtsblatt der Europäischen Union (EUR-Lex)">
+              <svg class="eu-flag" viewBox="0 0 810 540" aria-hidden="true">
+                <defs><path id="eu-star" fill="#fc0" d="M0 -30L6.74 -9.27L28.53 -9.27L10.9 3.54L17.63 24.27L0 11.46L-17.63 24.27L-10.9 3.54L-28.53 -9.27L-6.74 -9.27Z"/></defs>
+                <rect width="810" height="540" fill="#039"/>
+                <use href="#eu-star" x="405" y="90"/><use href="#eu-star" x="495" y="114"/><use href="#eu-star" x="561" y="180"/><use href="#eu-star" x="585" y="270"/><use href="#eu-star" x="561" y="360"/><use href="#eu-star" x="495" y="426"/><use href="#eu-star" x="405" y="450"/><use href="#eu-star" x="315" y="426"/><use href="#eu-star" x="249" y="360"/><use href="#eu-star" x="225" y="270"/><use href="#eu-star" x="249" y="180"/><use href="#eu-star" x="315" y="114"/>
+              </svg>
+              <span>Europäische<br>Union</span>
+            </a>
+            <!-- Bundesnetzagentur ohne Bundesadler: das Bundeswappen darf nicht ohne Erlaubnis verwendet werden (§ 124 OWiG) -->
+            <a class="eu-link bnetza-link" href="https://www.bundesnetzagentur.de/DE/Fachthemen/Digitales/KI/start_ki.html" target="_blank" rel="noopener noreferrer" aria-label="KI-Service Desk der Bundesnetzagentur">
+              <svg class="bnetza-bar" viewBox="0 0 6 48" aria-hidden="true">
+                <rect width="6" height="16" fill="#000"/><rect y="16" width="6" height="16" fill="#d00"/><rect y="32" width="6" height="16" fill="#fc0"/>
+              </svg>
+              <span>Bundesnetzagentur</span>
+            </a>
+            </div>
+          </div>
+          <div class="offer-body">
+            <p>Seit dem 2. Februar 2025 müssen Unternehmen, die KI-Werkzeuge im Arbeitsalltag einsetzen, für ausreichende KI-Kompetenz ihrer Mitarbeitenden sorgen. Ein bestimmter Kurs ist nicht vorgeschrieben. Der Umfang richtet sich danach, wofür KI bei Ihnen genutzt wird.</p>
+            <p>Die Trainings für <a href="#mitarbeiter">Mitarbeitende</a> und <a href="#auszubildende">Auszubildende</a> setzen dort an: bei Ihren freigegebenen Werkzeugen, Ihren Datenregeln und Ihren Aufgaben. Mit der Teilnahmebestätigung können Sie die Schulung belegen.</p>
+            <p class="law-source">Quelle: <a href="https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">Verordnung (EU) 2024/1689, Artikel 4</a> · <a href="https://www.bundesnetzagentur.de/DE/Fachthemen/Digitales/KI/start_ki.html" target="_blank" rel="noopener noreferrer">KI-Service Desk der Bundesnetzagentur</a>. Keine Rechtsberatung.</p>
+          </div>
+        </article>
+
         <!-- KI Einstieg für Unternehmen -->
         <article class="offer" id="ki-start">
           <div class="offer-head">
@@ -187,7 +218,7 @@
             <!-- Unternehmens-KI-Check: Dialog unten im Dokument, Logik in assets/js/ki-check.js -->
             <div class="check-teaser">
               <button class="btn btn-check" type="button" data-open-check aria-haspopup="dialog">Unternehmens-KI-Check!</button>
-              <p>Sechs kurze Fragen, etwa zwei Minuten.</p>
+              <p>Sieben kurze Fragen, etwa zwei Minuten.</p>
             </div>
           </div>
           <div class="offer-body">
@@ -581,11 +612,11 @@
 
   <script src="assets/js/config.js?v=16"></script>
   <script src="assets/js/main.js?v=17"></script>
-  <script src="assets/js/ki-check.js?v=14"></script>
+  <script src="assets/js/ki-check.js?v=15"></script>
   <script src="assets/js/glossar.js?v=14"></script>
   <script src="assets/js/termine.js?v=2"></script>
   <script src="assets/js/wissensfluss.js?v=4"></script>
-  <script src="assets/js/paul-wissen.js?v=20"></script>
+  <script src="assets/js/paul-wissen.js?v=21"></script>
   <script src="assets/js/paul.js?v=20"></script>
 </body>
 </html>
