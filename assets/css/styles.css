@@ -321,16 +321,20 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .offer-body > * + * { margin-top: 20px; }
 .offer-meta { font-size: .95rem; }
 /* KI-Kompetenz nach EU AI Act: abgesetzte Fläche vor den Angeboten */
-.offer-law { padding: 48px; border-top: 0; border-radius: var(--radius); background: var(--green-soft); margin-bottom: 8px; }
+.offer-law { padding: 36px 48px; border-top: 0; border-radius: var(--radius); background: var(--green-soft); margin-bottom: 8px; }
 .offer-law .offer-body a { color: var(--green-dark); }
-.law-source { font-size: .88rem; }
+.offer-law .offer-body > * + * { margin-top: 14px; }
+.law-source { font-size: .74rem; line-height: 1.5; }
+.law-logos { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 28px; }
 .eu-link {
-  display: inline-flex; align-items: center; gap: 12px; margin-top: 40px;
+  display: inline-flex; align-items: center; gap: 12px;
   color: var(--navy-80); font-weight: 600; line-height: 1.2; text-decoration: none;
 }
 .eu-link:hover span { text-decoration: underline; }
 .eu-flag { width: 72px; height: 48px; flex: none; }
-@media (max-width: 900px) { .eu-link { margin-top: 20px; } }
+/* Bundesnetzagentur: Leiste in Schwarz-Rot-Gold vor dem Namen */
+.bnetza-bar { width: 6px; height: 48px; flex: none; }
+@media (max-width: 900px) { .law-logos { margin-top: 20px; } }
 
 .steps-compact { list-style: none; counter-reset: step; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .steps-compact li {
