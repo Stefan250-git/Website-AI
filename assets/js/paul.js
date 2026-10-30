@@ -151,6 +151,7 @@
   root.innerHTML =
     '<div class="paul-bubble" id="paul-bubble" role="dialog" aria-label="Chat mit Paul" hidden>' +
     '<button type="button" class="paul-close" aria-label="Chat schließen">×</button>' +
+    '<button type="button" class="paul-pin" hidden>' + esc(W.intro.title) + '</button>' +
     '<div class="paul-say" aria-live="polite"></div>' +
     '<form class="paul-form">' +
     '<label class="visually-hidden" for="paul-input">Deine Frage an Paul</label>' +
@@ -162,38 +163,50 @@
     // Transparenzpflicht nach Art. 50 KI-Verordnung, sobald ein Sprachmodell antwortet
     (endpoint ? '<p class="paul-ai">Paul antwortet mit Hilfe von KI und kann sich irren. Bitte gib keine persönlichen Daten ein. <a href="datenschutz.html#paul">Mehr dazu</a></p>' : '') +
     '</div>' +
-    '<button type="button" class="paul-teaser" hidden>' + esc(W.greeting) + '</button>' +
     '<button type="button" class="paul-cat" data-pose="front" aria-expanded="false" aria-controls="paul-bubble" aria-label="Paul fragen – Chat öffnen">' + CAT_SVG + '</button>' +
     '<button type="button" class="paul-hide" aria-label="Paul ausblenden">×</button>';
   document.body.appendChild(root);
 
   var bubble = root.querySelector(".paul-bubble");
   var say = root.querySelector(".paul-say");
+  var pin = root.querySelector(".paul-pin");
   var form = root.querySelector(".paul-form");
   var input = root.querySelector("#paul-input");
   var mic = root.querySelector(".paul-mic");
   var note = root.querySelector(".paul-note");
-  var teaser = root.querySelector(".paul-teaser");
   var catBtn = root.querySelector(".paul-cat");
   var hideBtn = root.querySelector(".paul-hide");
   var pupils = root.querySelectorAll(".paul-pupils");
   var svg = root.querySelector(".paul-svg");
 
-  /* ---------- Textblase: immer leer beginnen, genau ein Vorschlag ---------- */
+  /* ---------- Textblase: erst die Infoblase zum EU AI Act, danach Begrüßung mit Vorschlag ---------- */
   var suggestion = Math.floor(Math.random() * W.suggestions.length);
+  var introShown = false;
 
   function text(s) {
     return G ? G.mark(esc(s)) : esc(s);
   }
 
-  // Leerer Zustand: Begrüßung und ein Vorschlag (wechselt bei jedem Öffnen)
+  // Leerer Zustand: beim ersten Mal auf der Seite die ganze Infoblase (intro), danach der
+  // angepinnte Hinweis oben und darunter Begrüßung und ein Vorschlag (wechselt bei jedem Öffnen)
   function reset() {
-    var tip = W.suggestions[suggestion++ % W.suggestions.length];
-    say.innerHTML = '<p>' + esc(W.greeting) + '</p><button type="button" class="paul-chip">' + esc(tip) + '</button>';
+    var intro = W.intro;
+    if (!introShown) {
+      introShown = true;
+      pin.hidden = true;
+      say.innerHTML = '<p>' + esc(intro.hello) + '</p><p class="paul-intro-title">' + esc(intro.title) + '</p>' +
+        intro.text.map(function (p) { return '<p>' + esc(p) + '</p>'; }).join("") +
+        '<button type="button" class="paul-chip">' + esc(intro.chip) + '</button>';
+    } else {
+      pin.hidden = false;
+      var tip = W.suggestions[suggestion++ % W.suggestions.length];
+      say.innerHTML = '<p>' + esc(W.greeting) + '</p><button type="button" class="paul-chip">' + esc(tip) + '</button>';
+    }
     input.value = "";
   }
 
   function show(answer) {
+    pin.hidden = false;  // ab der ersten Antwort bleibt der EU-AI-Act-Hinweis oben angepinnt
     var links = (answer.links || []).slice(0, 2);
     var paragraphs = String(answer.text).split(/\n\n+/).map(function (part) { return '<p>' + text(part) + '</p>'; }).join("");
     say.innerHTML = paragraphs + (links.length ? '<ul class="paul-links">' + links.map(function (l) {
@@ -340,6 +353,8 @@
       go(link.href);
     }
   });
+  // Angepinnter Hinweis: stellt die Frage zum EU AI Act
+  pin.addEventListener("click", function () { ask(W.intro.chip); });
 
   /* ---------- Spracheingabe (über den Spracherkennungsdienst des Browsers) ---------- */
   var Recognition = window.SpeechRecognition || window.webkitSpeechRecognition;
@@ -395,7 +410,6 @@
     if (root.classList.contains("is-away")) return comeBack();
     mode = how === "hover" ? "hover" : "pinned";
     reset();
-    teaser.hidden = true;
     bubble.hidden = false;
     catBtn.setAttribute("aria-expanded", "true");
     catBtn.setAttribute("aria-label", "Chat mit Paul schließen");
@@ -414,7 +428,6 @@
   // Wegklicken: Paul taucht ab und schaut über den unteren Rand (Ohren, Augen, Pfoten)
   function goAway() {
     close();
-    teaser.hidden = true;
     catBtn.setAttribute("aria-label", "Paul wieder aufrufen");
     save("localStorage", "paul-away", "1");
     dive(function () {
@@ -454,7 +467,6 @@
     }
     close();
   });
-  teaser.addEventListener("click", function () { open(); });
 
   /* ---------- Darüberfahren: Paul blinzelt, die Blase geht kurz auf; nach dem Verlassen
      des Bereichs schließt sie sich nach etwa 3 Sekunden (nicht, solange getippt wird) ---------- */
@@ -681,7 +693,7 @@
 
   if (!reduceMotion) {
     scheduleLick(true);
-    [catBtn, teaser, input].forEach(function (el) {
+    [catBtn, input].forEach(function (el) {
       el.addEventListener("pointerdown", stopLick);
       el.addEventListener("focus", stopLick);
     });
@@ -795,14 +807,15 @@
     catBtn.setAttribute("aria-label", "Paul wieder aufrufen");
   } else if (load("sessionStorage", "paul-enter") === "1" && !reduceMotion) {
     svg.style.opacity = "0";
-    setTimeout(jumpIn, 250);
-  } else if (!load("sessionStorage", "paul-greeted")) {
-    // Einmal pro Sitzung grüßt Paul mit einer kleinen Sprechblase
-    setTimeout(function () {
-      if (bubble.hidden && !root.classList.contains("is-away")) teaser.hidden = false;
-    }, 1500);
-    setTimeout(function () { teaser.hidden = true; }, 12000);
-    save("sessionStorage", "paul-greeted", "1");
+    setTimeout(function () { jumpIn().then(showIntro); }, 250);
+  } else {
+    setTimeout(showIntro, 1500);
+  }
+
+  // Auf jeder Seite startet Paul mit der Infoblase. Sie bleibt stehen, bis die Maus darüber
+  // war; danach schließt sie wie beim Darüberfahren nach LEAVE_DELAY und kommt per Mouseover wieder.
+  function showIntro() {
+    if (bubble.hidden && !root.classList.contains("is-away")) open("hover");
   }
   save("sessionStorage", "paul-enter", null);
 })();

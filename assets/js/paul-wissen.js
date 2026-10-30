@@ -4,13 +4,26 @@
 window.PAUL_WISSEN = {
   greeting: "Hallo, ich bin Paul, welche Frage hast Du?",
 
-  // Vorschläge unter der Begrüßung
+  // Vorschläge unter der Begrüßung (einer pro Öffnen, wechselt)
   suggestions: [
     "Angebote für Unternehmen",
     "Was kostet das?",
     "Welches KI-Modell passt zu mir?",
     "Wie nehme ich Kontakt auf?",
   ],
+
+  // Infoblase zum EU AI Act (Text vom Auftraggeber, in Du-Form): Beim ersten Öffnen auf einer
+  // Seite ganz, danach nur noch der Titel als kleiner angepinnter Hinweis über Begrüßung und
+  // Vorschlag. chip: Frage dazu (beantwortet von B15) – auch der Klick auf den Hinweis stellt sie.
+  intro: {
+    hello: "Hallo, ich bin Paul! Bevor Du mir Deine Frage stellst, ein kurzer Hinweis:",
+    title: "📌 EU AI Act: Artikel 4 gilt!",
+    text: [
+      "Nutzt Dein Team ChatGPT, Copilot & Co. im Arbeitsalltag?",
+      "Seit Februar 2025 verpflichtet die EU alle Unternehmen zu aktiven Maßnahmen für die „KI-Kompetenz“ ihrer Mitarbeiter. Ich helfe Dir dabei!",
+    ],
+    chip: "Was verlangt Artikel 4?",
+  },
 
   fallback: "Dazu weiß ich leider nichts Genaues. Frag am besten Stefan direkt – er meldet sich gern bei Dir.",
   fallbackLink: { label: "Anfragen", url: "index.html#kontakt" },

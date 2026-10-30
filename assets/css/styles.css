@@ -950,19 +950,12 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .paul.is-away .paul-svg { pointer-events: none; }
 .paul.is-away .pose-peek * { pointer-events: visiblePainted; cursor: pointer; }
 .paul.is-away .paul-cat:hover, .paul.is-away .paul-cat:focus-visible { transform: translateY(calc(var(--paul-bottom) - 6px)); }
-.paul.is-away .paul-hide, .paul.is-away .paul-teaser, .paul.is-away .paul-bubble, .paul.is-diving .paul-hide { display: none; }
+.paul.is-away .paul-hide, .paul.is-away .paul-bubble, .paul.is-diving .paul-hide { display: none; }
 
-/* Sprechblase zur Begrüßung */
-.paul-teaser {
-  position: absolute; right: 8px; bottom: 152px; width: max-content; max-width: 230px;
-  padding: 12px 16px; border: 0; border-radius: 16px 16px 4px 16px; background: var(--white); color: var(--navy);
-  font-size: .92rem; font-weight: 600; line-height: 1.4; text-align: left; cursor: pointer;
-  box-shadow: 0 12px 30px rgba(13, 29, 55, .16); animation: paul-pop .35s ease-out;
-}
-.paul-teaser[hidden], .paul-bubble[hidden] { display: none; }
+.paul-bubble[hidden] { display: none; }
 @keyframes paul-pop { from { opacity: 0; transform: translateY(8px) scale(.96); } }
 
-/* Textblase: so klein wie möglich – Begrüßung oder Antwort, ein Vorschlag, Eingabe */
+/* Textblase: so klein wie möglich – Infoblase oder Antwort, ein Vorschlag, Eingabe */
 .paul-bubble {
   position: absolute; right: 0; bottom: 152px; width: min(290px, calc(100vw - 32px));
   padding: 14px 14px 12px; background: var(--white); border-radius: 16px 16px 4px 16px;
@@ -985,6 +978,15 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .paul-link::after { content: "→"; transition: transform .2s; }
 .paul-link:hover { background: #dde9e2; color: var(--navy); }
 .paul-link:hover::after { transform: translateX(3px); }
+/* Überschrift der Infoblase (EU AI Act) und danach der kleine angepinnte Hinweis */
+.paul-intro-title { font-weight: 700; }
+.paul .paul-pin {
+  display: block; max-width: calc(100% - 30px); margin: 0 0 8px; padding: 3px 10px; border: 0; border-radius: 999px;
+  background: var(--sand); color: var(--navy); font-size: .76rem; font-weight: 700; text-align: left; cursor: pointer;
+}
+.paul .paul-pin:hover { background: var(--green-soft); color: var(--green-dark); }
+.paul-pin[hidden] { display: none; }
+.paul-say .paul-intro-title + p { margin-top: 4px; }
 .paul-chip {
   margin-top: 8px; padding: 5px 12px; border: 1px solid rgba(13, 29, 55, .2); border-radius: 999px; background: var(--white);
   color: var(--navy); font-size: .85rem; cursor: pointer;
@@ -1056,7 +1058,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .paul-cat[data-pose="crouch"] .pose-crouch, .paul-cat[data-pose="leap"] .pose-leap, .paul-cat[data-pose="peek"] .pose-peek { display: inline; }
 .paul.is-exit .paul-cat, .paul.is-enter .paul-cat { transform: none; transition: none; }
 .paul.is-bounce .paul-cat { animation: paul-bounce .5s ease-out; }
-.paul.is-exit .paul-hide, .paul.is-enter .paul-hide, .paul.is-exit .paul-teaser { opacity: 0; }
+.paul.is-exit .paul-hide, .paul.is-enter .paul-hide { opacity: 0; }
 @keyframes paul-bounce {
   0%   { transform: translateY(40px); }
   60%  { transform: translateY(-12px) scale(.97, 1.04); }
@@ -1113,7 +1115,6 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .paul.is-away .paul-lamp, .paul.is-away .paul-light { display: none; }
 /* Solange die Lampe da ist, rücken die Sprechblasen nach links, damit die Lampe erreichbar bleibt */
 .paul.is-dark .paul-bubble { right: 56px; width: min(290px, calc(100vw - 104px)); }
-.paul.is-dark .paul-teaser { right: 60px; }
 
 @media print { .paul { display: none; } }
 
@@ -1212,10 +1213,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .paul-lamp { right: 0; bottom: 116px; width: 36px; height: 106px; }
   .paul-light { right: -46px; bottom: 0; width: 124px; height: 160px; }
   .paul-light::after { right: 26px; width: 110px; height: 96px; }
-  .paul-teaser { bottom: 118px; max-width: 200px; }
   .paul-bubble { bottom: 118px; right: -2px; }
   .paul.is-dark .paul-bubble { right: 42px; width: min(290px, calc(100vw - 72px)); }
-  .paul.is-dark .paul-teaser { right: 44px; }
   .panel { padding: 24px 18px; }
   .theme { grid-template-columns: 1fr; }
   .seg { display: flex; }
