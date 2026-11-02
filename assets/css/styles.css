@@ -236,10 +236,10 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   --hero-hold: 12vh; --hero-hold: 12svh;
   position: relative; isolation: isolate; padding: 0 0 var(--hero-hold);
 }
-.hero-media {
-  position: sticky; top: 76px; z-index: -1; overflow: hidden;
-  height: var(--hero-h); margin-bottom: calc(-1 * var(--hero-h));
-}
+/* Foto behält seine volle Höhe (sonst klebt es eine Bildhöhe zu lang und verdeckt den
+   nächsten Abschnitt); stattdessen rückt der Inhalt um diese Höhe nach oben. */
+.hero-media { position: sticky; top: 76px; z-index: -1; overflow: hidden; height: var(--hero-h); }
+.hero-content { margin-top: calc(-1 * var(--hero-h)); }
 .hero-img {
   position: absolute; inset: 0; background: var(--sand) center / cover no-repeat;
   filter: saturate(.8);
