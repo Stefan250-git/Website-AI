@@ -76,6 +76,13 @@ window.PAUL_WISSEN = {
 
   webseite: [
     {
+      id: "W34", title: "KI-Sicherheitscheck",
+      match: "sicherheits-?check|ki-?sicherheit|wie sicher (nutze|nutzen|setze|setzen) (ich|wir)|ki sicher (nutzen|einsetzen)|sichere?r? (umgang|einsatz|nutzung) (mit|von) ki|(test|quiz|check) .*(sicherheit|risiken)|risiken (von|bei|der) ki erkennen",
+      keywords: ["sicherheitscheck", "ki-sicherheit", "phishing", "deepfake", "prompt injection", "täuschung", "manipulation"],
+      answer: "Im KI-Kompass findest Du die Seite „KI-Sicherheit“ mit dem KI-Sicherheitscheck: drei fiktive Fälle aus dem Arbeitsalltag, etwa zwei Minuten. Themen sind Prompt Injection, Datenschutz, KI-Täuschung, Falschinformation und Verantwortung. Ausgewertet wird am Ende, mit einer Regel je Fall. Es ist eine Lernübung, keine technische Sicherheitsprüfung – Deine Antworten werden nicht übertragen.",
+      links: [{ label: "KI-Sicherheit", url: "ki-sicherheit.html" }],
+    },
+    {
       id: "W26", title: "Zugriff auf geschützte Inhalte",
       match: "hast du zugriff|kannst du (meine|interne|unsere|geschlossene|geschützte|geschuetzte) .*(lesen|sehen|einsehen)|notion|interne[nr]? bereich|kennst du alles|warum weisst du (etwas|das|was) .*nicht",
       keywords: ["zugriff", "intern", "notion", "geschützt", "unterlagen"],
@@ -458,7 +465,7 @@ window.PAUL_WISSEN = {
     },
     {
       id: "B06", title: "Was ist ein Prompt?",
-      match: "prompt|was muss ich der ki schreiben|wie stelle ich der ki eine frage|ki-?auftrag",
+      match: "prompt(?![ -]?injection)|was muss ich der ki schreiben|wie stelle ich der ki eine frage|ki-?auftrag",
       keywords: ["prompt", "anweisung", "auftrag"],
       answer: "Ein Prompt ist die Anweisung oder Frage, die Du an eine KI richtest. Gute Prompts nennen Aufgabe, Hintergrund, gewünschtes Ergebnis und wichtige Grenzen. Beispiel: „Fasse diesen freigegebenen Text in fünf Stichpunkten für neue Mitarbeitende zusammen. Markiere offene Fragen.“",
     },
