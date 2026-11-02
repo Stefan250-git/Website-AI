@@ -18,11 +18,11 @@
   --logo-blue: #234d97;
 
   --font: "Segoe UI", Arial, sans-serif;
-  --max: 1140px;
-  --gutter: 24px;
+  --max: 1400px;
+  --gutter: 40px;
   --radius: 14px;
   --section: 128px;
-  --measure: 62ch;
+  --measure: 72ch;
   --shadow: 0 18px 40px rgba(13, 29, 55, .06);
 }
 
@@ -195,7 +195,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .section-navy .kicker { color: var(--green-light); }
 .section-navy .lead { color: #c3cad7; margin-top: 20px; }
 
-.section-head { max-width: 720px; margin-bottom: 64px; }
+.section-head { max-width: 880px; margin-bottom: 64px; }
 .section-head .lead { margin-top: 20px; }
 
 .split { display: grid; grid-template-columns: repeat(12, 1fr); gap: 48px var(--gutter); }
@@ -220,7 +220,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .photo-natur {
   background-image: url("../img/natur.jpg"), linear-gradient(180deg, #e3e6dc 0%, #c7d0c2 60%, #a9b6a6 100%);
 }
-.photo-hero { aspect-ratio: 4 / 5; max-height: 560px; width: 100%; }
+.photo-hero { aspect-ratio: 4 / 5; max-height: 640px; width: 100%; }
 .photo-band { height: clamp(240px, 38vw, 460px); border-radius: 0; }
 
 /* ---------- Hero ---------- */
@@ -588,7 +588,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--green); transition: width .5s ease-out; }
 .progress-label { margin-top: 8px; font-size: .85rem; color: var(--muted); }
 
-.kompass-note { max-width: 760px; margin-top: 56px; }
+.kompass-note { max-width: 900px; margin-top: 56px; }
 .kompass-note p { color: var(--muted); }
 .kompass-note p + p { margin-top: 1em; }
 .kompass-note strong { color: var(--navy); }
@@ -674,7 +674,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 @keyframes result-in { from { opacity: 0; transform: translateY(8px); } }
 
 /* ---------- Infrastruktur: Fragen-Assistent ---------- */
-.wizard { max-width: 920px; }
+.wizard { max-width: 1100px; }
 .wiz-phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; list-style: none; }
 .wiz-phases li { display: grid; gap: 2px; opacity: .45; transition: opacity .3s; }
 .wiz-phases strong { color: var(--navy); font-size: 1.05rem; }
@@ -1161,7 +1161,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 
 @media (max-width: 900px) {
-  :root { --section: 88px; }
+  :root { --section: 88px; --gutter: 24px; }
   .split > [class*="span-"] { grid-column: 1 / -1; }
   .hero { padding: 56px 0 80px; }
   .photo-hero { max-width: 480px; margin: 0 auto; }
