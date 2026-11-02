@@ -162,7 +162,7 @@ window.PAUL_WISSEN = {
       match: "was (ist|macht|bietet) (das |der )?ai work lab|was macht ihr( eigentlich)?$|worum geht es (hier|auf dieser (seite|website|webseite))|ist das (hier )?eine (ki-)?beratung|welche hilfe bekomme ich hier",
       keywords: ["ai work lab", "worum geht"],
       answer: "Das AI Work Lab unterstützt Unternehmen, Mitarbeitende, Auszubildende und Einsteiger dabei, KI zu verstehen und sinnvoll einzusetzen. Im Mittelpunkt stehen konkrete Arbeitsaufgaben, menschliche Verantwortung und ein praxisnaher Einstieg.",
-      links: [{ label: "Angebote im Überblick", url: "index.html#angebote" }],
+      links: [{ label: "Für Unternehmen", url: "index.html#unternehmen" }, { label: "Für Einsteiger", url: "index.html#einsteiger" }],
     },
     {
       id: "W24", title: "Referenzen und Erfolge",
@@ -246,14 +246,14 @@ window.PAUL_WISSEN = {
       match: "f(ü|ue)r wen (ist|sind|eignet sich|eignen sich) (das|die angebote|das angebot|euer angebot|eure angebote)|ist das (auch )?(was |etwas )?f(ü|ue)r (kleine (unternehmen|firmen)|f(ü|ue)hrungskr(ä|ae)fte|angestellte|anf(ä|ae)nger|mich)|ich bin anf(ä|ae)nger|k(ö|oe)nnen f(ü|ue)hrungskr(ä|ae)fte",
       keywords: ["zielgruppe", "für wen", "führungskr", "geschäftsführ"],
       answer: "Die Angebote richten sich unter anderem an Geschäftsführung und Fachverantwortliche, Mitarbeitende, Ausbildungsbetriebe und Bildungsträger, Erwachsene mit wenig KI-Erfahrung sowie Jugendliche zwischen 13 und 18 Jahren im Bildungskontext. Welches Format passt, hängt von Deinem Ziel ab.",
-      links: [{ label: "Angebote im Überblick", url: "index.html#angebote" }],
+      links: [{ label: "Für Unternehmen", url: "index.html#unternehmen" }, { label: "Für Einsteiger", url: "index.html#einsteiger" }],
     },
     {
       id: "W03", title: "Welche Leistungen gibt es?",
       match: "welche (leistungen|angebote|kurse|workshops|schulungen|ki-angebote|formate)( und [a-zäöü]+)? (gibt es|bietet ihr|habt ihr|bietest du)|was kann man (bei euch|hier) buchen|habt ihr schulungen|(etwas|was) f(ü|ue)r privat|^angebote?$",
       keywords: ["angebot", "leistung", "kurs", "workshop", "schulung", "training", "buchen"],
       answer: "Auf der Website findest Du den KI-Einstieg für Unternehmen, für Mitarbeitende und für Auszubildende, Angebote für Erwachsene und Jugendliche sowie Orientierung zur betrieblichen Wissensbasis. Die einzelnen Formate sind im Bereich „Angebote“ beschrieben.",
-      links: [{ label: "Angebote im Überblick", url: "index.html#angebote" }],
+      links: [{ label: "Für Unternehmen", url: "index.html#unternehmen" }, { label: "Für Einsteiger", url: "index.html#einsteiger" }],
     },
     {
       id: "W25", title: "Zahlen zur Wissenssuche",

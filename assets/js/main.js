@@ -302,7 +302,7 @@
     observer.observe(stage);
   }
 
-  /* ---------- Startseite: Foto bleibt stehen und blendet von A zu B über ---------- */
+  /* ---------- Startseite: Foto bleibt stehen, Verläufe beim Scrollen ---------- */
   var hero = document.querySelector(".hero-full");
   var heroMedia = hero && hero.querySelector(".hero-media");
   var heroText = hero && hero.querySelector(".split");
@@ -311,11 +311,7 @@
     var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
     var heroMix = function () {
       heroTicking = false;
-      // Überblendung A → B, während der Text gut eine halbe Bildhöhe nach oben scrollt –
-      // der Text scrollt dabei mit in Foto B hinein, danach folgt die Übersicht auf Foto B
       var mediaTop = heroMedia.getBoundingClientRect().top;
-      var p = (mediaTop - hero.getBoundingClientRect().top) / heroMedia.offsetHeight;
-      hero.style.setProperty("--hero-mix", clamp01((p - 0.1) / 0.45).toFixed(3));
       // Heller Verlauf bleibt, solange Text da ist; tritt zurück, wenn der Text oben verschwindet
       var textLeft = (heroText.getBoundingClientRect().bottom - mediaTop) / (heroMedia.offsetHeight * 0.4);
       hero.style.setProperty("--hero-veil", clamp01(1 - textLeft).toFixed(3));
@@ -345,7 +341,7 @@
       var top = euMedia.getBoundingClientRect().top;
       var line = parseFloat(getComputedStyle(euMedia).top) || 0; // Klebelinie unter dem Header
       var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
-      // 0, solange die Bühne von unten hereinkommt (oberer Verlauf über Foto B), 1, sobald das Foto steht
+      // 0, solange die Bühne von unten hereinkommt (oberer Verlauf über dem Startfoto), 1, sobald das Foto steht
       euStage.style.setProperty("--eu-in", fit(1 - (stage.top - line) / (h * 0.7)));
       // Kurz vor der Freigabe: nach unten ins Weiß auslaufen
       euStage.style.setProperty("--eu-out", fit(1 - (stage.bottom - (top + h)) / (h * 0.6)));

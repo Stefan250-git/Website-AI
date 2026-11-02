@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=75">
+  <link rel="stylesheet" href="assets/css/styles.css?v=83">
 
   <script type="application/ld+json">
   {
@@ -117,55 +117,22 @@
   <main id="inhalt">
 
     <!-- ===================== Hero ===================== -->
-    <!-- Foto über die volle Bildschirmfläche, bleibt beim Scrollen stehen und blendet von Büro (A) zu Flur (B) über (main.js).
-         Dateien: assets/img/start-buero.jpg, start-flur.jpg (Handy: *-900.jpg), Bildrechte in assets/img/README.md – PRD §31 -->
+    <!-- Foto über die volle Bildschirmfläche, bleibt beim Scrollen stehen (main.js), bis das Europabild übernimmt.
+         Dateien: assets/img/start-buero.jpg (Handy: start-buero-900.jpg), Bildrechte in assets/img/README.md – PRD §31 -->
     <section class="hero hero-full" id="top" aria-labelledby="hero-title">
       <div class="hero-media" aria-hidden="true">
         <span class="hero-img hero-img-a"></span>
-        <span class="hero-img hero-img-b"></span>
       </div>
       <div class="hero-content">
       <div class="container split">
         <div class="span-6">
           <h1 id="hero-title">KI als <em>Partner</em>.<br>Für Ihr Team.</h1>
-          <p class="lead">KI verstehen und einsetzen.<br>Mit einem Einstieg, der zu Ihnen passt.</p>
-          <div class="hero-actions">
-            <a class="btn btn-primary" href="#unternehmen">Für Unternehmen</a>
-            <a class="btn btn-secondary" href="#einsteiger">Für Einsteiger</a>
-          </div>
-        </div>
-      </div>
-
-      <!-- ===================== Übersicht =====================
-           Liegt im Startbereich und wird über dem stehenden Foto B hochgezogen (Einblenden über data-reveal) -->
-      <div class="container hero-overview-wrap" id="angebote">
-        <h2 class="visually-hidden" id="angebote-title">Angebote im Überblick</h2>
-
-        <div class="overview hero-panel" data-reveal>
-          <div class="overview-group">
-            <h3><a href="#unternehmen">Für Unternehmen</a></h3>
-            <ul class="jump-list">
-              <li><a href="#ki-start">KI-Einstieg für Unternehmen</a></li>
-              <li><a href="#mitarbeiter">KI-Einstieg für Mitarbeitende</a></li>
-              <li><a href="#auszubildende">KI-Einstieg für Auszubildende</a></li>
-            </ul>
-            <a class="feature-link" href="#wissensbasis">
-              <strong>Wissensbasis</strong>
-              <span class="feature-text">Unternehmenswissen so ordnen, dass es auffindbar und nutzbar wird.</span>
-            </a>
-          </div>
-          <div class="overview-group">
-            <h3><a href="#einsteiger">Für Einsteiger</a></h3>
-            <ul class="jump-list">
-              <li><a href="#erwachsene">KI-Einstieg für Erwachsene</a></li>
-              <li><a href="#young-starter">KI-Einstieg Young Starter</a></li>
-            </ul>
-          </div>
+          <p class="lead">KI verstehen und einsetzen. Mit einem Einstieg, der zu Ihnen passt.</p>
         </div>
       </div>
 
       <!-- ===================== KI im Unternehmen =====================
-           Zweite Tafel, ebenfalls über Foto B hochgezogen -->
+           Tafel, über dem stehenden Startfoto hochgezogen (Einblenden über data-reveal) -->
       <section class="container hero-panel-wrap" aria-labelledby="ansatz-title">
         <div class="hero-panel" data-reveal>
         <div class="section-head">
@@ -190,7 +157,7 @@
     <!-- ===================== Für Unternehmen ===================== -->
     <section class="section section-white section-eu" id="unternehmen" aria-labelledby="unternehmen-title">
       <!-- Europa bei Nacht über die volle Bildschirmfläche: bleibt stehen, Überschrift und KI-Kompetenz-Feld
-           scrollen darüber; blendet oben aus Foto B ein und unten ins Weiß aus (main.js: --eu-in, --eu-out).
+           scrollen darüber; blendet oben aus dem Startfoto ein und unten ins Weiß aus (main.js: --eu-in, --eu-out).
            Foto: assets/img/band-europa.jpg (NASA Black Marble), Bildrechte in assets/img/README.md – PRD §31 -->
       <div class="eu-stage">
         <div class="eu-media" aria-hidden="true"></div>
@@ -229,13 +196,9 @@
             <p class="law-source">Quelle: <a href="https://eur-lex.europa.eu/legal-content/DE/TXT/?uri=CELEX:32024R1689" target="_blank" rel="noopener noreferrer">Verordnung (EU) 2024/1689, Artikel 4</a> · <a href="https://www.bundesnetzagentur.de/DE/Fachthemen/Digitales/KI/start_ki.html" target="_blank" rel="noopener noreferrer">KI-Service Desk der Bundesnetzagentur</a>. Keine Rechtsberatung.</p>
           </div>
         </article>
-        </div>
-      </div>
 
-      <div class="container">
-
-        <!-- KI-Einstieg für Unternehmen -->
-        <article class="offer" id="ki-start">
+        <!-- KI-Einstieg für Unternehmen: zweite Tafel auf dem Europabild -->
+        <article class="offer eu-card eu-card-light" id="ki-start">
           <div class="offer-head">
             <h3>KI-Einstieg für Unternehmen</h3>
             <p class="offer-sub">Beratung für Geschäftsführung und Fachverantwortliche</p>
@@ -262,9 +225,13 @@
             <a class="text-link" href="#kontakt" data-topic="ki-start">Anfragen</a>
           </div>
         </article>
+        </div>
+      </div>
 
-        <!-- KI-Einstieg für Mitarbeitende -->
-        <article class="offer" id="mitarbeiter">
+      <div class="container">
+
+        <!-- KI-Einstieg für Mitarbeitende: wieder auf neutralem Hintergrund -->
+        <article class="offer offer-first" id="mitarbeiter">
           <div class="offer-head">
             <h3>KI-Einstieg für Mitarbeitende</h3>
             <p class="offer-sub">Training mit echten Arbeitsaufgaben</p>
@@ -649,6 +616,7 @@
       </div>
       <ul class="footer-links">
         <li><a href="#kontakt">Kontakt</a></li>
+        <li><a href="downloads.html">Downloads</a></li>
         <li><a href="impressum.html">Impressum</a></li>
         <li><a href="datenschutz.html">Datenschutz</a></li>
       </ul>
@@ -656,12 +624,12 @@
   </footer>
 
   <script src="assets/js/config.js?v=16"></script>
-  <script src="assets/js/main.js?v=26"></script>
+  <script src="assets/js/main.js?v=27"></script>
   <script src="assets/js/ki-check.js?v=16"></script>
   <script src="assets/js/glossar.js?v=15"></script>
   <script src="assets/js/termine.js?v=2"></script>
   <script src="assets/js/wissensfluss.js?v=4"></script>
-  <script src="assets/js/paul-wissen.js?v=25"></script>
+  <script src="assets/js/paul-wissen.js?v=26"></script>
   <script src="assets/js/paul.js?v=24"></script>
 </body>
 </html>

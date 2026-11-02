@@ -4,10 +4,10 @@ Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natü
 
 | Datei | Einsatz | Motiv-Idee | Format |
 |---|---|---|---|
-| `start-buero.jpg` | Startseite oben, über die volle Bildschirmfläche (Text links auf hellem Verlauf) | Büro mit Besprechungstisch, Tageslicht | Querformat, 2000 × 1335 px |
-| `start-buero-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt | Hochformat, 1000 × 1300 px |
-| `start-flur.jpg` | Startseite oben: Foto B, in das Foto A beim Scrollen überblendet | Flur mit Glaswänden | Querformat, 2000 × 1335 px |
-| `start-flur-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt | Hochformat, 1000 × 1300 px |
+| `start-buero.jpg` | Startseite oben, über die volle Bildschirmfläche (Text links auf hellem Verlauf), bleibt bis zum Europabild stehen | heller Besprechungsraum mit Fensterfront, Glaswand und Monitor | Querformat, 1671 × 941 px |
+| `start-buero-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt um den Tisch | Hochformat, 1000 × 1300 px |
+| `start-flur.jpg` | nicht mehr eingebunden (früher Foto B im Startbereich) – bleibt für einen Rücksprung liegen | Flur mit Glaswänden | Querformat, 2000 × 1335 px |
+| `start-flur-900.jpg` | nicht mehr eingebunden (Handy-Fassung von `start-flur.jpg`) | Ausschnitt | Hochformat, 1000 × 1300 px |
 | `band-europa.jpg` | „Für Unternehmen“: vollflächig und stehend hinter Überschrift und KI-Kompetenz-Feld | Europa bei Nacht, Satellitenaufnahme | Querformat, 2400 × 1000 px (Ausschnitt 12° W – 46° O) |
 | `buero-ki.jpg` | nicht mehr eingebunden (früheres Hero-Bild, Roboter) – bleibt für einen Rücksprung liegen | | |
 | `ueber-mich.jpg` | Über mich: über die volle Bildschirmfläche, Figur links vor dem Besprechungsraum | Stefan Hansen im Besprechungsraum (vom Auftraggeber bereitgestellt) | Querformat, 1672 × 941 px |
@@ -23,7 +23,7 @@ JPG, komprimiert auf unter 300 KB.
 
 | Datei | Quelle | Urheber | Lizenz | Nutzungsrecht | Abrufdatum |
 |---|---|---|---|---|---|
-| start-buero.jpg, start-buero-900.jpg | Unsplash, Bild-ID photo-1497366811353-6870744d04b2 | (ergänzen) | Unsplash-Lizenz (kostenlose Nutzung, keine Namensnennung nötig) | ja | 02.11.2026 |
+| start-buero.jpg, start-buero-900.jpg | vom Auftraggeber bereitgestellt (02.11.2026; Herkunft ergänzen, falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 02.11.2026 |
 | start-flur.jpg, start-flur-900.jpg | Unsplash, Bild-ID photo-1497366754035-f200968a6e72 | (ergänzen) | Unsplash-Lizenz (kostenlose Nutzung, keine Namensnennung nötig) | ja | 02.11.2026 |
 | band-europa.jpg | NASA Earth Observatory, „Night Lights 2016“ (Black Marble), BlackMarble_2016_3km.jpg | NASA Earth Observatory, Daten Suomi NPP VIIRS (genaue Urheberangabe auf earthobservatory.nasa.gov prüfen) | gemeinfrei (NASA-Bildmaterial, Quellenangabe NASA erbeten) | ja | 02.11.2026 |
 | buero-ki.jpg | vom Auftraggeber bereitgestellt, KI-generiert (Generator ergänzen) | | Nutzungsbedingungen des Generators prüfen | | 21.10.2026 |
