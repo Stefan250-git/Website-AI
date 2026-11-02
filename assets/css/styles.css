@@ -291,6 +291,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .hero-overview-wrap { margin-top: 30vh; margin-top: 30svh; }
 .hero-panel-wrap { display: block; margin-top: 20vh; margin-top: 20svh; }
 .hero-panel .section-head { margin-bottom: 40px; }
+/* Platz unter der Ablauf-Kette, damit die Quickinfo (.chain-tip, hängt unter dem Feld) in der Tafel bleibt */
+.hero-panel .chain { margin-bottom: 48px; }
+@media (max-width: 600px) { .hero-panel .chain { margin-bottom: 0; } }
 .hero-panel {
   padding: 48px 56px; border-radius: var(--radius);
   background: rgba(255, 255, 255, .9); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
