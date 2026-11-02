@@ -45,6 +45,19 @@
     }
   });
 
+  // „Mehr über mich“: Klick/Tippen öffnet und schließt die Quickinfo, Escape und Klick daneben schließen
+  var aboutMore = document.querySelector(".about-more");
+  if (aboutMore) {
+    var aboutBtn = aboutMore.querySelector(".about-more-btn");
+    var setAbout = function (open) {
+      aboutMore.classList.toggle("is-open", open);
+      aboutBtn.setAttribute("aria-expanded", String(open));
+    };
+    aboutBtn.addEventListener("click", function () { setAbout(!aboutMore.classList.contains("is-open")); });
+    document.addEventListener("click", function (e) { if (!aboutMore.contains(e.target)) setAbout(false); });
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") setAbout(false); });
+  }
+
   document.addEventListener("click", function (e) {
     document.querySelectorAll(".has-sub.open").forEach(function (item) {
       if (!item.contains(e.target)) {

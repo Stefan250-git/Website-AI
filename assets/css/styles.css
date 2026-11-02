@@ -615,7 +615,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
    Besprechungsraum gesetzt, scripts/compose_ueber_mich.ps1), Figur im linken Drittel; Text in der rechten
    Hälfte auf einem hellen Schleier (::after). */
 .about-full {
-  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center;
+  position: relative; isolation: isolate; display: flex; align-items: center;
   min-height: calc(100vh - 76px); min-height: calc(100svh - 76px);
 }
 .about-full::after {
@@ -626,6 +626,38 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .about-full .split > .span-7 { grid-column: 6 / span 7; padding-left: 24px; }
 .about-full h2 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); } /* Spalte neben dem Foto: Überschrift bleibt zweizeilig */
 .about-full .prose p { color: var(--navy-80); }
+/* „Mehr über mich“: Quickinfo unter der Zeile, bei Mouseover/Fokus oder per Klick (.is-open, main.js) */
+.about-more { position: relative; }
+.about-more-btn {
+  padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--green-dark); cursor: help;
+  text-decoration: underline dotted; text-decoration-thickness: 1.5px; text-underline-offset: 3px;
+}
+.about-more-btn:hover, .about-more.is-open .about-more-btn { text-decoration-style: solid; }
+.about-more-btn:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; border-radius: 3px; }
+.about-more-tip {
+  position: absolute; left: 0; top: 100%; z-index: 20; width: min(520px, 100%);
+  margin-top: 12px; padding: 20px 22px; border-radius: 12px;
+  background: var(--navy); color: #d6dbe5; font-size: .92rem; line-height: 1.5;
+  box-shadow: 0 12px 32px rgba(13, 29, 55, .25);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity .25s, transform .25s, visibility .25s;
+}
+.about-more-tip::before { /* Pfeil und Brücke: Maus erreicht die Blase, ohne dass sie schließt */
+  content: ""; position: absolute; left: 0; right: 0; top: -14px; height: 14px;
+}
+.about-more-tip::after {
+  content: ""; position: absolute; top: -6px; left: 24px; width: 12px; height: 12px;
+  background: var(--navy); transform: rotate(45deg);
+}
+.about-full .prose .about-more-tip p { color: #d6dbe5; max-width: none; }
+.about-more-tip p + p, .about-more-tip ul + p { margin-top: 10px; }
+.about-more-tip strong { color: var(--white); }
+.about-more-tip ul { margin: 6px 0 0 1.1em; padding: 0; list-style: disc; }
+.about-more-tip li::marker { color: var(--green-light); }
+.about-more:has(.about-more-btn:hover) .about-more-tip, .about-more-tip:hover,
+.about-more:has(.about-more-btn:focus-visible) .about-more-tip, .about-more.is-open .about-more-tip {
+  opacity: 1; visibility: visible; transform: translateY(0);
+}
 .about-full .portrait {
   position: absolute; inset: 0; z-index: -2;
   width: 100%; height: 100%; max-width: none; aspect-ratio: auto;
