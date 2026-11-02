@@ -227,21 +227,30 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
 
 /* Startseite: Foto über die volle Bildschirmfläche (unter dem Header).
-   ::before trägt das Foto (gedämpft wie .photo), ::after den hellen Verlauf,
-   damit der Text links in den gewohnten Farben lesbar bleibt. */
+   .hero-media klebt (sticky) und bleibt um --hero-hold stehen, während der Text darüber
+   wegscrollt. main.js setzt dabei --hero-mix (0 → 1): Foto A blendet in Foto B über und
+   der helle Verlauf (::after, hält den Text lesbar) tritt zurück. Ohne JS bleibt Foto A. */
 .hero-full {
-  position: relative; isolation: isolate; display: flex; align-items: center;
-  min-height: calc(100vh - 76px); min-height: calc(100svh - 76px);
+  --hero-h: calc(100vh - 76px); --hero-h: calc(100svh - 76px);
+  --hero-hold: 90vh; --hero-hold: 90svh;
+  position: relative; isolation: isolate; padding: 0 0 var(--hero-hold);
 }
-.hero-full::before, .hero-full::after { content: ""; position: absolute; inset: 0; z-index: -1; }
-.hero-full::before {
-  background: var(--sand) url("../img/start-buero.jpg") center / cover no-repeat;
+.hero-media {
+  position: sticky; top: 76px; z-index: -1; overflow: hidden;
+  height: var(--hero-h); margin-bottom: calc(-1 * var(--hero-h));
+}
+.hero-img {
+  position: absolute; inset: 0; background: var(--sand) center / cover no-repeat;
   filter: saturate(.8);
 }
-.hero-full::after {
+.hero-img-a { background-image: url("../img/start-buero.jpg"); }
+.hero-img-b { background-image: url("../img/start-flur.jpg"); opacity: var(--hero-mix, 0); }
+.hero-media::after {
+  content: ""; position: absolute; inset: 0;
   background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .85) 32%, rgba(245, 243, 238, .2) 62%, rgba(245, 243, 238, 0) 80%);
+  opacity: calc(1 - .8 * var(--hero-mix, 0));
 }
-.hero-full .container { width: 100%; }
+.hero-full .split { min-height: var(--hero-h); align-content: center; }
 
 /* ---------- Übersicht ---------- */
 .overview { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
@@ -1176,8 +1185,10 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   :root { --section: 88px; --gutter: 24px; }
   .split > [class*="span-"] { grid-column: 1 / -1; }
   .hero { padding: 56px 0 80px; }
-  .hero-full::before { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; }
-  .hero-full::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
+  .hero-full { --hero-hold: 70vh; --hero-hold: 70svh; }
+  .hero-img-a { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; }
+  .hero-img-b { background-image: url("../img/start-flur-900.jpg"); }
+  .hero-media::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
   .overview { grid-template-columns: 1fr; gap: 48px; }
   .offer { grid-template-columns: 1fr; }
   .about .portrait { max-width: 320px; }

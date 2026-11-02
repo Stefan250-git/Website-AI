@@ -289,6 +289,30 @@
     observer.observe(stage);
   }
 
+  /* ---------- Startseite: Foto bleibt stehen und blendet von A zu B über ---------- */
+  var hero = document.querySelector(".hero-full");
+  var heroMedia = hero && hero.querySelector(".hero-media");
+  if (heroMedia) {
+    var heroTicking = false;
+    var heroMix = function () {
+      heroTicking = false;
+      // Strecke, die das Foto stehen bleibt; Überblendung erst, wenn der Text größtenteils weg ist
+      var range = hero.offsetHeight - heroMedia.offsetHeight;
+      var scrolled = heroMedia.getBoundingClientRect().top - hero.getBoundingClientRect().top;
+      var p = range > 0 ? scrolled / range : 0;
+      var mix = Math.min(1, Math.max(0, (p - 0.45) / 0.5));
+      hero.style.setProperty("--hero-mix", mix.toFixed(3));
+    };
+    var heroRequest = function () {
+      if (heroTicking) return;
+      heroTicking = true;
+      window.requestAnimationFrame(heroMix);
+    };
+    window.addEventListener("scroll", heroRequest, { passive: true });
+    window.addEventListener("resize", heroRequest);
+    heroMix();
+  }
+
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
   var reveals = document.querySelectorAll("[data-reveal]");
   if (reveals.length && "IntersectionObserver" in window &&
