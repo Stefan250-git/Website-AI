@@ -18,7 +18,6 @@
   --logo-blue: #234d97;
 
   --font: "Segoe UI", Arial, sans-serif;
-  --band-h: clamp(440px, 60vw, 860px); /* Höhe Bildstreifen Europa (Startseite) */
   --max: 1400px;
   --gutter: 40px;
   --radius: 14px;
@@ -218,44 +217,30 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background-image: url("../img/natur.jpg"), linear-gradient(180deg, #e3e6dc 0%, #c7d0c2 60%, #a9b6a6 100%);
 }
 .photo-band { height: clamp(240px, 38vw, 460px); border-radius: 0; }
-/* Bildstreifen Europa bei Nacht nach dem Startbereich. Rutscht um --band-overlap unter das
-   ausklingende Foto B (dort durchsichtig → beide Bilder blenden ineinander), darunter weiß.
-   Lange Verläufe oben und unten (.band-fade), das Foto wandert beim Scrollen langsamer mit
-   (--band-shift setzt main.js). */
-.photo-europa {
-  --band-overlap: clamp(120px, 18vw, 280px);
-  position: relative; overflow: hidden; filter: none;
-  height: var(--band-h); margin-top: calc(-1 * var(--band-overlap));
-  background: linear-gradient(180deg, transparent var(--band-overlap), var(--white) var(--band-overlap));
+
+/* Europa bei Nacht (Startseite, „Für Unternehmen“): Foto über die volle Bildschirmfläche, bleibt stehen,
+   während Überschrift und KI-Kompetenz-Feld darüber scrollen. Die Bühne rutscht um --eu-overlap unter
+   das ausklingende Foto B. main.js setzt --eu-in (0 → 1: oberer Verlauf beim Hereinkommen, damit beide
+   Fotos ineinander blenden) und --eu-out (0 → 1: kurz vor der Freigabe läuft es nach unten ins Weiß aus).
+   Ohne JS steht das Foto ohne Verläufe. */
+.section-eu { padding-top: 0; }
+.eu-stage {
+  --eu-h: calc(100vh - 76px); --eu-h: calc(100svh - 76px);
+  --eu-overlap: clamp(120px, 18vw, 280px);
+  position: relative; isolation: isolate; margin-top: calc(-1 * var(--eu-overlap));
 }
-.photo-europa .band-fade {
-  position: absolute; inset: 0;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 35%, #000 80%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 35%, #000 80%, transparent 100%);
-}
-/* Überschrift nach dem Bildstreifen: liegt in Weiß direkt auf dem Bild, ragt mit dem KI-Kompetenz-Feld in den Bildteil ohne Verlauf (55 % der
-   Streifenhöhe; unterer Verlauf: 20 %) und wird beim
-   Scrollen hineingezogen (--pull von 1 → 0 setzt main.js; ohne JS steht der Endzustand) */
-.pull-head {
-  position: relative; z-index: 1; width: fit-content; max-width: min(100%, 880px);
-  margin-top: calc(-1 * var(--section) - .55 * var(--band-h)); padding: 0;
-  margin-bottom: 32px;
-  text-shadow: 0 2px 18px rgba(5, 8, 20, .55);
-  transform: translateY(calc(var(--pull, 0) * 120px));
-}
-.pull-head h2 { color: var(--white); }
-.pull-head .kicker { color: var(--green-light); }
-/* KI-Kompetenz-Feld folgt der Überschrift als Tafel auf das Bild (ebenfalls data-pull). Abstand darunter
-   (margin-bottom) setzt main.js so, dass der Inhalt danach erst unter dem Bild beginnt. */
-.pull-card {
-  position: relative; z-index: 1; box-shadow: 0 24px 60px rgba(13, 29, 55, .25);
-  transform: translateY(calc(var(--pull, 0) * 120px));
-}
-.photo-europa .band-fade > span {
-  position: absolute; left: 0; right: 0; top: -20%; bottom: -20%;
+.eu-media {
+  position: sticky; top: 76px; z-index: -1; height: var(--eu-h);
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
-  filter: saturate(.85) brightness(1.45) contrast(.88); transform: translateY(var(--band-shift, 0px));
+  filter: saturate(.85) brightness(1.45) contrast(.88);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 75% * var(--eu-out, 0)), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 75% * var(--eu-out, 0)), transparent 100%);
 }
+.eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 60vh; padding-top: 60svh; padding-bottom: 40vh; padding-bottom: 40svh; }
+.eu-head { margin-bottom: 32px; text-shadow: 0 2px 18px rgba(5, 8, 20, .55); }
+.eu-head h2 { color: var(--white); }
+.eu-head .kicker { color: var(--green-light); }
+.eu-card { position: relative; box-shadow: 0 24px 60px rgba(5, 8, 20, .35); }
 
 /* ---------- Hero ---------- */
 .hero { padding: 88px 0 112px; }
@@ -290,7 +275,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   position: absolute; inset: 0; background: var(--sand) center / cover no-repeat;
   filter: saturate(.8);
 }
-.hero-img-a { background-image: url("../img/start-buero.jpg"); }
+.hero-img-a { background-image: url("../img/start-buero.jpg"); transform: scale(1.3); transform-origin: left center; } /* Raum mit Glaswand rückt nach rechts, weg vom Text */
 .hero-img-b { background-image: url("../img/start-flur.jpg"); opacity: var(--hero-mix, 0); }
 .hero-media::after {
   content: ""; position: absolute; inset: 0;
@@ -1252,7 +1237,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .hero { padding: 56px 0 80px; }
   .hero-overview-wrap { margin-top: 20vh; margin-top: 20svh; }
   .hero-panel-wrap { margin-top: 12vh; margin-top: 12svh; }
-  .hero-img-a { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; }
+  .hero-img-a { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; transform: none; }
   .hero-img-b { background-image: url("../img/start-flur-900.jpg"); }
   .hero-media::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
   .overview { grid-template-columns: 1fr; gap: 48px; }

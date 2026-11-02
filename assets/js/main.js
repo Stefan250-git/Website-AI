@@ -320,56 +320,31 @@
     heroMix();
   }
 
-  /* ---------- Bildstreifen: Foto wandert beim Scrollen langsamer mit,
-     Überschrift danach wird ins Bild hochgezogen ---------- */
-  var bands = document.querySelectorAll("[data-parallax]");
-  var pulls = document.querySelectorAll("[data-pull]");
-  if ((bands.length || pulls.length) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var bandTicking = false;
-    var bandShift = function () {
-      bandTicking = false;
-      Array.prototype.forEach.call(bands, function (band) {
-        var r = band.getBoundingClientRect();
-        if (r.bottom < 0 || r.top > window.innerHeight) return;
-        // -1 (Streifen unten am Rand) … 1 (oben am Rand); Bildebene ist 40 % höher als der Streifen
-        var p = ((r.top + r.height / 2) - window.innerHeight / 2) / (window.innerHeight / 2 + r.height / 2);
-        band.style.setProperty("--band-shift", (-p * r.height * 0.18).toFixed(1) + "px");
-      });
-      Array.prototype.forEach.call(pulls, function (el) {
-        // Abschnitt (nicht das verschobene Element) messen: 1 = Abschnitt erreicht unten den Rand, 0 = bei 45 % Höhe
-        var top = el.closest("section").getBoundingClientRect().top;
-        var pull = Math.min(1, Math.max(0, (top - window.innerHeight * 0.45) / (window.innerHeight * 0.55)));
-        el.style.setProperty("--pull", pull.toFixed(3));
-      });
+  /* ---------- Europa bei Nacht: Foto bleibt stehen, blendet weich ein und aus ---------- */
+  var euStage = document.querySelector(".eu-stage");
+  var euMedia = euStage && euStage.querySelector(".eu-media");
+  if (euMedia) {
+    var euTicking = false;
+    var euFade = function () {
+      euTicking = false;
+      var h = euMedia.offsetHeight;
+      var stage = euStage.getBoundingClientRect();
+      var top = euMedia.getBoundingClientRect().top;
+      var line = parseFloat(getComputedStyle(euMedia).top) || 0; // Klebelinie unter dem Header
+      var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
+      // 0, solange die Bühne von unten hereinkommt (oberer Verlauf über Foto B), 1, sobald das Foto steht
+      euStage.style.setProperty("--eu-in", fit(1 - (stage.top - line) / (h * 0.7)));
+      // Kurz vor der Freigabe: nach unten ins Weiß auslaufen
+      euStage.style.setProperty("--eu-out", fit(1 - (stage.bottom - (top + h)) / (h * 0.6)));
     };
-    var bandRequest = function () {
-      if (bandTicking) return;
-      bandTicking = true;
-      window.requestAnimationFrame(bandShift);
+    var euRequest = function () {
+      if (euTicking) return;
+      euTicking = true;
+      window.requestAnimationFrame(euFade);
     };
-    window.addEventListener("scroll", bandRequest, { passive: true });
-    window.addEventListener("resize", bandRequest);
-    bandShift();
-  }
-
-  /* Hochgezogene Tafel auf dem Bildstreifen: Inhalt danach beginnt erst unter dem Bild.
-     Gemessen ohne Verschiebung (offsetTop), daher unabhängig von --pull. */
-  var tailCard = document.querySelector(".pull-card");
-  var tailBand = document.querySelector(".photo-europa");
-  if (tailCard && tailBand) {
-    var pageTop = function (el) {
-      var t = 0;
-      for (; el; el = el.offsetParent) t += el.offsetTop;
-      return t;
-    };
-    var setTail = function () {
-      tailCard.style.marginBottom = "";
-      var gap = pageTop(tailBand) + tailBand.offsetHeight - (pageTop(tailCard) + tailCard.offsetHeight);
-      tailCard.style.marginBottom = Math.max(8, gap + 48) + "px";
-    };
-    window.addEventListener("resize", setTail);
-    window.addEventListener("load", setTail);
-    setTail();
+    window.addEventListener("scroll", euRequest, { passive: true });
+    window.addEventListener("resize", euRequest);
+    euFade();
   }
 
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
