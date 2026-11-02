@@ -286,6 +286,52 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 }
 .hero-full .split { min-height: var(--hero-h); align-content: center; }
 
+/* Zwei Personen hinter der Glaswand (rechts im Startfoto): .hero-frame liegt genau wie das Foto
+   (cover, zentriert, Seitenverhältnis 1671 : 941), daher stehen alle Lagen in Prozent des Fotos.
+   .hero-glass schneidet auf die Glasfläche zu; Weichzeichnung, Transparenz und multiply lassen die
+   Spiegelungen des Glases darüber stehen – die Figuren wirken dahinter. */
+.hero-media { container-type: size; }
+.hero-frame {
+  position: absolute; left: 50%; top: 50%; translate: -50% -50%;
+  width: max(100cqw, 100cqh * 1671 / 941); height: max(100cqh, 100cqw * 941 / 1671);
+}
+.hero-glass {
+  position: absolute; inset: 0;
+  clip-path: polygon(75.3% 33%, 100% 8%, 100% 93%, 75.3% 68%);
+}
+.hero-pair {
+  position: absolute; aspect-ratio: 160 / 200; translate: -50% -100%;
+  filter: blur(1.4px); mix-blend-mode: multiply; opacity: 0;
+  animation: pair-approach 16s ease-in infinite; /* ease-in: beim Näherkommen wirkt die Bewegung schneller, wie in echter Perspektive */
+}
+.hero-pair svg { width: 100%; height: 100%; overflow: visible; }
+/* Fußpunkt (left/top) wandert vom Flurende nach vorn, die Figuren wachsen dabei */
+@keyframes pair-approach {
+  0%   { left: 81.5%; top: 47%; height: 6%; opacity: 0; }
+  10%  { opacity: .72; }
+  82%  { opacity: .72; }
+  92%, 100% { left: 91%; top: 82%; height: 38%; opacity: 0; }
+}
+/* Gehen auf uns zu: Beine wechseln, Körper wippt und pendelt leicht */
+.walker .w-leg { transform-box: fill-box; transform-origin: 50% 0; animation: leg-step .9s ease-in-out infinite; }
+.walker .w-leg-r { animation-delay: -.45s; }
+.walker .w-body { animation: body-bob .45s ease-in-out infinite alternate; }
+.walker-b .w-leg { animation-duration: .86s; }
+.walker-b .w-body { animation-duration: .43s; }
+@keyframes leg-step { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(.9); } }
+@keyframes body-bob { from { transform: translate(-1px, 0); } to { transform: translate(1px, 2px); } }
+/* Im Gespräch: A wendet den Kopf zu B, B gestikuliert */
+.walker .w-head, .walker .w-arm { transform-box: fill-box; }
+.walker-a .w-head { transform-origin: 50% 100%; animation: head-turn 3.2s ease-in-out infinite; }
+.walker-b .w-head { transform-origin: 50% 100%; animation: head-turn-b 3.2s ease-in-out infinite; }
+.walker-b .w-arm { transform-origin: 0 0; animation: gesture 2.4s ease-in-out infinite; }
+@keyframes head-turn { 0%, 30%, 100% { transform: rotate(0); } 45%, 80% { transform: rotate(9deg) translateX(1px); } }
+@keyframes head-turn-b { 0%, 50%, 100% { transform: rotate(-7deg); } 65%, 85% { transform: rotate(0); } }
+@keyframes gesture { 0%, 100% { transform: rotate(0); } 25% { transform: rotate(-14deg); } 50% { transform: rotate(6deg); } 70% { transform: rotate(-9deg); } }
+/* Handy: dort zeigt der Ausschnitt die Glaswand nicht; reduzierte Bewegung: keine Figuren */
+@media (max-width: 900px) { .hero-frame { display: none; } }
+@media (prefers-reduced-motion: reduce) { .hero-frame { display: none; } }
+
 /* Übersicht und „KI im Unternehmen“ im Startbereich: helle Tafeln, gleiten über dem stehenden Startfoto nach oben
    und blendet sich ein (data-reveal, Einträge nacheinander) */
 .hero-panel-wrap { display: block; margin-top: 30vh; margin-top: 30svh; }
