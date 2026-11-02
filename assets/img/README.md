@@ -10,10 +10,10 @@ Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natü
 | `start-flur-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt | Hochformat, 1000 × 1300 px |
 | `band-europa.jpg` | „Für Unternehmen“: vollflächig und stehend hinter Überschrift und KI-Kompetenz-Feld | Europa bei Nacht, Satellitenaufnahme | Querformat, 2400 × 1000 px (Ausschnitt 12° W – 46° O) |
 | `buero-ki.jpg` | nicht mehr eingebunden (früheres Hero-Bild, Roboter) – bleibt für einen Rücksprung liegen | | |
-| `ueber-mich.jpg` | Über mich: über die volle Bildschirmfläche, Figur groß links vor dem Raum, an den Oberschenkeln angeschnitten | Stefan Hansen (freigestellt) im modernen Besprechungsraum mit Wandmonitor | Querformat, 2400 × 1350 px, erzeugt mit `scripts/compose_ueber_mich.ps1` |
-| `portrait-freigestellt.png` | Quelle für `ueber-mich.jpg` (nicht eingebunden) | `portrait.jpg` freigestellt (bis Oberschenkel) | PNG mit Transparenz, 1024 × 1536 px |
+| `ueber-mich.jpg` | Über mich: über die volle Bildschirmfläche, Figur links vor dem Besprechungsraum | Stefan Hansen im Besprechungsraum (vom Auftraggeber bereitgestellt) | Querformat, 1672 × 941 px |
+| `portrait-freigestellt.png` | nicht eingebunden (Quelle früherer Montagen mit `scripts/compose_ueber_mich.ps1`) | `portrait.jpg` freigestellt (bis Oberschenkel) | PNG mit Transparenz, 1024 × 1536 px |
 | `portrait.jpg` | nicht mehr eingebunden (früheres Portrait in „Über mich“) | Portrait Stefan Hansen | Hochformat |
-| `ueber-mich-raum.jpg` | Quelle für `ueber-mich.jpg` (nicht direkt eingebunden) | moderner Besprechungsraum, ovaler Tisch, Lederstühle; Wandbild durch Monitor ersetzt (`scripts/raum_monitor.ps1`) | 2400 × 1597 px |
+| `ueber-mich-raum.jpg` | nicht eingebunden (Hintergrund früherer Montagen) | moderner Besprechungsraum, ovaler Tisch, Lederstühle; Wandbild durch Monitor ersetzt (`scripts/raum_monitor.ps1`) | 2400 × 1597 px |
 | `natur.jpg` | Bildband vor „Wissensbasis“ (in `index.html` auskommentiert, bis das Foto vorliegt) | weite Landschaft, Nebel, Wasser oder Wald | Querformat, ca. 2400 × 1000 px |
 
 Fehlt eine Datei, zeigt die Seite eine ruhige Tonfläche (kein kaputtes Bild).
@@ -28,6 +28,7 @@ JPG, komprimiert auf unter 300 KB.
 | band-europa.jpg | NASA Earth Observatory, „Night Lights 2016“ (Black Marble), BlackMarble_2016_3km.jpg | NASA Earth Observatory, Daten Suomi NPP VIIRS (genaue Urheberangabe auf earthobservatory.nasa.gov prüfen) | gemeinfrei (NASA-Bildmaterial, Quellenangabe NASA erbeten) | ja | 02.11.2026 |
 | buero-ki.jpg | vom Auftraggeber bereitgestellt, KI-generiert (Generator ergänzen) | | Nutzungsbedingungen des Generators prüfen | | 21.10.2026 |
 | portrait.jpg | vom Auftraggeber bereitgestellt (Fotograf/Quelle ergänzen) | | | | 21.10.2026 |
-| portrait-freigestellt.png, ueber-mich.jpg | vom Auftraggeber bereitgestellt (freigestellt), Hintergrund siehe ueber-mich-raum.jpg | (Fotograf/Quelle ergänzen) | | | 02.11.2026 |
+| portrait-freigestellt.png | vom Auftraggeber bereitgestellt (freigestellt) | (Fotograf/Quelle ergänzen) | | | 02.11.2026 |
+| ueber-mich.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 02.11.2026 |
 | ueber-mich-raum.jpg | Unsplash, Bild-ID photo-1571624436279-b272aff752b5 (bearbeitet: Wandbild entfernt, Monitor ergänzt) | (ergänzen) | Unsplash-Lizenz (kostenlose Nutzung, keine Namensnennung nötig) | ja | 02.11.2026 |
 | natur.jpg | | | | | |
