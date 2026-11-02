@@ -213,14 +213,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background-size: cover; background-position: center;
   filter: saturate(.8);
 }
-.photo-buero {
-  background-image: url("../img/buero-ki.jpg"), linear-gradient(160deg, #d9dcdf 0%, #b9bec4 55%, #9ea5ad 100%);
-  background-position: center top;
-}
 .photo-natur {
   background-image: url("../img/natur.jpg"), linear-gradient(180deg, #e3e6dc 0%, #c7d0c2 60%, #a9b6a6 100%);
 }
-.photo-hero { aspect-ratio: 4 / 5; max-height: 640px; width: 100%; }
 .photo-band { height: clamp(240px, 38vw, 460px); border-radius: 0; }
 
 /* ---------- Hero ---------- */
@@ -230,6 +225,23 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .hero h1 em { font-style: normal; color: var(--green); }
 .hero .lead { font-size: 1.25rem; color: var(--navy-80); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+
+/* Startseite: Foto über die volle Bildschirmfläche (unter dem Header).
+   ::before trägt das Foto (gedämpft wie .photo), ::after den hellen Verlauf,
+   damit der Text links in den gewohnten Farben lesbar bleibt. */
+.hero-full {
+  position: relative; isolation: isolate; display: flex; align-items: center;
+  min-height: calc(100vh - 76px); min-height: calc(100svh - 76px);
+}
+.hero-full::before, .hero-full::after { content: ""; position: absolute; inset: 0; z-index: -1; }
+.hero-full::before {
+  background: var(--sand) url("../img/start-buero.jpg") center / cover no-repeat;
+  filter: saturate(.8);
+}
+.hero-full::after {
+  background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .85) 32%, rgba(245, 243, 238, .2) 62%, rgba(245, 243, 238, 0) 80%);
+}
+.hero-full .container { width: 100%; }
 
 /* ---------- Übersicht ---------- */
 .overview { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
@@ -1164,7 +1176,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   :root { --section: 88px; --gutter: 24px; }
   .split > [class*="span-"] { grid-column: 1 / -1; }
   .hero { padding: 56px 0 80px; }
-  .photo-hero { max-width: 480px; margin: 0 auto; }
+  .hero-full::before { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; }
+  .hero-full::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
   .overview { grid-template-columns: 1fr; gap: 48px; }
   .offer { grid-template-columns: 1fr; }
   .about .portrait { max-width: 320px; }
