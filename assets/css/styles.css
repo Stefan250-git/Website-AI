@@ -228,8 +228,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 
 /* Startseite: Foto über die volle Bildschirmfläche (unter dem Header).
    .hero-media klebt (sticky) und bleibt um --hero-hold stehen, während der Text darüber
-   wegscrollt. main.js setzt dabei --hero-mix (0 → 1): Foto A blendet in Foto B über und
-   der helle Verlauf (::after, hält den Text lesbar) tritt zurück. Ohne JS bleibt Foto A. */
+   wegscrollt. main.js setzt dabei --hero-mix (0 → 1): Foto A blendet in Foto B über, der Text
+   scrollt mit hinein. --hero-veil (0 → 1): der helle Verlauf (::after, hält den Text lesbar)
+   tritt erst zurück, wenn der Text oben verschwindet. Ohne JS bleibt Foto A. */
 .hero-full {
   --hero-h: calc(100vh - 76px); --hero-h: calc(100svh - 76px);
   --hero-hold: 90vh; --hero-hold: 90svh;
@@ -248,7 +249,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .hero-media::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .85) 32%, rgba(245, 243, 238, .2) 62%, rgba(245, 243, 238, 0) 80%);
-  opacity: calc(1 - .8 * var(--hero-mix, 0));
+  opacity: calc(1 - .8 * var(--hero-veil, 0));
 }
 .hero-full .split { min-height: var(--hero-h); align-content: center; }
 

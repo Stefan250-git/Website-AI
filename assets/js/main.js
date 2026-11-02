@@ -292,16 +292,21 @@
   /* ---------- Startseite: Foto bleibt stehen und blendet von A zu B über ---------- */
   var hero = document.querySelector(".hero-full");
   var heroMedia = hero && hero.querySelector(".hero-media");
-  if (heroMedia) {
+  var heroText = hero && hero.querySelector(".split");
+  if (heroMedia && heroText) {
     var heroTicking = false;
+    var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
     var heroMix = function () {
       heroTicking = false;
-      // Strecke, die das Foto stehen bleibt; Überblendung erst, wenn der Text größtenteils weg ist
+      // Überblendung A → B in der ersten Hälfte der Strecke, die das Foto stehen bleibt –
+      // der Text scrollt dabei mit in Foto B hinein
       var range = hero.offsetHeight - heroMedia.offsetHeight;
-      var scrolled = heroMedia.getBoundingClientRect().top - hero.getBoundingClientRect().top;
-      var p = range > 0 ? scrolled / range : 0;
-      var mix = Math.min(1, Math.max(0, (p - 0.45) / 0.5));
-      hero.style.setProperty("--hero-mix", mix.toFixed(3));
+      var mediaTop = heroMedia.getBoundingClientRect().top;
+      var p = range > 0 ? (mediaTop - hero.getBoundingClientRect().top) / range : 0;
+      hero.style.setProperty("--hero-mix", clamp01((p - 0.1) / 0.5).toFixed(3));
+      // Heller Verlauf bleibt, solange Text da ist; tritt zurück, wenn der Text oben verschwindet
+      var textLeft = (heroText.getBoundingClientRect().bottom - mediaTop) / (heroMedia.offsetHeight * 0.4);
+      hero.style.setProperty("--hero-veil", clamp01(1 - textLeft).toFixed(3));
     };
     var heroRequest = function () {
       if (heroTicking) return;
