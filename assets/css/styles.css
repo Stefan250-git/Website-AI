@@ -597,7 +597,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   border-radius: var(--radius); background: var(--sand);
 }
 /* Über mich über die volle Bildschirmfläche: Portrait scharf in voller Höhe am linken Rand,
-   dahinter dasselbe Foto vergrößert und weichgezeichnet über die ganze Breite (::before),
+   dahinter ein heller Besprechungsraum leicht weichgezeichnet über die ganze Breite (::before),
    rechts ein heller Schleier für den Text (::after). */
 .about-full {
   position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center;
@@ -605,18 +605,18 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 }
 .about-full::before, .about-full::after { content: ""; position: absolute; z-index: -2; }
 .about-full::before {
-  inset: -60px; background: var(--sand) url("../img/portrait.jpg") 100% 25% / max(260%, 1400px) auto no-repeat; /* nur der helle rechte Bildteil: Fenster, Pflanzen */
-  filter: blur(28px) saturate(.8);
+  inset: -8px; background: var(--sand) url("../img/ueber-mich-raum.jpg") 70% center / cover no-repeat; /* heller Besprechungsraum, setzt den Raum des Portraits nach rechts fort */
+  filter: blur(2px) saturate(.75);
 }
 .about-full::after {
   inset: 0; z-index: -1;
-  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 25%, rgba(255, 255, 255, .78) 50%, rgba(255, 255, 255, .88) 100%);
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, .72) 50%, rgba(255, 255, 255, .82) 100%);
 }
 .about-full .container { width: 100%; }
 .about-full .portrait {
   position: absolute; left: 0; bottom: 0; z-index: -1;
-  width: auto; height: 100%; max-width: 50%; aspect-ratio: auto;
-  object-fit: cover; object-position: center top; border-radius: 0; background: none;
+  width: auto; height: 100%; max-width: 38%; aspect-ratio: auto; /* bleibt links vom Text */
+  object-fit: cover; object-position: 60% top; border-radius: 0; background: none;
   -webkit-mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
   mask-image: linear-gradient(90deg, #000 72%, transparent 100%);
 }

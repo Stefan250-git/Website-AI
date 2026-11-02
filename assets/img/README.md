@@ -10,7 +10,8 @@ Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natü
 | `start-flur-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt | Hochformat, 1000 × 1300 px |
 | `band-europa.jpg` | „Für Unternehmen“: vollflächig und stehend hinter Überschrift und KI-Kompetenz-Feld | Europa bei Nacht, Satellitenaufnahme | Querformat, 2400 × 1000 px (Ausschnitt 12° W – 46° O) |
 | `buero-ki.jpg` | nicht mehr eingebunden (früheres Hero-Bild, Roboter) – bleibt für einen Rücksprung liegen | | |
-| `portrait.jpg` | Über mich: scharf in voller Bildschirmhöhe links, dahinter vergrößert und weichgezeichnet über die ganze Breite | Portrait Stefan Hansen | Hochformat, ca. 1000 × 1250 px oder höher |
+| `portrait.jpg` | Über mich: scharf in voller Bildschirmhöhe links | Portrait Stefan Hansen | Hochformat, ca. 1000 × 1250 px oder höher |
+| `ueber-mich-raum.jpg` | Über mich: Hintergrund über die ganze Breite, setzt den Raum des Portraits nach rechts fort (leicht weichgezeichnet) | heller Besprechungsraum mit Fensterfront | Querformat, 2000 × 1333 px |
 | `natur.jpg` | Bildband vor „Wissensbasis“ (in `index.html` auskommentiert, bis das Foto vorliegt) | weite Landschaft, Nebel, Wasser oder Wald | Querformat, ca. 2400 × 1000 px |
 
 Fehlt eine Datei, zeigt die Seite eine ruhige Tonfläche (kein kaputtes Bild).
@@ -25,4 +26,5 @@ JPG, komprimiert auf unter 300 KB.
 | band-europa.jpg | NASA Earth Observatory, „Night Lights 2016“ (Black Marble), BlackMarble_2016_3km.jpg | NASA Earth Observatory, Daten Suomi NPP VIIRS (genaue Urheberangabe auf earthobservatory.nasa.gov prüfen) | gemeinfrei (NASA-Bildmaterial, Quellenangabe NASA erbeten) | ja | 02.11.2026 |
 | buero-ki.jpg | vom Auftraggeber bereitgestellt, KI-generiert (Generator ergänzen) | | Nutzungsbedingungen des Generators prüfen | | 21.10.2026 |
 | portrait.jpg | vom Auftraggeber bereitgestellt (Fotograf/Quelle ergänzen) | | | | 21.10.2026 |
+| ueber-mich-raum.jpg | Unsplash, Bild-ID photo-1462826303086-329426d1aef5 | (ergänzen) | Unsplash-Lizenz (kostenlose Nutzung, keine Namensnennung nötig) | ja | 02.11.2026 |
 | natur.jpg | | | | | |
