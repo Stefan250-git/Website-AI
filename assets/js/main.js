@@ -320,9 +320,11 @@
     heroMix();
   }
 
-  /* ---------- Bildstreifen: Foto wandert beim Scrollen langsamer mit ---------- */
+  /* ---------- Bildstreifen: Foto wandert beim Scrollen langsamer mit,
+     Überschrift danach wird ins Bild hochgezogen ---------- */
   var bands = document.querySelectorAll("[data-parallax]");
-  if (bands.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+  var pulls = document.querySelectorAll("[data-pull]");
+  if ((bands.length || pulls.length) && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
     var bandTicking = false;
     var bandShift = function () {
       bandTicking = false;
@@ -332,6 +334,12 @@
         // -1 (Streifen unten am Rand) … 1 (oben am Rand); Bildebene ist 40 % höher als der Streifen
         var p = ((r.top + r.height / 2) - window.innerHeight / 2) / (window.innerHeight / 2 + r.height / 2);
         band.style.setProperty("--band-shift", (-p * r.height * 0.18).toFixed(1) + "px");
+      });
+      Array.prototype.forEach.call(pulls, function (el) {
+        // Abschnitt (nicht das verschobene Element) messen: 1 = Abschnitt erreicht unten den Rand, 0 = bei 45 % Höhe
+        var top = el.closest("section").getBoundingClientRect().top;
+        var pull = Math.min(1, Math.max(0, (top - window.innerHeight * 0.45) / (window.innerHeight * 0.55)));
+        el.style.setProperty("--pull", pull.toFixed(3));
       });
     };
     var bandRequest = function () {
