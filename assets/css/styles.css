@@ -18,11 +18,11 @@
   --logo-blue: #234d97;
 
   --font: "Segoe UI", Arial, sans-serif;
-  --max: 1140px;
-  --gutter: 24px;
+  --max: 1400px;
+  --gutter: 40px;
   --radius: 14px;
   --section: 128px;
-  --measure: 62ch;
+  --measure: 72ch;
   --shadow: 0 18px 40px rgba(13, 29, 55, .06);
 }
 
@@ -195,7 +195,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .section-navy .kicker { color: var(--green-light); }
 .section-navy .lead { color: #c3cad7; margin-top: 20px; }
 
-.section-head { max-width: 720px; margin-bottom: 64px; }
+.section-head { max-width: 880px; margin-bottom: 64px; }
 .section-head .lead { margin-top: 20px; }
 
 .split { display: grid; grid-template-columns: repeat(12, 1fr); gap: 48px var(--gutter); }
@@ -213,15 +213,34 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background-size: cover; background-position: center;
   filter: saturate(.8);
 }
-.photo-buero {
-  background-image: url("../img/buero-ki.jpg"), linear-gradient(160deg, #d9dcdf 0%, #b9bec4 55%, #9ea5ad 100%);
-  background-position: center top;
-}
 .photo-natur {
   background-image: url("../img/natur.jpg"), linear-gradient(180deg, #e3e6dc 0%, #c7d0c2 60%, #a9b6a6 100%);
 }
-.photo-hero { aspect-ratio: 4 / 5; max-height: 560px; width: 100%; }
 .photo-band { height: clamp(240px, 38vw, 460px); border-radius: 0; }
+
+/* Europa bei Nacht (Startseite, „Für Unternehmen“): Foto über die volle Bildschirmfläche, bleibt stehen,
+   während Überschrift und KI-Kompetenz-Feld darüber scrollen. Die Bühne rutscht um --eu-overlap unter
+   das ausklingende Foto B. main.js setzt --eu-in (0 → 1: oberer Verlauf beim Hereinkommen, damit beide
+   Fotos ineinander blenden) und --eu-out (0 → 1: kurz vor der Freigabe läuft es nach unten ins Weiß aus).
+   Ohne JS steht das Foto ohne Verläufe. */
+.section-eu { padding-top: 0; }
+.eu-stage {
+  --eu-h: calc(100vh - 76px); --eu-h: calc(100svh - 76px);
+  --eu-overlap: clamp(120px, 18vw, 280px);
+  position: relative; isolation: isolate; margin-top: calc(-1 * var(--eu-overlap));
+}
+.eu-media {
+  position: sticky; top: 76px; z-index: -1; height: var(--eu-h);
+  background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
+  filter: saturate(.85) brightness(1.45) contrast(.88);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 75% * var(--eu-out, 0)), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 75% * var(--eu-out, 0)), transparent 100%);
+}
+.eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 60vh; padding-top: 60svh; padding-bottom: 40vh; padding-bottom: 40svh; }
+.eu-head { margin-bottom: 32px; text-shadow: 0 2px 18px rgba(5, 8, 20, .55); }
+.eu-head h2 { color: var(--white); }
+.eu-head .kicker { color: var(--green-light); }
+.eu-card { position: relative; box-shadow: 0 24px 60px rgba(5, 8, 20, .35); }
 
 /* ---------- Hero ---------- */
 .hero { padding: 88px 0 112px; }
@@ -230,6 +249,58 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .hero h1 em { font-style: normal; color: var(--green); }
 .hero .lead { font-size: 1.25rem; color: var(--navy-80); }
 .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 40px; }
+
+/* Startseite: Foto über die volle Bildschirmfläche (unter dem Header).
+   .hero-media klebt (sticky) und bleibt um --hero-hold stehen, während der Text darüber
+   wegscrollt. main.js setzt dabei --hero-mix (0 → 1): Foto A blendet in Foto B über, der Text
+   scrollt mit hinein. --hero-veil (0 → 1): der helle Verlauf (::after, hält den Text lesbar)
+   tritt erst zurück, wenn der Text oben verschwindet. --hero-out (0 → 1): kurz bevor das Foto
+   freigegeben wird, läuft es nach unten weich ins Weiß des folgenden Abschnitts aus.
+   Ohne JS bleibt Foto A. */
+.hero-full {
+  --hero-h: calc(100vh - 76px); --hero-h: calc(100svh - 76px);
+  --hero-hold: 45vh; --hero-hold: 45svh;
+  position: relative; isolation: isolate; padding: 0; background: var(--white);
+}
+/* Foto behält seine volle Höhe (sonst klebt es eine Bildhöhe zu lang und verdeckt den
+   nächsten Abschnitt); stattdessen rückt der Inhalt um diese Höhe nach oben.
+   Die Haltestrecke ist Innenabstand von .hero-content – nur dort klebt das Foto. */
+.hero-media {
+  position: sticky; top: 76px; z-index: -1; overflow: hidden; height: var(--hero-h);
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 75% * var(--hero-out, 0)), transparent 100%);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 75% * var(--hero-out, 0)), transparent 100%);
+}
+.hero-content { margin-top: calc(-1 * var(--hero-h)); padding-bottom: var(--hero-hold); }
+.hero-img {
+  position: absolute; inset: 0; background: var(--sand) center / cover no-repeat;
+  filter: saturate(.8);
+}
+.hero-img-a { background-image: url("../img/start-buero.jpg"); transform: scale(1.3); transform-origin: left center; } /* Raum mit Glaswand rückt nach rechts, weg vom Text */
+.hero-img-b { background-image: url("../img/start-flur.jpg"); opacity: var(--hero-mix, 0); }
+.hero-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .85) 32%, rgba(245, 243, 238, .2) 62%, rgba(245, 243, 238, 0) 80%);
+  opacity: calc(1 - .8 * var(--hero-veil, 0));
+}
+.hero-full .split { min-height: var(--hero-h); align-content: center; }
+
+/* Übersicht und „KI im Unternehmen“ im Startbereich: helle Tafeln, gleiten über dem stehenden Foto B nach oben
+   und blendet sich ein (data-reveal, Einträge nacheinander) */
+.hero-overview-wrap { margin-top: 30vh; margin-top: 30svh; }
+.hero-panel-wrap { display: block; margin-top: 20vh; margin-top: 20svh; }
+.hero-panel .section-head { margin-bottom: 40px; }
+.hero-panel {
+  padding: 48px 56px; border-radius: var(--radius);
+  background: rgba(255, 255, 255, .9); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: opacity .8s ease-out, transform .8s ease-out;
+}
+.hero-panel .jump-list li, .hero-panel .feature-link { transition: opacity .5s ease-out, transform .5s ease-out; }
+.hero-panel .jump-list li:nth-child(2) { transition-delay: .1s; }
+.hero-panel .jump-list li:nth-child(3), .hero-panel .feature-link { transition-delay: .2s; }
+.hero-panel.is-armed:not(.is-visible) { opacity: 0; transform: translateY(64px); }
+.hero-panel.is-armed:not(.is-visible) .jump-list li,
+.hero-panel.is-armed:not(.is-visible) .feature-link { opacity: 0; transform: translateY(12px); }
 
 /* ---------- Übersicht ---------- */
 .overview { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
@@ -525,6 +596,25 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   width: 100%; height: auto; aspect-ratio: 4 / 5; object-fit: cover; object-position: center 20%;
   border-radius: var(--radius); background: var(--sand);
 }
+/* Über mich über die volle Bildschirmfläche: ein Foto (ueber-mich.jpg – Portrait freigestellt und in den
+   Besprechungsraum gesetzt, scripts/compose_ueber_mich.ps1), Figur im linken Drittel; Text in der rechten
+   Hälfte auf einem hellen Schleier (::after). */
+.about-full {
+  position: relative; isolation: isolate; overflow: hidden; display: flex; align-items: center;
+  min-height: calc(100vh - 76px); min-height: calc(100svh - 76px);
+}
+.about-full::after {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 46%, rgba(255, 255, 255, .82) 57%, rgba(255, 255, 255, .88) 100%);
+}
+.about-full .container { width: 100%; }
+.about-full .split > .span-7 { grid-column: 7 / span 6; padding-left: 32px; }
+.about-full .prose p { color: var(--navy-80); }
+.about-full .portrait {
+  position: absolute; inset: 0; z-index: -2;
+  width: 100%; height: 100%; max-width: none; aspect-ratio: auto;
+  object-fit: cover; object-position: 20% 25%; border-radius: 0; /* breite Bildschirme schneiden vor allem unten ab: Kopf bleibt vollständig */
+}
 
 /* ---------- Formular ---------- */
 .contact-panel {
@@ -588,7 +678,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .progress span { display: block; width: 0; height: 100%; border-radius: inherit; background: var(--green); transition: width .5s ease-out; }
 .progress-label { margin-top: 8px; font-size: .85rem; color: var(--muted); }
 
-.kompass-note { max-width: 760px; margin-top: 56px; }
+.kompass-note { max-width: 900px; margin-top: 56px; }
 .kompass-note p { color: var(--muted); }
 .kompass-note p + p { margin-top: 1em; }
 .kompass-note strong { color: var(--navy); }
@@ -674,7 +764,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 @keyframes result-in { from { opacity: 0; transform: translateY(8px); } }
 
 /* ---------- Infrastruktur: Fragen-Assistent ---------- */
-.wizard { max-width: 920px; }
+.wizard { max-width: 1100px; }
 .wiz-phases { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; list-style: none; }
 .wiz-phases li { display: grid; gap: 2px; opacity: .45; transition: opacity .3s; }
 .wiz-phases strong { color: var(--navy); font-size: 1.05rem; }
@@ -1161,13 +1251,22 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 
 @media (max-width: 900px) {
-  :root { --section: 88px; }
+  :root { --section: 88px; --gutter: 24px; }
   .split > [class*="span-"] { grid-column: 1 / -1; }
   .hero { padding: 56px 0 80px; }
-  .photo-hero { max-width: 480px; margin: 0 auto; }
+  .hero-overview-wrap { margin-top: 20vh; margin-top: 20svh; }
+  .hero-panel-wrap { margin-top: 12vh; margin-top: 12svh; }
+  .hero-img-a { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; transform: none; }
+  .hero-img-b { background-image: url("../img/start-flur-900.jpg"); }
+  .hero-media::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
   .overview { grid-template-columns: 1fr; gap: 48px; }
   .offer { grid-template-columns: 1fr; }
   .about .portrait { max-width: 320px; }
+  .about-full { display: block; padding-top: 0; }
+  .about-full .portrait { position: relative; width: 100%; max-width: none; height: 62vh; height: 62svh; -webkit-mask-image: linear-gradient(180deg, #000 75%, transparent 100%); mask-image: linear-gradient(180deg, #000 75%, transparent 100%); }
+  .about-full .split { margin-top: -48px; }
+  .about-full .split > .span-7 { grid-column: 1 / -1; padding-left: 0; }
+  .about-full::after { background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, .85) 60%); }
   .kompass-hero { padding: 56px 0 48px; }
   .picker { grid-template-columns: 1fr; }
   .result-panel { position: static; }
@@ -1187,6 +1286,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 
 @media (max-width: 600px) {
+  .hero-panel { padding: 28px 20px; }
   :root { --gutter: 16px; --section: 72px; }
   body { font-size: 1rem; }
   .logo { gap: 10px; }

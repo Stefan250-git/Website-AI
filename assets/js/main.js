@@ -289,6 +289,64 @@
     observer.observe(stage);
   }
 
+  /* ---------- Startseite: Foto bleibt stehen und blendet von A zu B über ---------- */
+  var hero = document.querySelector(".hero-full");
+  var heroMedia = hero && hero.querySelector(".hero-media");
+  var heroText = hero && hero.querySelector(".split");
+  if (heroMedia && heroText) {
+    var heroTicking = false;
+    var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
+    var heroMix = function () {
+      heroTicking = false;
+      // Überblendung A → B, während der Text gut eine halbe Bildhöhe nach oben scrollt –
+      // der Text scrollt dabei mit in Foto B hinein, danach folgt die Übersicht auf Foto B
+      var mediaTop = heroMedia.getBoundingClientRect().top;
+      var p = (mediaTop - hero.getBoundingClientRect().top) / heroMedia.offsetHeight;
+      hero.style.setProperty("--hero-mix", clamp01((p - 0.1) / 0.45).toFixed(3));
+      // Heller Verlauf bleibt, solange Text da ist; tritt zurück, wenn der Text oben verschwindet
+      var textLeft = (heroText.getBoundingClientRect().bottom - mediaTop) / (heroMedia.offsetHeight * 0.4);
+      hero.style.setProperty("--hero-veil", clamp01(1 - textLeft).toFixed(3));
+      // Kurz bevor das Foto freigegeben wird: nach unten weich ins Weiß auslaufen
+      var holdLeft = hero.getBoundingClientRect().bottom - heroMedia.getBoundingClientRect().bottom;
+      hero.style.setProperty("--hero-out", clamp01(1 - holdLeft / (heroMedia.offsetHeight * 0.6)).toFixed(3));
+    };
+    var heroRequest = function () {
+      if (heroTicking) return;
+      heroTicking = true;
+      window.requestAnimationFrame(heroMix);
+    };
+    window.addEventListener("scroll", heroRequest, { passive: true });
+    window.addEventListener("resize", heroRequest);
+    heroMix();
+  }
+
+  /* ---------- Europa bei Nacht: Foto bleibt stehen, blendet weich ein und aus ---------- */
+  var euStage = document.querySelector(".eu-stage");
+  var euMedia = euStage && euStage.querySelector(".eu-media");
+  if (euMedia) {
+    var euTicking = false;
+    var euFade = function () {
+      euTicking = false;
+      var h = euMedia.offsetHeight;
+      var stage = euStage.getBoundingClientRect();
+      var top = euMedia.getBoundingClientRect().top;
+      var line = parseFloat(getComputedStyle(euMedia).top) || 0; // Klebelinie unter dem Header
+      var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
+      // 0, solange die Bühne von unten hereinkommt (oberer Verlauf über Foto B), 1, sobald das Foto steht
+      euStage.style.setProperty("--eu-in", fit(1 - (stage.top - line) / (h * 0.7)));
+      // Kurz vor der Freigabe: nach unten ins Weiß auslaufen
+      euStage.style.setProperty("--eu-out", fit(1 - (stage.bottom - (top + h)) / (h * 0.6)));
+    };
+    var euRequest = function () {
+      if (euTicking) return;
+      euTicking = true;
+      window.requestAnimationFrame(euFade);
+    };
+    window.addEventListener("scroll", euRequest, { passive: true });
+    window.addEventListener("resize", euRequest);
+    euFade();
+  }
+
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
   var reveals = document.querySelectorAll("[data-reveal]");
   if (reveals.length && "IntersectionObserver" in window &&
