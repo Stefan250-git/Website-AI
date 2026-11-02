@@ -233,17 +233,22 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 68%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 68%, transparent 100%);
 }
-/* Überschrift nach dem Bildstreifen: weiße Tafel, ragt bis in den dunklen Teil des Bildes (42 % der
+/* Überschrift nach dem Bildstreifen: weiße Tafel, ragt mit dem KI-Kompetenz-Feld bis in den dunklen Teil des Bildes (42 % der
    Streifenhöhe; unterer Verlauf: 32 %) und wird beim
    Scrollen hineingezogen (--pull von 1 → 0 setzt main.js; ohne JS steht der Endzustand) */
 .pull-head {
   position: relative; z-index: 1; width: fit-content; max-width: min(100%, 880px);
   margin-top: calc(-1 * var(--section) - .42 * var(--band-h)); padding: 36px 48px 0 0;
-  margin-bottom: calc(.42 * var(--band-h) + 48px); /* nur die Überschrift ragt ins Bild, der Inhalt danach nicht */
+  margin-bottom: 32px;
   background: var(--white); border-radius: 0 var(--radius) 0 0;
   transform: translateY(calc(var(--pull, 0) * 120px));
 }
 .pull-head::before { content: ""; position: absolute; top: 0; bottom: 0; right: 100%; width: 100vw; background: var(--white); }
+/* KI-Kompetenz-Feld folgt der Überschrift als Tafel auf das Bild (ebenfalls data-pull) */
+.pull-card {
+  position: relative; z-index: 1; box-shadow: 0 24px 60px rgba(13, 29, 55, .25);
+  transform: translateY(calc(var(--pull, 0) * 120px));
+}
 .photo-europa .band-fade > span {
   position: absolute; left: 0; right: 0; top: -20%; bottom: -20%;
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
