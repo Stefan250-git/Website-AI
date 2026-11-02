@@ -284,7 +284,7 @@
       var t = G.entry(terms[0]);
       return {
         text: terms[0] + ": " + t.text + (t.example ? " Beispiel: " + t.example : ""),
-        links: [{ label: "Mehr im KI-Kompass", url: "ki-kompass.html#infrastruktur" }],
+        links: [t.link || { label: "Mehr im KI-Kompass", url: "ki-kompass.html#infrastruktur" }],
         fixed: true,
       };
     }
