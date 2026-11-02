@@ -352,6 +352,26 @@
     bandShift();
   }
 
+  /* Hochgezogene Tafel auf dem Bildstreifen: Inhalt danach beginnt erst unter dem Bild.
+     Gemessen ohne Verschiebung (offsetTop), daher unabhängig von --pull. */
+  var tailCard = document.querySelector(".pull-card");
+  var tailBand = document.querySelector(".photo-europa");
+  if (tailCard && tailBand) {
+    var pageTop = function (el) {
+      var t = 0;
+      for (; el; el = el.offsetParent) t += el.offsetTop;
+      return t;
+    };
+    var setTail = function () {
+      tailCard.style.marginBottom = "";
+      var gap = pageTop(tailBand) + tailBand.offsetHeight - (pageTop(tailCard) + tailCard.offsetHeight);
+      tailCard.style.marginBottom = Math.max(8, gap + 48) + "px";
+    };
+    window.addEventListener("resize", setTail);
+    window.addEventListener("load", setTail);
+    setTail();
+  }
+
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
   var reveals = document.querySelectorAll("[data-reveal]");
   if (reveals.length && "IntersectionObserver" in window &&
