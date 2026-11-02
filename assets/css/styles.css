@@ -217,12 +217,20 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background-image: url("../img/natur.jpg"), linear-gradient(180deg, #e3e6dc 0%, #c7d0c2 60%, #a9b6a6 100%);
 }
 .photo-band { height: clamp(240px, 38vw, 460px); border-radius: 0; }
-/* Bildstreifen Europa bei Nacht nach dem Startbereich: Ränder laufen weich ins Weiß der Nachbarn aus,
-   das Foto wandert beim Scrollen langsamer mit (--band-shift setzt main.js) */
+/* Bildstreifen Europa bei Nacht nach dem Startbereich. Rutscht um --band-overlap unter das
+   ausklingende Foto B (dort durchsichtig → beide Bilder blenden ineinander), darunter weiß.
+   Lange Verläufe oben und unten (.band-fade), das Foto wandert beim Scrollen langsamer mit
+   (--band-shift setzt main.js). */
 .photo-europa {
-  position: relative; overflow: hidden; background: var(--white); filter: none;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  --band-overlap: clamp(120px, 18vw, 280px);
+  position: relative; overflow: hidden; filter: none;
+  height: clamp(340px, 55vw, 760px); margin-top: calc(-1 * var(--band-overlap));
+  background: linear-gradient(180deg, transparent var(--band-overlap), var(--white) var(--band-overlap));
+}
+.photo-europa .band-fade {
+  position: absolute; inset: 0;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 68%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 45%, #000 68%, transparent 100%);
 }
 /* Überschrift nach dem Bildstreifen: weiße Tafel, ragt oben in das Bild hinein und wird beim
    Scrollen hineingezogen (--pull von 1 → 0 setzt main.js; ohne JS steht der Endzustand) */
@@ -233,7 +241,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   transform: translateY(calc(var(--pull, 0) * 72px));
 }
 .pull-head::before { content: ""; position: absolute; top: 0; bottom: 0; right: 100%; width: 100vw; background: var(--white); }
-.photo-europa > span {
+.photo-europa .band-fade > span {
   position: absolute; left: 0; right: 0; top: -20%; bottom: -20%;
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
   filter: saturate(.8); transform: translateY(var(--band-shift, 0px));
