@@ -196,14 +196,14 @@ window.PAUL_WISSEN = {
       id: "W06", title: "Wie beginnt die Zusammenarbeit?",
       match: "wie (kann ich|können wir|koennen wir) (starten|anfangen|beginnen|loslegen)|wie (läuft|laeuft) (ein |der |die )?(erstkontakt|ablauf|zusammenarbeit)|wie beginnt (die|eine) zusammenarbeit|was passiert nach (meiner|der) anfrage|gibt es (erst|zuerst) ein gespr(ä|ae)ch|wie komme ich zum workshop|wie geht es los",
       keywords: ["zusammenarbeit", "erstkontakt", "loslegen", "starten", "ablauf"],
-      answer: "Am Anfang steht ein kostenloses Screening von 10–15 Minuten. Danach können eine 60-minütige Auftragsklärung und ein Arbeitsworkshop mit drei Einheiten à 45 Minuten folgen. Ob und wie es weitergeht, wird für Deinen konkreten Bedarf geklärt.",
+      answer: "Am Anfang steht ein kostenloses Screening, ein Telefonat von etwa 10 Minuten. Danach können eine 45-minütige Auftragsklärung und ein Workshop mit drei Einheiten à 45 Minuten folgen. Ob und wie es weitergeht, wird für Deinen konkreten Bedarf geklärt.",
       links: [{ label: "Anfragen", url: "index.html#kontakt" }, { label: "KI-Einstieg für Unternehmen", url: "index.html#ki-start" }],
     },
     {
       id: "W07", title: "KI-Einstieg für Unternehmen",
       match: "ki[ -]?einstieg f(ü|ue)r unternehmen|angebote? f(ü|ue)r unternehmen|unternehmensworkshop|was passiert im (unternehmens)?workshop|anwendungsf(ä|ae)lle finden|format f(ü|ue)r (die )?gesch(ä|ae)ftsf(ü|ue)hrung|prozesse oder (um )?software",
       keywords: ["unternehmen", "firma", "betrieb", "geschäftsführ", "beratung", "einstieg", "workshop", "auftragsklärung", "screening", "mittelstand", "chef"],
-      answer: "Der Einstieg beginnt bei realen Arbeitsaufgaben: Wo entstehen Reibungsverluste, welche Daten werden verwendet und wer ist für Ergebnisse verantwortlich? Nach Screening und Auftragsklärung dient ein strukturierter Arbeitsworkshop dazu, mögliche nächste Schritte zu bewerten.",
+      answer: "Der Einstieg beginnt bei realen Arbeitsaufgaben: Wo entstehen Reibungsverluste, welche Daten werden verwendet und wer ist für Ergebnisse verantwortlich? Nach Screening und Auftragsklärung dient ein strukturierter Workshop dazu, mögliche nächste Schritte zu bewerten.",
       links: [{ label: "KI-Einstieg für Unternehmen", url: "index.html#ki-start" }],
     },
     {
@@ -280,7 +280,7 @@ window.PAUL_WISSEN = {
       id: "W19", title: "Was kostet das Angebot?",
       match: "was kostet (das|ein workshop|eine schulung|ein training|die beratung|das angebot|euer|eure|der kurs|das screening)|^was kostet$|^kosten$|^preise?$|preisliste|wie teuer ist (eine|die|das|euer) (schulung|workshop|training|beratung|angebot)|erstgespr(ä|ae)ch (gratis|kostenlos)|ist das erstgespr(ä|ae)ch|was verlangt ihr|was nehmt ihr",
       keywords: ["preis", "kost", "euro", "teuer", "günstig", "honorar", "gebühr"],
-      answer: "Das Screening von 10–15 Minuten ist kostenlos. Für weitere Workshops und Schulungen steht auf der Website kein verbindlicher Preis. Ein konkretes Angebot hängt vom gewählten Format und Umfang ab – Du kannst es gern anfragen.",
+      answer: "Das Screening von etwa 10 Minuten ist kostenlos. Für weitere Workshops und Schulungen steht auf der Website kein verbindlicher Preis. Ein konkretes Angebot hängt vom gewählten Format und Umfang ab – Du kannst es gern anfragen.",
       links: [{ label: "Anfragen", url: "index.html#kontakt" }],
     },
     {
