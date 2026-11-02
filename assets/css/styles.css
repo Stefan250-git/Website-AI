@@ -217,16 +217,16 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background-image: url("../img/natur.jpg"), linear-gradient(180deg, #e3e6dc 0%, #c7d0c2 60%, #a9b6a6 100%);
 }
 .photo-band { height: clamp(240px, 38vw, 460px); border-radius: 0; }
-/* Bildstreifen Industrie nach dem Startbereich: Ränder laufen weich ins Weiß der Nachbarn aus,
+/* Bildstreifen Europa bei Nacht nach dem Startbereich: Ränder laufen weich ins Weiß der Nachbarn aus,
    das Foto wandert beim Scrollen langsamer mit (--band-shift setzt main.js) */
-.photo-industrie {
+.photo-europa {
   position: relative; overflow: hidden; background: var(--white); filter: none;
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
 }
-.photo-industrie > span {
+.photo-europa > span {
   position: absolute; left: 0; right: 0; top: -20%; bottom: -20%;
-  background: #9ea5ad url("../img/band-industrie.jpg") center / cover no-repeat;
+  background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
   filter: saturate(.8); transform: translateY(var(--band-shift, 0px));
 }
 
