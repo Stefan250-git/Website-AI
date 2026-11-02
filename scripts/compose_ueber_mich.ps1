@@ -1,6 +1,6 @@
 # Setzt die freigestellte Figur (portrait-freigestellt.png) in den Raum (ueber-mich-raum.jpg) -> assets/img/ueber-mich.jpg
 # Aktueller Stand der Website:
-#   powershell -File scripts/compose_ueber_mich.ps1 -Room assets/img/ueber-mich-raum.jpg -Person assets/img/portrait-freigestellt.png -Out assets/img/ueber-mich.jpg -PersonHeight 0.64 -PersonCenterX 0.22 -RoomFocusY 0.35 -Blur 0.22
+#   powershell -File scripts/compose_ueber_mich.ps1 -Room assets/img/ueber-mich-raum.jpg -Person assets/img/portrait-freigestellt.png -Out assets/img/ueber-mich.jpg -PersonHeight 0.9 -PersonCenterX 0.21 -RoomFocusY 0.35 -Blur 0.22
 # (Pfade absolut angeben, wenn das Skript nicht aus dem Projektordner gestartet wird.)
 # Kein Bodenkontakt -> kein Schweben. Raum leicht weichgezeichnet (Tiefenschärfe),
 # Figur leicht an die warme Raumfarbe angeglichen.

@@ -10,8 +10,8 @@ Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natü
 | `start-flur-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt | Hochformat, 1000 × 1300 px |
 | `band-europa.jpg` | „Für Unternehmen“: vollflächig und stehend hinter Überschrift und KI-Kompetenz-Feld | Europa bei Nacht, Satellitenaufnahme | Querformat, 2400 × 1000 px (Ausschnitt 12° W – 46° O) |
 | `buero-ki.jpg` | nicht mehr eingebunden (früheres Hero-Bild, Roboter) – bleibt für einen Rücksprung liegen | | |
-| `ueber-mich.jpg` | Über mich: über die volle Bildschirmfläche, Figur links im Raum, vom unteren Rand angeschnitten | Stefan Hansen (freigestellt) im modernen Besprechungsraum mit Wandmonitor | Querformat, 2400 × 1350 px, erzeugt mit `scripts/compose_ueber_mich.ps1` |
-| `portrait-freigestellt.png` | Quelle für `ueber-mich.jpg` (nicht eingebunden) | Brustbild Stefan Hansen ohne Hintergrund | PNG mit Transparenz, 1268 × 1241 px |
+| `ueber-mich.jpg` | Über mich: über die volle Bildschirmfläche, Figur groß links vor dem Raum, an den Oberschenkeln angeschnitten | Stefan Hansen (freigestellt) im modernen Besprechungsraum mit Wandmonitor | Querformat, 2400 × 1350 px, erzeugt mit `scripts/compose_ueber_mich.ps1` |
+| `portrait-freigestellt.png` | Quelle für `ueber-mich.jpg` (nicht eingebunden) | `portrait.jpg` freigestellt (bis Oberschenkel) | PNG mit Transparenz, 1024 × 1536 px |
 | `portrait.jpg` | nicht mehr eingebunden (früheres Portrait in „Über mich“) | Portrait Stefan Hansen | Hochformat |
 | `ueber-mich-raum.jpg` | Quelle für `ueber-mich.jpg` (nicht direkt eingebunden) | moderner Besprechungsraum, ovaler Tisch, Lederstühle; Wandbild durch Monitor ersetzt (`scripts/raum_monitor.ps1`) | 2400 × 1597 px |
 | `natur.jpg` | Bildband vor „Wissensbasis“ (in `index.html` auskommentiert, bis das Foto vorliegt) | weite Landschaft, Nebel, Wasser oder Wald | Querformat, ca. 2400 × 1000 px |
