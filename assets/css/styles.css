@@ -288,8 +288,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 
 /* Übersicht und „KI im Unternehmen“ im Startbereich: helle Tafeln, gleiten über dem stehenden Startfoto nach oben
    und blendet sich ein (data-reveal, Einträge nacheinander) */
-.hero-overview-wrap { margin-top: 30vh; margin-top: 30svh; }
-.hero-panel-wrap { display: block; margin-top: 20vh; margin-top: 20svh; }
+.hero-panel-wrap { display: block; margin-top: 30vh; margin-top: 30svh; }
 .hero-panel .section-head { margin-bottom: 40px; }
 /* Platz unter der Ablauf-Kette, damit die Quickinfo (.chain-tip, hängt unter dem Feld) in der Tafel bleibt */
 .hero-panel .chain { margin-bottom: 48px; }
@@ -300,39 +299,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
   transition: opacity .8s ease-out, transform .8s ease-out;
 }
-.hero-panel .jump-list li, .hero-panel .feature-link { transition: opacity .5s ease-out, transform .5s ease-out; }
-.hero-panel .jump-list li:nth-child(2) { transition-delay: .1s; }
-.hero-panel .jump-list li:nth-child(3), .hero-panel .feature-link { transition-delay: .2s; }
 .hero-panel.is-armed:not(.is-visible) { opacity: 0; transform: translateY(64px); }
-.hero-panel.is-armed:not(.is-visible) .jump-list li,
-.hero-panel.is-armed:not(.is-visible) .feature-link { opacity: 0; transform: translateY(12px); }
-
-/* ---------- Übersicht ---------- */
-.overview { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
-.overview-group h3 { font-size: 1.6rem; margin-bottom: 16px; }
-.overview-group h3 a { color: var(--navy); text-decoration: none; }
-.overview-group h3 a:hover { color: var(--green); }
-.jump-list { list-style: none; border-top: 1px solid var(--line); }
-.jump-list a {
-  display: flex; justify-content: space-between; align-items: center; gap: 16px;
-  padding: 16px 0; border-bottom: 1px solid var(--line);
-  color: var(--navy-80); text-decoration: none; font-weight: 500;
-}
-.jump-list a::after { content: "→"; color: var(--green); transition: transform .2s; }
-.jump-list a:hover { color: var(--green); }
-.jump-list a:hover::after { transform: translateX(4px); }
-
-.feature-link {
-  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 4px 20px;
-  margin-top: 20px; padding: 20px 24px; border-radius: var(--radius);
-  background: var(--green-soft); color: var(--navy); text-decoration: none;
-  transition: background-color .25s;
-}
-.feature-link:hover { background: #dde9e2; color: var(--navy); }
-.feature-link::after { content: "→"; grid-column: 2; grid-row: 1 / span 2; color: var(--green); transition: transform .2s; }
-.feature-link:hover::after { transform: translateX(4px); }
-.feature-link strong { font-size: 1.1rem; line-height: 1.3; color: var(--navy); }
-.feature-text { color: var(--muted); font-size: .95rem; }
 
 /* ---------- Ablauf-Kette (Mensch → … → KI) ---------- */
 .chain { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; list-style: none; }
@@ -1307,11 +1274,9 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   :root { --section: 88px; --gutter: 24px; }
   .split > [class*="span-"] { grid-column: 1 / -1; }
   .hero { padding: 56px 0 80px; }
-  .hero-overview-wrap { margin-top: 20vh; margin-top: 20svh; }
-  .hero-panel-wrap { margin-top: 12vh; margin-top: 12svh; }
+  .hero-panel-wrap { margin-top: 20vh; margin-top: 20svh; }
   .hero-img-a { background-image: url("../img/start-buero-900.jpg?v=2"); background-position: center; }
   .hero-media::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
-  .overview { grid-template-columns: 1fr; gap: 48px; }
   .offer { grid-template-columns: 1fr; }
   .about .portrait { max-width: 320px; }
   .about-full { display: block; padding-top: 0; }
@@ -1349,7 +1314,6 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .hero-actions .btn { width: 100%; }
   .section-head { margin-bottom: 40px; }
   .grid-2, .form-grid, .steps-compact, .standard { grid-template-columns: 1fr; }
-  .feature-link { padding: 18px 20px; }
   .chain { flex-direction: column; align-items: flex-start; }
   .chain li { flex-direction: column; align-items: flex-start; gap: 8px; }
   .chain li + li::before {
