@@ -10,7 +10,7 @@
   <meta name="theme-color" content="#0d1d37">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=38">
+  <link rel="stylesheet" href="assets/css/styles.css?v=39">
   <link rel="stylesheet" href="assets/css/ki-sicherheit.css?v=1">
 </head>
 <body>
@@ -40,16 +40,23 @@
       <nav class="site-nav" id="main-nav" aria-label="Hauptnavigation">
         <ul class="nav-list">
           <li class="has-sub">
-            <a href="index.html#unternehmen">KI für Unternehmen</a>
+            <a href="index.html#unternehmen">Für Unternehmen</a>
             <button class="sub-toggle" type="button" aria-expanded="false" aria-controls="sub-unternehmen">
-              <span class="visually-hidden">Untermenü KI für Unternehmen</span>
+              <span class="visually-hidden">Untermenü Für Unternehmen</span>
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
             </button>
             <ul class="submenu" id="sub-unternehmen">
-              <li><a href="index.html#ki-start">KI Einstieg für Unternehmen</a></li>
-              <li><a href="index.html#mitarbeiter">KI Einstieg für Mitarbeiter</a></li>
-              <li><a href="index.html#auszubildende">Young Starter für Auszubildende</a></li>
-              <li><a href="index.html#wissensbasis">Wissensbasis für Unternehmen</a></li>
+              <li><a href="index.html#ki-kompetenz">EU-AI-Act</a></li>
+              <li><a href="index.html#wissensbasis">Wissensbasis</a></li>
+              <li><a class="nav-shield" href="ki-sicherheit.html"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.5 20 5.5v6c0 5-3.4 8.6-8 10-4.6-1.4-8-5-8-10v-6z" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linejoin="round"/><path d="m8.5 12 2.5 2.5 4.5-5" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>KI-Sicherheit</a></li>
+              <li class="submenu-group">
+                <span class="submenu-label">KI-Einstieg</span>
+                <ul>
+                  <li><a href="index.html#ki-start"><span class="visually-hidden">KI-Einstieg </span>für Unternehmen</a></li>
+                  <li><a href="index.html#mitarbeiter"><span class="visually-hidden">KI-Einstieg </span>für Mitarbeitende</a></li>
+                  <li><a href="index.html#auszubildende"><span class="visually-hidden">KI-Einstieg </span>für Auszubildende</a></li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li class="has-sub">
@@ -59,8 +66,13 @@
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M2 4l4 4 4-4"/></svg>
             </button>
             <ul class="submenu" id="sub-einsteiger">
-              <li><a href="index.html#erwachsene">KI Einstieg für Erwachsene</a></li>
-              <li><a href="index.html#young-starter">KI Einstieg Young Starter</a></li>
+              <li class="submenu-group">
+                <span class="submenu-label">KI-Einstieg für</span>
+                <ul>
+                  <li><a href="index.html#erwachsene"><span class="visually-hidden">KI-Einstieg für </span>Erwachsene</a></li>
+                  <li><a href="index.html#young-starter"><span class="visually-hidden">KI-Einstieg </span>Young Starter</a></li>
+                </ul>
+              </li>
             </ul>
           </li>
           <li class="has-sub">
@@ -155,7 +167,7 @@
   <script src="assets/data/sicherheitsfragen.js?v=1"></script>
   <script src="assets/js/ki-sicherheit.js?v=1"></script>
   <script src="assets/js/termine.js?v=2"></script>
-  <script src="assets/js/paul-wissen.js?v=23"></script>
+  <script src="assets/js/paul-wissen.js?v=24"></script>
   <script src="assets/js/paul.js?v=24"></script>
 </body>
 </html>
