@@ -6,8 +6,8 @@ Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natü
 |---|---|---|---|
 | `start-buero.jpg` | Startseite oben, über die volle Bildschirmfläche (Text links auf hellem Verlauf) | Büro mit Besprechungstisch, Tageslicht | Querformat, 2000 × 1335 px |
 | `start-buero-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt | Hochformat, 1000 × 1300 px |
-| `start-flur.jpg` | Startseite oben: Foto B, in das Foto A beim Scrollen überblendet | Flur mit Glaswänden | Querformat, 2000 × 1335 px |
-| `start-flur-900.jpg` | dasselbe Foto für Bildschirme bis 900 px | Ausschnitt | Hochformat, 1000 × 1300 px |
+| `start-flur.jpg` | nicht mehr eingebunden (früher Foto B im Startbereich) – bleibt für einen Rücksprung liegen | Flur mit Glaswänden | Querformat, 2000 × 1335 px |
+| `start-flur-900.jpg` | nicht mehr eingebunden (Handy-Fassung von `start-flur.jpg`) | Ausschnitt | Hochformat, 1000 × 1300 px |
 | `band-europa.jpg` | „Für Unternehmen“: vollflächig und stehend hinter Überschrift und KI-Kompetenz-Feld | Europa bei Nacht, Satellitenaufnahme | Querformat, 2400 × 1000 px (Ausschnitt 12° W – 46° O) |
 | `buero-ki.jpg` | nicht mehr eingebunden (früheres Hero-Bild, Roboter) – bleibt für einen Rücksprung liegen | | |
 | `ueber-mich.jpg` | Über mich: über die volle Bildschirmfläche, Figur links vor dem Besprechungsraum | Stefan Hansen im Besprechungsraum (vom Auftraggeber bereitgestellt) | Querformat, 1672 × 941 px |

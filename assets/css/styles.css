@@ -220,7 +220,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 
 /* Europa bei Nacht (Startseite, „Für Unternehmen“): Foto über die volle Bildschirmfläche, bleibt stehen,
    während Überschrift und KI-Kompetenz-Feld darüber scrollen. Die Bühne rutscht um --eu-overlap unter
-   das ausklingende Foto B. main.js setzt --eu-in (0 → 1: oberer Verlauf beim Hereinkommen, damit beide
+   das ausklingende Startfoto. main.js setzt --eu-in (0 → 1: oberer Verlauf beim Hereinkommen, damit beide
    Fotos ineinander blenden) und --eu-out (0 → 1: kurz vor der Freigabe läuft es nach unten ins Weiß aus).
    Ohne JS steht das Foto ohne Verläufe. */
 .section-eu { padding-top: 0; }
@@ -252,8 +252,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 
 /* Startseite: Foto über die volle Bildschirmfläche (unter dem Header).
    .hero-media klebt (sticky) und bleibt um --hero-hold stehen, während der Text darüber
-   wegscrollt. main.js setzt dabei --hero-mix (0 → 1): Foto A blendet in Foto B über, der Text
-   scrollt mit hinein. --hero-veil (0 → 1): der helle Verlauf (::after, hält den Text lesbar)
+   wegscrollt; das Startfoto bleibt bis zum Europabild. main.js setzt --hero-veil (0 → 1): der helle Verlauf (::after, hält den Text lesbar)
    tritt erst zurück, wenn der Text oben verschwindet. --hero-out (0 → 1): kurz bevor das Foto
    freigegeben wird, läuft es nach unten weich ins Weiß des folgenden Abschnitts aus.
    Ohne JS bleibt Foto A. */
@@ -276,7 +275,6 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   filter: saturate(.8);
 }
 .hero-img-a { background-image: url("../img/start-buero.jpg"); transform: scale(1.3); transform-origin: left center; } /* Raum mit Glaswand rückt nach rechts, weg vom Text */
-.hero-img-b { background-image: url("../img/start-flur.jpg"); opacity: var(--hero-mix, 0); }
 .hero-media::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .85) 32%, rgba(245, 243, 238, .2) 62%, rgba(245, 243, 238, 0) 80%);
@@ -284,7 +282,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 }
 .hero-full .split { min-height: var(--hero-h); align-content: center; }
 
-/* Übersicht und „KI im Unternehmen“ im Startbereich: helle Tafeln, gleiten über dem stehenden Foto B nach oben
+/* Übersicht und „KI im Unternehmen“ im Startbereich: helle Tafeln, gleiten über dem stehenden Startfoto nach oben
    und blendet sich ein (data-reveal, Einträge nacheinander) */
 .hero-overview-wrap { margin-top: 30vh; margin-top: 30svh; }
 .hero-panel-wrap { display: block; margin-top: 20vh; margin-top: 20svh; }
@@ -1305,7 +1303,6 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .hero-overview-wrap { margin-top: 20vh; margin-top: 20svh; }
   .hero-panel-wrap { margin-top: 12vh; margin-top: 12svh; }
   .hero-img-a { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; transform: none; }
-  .hero-img-b { background-image: url("../img/start-flur-900.jpg"); }
   .hero-media::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
   .overview { grid-template-columns: 1fr; gap: 48px; }
   .offer { grid-template-columns: 1fr; }
