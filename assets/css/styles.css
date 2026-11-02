@@ -217,6 +217,18 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background-image: url("../img/natur.jpg"), linear-gradient(180deg, #e3e6dc 0%, #c7d0c2 60%, #a9b6a6 100%);
 }
 .photo-band { height: clamp(240px, 38vw, 460px); border-radius: 0; }
+/* Bildstreifen Industrie nach dem Startbereich: Ränder laufen weich ins Weiß der Nachbarn aus,
+   das Foto wandert beim Scrollen langsamer mit (--band-shift setzt main.js) */
+.photo-industrie {
+  position: relative; overflow: hidden; background: var(--white); filter: none;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 18%, #000 82%, transparent 100%);
+}
+.photo-industrie > span {
+  position: absolute; left: 0; right: 0; top: -20%; bottom: -20%;
+  background: #9ea5ad url("../img/band-industrie.jpg") center / cover no-repeat;
+  filter: saturate(.8); transform: translateY(var(--band-shift, 0px));
+}
 
 /* ---------- Hero ---------- */
 .hero { padding: 88px 0 112px; }
@@ -230,16 +242,23 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
    .hero-media klebt (sticky) und bleibt um --hero-hold stehen, während der Text darüber
    wegscrollt. main.js setzt dabei --hero-mix (0 → 1): Foto A blendet in Foto B über, der Text
    scrollt mit hinein. --hero-veil (0 → 1): der helle Verlauf (::after, hält den Text lesbar)
-   tritt erst zurück, wenn der Text oben verschwindet. Ohne JS bleibt Foto A. */
+   tritt erst zurück, wenn der Text oben verschwindet. --hero-out (0 → 1): kurz bevor das Foto
+   freigegeben wird, läuft es nach unten weich ins Weiß des folgenden Abschnitts aus.
+   Ohne JS bleibt Foto A. */
 .hero-full {
   --hero-h: calc(100vh - 76px); --hero-h: calc(100svh - 76px);
-  --hero-hold: 12vh; --hero-hold: 12svh;
-  position: relative; isolation: isolate; padding: 0 0 var(--hero-hold);
+  --hero-hold: 45vh; --hero-hold: 45svh;
+  position: relative; isolation: isolate; padding: 0; background: var(--white);
 }
 /* Foto behält seine volle Höhe (sonst klebt es eine Bildhöhe zu lang und verdeckt den
-   nächsten Abschnitt); stattdessen rückt der Inhalt um diese Höhe nach oben. */
-.hero-media { position: sticky; top: 76px; z-index: -1; overflow: hidden; height: var(--hero-h); }
-.hero-content { margin-top: calc(-1 * var(--hero-h)); }
+   nächsten Abschnitt); stattdessen rückt der Inhalt um diese Höhe nach oben.
+   Die Haltestrecke ist Innenabstand von .hero-content – nur dort klebt das Foto. */
+.hero-media {
+  position: sticky; top: 76px; z-index: -1; overflow: hidden; height: var(--hero-h);
+  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 75% * var(--hero-out, 0)), transparent 100%);
+  mask-image: linear-gradient(180deg, #000 calc(100% - 75% * var(--hero-out, 0)), transparent 100%);
+}
+.hero-content { margin-top: calc(-1 * var(--hero-h)); padding-bottom: var(--hero-hold); }
 .hero-img {
   position: absolute; inset: 0; background: var(--sand) center / cover no-repeat;
   filter: saturate(.8);

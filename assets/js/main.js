@@ -306,6 +306,9 @@
       // Heller Verlauf bleibt, solange Text da ist; tritt zurück, wenn der Text oben verschwindet
       var textLeft = (heroText.getBoundingClientRect().bottom - mediaTop) / (heroMedia.offsetHeight * 0.4);
       hero.style.setProperty("--hero-veil", clamp01(1 - textLeft).toFixed(3));
+      // Kurz bevor das Foto freigegeben wird: nach unten weich ins Weiß auslaufen
+      var holdLeft = hero.getBoundingClientRect().bottom - heroMedia.getBoundingClientRect().bottom;
+      hero.style.setProperty("--hero-out", clamp01(1 - holdLeft / (heroMedia.offsetHeight * 0.6)).toFixed(3));
     };
     var heroRequest = function () {
       if (heroTicking) return;
@@ -315,6 +318,30 @@
     window.addEventListener("scroll", heroRequest, { passive: true });
     window.addEventListener("resize", heroRequest);
     heroMix();
+  }
+
+  /* ---------- Bildstreifen: Foto wandert beim Scrollen langsamer mit ---------- */
+  var bands = document.querySelectorAll("[data-parallax]");
+  if (bands.length && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var bandTicking = false;
+    var bandShift = function () {
+      bandTicking = false;
+      Array.prototype.forEach.call(bands, function (band) {
+        var r = band.getBoundingClientRect();
+        if (r.bottom < 0 || r.top > window.innerHeight) return;
+        // -1 (Streifen unten am Rand) … 1 (oben am Rand); Bildebene ist 40 % höher als der Streifen
+        var p = ((r.top + r.height / 2) - window.innerHeight / 2) / (window.innerHeight / 2 + r.height / 2);
+        band.style.setProperty("--band-shift", (-p * r.height * 0.18).toFixed(1) + "px");
+      });
+    };
+    var bandRequest = function () {
+      if (bandTicking) return;
+      bandTicking = true;
+      window.requestAnimationFrame(bandShift);
+    };
+    window.addEventListener("scroll", bandRequest, { passive: true });
+    window.addEventListener("resize", bandRequest);
+    bandShift();
   }
 
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
