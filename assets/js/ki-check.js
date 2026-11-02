@@ -96,8 +96,8 @@
       { id: "Expert", below: Infinity, text: "KI ist bei Ihnen im Einsatz. Als Nächstes geht es darum, Anwendungen zu vertiefen und Verantwortung klar zu regeln." },
     ],
     offers: {
-      "ki-start": { label: "KI Einstieg für Unternehmen", url: "#ki-start" },
-      "mitarbeiter": { label: "KI Einstieg für Mitarbeiter", url: "#mitarbeiter" },
+      "ki-start": { label: "KI-Einstieg für Unternehmen", url: "#ki-start" },
+      "mitarbeiter": { label: "KI-Einstieg für Mitarbeitende", url: "#mitarbeiter" },
     },
     closing: {
       title: "Ihre erste KI-Orientierung",
