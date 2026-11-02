@@ -233,7 +233,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
    tritt erst zurück, wenn der Text oben verschwindet. Ohne JS bleibt Foto A. */
 .hero-full {
   --hero-h: calc(100vh - 76px); --hero-h: calc(100svh - 76px);
-  --hero-hold: 90vh; --hero-hold: 90svh;
+  --hero-hold: 12vh; --hero-hold: 12svh;
   position: relative; isolation: isolate; padding: 0 0 var(--hero-hold);
 }
 .hero-media {
@@ -252,6 +252,22 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   opacity: calc(1 - .8 * var(--hero-veil, 0));
 }
 .hero-full .split { min-height: var(--hero-h); align-content: center; }
+
+/* Übersicht im Startbereich: helle Tafel, gleitet über dem stehenden Foto B nach oben
+   und blendet sich ein (data-reveal, Einträge nacheinander) */
+.hero-overview-wrap { margin-top: 30vh; margin-top: 30svh; }
+.hero-overview {
+  padding: 48px 56px; border-radius: var(--radius);
+  background: rgba(255, 255, 255, .9); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+  transition: opacity .8s ease-out, transform .8s ease-out;
+}
+.hero-overview .jump-list li, .hero-overview .feature-link { transition: opacity .5s ease-out, transform .5s ease-out; }
+.hero-overview .jump-list li:nth-child(2) { transition-delay: .1s; }
+.hero-overview .jump-list li:nth-child(3), .hero-overview .feature-link { transition-delay: .2s; }
+.hero-overview.is-armed:not(.is-visible) { opacity: 0; transform: translateY(64px); }
+.hero-overview.is-armed:not(.is-visible) .jump-list li,
+.hero-overview.is-armed:not(.is-visible) .feature-link { opacity: 0; transform: translateY(12px); }
 
 /* ---------- Übersicht ---------- */
 .overview { display: grid; grid-template-columns: 1fr 1fr; gap: 64px; }
@@ -1186,7 +1202,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   :root { --section: 88px; --gutter: 24px; }
   .split > [class*="span-"] { grid-column: 1 / -1; }
   .hero { padding: 56px 0 80px; }
-  .hero-full { --hero-hold: 70vh; --hero-hold: 70svh; }
+  .hero-overview-wrap { margin-top: 20vh; margin-top: 20svh; }
   .hero-img-a { background-image: url("../img/start-buero-900.jpg"); background-position: 65% center; }
   .hero-img-b { background-image: url("../img/start-flur-900.jpg"); }
   .hero-media::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
@@ -1212,6 +1228,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 
 @media (max-width: 600px) {
+  .hero-overview { padding: 28px 20px; }
   :root { --gutter: 16px; --section: 72px; }
   body { font-size: 1rem; }
   .logo { gap: 10px; }

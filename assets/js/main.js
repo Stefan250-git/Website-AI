@@ -298,12 +298,11 @@
     var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
     var heroMix = function () {
       heroTicking = false;
-      // Überblendung A → B in der ersten Hälfte der Strecke, die das Foto stehen bleibt –
-      // der Text scrollt dabei mit in Foto B hinein
-      var range = hero.offsetHeight - heroMedia.offsetHeight;
+      // Überblendung A → B, während der Text gut eine halbe Bildhöhe nach oben scrollt –
+      // der Text scrollt dabei mit in Foto B hinein, danach folgt die Übersicht auf Foto B
       var mediaTop = heroMedia.getBoundingClientRect().top;
-      var p = range > 0 ? (mediaTop - hero.getBoundingClientRect().top) / range : 0;
-      hero.style.setProperty("--hero-mix", clamp01((p - 0.1) / 0.5).toFixed(3));
+      var p = (mediaTop - hero.getBoundingClientRect().top) / heroMedia.offsetHeight;
+      hero.style.setProperty("--hero-mix", clamp01((p - 0.1) / 0.45).toFixed(3));
       // Heller Verlauf bleibt, solange Text da ist; tritt zurück, wenn der Text oben verschwindet
       var textLeft = (heroText.getBoundingClientRect().bottom - mediaTop) / (heroMedia.offsetHeight * 0.4);
       hero.style.setProperty("--hero-veil", clamp01(1 - textLeft).toFixed(3));
