@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=95">
+  <link rel="stylesheet" href="assets/css/styles.css?v=96">
 
   <script type="application/ld+json">
   {
@@ -291,64 +291,21 @@
     <!-- ===================== Wissensbasis (hervorgehoben) ===================== -->
     <section class="section section-navy wissen" id="wissensbasis" aria-labelledby="wissen-title">
       <div class="container">
-        <div class="section-head">
-          <p class="kicker">Wissensbasis</p>
-          <h2 id="wissen-title">Wissen ist vorhanden. Aber wie schnell ist es verfügbar?</h2>
-          <p class="lead">Die Atlassian-Studie „The State of Teams 2025“ hat Teams und Führungskräfte befragt. Das Ergebnis:</p>
-        </div>
-
-        <!-- Kennzahlen: Atlassian, The State of Teams 2025, S. 8 und 10 – Werte nicht umdeuten -->
-        <div class="stats" data-reveal>
-          <figure class="stat">
-            <div class="week" aria-hidden="true">
-              <div class="week-people"><i class="is-hit"></i><i></i><i></i><i></i><span>1 von 4 Befragten</span></div>
-              <div class="week-bar">
-                <span>Mo</span><span>Di</span><span>Mi</span><span>Do</span><span>Fr</span>
-                <b class="week-search">Suchen</b>
-              </div>
-            </div>
-            <p class="stat-figure">25&#8239;<span>%</span></p>
-            <figcaption>der Befragten verbringen etwa <strong>ein Viertel ihrer Arbeitswoche</strong> mit der Suche nach Informationen.</figcaption>
-          </figure>
-
-          <figure class="stat">
-            <svg class="dots" viewBox="0 0 100 100" aria-hidden="true">
-              <defs>
-                <pattern id="wissen-dot" width="10" height="10" patternUnits="userSpaceOnUse"><circle cx="5" cy="5" r="3.4" fill="#fff" /></pattern>
-                <mask id="wissen-dots"><rect width="100" height="100" fill="url(#wissen-dot)" /></mask>
-              </defs>
-              <!-- 100 Punkte, davon 56 markiert (5 Reihen + 6) -->
-              <g mask="url(#wissen-dots)">
-                <rect class="dots-rest" width="100" height="100" />
-                <g class="dots-hit">
-                  <rect y="50" width="100" height="50" />
-                  <rect x="40" y="40" width="60" height="10" />
-                </g>
-              </g>
-            </svg>
-            <p class="stat-figure">56&#8239;<span>%</span></p>
-            <figcaption>müssen häufig <strong>andere fragen oder ein Meeting ansetzen</strong>, um benötigte Informationen zu bekommen.</figcaption>
-          </figure>
-
-          <figure class="stat">
-            <svg class="ring" viewBox="0 0 120 120" aria-hidden="true">
-              <circle class="ring-rest" cx="60" cy="60" r="50" pathLength="100" />
-              <circle class="ring-hit" cx="60" cy="60" r="50" pathLength="100" />
-            </svg>
-            <p class="stat-figure">71&#8239;<span>%</span></p>
-            <figcaption>der Teams schöpfen die Möglichkeiten von KI beim Verwalten und Finden von Informationen <strong>nicht vollständig aus</strong>.</figcaption>
-          </figure>
-        </div>
-
-        <p class="stats-source">Quelle: <a href="https://atlassianblog.wpengine.com/wp-content/uploads/2025/03/the-state-of-teams-2025.pdf" target="_blank" rel="noopener noreferrer">Atlassian, The State of Teams 2025</a>
-          <small>Abschnitt „Challenges“, S. 8 und 10. Befragung von 12.000 Wissensarbeitenden in den USA, Großbritannien, Australien, Indien, Deutschland und Frankreich sowie 200 Führungskräften aus Fortune-1000-Unternehmen (den 1.000 umsatzstärksten US-Firmen; 88 % in den USA).</small></p>
-
+        <!-- Thesen mit Kennzahlen als Quickinfo (Mouseover/Fokus): Atlassian, The State of Teams 2025,
+             Abschnitt „Challenges“, S. 8 und 10 – Werte nicht umdeuten, Quelle bleibt in jeder Quickinfo sichtbar -->
         <div class="familiar" data-reveal>
-          <h3>Kommt Ihnen das bekannt vor?</h3>
+          <p class="kicker">Wissensbasis</p>
+          <h2 id="wissen-title">Unternehmenswissen, das sich finden lässt.</h2>
           <ul class="familiar-list">
-            <li>Informationen werden gesucht statt gefunden.</li>
-            <li>Wissen steckt in einzelnen Köpfen.</li>
-            <li>Mehrere Versionen existieren – welche gilt?</li>
+            <li tabindex="0">Informationen werden gesucht statt gefunden.
+              <span class="familiar-tip" role="tooltip"><b>25&#8239;%</b> der Befragten verbringen etwa ein Viertel ihrer Arbeitswoche mit der Suche nach Informationen.
+                <small>Quelle: <a href="https://atlassianblog.wpengine.com/wp-content/uploads/2025/03/the-state-of-teams-2025.pdf" target="_blank" rel="noopener noreferrer">Atlassian, The State of Teams 2025</a>, S. 8 und 10</small></span></li>
+            <li tabindex="0">Wissen steckt in einzelnen Köpfen.
+              <span class="familiar-tip" role="tooltip"><b>56&#8239;%</b> müssen häufig andere fragen oder ein Meeting ansetzen, um benötigte Informationen zu bekommen.
+                <small>Quelle: <a href="https://atlassianblog.wpengine.com/wp-content/uploads/2025/03/the-state-of-teams-2025.pdf" target="_blank" rel="noopener noreferrer">Atlassian, The State of Teams 2025</a>, S. 8 und 10</small></span></li>
+            <li tabindex="0">Mehrere Versionen existieren – welche gilt?
+              <span class="familiar-tip" role="tooltip"><b>71&#8239;%</b> der Teams schöpfen die Möglichkeiten von KI beim Verwalten und Finden von Informationen nicht vollständig aus.
+                <small>Quelle: <a href="https://atlassianblog.wpengine.com/wp-content/uploads/2025/03/the-state-of-teams-2025.pdf" target="_blank" rel="noopener noreferrer">Atlassian, The State of Teams 2025</a>, S. 8 und 10</small></span></li>
             <li>Neue Mitarbeitende brauchen lange Einarbeitung.</li>
           </ul>
           <button class="btn btn-outline-light familiar-flow" type="button" data-open-flow aria-haspopup="dialog">So kann eine Lösung aussehen</button>

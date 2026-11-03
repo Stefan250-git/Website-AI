@@ -570,7 +570,30 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 
 /* „Kommt Ihnen das bekannt vor?“ – Punkte haken sich nacheinander ab */
 .familiar { margin-top: 96px; padding-top: 64px; border-top: 1px solid rgba(255, 255, 255, .16); }
-.familiar h3 { font-size: clamp(2rem, 5vw, 3.4rem); letter-spacing: -.02em; }
+.familiar h2 { color: var(--white); }
+/* Wissensbasis beginnt direkt mit den Thesen (frühere Kennzahl-Kacheln entfernt) */
+.wissen .familiar { margin-top: 0; padding-top: 0; border-top: 0; }
+
+/* Quickinfo an den Thesen: Kennzahl aus der Atlassian-Studie mit Quelle, bei Mouseover und Fokus.
+   Bleibt offen, solange die Maus darauf ist (Quelle anklickbar); ::after überbrückt den Abstand. */
+.familiar-list li:has(.familiar-tip) { cursor: help; }
+.familiar-list li:focus-visible { outline: 2px solid var(--green-light); outline-offset: 3px; }
+.familiar-tip {
+  position: absolute; left: 0; right: 0; top: calc(100% + 10px); z-index: 5;
+  padding: 16px 20px; border-radius: 12px; white-space: normal;
+  background: var(--white); color: var(--navy); font-size: .98rem; font-weight: 500; line-height: 1.5;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, .35);
+  opacity: 0; visibility: hidden; transform: translateY(-6px);
+  transition: opacity .25s, transform .25s, visibility .25s;
+}
+.familiar-tip::before { content: ""; position: absolute; top: -5px; left: 28px; width: 10px; height: 10px; background: var(--white); transform: rotate(45deg); }
+.familiar-tip::after { content: ""; position: absolute; left: 0; right: 0; top: -12px; height: 12px; }
+.familiar-tip b { display: block; margin-bottom: 4px; color: var(--green); font-size: 1.9rem; line-height: 1.1; font-weight: 700; }
+.familiar-tip small { display: block; margin-top: 10px; color: var(--muted); font-size: .8rem; }
+.familiar-tip a { color: var(--green-dark); }
+.familiar-list li:hover .familiar-tip, .familiar-list li:focus-within .familiar-tip { opacity: 1; visibility: visible; transform: translateY(0); }
+.familiar-list li:hover, .familiar-list li:focus-within { z-index: 6; }
+.familiar-list li::before, .familiar-list li::after { z-index: 1; }
 /* Thesen so groß wie möglich, aber einzeilig: Schriftgröße folgt der Breite der Liste (cqi);
    längste These „Neue Mitarbeitende brauchen lange Einarbeitung.“ = 22,7 em (gemessen), Kachel-Innenabstand 96 px.
    Bei neuen, längeren Thesen die Faktoren anpassen. */
