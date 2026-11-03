@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=90">
+  <link rel="stylesheet" href="assets/css/styles.css?v=93">
 
   <script type="application/ld+json">
   {
@@ -229,9 +229,14 @@
         </div>
       </div>
 
-      <div class="container">
+      <!-- Bühne „Kollegen am Tablet“: Foto vollflächig und stehend, blendet oben weich aus dem Weiß ein
+           und unten ins Weiß aus (main.js: --st-in, --st-out); die beiden Angebote laufen in der hellen
+           rechten Bildhälfte darüber. Foto: assets/img/team-tablet.jpg, Bildrechte in assets/img/README.md – PRD §31 -->
+      <div class="photo-stage photo-team">
+        <div class="photo-stage-media" aria-hidden="true"></div>
+        <div class="container photo-stage-content">
 
-        <!-- KI-Einstieg für Mitarbeitende: wieder auf neutralem Hintergrund -->
+        <!-- KI-Einstieg für Mitarbeitende -->
         <article class="offer offer-first" id="mitarbeiter">
           <div class="offer-head">
             <h3>KI-Einstieg für Mitarbeitende</h3>
@@ -273,6 +278,7 @@
             <a class="text-link" href="#kontakt" data-topic="mitarbeiter">Anfragen</a>
           </div>
         </article>
+        </div>
       </div>
     </section>
 
@@ -625,7 +631,7 @@
   </footer>
 
   <script src="assets/js/config.js?v=16"></script>
-  <script src="assets/js/main.js?v=29"></script>
+  <script src="assets/js/main.js?v=30"></script>
   <script src="assets/js/ki-check.js?v=17"></script>
   <script src="assets/js/glossar.js?v=15"></script>
   <script src="assets/js/termine.js?v=2"></script>
