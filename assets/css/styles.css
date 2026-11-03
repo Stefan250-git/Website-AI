@@ -413,7 +413,10 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .steps-compact li:hover .step-tip, .steps-compact li:focus .step-tip { opacity: 1; visibility: visible; transform: translateY(0); }
 
 .standard { list-style: none; counter-reset: std; display: grid; grid-template-columns: 1fr 1fr; gap: 0 32px; border-top: 1px solid var(--line); }
-.standard li { counter-increment: std; padding: 12px 0; border-bottom: 1px solid var(--line); color: var(--navy); font-weight: 500; }
+.standard li { position: relative; counter-increment: std; padding: 12px 0; border-bottom: 1px solid var(--line); color: var(--navy); font-weight: 500; }
+.standard li:has(.step-tip) { cursor: help; }
+.standard li:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
+.standard li:hover .step-tip, .standard li:focus .step-tip { opacity: 1; visibility: visible; transform: translateY(0); }
 .standard li::before { content: counter(std); display: inline-block; width: 28px; color: var(--green); font-weight: 600; }
 
 .price { display: grid; gap: 4px; }
