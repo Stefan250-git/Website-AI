@@ -83,6 +83,13 @@ window.PAUL_WISSEN = {
       links: [{ label: "KI-Sicherheit", url: "ki-sicherheit.html" }],
     },
     {
+      id: "W35", title: "KI & Ethik",
+      match: "ethik|ethisch|moral|ist ki (fair|gerecht|neutral)|was (sollte|darf) ki (d(ü|ue)rfen|tun)|grenzen (von|f(ü|ue)r|der) ki|fairness|diskriminier|verh(ä|ae)ltnism(ä|ae)(ß|ss)ig|verantwortungsvolle?r? (einsatz|umgang)",
+      keywords: ["ethik", "fairness", "transparenz", "verantwortung", "verhältnismäßigkeit", "grenzen", "mensch im mittelpunkt"],
+      answer: "Im KI-Kompass findest Du die Seite „KI & Ethik“. Sie fragt: Was sollte KI dürfen – und wo setzen wir Grenzen? Dazu gibt es sechs Grundsätze: Mensch im Mittelpunkt, Fairness, Transparenz, Verantwortung, Verhältnismäßigkeit und Auswirkungen. Der Grundsatz dahinter: KI kann unterstützen, die Verantwortung für ihren Einsatz und die Entscheidungen bleibt beim Menschen.",
+      links: [{ label: "KI & Ethik", url: "ki-ethik.html" }],
+    },
+    {
       id: "W26", title: "Zugriff auf geschützte Inhalte",
       match: "hast du zugriff|kannst du (meine|interne|unsere|geschlossene|geschützte|geschuetzte) .*(lesen|sehen|einsehen)|notion|interne[nr]? bereich|kennst du alles|warum weisst du (etwas|das|was) .*nicht",
       keywords: ["zugriff", "intern", "notion", "geschützt", "unterlagen"],

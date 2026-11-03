@@ -1,0 +1,58 @@
+/* =========================================================
+   KI & Ethik (ki-ethik.html) – ergänzt styles.css,
+   nutzt deren Farb-Tokens; Aufbau angelehnt an KI-Sicherheit
+   ========================================================= */
+
+/* ---------- Kopf: blauer Bereich mit Leitfrage und Waage ---------- */
+.eth-hero { padding: 96px 0 88px; }
+.eth-hero-grid { display: grid; grid-template-columns: 7fr 4fr; gap: 48px 64px; align-items: center; }
+.eth-hero .kicker { color: var(--green-light); }
+.eth-hero h1 { color: var(--white); font-size: clamp(2.2rem, 5vw, 3.4rem); }
+.eth-hero .lead { margin-top: 20px; color: #c3cad7; }
+.eth-scale { justify-self: center; width: min(280px, 100%); }
+
+/* ---------- Sechs Grundsätze als Karten ---------- */
+.eth-principles { padding-top: 88px; }
+.eth-grid { list-style: none; counter-reset: eth; display: grid; grid-template-columns: repeat(3, 1fr); gap: 24px; }
+.eth-card {
+  position: relative; counter-increment: eth; display: flex; flex-direction: column; gap: 12px;
+  padding: 36px 32px 32px; border-radius: var(--radius); background: var(--white);
+  border-top: 4px solid var(--green); box-shadow: var(--shadow);
+}
+.eth-card::before {
+  content: "0" counter(eth); position: absolute; top: 28px; right: 28px;
+  font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: var(--green);
+}
+.eth-icon {
+  width: 44px; height: 44px; padding: 9px; border-radius: 12px; background: var(--green-soft);
+  fill: none; stroke: var(--green-dark); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round;
+}
+.eth-card h3 { margin-top: 8px; font-size: 1.3rem; }
+.eth-card p { color: var(--muted); }
+
+/* ---------- Grundsatz: grüne Fläche ---------- */
+.eth-principle {
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px 48px;
+  margin-top: 56px; padding: 48px 56px; border-radius: var(--radius);
+  background: var(--green); color: var(--white);
+}
+.eth-principle figcaption {
+  grid-column: 1 / -1; font-size: .78rem; font-weight: 600; letter-spacing: .16em; text-transform: uppercase; color: var(--green-light);
+}
+.eth-principle blockquote { margin: 0; }
+.eth-principle blockquote p { font-size: clamp(1.25rem, 2.2vw, 1.6rem); font-weight: 600; line-height: 1.45; max-width: 52ch; }
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1180px) { .eth-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 900px) {
+  .eth-hero-grid { grid-template-columns: 1fr; }
+  .eth-scale { order: -1; justify-self: start; width: 120px; }
+  .eth-principle { grid-template-columns: 1fr; padding: 40px 32px; }
+}
+@media (max-width: 600px) {
+  .eth-hero { padding: 56px 0; }
+  .eth-grid { grid-template-columns: 1fr; }
+  .eth-card { padding: 28px 22px 24px; }
+  .eth-principle { padding: 32px 22px; }
+  .eth-principle .btn { width: 100%; }
+}
