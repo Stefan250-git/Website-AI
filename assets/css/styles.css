@@ -208,6 +208,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 /* Gruppe im Untermenü (KI-Einstieg › für Unternehmen …): Überschrift ohne Link, Einträge eingerückt */
 .submenu-group { margin-top: 4px; padding-top: 4px; border-top: 1px solid var(--line); }
 .submenu-group:first-child { margin-top: 0; padding-top: 0; border-top: 0; }
+.submenu-group:first-child:not(:last-child) { margin-bottom: 4px; padding-bottom: 4px; border-bottom: 1px solid var(--line); } /* Gruppe oben: Linie darunter statt darüber */
 .submenu-label { display: block; padding: 10px 12px 4px; font-size: .95rem; font-weight: 500; color: var(--muted); }
 .submenu-group ul { list-style: none; }
 .submenu-group a { padding-left: 28px; }
@@ -1407,7 +1408,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
     border: 0; box-shadow: none; background: transparent; padding: 0 0 12px 16px;
   }
   .submenu a { padding: 12px 0; color: var(--muted); }
-  .submenu-group { border-top: 0; }
+  .submenu-group, .submenu-group:first-child { border-top: 0; border-bottom: 0; }
   .submenu-label { padding: 12px 0 4px; color: var(--navy); }
   .submenu-group a { padding-left: 16px; }
   .nav-cta { margin: 20px 0 0; border-bottom: 0 !important; }
