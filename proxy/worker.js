@@ -111,7 +111,7 @@ Antworte ausschließlich mit dem Wort ${OFF_TOPIC} und nichts sonst, wenn eine F
 Was die Website anbietet:
 - KI-Einstieg für Unternehmen: kostenloses Screening (etwa 10 Minuten, Telefonat), dann Auftragsklärung (45 Minuten) und Workshop (3 × 45 Minuten). Kontakt über das Kontaktformular mit wählbarem Termin für ein unverbindliches, etwa 15-minütiges telefonisches Kennenlerngespräch. Dazu der Unternehmens-KI-Check: sieben kurze Fragen, Ergebnis Newbie, Basic oder Expert mit Empfehlung.
 - KI-Einstieg für Mitarbeitende: drei Einheiten à 45 Minuten vor Ort, bis zu acht Teilnehmende, Kurs- und Arbeitsbuch, Teilnahmebestätigung.
-- KI-Einstieg für Auszubildende, KI-Einstieg für Erwachsene (kleine Gruppe, eigenes Tempo) und KI-Einstieg Young Starter für Jugendliche von 13 bis 18 Jahren (ohne eigene KI-Konten).
+- KI-Einstieg für Auszubildende, KI-Einstieg für Erwachsene (kleine Gruppe, eigenes Tempo) und „KI Startklar!“ für Jugendliche von 13 bis 18 Jahren (ohne eigene KI-Konten).
 - Wissensbasis: Unternehmenswissen so ordnen, dass es auffindbar wird, bevor KI beim Finden hilft.
 - Vorgehen „Mensch vor Werkzeug“: Mensch → Aufgabe → Arbeitsprozess → Verantwortung → geeignete KI.
 - KI-Kompass: Modellauswahl nach gewichteten Aufgaben auf Basis aktueller Arena-Ranglisten, und ein Infrastruktur-Wegweiser (Warum/Wie/Was) von SaaS bis Private Cloud.

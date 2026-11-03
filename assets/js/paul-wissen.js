@@ -228,11 +228,11 @@ window.PAUL_WISSEN = {
       links: [{ label: "KI-Einstieg für Auszubildende", url: "index.html#auszubildende" }, { label: "Für Bildungsträger", url: "index.html#bildungstraeger" }],
     },
     {
-      id: "W12", title: "KI-Einstieg Young Starter",
-      match: "jugendlich|teenager|mein kind|meine kinder|sch(ü|ue)ler|young starter|ab welchem alter|1[3-8]-?j(ä|ae)hrig|eigenen? (chatgpt-? ?)?(account|konto)",
+      id: "W12", title: "KI Startklar!",
+      match: "jugendlich|teenager|mein kind|meine kinder|sch(ü|ue)ler|young starter|startklar|ab welchem alter|1[3-8]-?j(ä|ae)hrig|eigenen? (chatgpt-? ?)?(account|konto)",
       keywords: ["jugend", "schüler", "schule", "kind", "teenager", "jugendlich", "klasse", "lehrer"],
-      answer: "Der „KI-Einstieg Young Starter“ richtet sich an Jugendliche von 13 bis 18 Jahren im Bildungskontext. Sie lernen, was KI kann und warum überzeugende Antworten falsch sein können. Eigene KI-Konten sind nicht nötig.",
-      links: [{ label: "KI-Einstieg Young Starter", url: "index.html#young-starter" }],
+      answer: "„KI Startklar!“ richtet sich an Jugendliche von 13 bis 18 Jahren im Bildungskontext. Sie lernen, was KI kann und warum überzeugende Antworten falsch sein können. Eigene KI-Konten sind nicht nötig.",
+      links: [{ label: "KI Startklar!", url: "index.html#ki-startklar" }],
     },
     {
       id: "W13", title: "KI-Einstieg für Erwachsene",
