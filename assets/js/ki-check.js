@@ -311,7 +311,7 @@
       dialog.close();
       var topic = document.getElementById("f-topic");
       if (topic) {
-        topic.value = "ki-start";
+        topic.value = "mitarbeiter";
         topic.dispatchEvent(new Event("change", { bubbles: true }));
       }
       location.hash = "kontakt";
