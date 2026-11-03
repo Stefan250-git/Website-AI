@@ -84,7 +84,7 @@ window.PAUL_WISSEN = {
     },
     {
       id: "W35", title: "KI & Ethik",
-      match: "ethik|ethisch|moral|ist ki (fair|gerecht|neutral)|was (sollte|darf) ki (d(ü|ue)rfen|tun)|grenzen (von|f(ü|ue)r|der) ki|fairness|diskriminier|verh(ä|ae)ltnism(ä|ae)(ß|ss)ig|verantwortungsvolle?r? (einsatz|umgang)",
+      match: "ethik|ethisch|moral|ist ki (fair|gerecht|neutral|transparent)|transparenz (bei|von|der) ki|darf ki .*entscheid|soll(te)? ki .*entscheid|was (sollte|darf) ki (d(ü|ue)rfen|tun)|grenzen (von|f(ü|ue)r|der) ki|fairness|diskriminier|verh(ä|ae)ltnism(ä|ae)(ß|ss)ig|verantwortungsvolle?r? (einsatz|umgang)",
       keywords: ["ethik", "fairness", "transparenz", "verantwortung", "verhältnismäßigkeit", "grenzen", "mensch im mittelpunkt"],
       answer: "Im KI-Kompass findest Du die Seite „KI & Ethik“. Sie fragt: Was sollte KI dürfen – und wo setzen wir Grenzen? Dazu gibt es sechs Grundsätze: Mensch im Mittelpunkt, Fairness, Transparenz, Verantwortung, Verhältnismäßigkeit und Auswirkungen. Der Grundsatz dahinter: KI kann unterstützen, die Verantwortung für ihren Einsatz und die Entscheidungen bleibt beim Menschen.",
       links: [{ label: "KI & Ethik", url: "ki-ethik.html" }],
