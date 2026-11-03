@@ -381,7 +381,7 @@
   var company = form.elements.company;
   var companyHint = document.getElementById("company-required");
   var status = document.getElementById("form-status");
-  var B2B_TOPICS = ["ki-start", "adult-b2b", "young-ausbildung", "wissensbasis"];
+  var B2B_TOPICS = ["mitarbeiter", "ki-modelle", "ki-sicherheit"];
 
   function updateCompanyRequirement() {
     var required = B2B_TOPICS.indexOf(topic.value) !== -1;
@@ -402,7 +402,7 @@
   var messages = {
     name: "Bitte geben Sie Ihren Namen an.",
     email: "Bitte geben Sie eine gültige E-Mail-Adresse an, z. B. name@firma.de.",
-    topic: "Bitte wählen Sie ein Thema aus – „Noch unsicher“ ist ebenfalls möglich.",
+    topic: "Bitte wählen Sie ein Thema aus.",
     company: "Für Unternehmensangebote benötigen wir den Namen Ihres Unternehmens.",
     phone: "Bitte geben Sie eine Telefonnummer an, unter der ich Sie erreiche.",
     privacy: "Bitte bestätigen Sie den Datenschutzhinweis.",
