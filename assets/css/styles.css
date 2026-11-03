@@ -256,7 +256,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
    das ausklingende Startfoto. main.js setzt --eu-in (0 → 1: oberer Verlauf beim Hereinkommen, damit beide
    Fotos ineinander blenden) und --eu-out (0 → 1: erst am Ende, wenn die Tafeln durchgelaufen sind, läuft es nach unten ins Weiß aus).
    Ohne JS steht das Foto ohne Verläufe. */
-.section-eu { padding-top: 0; }
+.section-eu { padding-top: 0; padding-bottom: 56px; } /* endet mit der Foto-Bühne „Kollegen am Tablet“, die selbst ins Weiß ausläuft */
 .eu-stage {
   --eu-h: calc(100vh - 76px); --eu-h: calc(100svh - 76px);
   --eu-overlap: clamp(120px, 18vw, 280px);
@@ -278,6 +278,35 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .offer.eu-card-light, .offer.eu-card-light:last-child { margin-top: 24px; padding: 40px 48px 48px; border-top: 0; border-radius: var(--radius); background: rgba(255, 255, 255, .96); } /* :last-child – sonst setzt .offer:last-child den unteren Abstand auf 0 */
 .offer.offer-first { border-top: 0; }
 @media (max-width: 600px) { .offer.eu-card-light, .offer.eu-card-light:last-child { padding: 28px 22px 32px; } }
+
+/* Foto-Bühne „Kollegen am Tablet“ (KI-Einstieg für Mitarbeitende und Auszubildende): Foto über die volle
+   Bildschirmfläche, bleibt stehen, während die Angebote in der hellen rechten Bildhälfte darüber laufen.
+   main.js setzt --st-in (0 → 1: oberer Verlauf beim Hereinkommen) und --st-out (0 → 1: am Ende ins Weiß).
+   Ohne JS steht das Foto ohne Verläufe. */
+.photo-stage {
+  --st-h: calc(100vh - 76px); --st-h: calc(100svh - 76px);
+  position: relative; isolation: isolate; margin-top: 32px;
+}
+.photo-stage-media {
+  position: sticky; top: 76px; z-index: -1; height: var(--st-h);
+  background: var(--white) center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(40% * (1 - var(--st-in, 1))), #000 calc(100% - 45% * var(--st-out, 0)), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 calc(40% * (1 - var(--st-in, 1))), #000 calc(100% - 45% * var(--st-out, 0)), transparent 100%);
+}
+/* heller Schleier ab der Bildmitte: Text bleibt auf jedem Bildausschnitt lesbar, die Personen links frei */
+.photo-stage-media::after {
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0) 44%, rgba(255, 255, 255, .72) 56%, rgba(255, 255, 255, .82) 100%);
+}
+.photo-team .photo-stage-media { background-image: url("../img/team-tablet.jpg"); background-position: 30% center; }
+.photo-stage-content { margin-top: calc(-1 * var(--st-h)); padding-top: 45vh; padding-top: 45svh; padding-bottom: 25vh; padding-bottom: 25svh; }
+/* Angebote einspaltig in der rechten Bildhälfte */
+.photo-stage-content .offer { grid-template-columns: 1fr; gap: 20px; margin-left: 54%; }
+.photo-stage-content .offer + .offer { border-top-color: rgba(13, 29, 55, .14); }
+@media (max-width: 900px) {
+  .photo-stage-content .offer { margin-left: 0; }
+  .photo-stage-media::after { background: rgba(255, 255, 255, .86); }
+}
 
 /* ---------- Hero ---------- */
 .hero { padding: 88px 0 112px; }

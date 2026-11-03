@@ -356,6 +356,34 @@
     euFade();
   }
 
+  /* ---------- Foto-Bühnen (.photo-stage): Foto bleibt stehen, blendet oben ein und unten ins Weiß aus ---------- */
+  var photoStages = document.querySelectorAll(".photo-stage");
+  if (photoStages.length) {
+    var stTicking = false;
+    var stFade = function () {
+      stTicking = false;
+      Array.prototype.forEach.call(photoStages, function (st) {
+        var media = st.querySelector(".photo-stage-media");
+        var h = media.offsetHeight;
+        var box = st.getBoundingClientRect();
+        if (box.bottom < 0 || box.top > window.innerHeight) return;
+        var top = media.getBoundingClientRect().top;
+        var line = parseFloat(getComputedStyle(media).top) || 0;
+        var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
+        st.style.setProperty("--st-in", fit(1 - (box.top - line) / (h * 0.6)));
+        st.style.setProperty("--st-out", fit(1 - (box.bottom - (top + h)) / (h * 0.3)));
+      });
+    };
+    var stRequest = function () {
+      if (stTicking) return;
+      stTicking = true;
+      window.requestAnimationFrame(stFade);
+    };
+    window.addEventListener("scroll", stRequest, { passive: true });
+    window.addEventListener("resize", stRequest);
+    stFade();
+  }
+
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
   var reveals = document.querySelectorAll("[data-reveal]");
   if (reveals.length && "IntersectionObserver" in window &&
