@@ -343,8 +343,8 @@
       var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
       // 0, solange die Bühne von unten hereinkommt (oberer Verlauf über dem Startfoto), 1, sobald das Foto steht
       euStage.style.setProperty("--eu-in", fit(1 - (stage.top - line) / (h * 0.7)));
-      // Kurz vor der Freigabe: nach unten ins Weiß auslaufen
-      euStage.style.setProperty("--eu-out", fit(1 - (stage.bottom - (top + h)) / (h * 0.6)));
+      // Erst am Ende (Tafeln durchgelaufen): auf der letzten Viertel-Bildhöhe nach unten ins Weiß auslaufen
+      euStage.style.setProperty("--eu-out", fit(1 - (stage.bottom - (top + h)) / (h * 0.25)));
     };
     var euRequest = function () {
       if (euTicking) return;
