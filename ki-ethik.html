@@ -11,7 +11,7 @@
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
   <link rel="stylesheet" href="assets/css/styles.css?v=101">
-  <link rel="stylesheet" href="assets/css/ki-ethik.css?v=1">
+  <link rel="stylesheet" href="assets/css/ki-ethik.css?v=3">
 </head>
 <body>
   <a class="skip-link" href="#inhalt">Zum Inhalt springen</a>
@@ -98,72 +98,35 @@
   <main id="inhalt">
     <!-- ===================== KI & Ethik =====================
          Eigene Unterseite im KI-Kompass (nur über das Menü erreichbar, wie KI-Sicherheit).
-         Inhalte vom Auftraggeber, Stile in assets/css/ki-ethik.css -->
-    <section class="section-navy eth-hero" aria-labelledby="eth-title">
-      <div class="container eth-hero-grid">
-        <div>
-          <p class="kicker">KI-Kompass · KI &amp; Ethik</p>
-          <h1 id="eth-title">Was sollte KI dürfen – und wo setzen wir Grenzen?</h1>
-          <p class="lead">KI kann unterstützen, bewerten und Empfehlungen geben. Entscheidend bleibt, wie wir sie einsetzen und welche Verantwortung Menschen dabei behalten.</p>
-        </div>
-
-        <!-- Waage: Möglichkeiten der KI und menschliche Verantwortung im Gleichgewicht -->
-        <svg class="eth-scale" viewBox="0 0 220 200" role="img" aria-label="Waage als Sinnbild für Abwägung">
-          <circle cx="110" cy="100" r="96" fill="#2a3a55"/>
-          <path d="M110 40v112M80 156h60" stroke="#9fd0bd" stroke-width="6" stroke-linecap="round"/>
-          <path d="M46 70h128" stroke="#9fd0bd" stroke-width="6" stroke-linecap="round"/>
-          <circle cx="110" cy="40" r="8" fill="#9fd0bd"/>
-          <path d="M60 70 40 112h40zM160 70l-20 42h40z" fill="none" stroke="#9fd0bd" stroke-width="4" stroke-linejoin="round"/>
-          <path d="M38 112a22 12 0 0 0 44 0zM138 112a22 12 0 0 0 44 0z" fill="#2f725d" stroke="#9fd0bd" stroke-width="4" stroke-linejoin="round"/>
-          <circle cx="60" cy="104" r="6" fill="#ffffff"/>
-          <path d="m151 104 6 6 12-12" fill="none" stroke="#ffffff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
-        </svg>
+         Aufbau wie die Startseite: heller Kopf (vorbereitet für ein Foto, siehe .eth-hero in
+         assets/css/ki-ethik.css), Grundsätze auf einer Glas-Tafel, Grundsatz als Zitat. Texte vom Auftraggeber. -->
+    <section class="eth-hero" aria-labelledby="eth-title">
+      <div class="container">
+        <p class="kicker">KI-Kompass · KI &amp; Ethik</p>
+        <h1 id="eth-title">Was sollte KI dürfen – und wo setzen wir <em>Grenzen</em>?</h1>
+        <p class="lead">KI kann unterstützen, bewerten und Empfehlungen geben. Entscheidend bleibt, wie wir sie einsetzen und welche Verantwortung Menschen dabei behalten.</p>
       </div>
     </section>
 
-    <section class="section eth-principles" aria-labelledby="eth-principles-title">
+    <section class="eth-body" aria-labelledby="eth-principles-title">
       <div class="container">
-        <h2 class="visually-hidden" id="eth-principles-title">Sechs Grundsätze</h2>
-        <ol class="eth-grid">
-          <li class="eth-card">
-            <svg class="eth-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="7.5" r="3.5"/><path d="M5 20.5c0-3.9 3.1-7 7-7s7 3.1 7 7"/><circle cx="12" cy="12" r="10.5" stroke-dasharray="2 3"/></svg>
-            <h3>Mensch im Mittelpunkt</h3>
-            <p>KI soll Menschen unterstützen – nicht ihre Selbstbestimmung ersetzen.</p>
-          </li>
-          <li class="eth-card">
-            <svg class="eth-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M12 3.5v17M8 20.5h8M4.5 7h15"/><path d="M6.5 7 3.5 13.5a3 3 0 0 0 6 0zM17.5 7l-3 6.5a3 3 0 0 0 6 0z"/></svg>
-            <h3>Fairness</h3>
-            <p>KI darf Menschen nicht aufgrund ungeeigneter Daten oder verzerrter Ergebnisse benachteiligen.</p>
-          </li>
-          <li class="eth-card">
-            <svg class="eth-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M1.5 12S5.5 5 12 5s10.5 7 10.5 7-4 7-10.5 7S1.5 12 1.5 12z"/><circle cx="12" cy="12" r="3.2"/></svg>
-            <h3>Transparenz</h3>
-            <p>Es sollte erkennbar sein, wann KI eingesetzt wird und welchen Einfluss sie auf ein Ergebnis hat.</p>
-          </li>
-          <li class="eth-card">
-            <svg class="eth-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="9" cy="7.5" r="3.5"/><path d="M2.5 20.5c0-3.6 2.9-6.5 6.5-6.5 1.5 0 2.9.5 4 1.4"/><path d="m14.5 18 2.5 2.5 5-5"/></svg>
-            <h3>Verantwortung</h3>
-            <p>Für Entscheidungen und deren Folgen muss eine klare menschliche Verantwortung bestehen.</p>
-          </li>
-          <li class="eth-card">
-            <svg class="eth-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M4 7h16M4 17h16"/><circle cx="9" cy="7" r="2.5"/><circle cx="15" cy="17" r="2.5"/></svg>
-            <h3>Verhältnismäßigkeit</h3>
-            <p>Nicht alles, was technisch möglich ist, ist für jede Aufgabe notwendig oder sinnvoll.</p>
-          </li>
-          <li class="eth-card">
-            <svg class="eth-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="2.5"/><circle cx="12" cy="12" r="6.5"/><circle cx="12" cy="12" r="10.5"/></svg>
-            <h3>Auswirkungen</h3>
-            <p>Der Einsatz von KI verändert Arbeit, Kompetenzen und Zusammenarbeit. Diese Folgen sollten mitgedacht werden.</p>
-          </li>
-        </ol>
+        <div class="hero-panel eth-panel">
+          <h2 class="visually-hidden" id="eth-principles-title">Sechs Grundsätze</h2>
+          <ol class="eth-grid">
+            <li><h3>Mensch im Mittelpunkt</h3><p>KI soll Menschen unterstützen – nicht ihre Selbstbestimmung ersetzen.</p></li>
+            <li><h3>Fairness</h3><p>KI darf Menschen nicht aufgrund ungeeigneter Daten oder verzerrter Ergebnisse benachteiligen.</p></li>
+            <li><h3>Transparenz</h3><p>Es sollte erkennbar sein, wann KI eingesetzt wird und welchen Einfluss sie auf ein Ergebnis hat.</p></li>
+            <li><h3>Verantwortung</h3><p>Für Entscheidungen und deren Folgen muss eine klare menschliche Verantwortung bestehen.</p></li>
+            <li><h3>Verhältnismäßigkeit</h3><p>Nicht alles, was technisch möglich ist, ist für jede Aufgabe notwendig oder sinnvoll.</p></li>
+            <li><h3>Auswirkungen</h3><p>Der Einsatz von KI verändert Arbeit, Kompetenzen und Zusammenarbeit. Diese Folgen sollten mitgedacht werden.</p></li>
+          </ol>
+        </div>
 
         <!-- Grundsatz des Auftraggebers -->
-        <figure class="eth-principle">
-          <figcaption>Mein Grundsatz</figcaption>
-          <blockquote>
-            <p>KI kann unterstützen. Die Verantwortung für ihren Einsatz und die daraus entstehenden Entscheidungen bleibt beim Menschen.</p>
-          </blockquote>
-          <a class="btn btn-on-green" href="index.html#kontakt">Kontakt aufnehmen</a>
+        <figure class="eth-quote">
+          <figcaption class="kicker">Mein Grundsatz</figcaption>
+          <blockquote><p>KI kann unterstützen. Die Verantwortung für ihren Einsatz und die daraus entstehenden Entscheidungen bleibt beim Menschen.</p></blockquote>
+          <a class="btn btn-primary" href="index.html#kontakt">Kontakt aufnehmen</a>
         </figure>
       </div>
     </section>
@@ -197,7 +160,7 @@
 
   <script src="assets/js/config.js?v=16"></script>
   <script src="assets/js/main.js?v=30"></script>
-  <script src="assets/js/glossar.js?v=15"></script>
+  <script src="assets/js/glossar.js?v=15"></script>
   <script src="assets/js/termine.js?v=2"></script>
   <script src="assets/js/paul-wissen.js?v=29"></script>
   <script src="assets/js/paul.js?v=24"></script>
