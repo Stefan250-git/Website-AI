@@ -10,7 +10,7 @@ Bildsprache: unaufgeregt, nüchtern, Industrie und Natur. Gedeckte Farben, natü
 | `start-flur-900.jpg` | nicht mehr eingebunden (Handy-Fassung von `start-flur.jpg`) | Ausschnitt | Hochformat, 1000 × 1300 px |
 | `band-europa.jpg` | „Für Unternehmen“: vollflächig und stehend hinter Überschrift und KI-Kompetenz-Feld | Europa bei Nacht, Satellitenaufnahme | Querformat, 2400 × 1000 px (Ausschnitt 12° W – 46° O) |
 | `team-tablet.jpg` | „Für Unternehmen“: vollflächig und stehend hinter KI-Einstieg für Mitarbeitende und Auszubildende | zwei Kollegen in der Werkhalle am Tablet | Querformat, 1864 × 844 px |
-| `einsteiger-raum.jpg` | „Für Einsteiger“: Hintergrund des Abschnitts | heller Lernraum mit Holzbänken, Bücherregal und Fensterfront | Querformat, 1724 × 912 px; aus dem Entwurf des Auftraggebers, eingebrannter Text entfernt |
+| `einsteiger-raum.jpg` | „Für Einsteiger“: Hintergrund des Abschnitts | heller Lernraum mit Holzbänken, Bücherregal und Fensterfront | Querformat, 1672 × 941 px |
 | `buero-ki.jpg` | nicht mehr eingebunden (früheres Hero-Bild, Roboter) – bleibt für einen Rücksprung liegen | | |
 | `ueber-mich.jpg` | Über mich: über die volle Bildschirmfläche, Figur links vor dem Besprechungsraum | Stefan Hansen im Besprechungsraum (vom Auftraggeber bereitgestellt) | Querformat, 1672 × 941 px |
 | `portrait-freigestellt.png` | nicht eingebunden (Quelle früherer Montagen mit `scripts/compose_ueber_mich.ps1`) | `portrait.jpg` freigestellt (bis Oberschenkel) | PNG mit Transparenz, 1024 × 1536 px |
@@ -29,7 +29,7 @@ JPG, komprimiert auf unter 300 KB.
 | start-flur.jpg, start-flur-900.jpg | Unsplash, Bild-ID photo-1497366754035-f200968a6e72 | (ergänzen) | Unsplash-Lizenz (kostenlose Nutzung, keine Namensnennung nötig) | ja | 02.11.2026 |
 | band-europa.jpg | NASA Earth Observatory, „Night Lights 2016“ (Black Marble), BlackMarble_2016_3km.jpg | NASA Earth Observatory, Daten Suomi NPP VIIRS (genaue Urheberangabe auf earthobservatory.nasa.gov prüfen) | gemeinfrei (NASA-Bildmaterial, Quellenangabe NASA erbeten) | ja | 02.11.2026 |
 | team-tablet.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
-| einsteiger-raum.jpg | vom Auftraggeber bereitgestellt (Entwurf, Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
+| einsteiger-raum.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
 | buero-ki.jpg | vom Auftraggeber bereitgestellt, KI-generiert (Generator ergänzen) | | Nutzungsbedingungen des Generators prüfen | | 21.10.2026 |
 | portrait.jpg | vom Auftraggeber bereitgestellt (Fotograf/Quelle ergänzen) | | | | 21.10.2026 |
 | portrait-freigestellt.png | vom Auftraggeber bereitgestellt (freigestellt) | (Fotograf/Quelle ergänzen) | | | 02.11.2026 |
