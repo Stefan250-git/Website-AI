@@ -221,7 +221,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 /* Europa bei Nacht (Startseite, „Für Unternehmen“): Foto über die volle Bildschirmfläche, bleibt stehen,
    während Überschrift und KI-Kompetenz-Feld darüber scrollen. Die Bühne rutscht um --eu-overlap unter
    das ausklingende Startfoto. main.js setzt --eu-in (0 → 1: oberer Verlauf beim Hereinkommen, damit beide
-   Fotos ineinander blenden) und --eu-out (0 → 1: kurz vor der Freigabe läuft es nach unten ins Weiß aus).
+   Fotos ineinander blenden) und --eu-out (0 → 1: erst am Ende, wenn die Tafeln durchgelaufen sind, läuft es nach unten ins Weiß aus).
    Ohne JS steht das Foto ohne Verläufe. */
 .section-eu { padding-top: 0; }
 .eu-stage {
@@ -233,8 +233,8 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   position: sticky; top: 76px; z-index: -1; height: var(--eu-h);
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
   filter: saturate(.85) brightness(1.45) contrast(.88);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 75% * var(--eu-out, 0)), transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 75% * var(--eu-out, 0)), transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 45% * var(--eu-out, 0)), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 45% * var(--eu-out, 0)), transparent 100%);
 }
 .eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 60vh; padding-top: 60svh; padding-bottom: 40vh; padding-bottom: 40svh; }
 .eu-head { margin-bottom: 32px; text-shadow: 0 2px 18px rgba(5, 8, 20, .55); }
