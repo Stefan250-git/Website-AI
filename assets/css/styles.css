@@ -274,8 +274,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .eu-head h2 { color: var(--white); }
 .eu-head .kicker { color: var(--green-light); }
 .eu-card { position: relative; box-shadow: 0 24px 60px rgba(5, 8, 20, .35); }
-/* KI-Einstieg für Unternehmen als zweite Tafel auf dem Europabild (weiß statt grün) */
-.offer.eu-card-light, .offer.eu-card-light:last-child { margin-top: 24px; padding: 40px 48px 48px; border-top: 0; border-radius: var(--radius); background: rgba(255, 255, 255, .96); } /* :last-child – sonst setzt .offer:last-child den unteren Abstand auf 0 */
+.eu-card + .eu-card { margin-top: 24px; } /* zweite Tafel auf dem Europabild */
+/* KI-Einstieg für Unternehmen als erste Tafel auf dem Europabild (weiß statt grün) */
+.offer.eu-card-light, .offer.eu-card-light:last-child { padding: 40px 48px 48px; border-top: 0; border-radius: var(--radius); background: rgba(255, 255, 255, .96); } /* :last-child – sonst setzt .offer:last-child den unteren Abstand auf 0 */
 .offer.offer-first { border-top: 0; }
 @media (max-width: 600px) { .offer.eu-card-light, .offer.eu-card-light:last-child { padding: 28px 22px 32px; } }
 
@@ -438,7 +439,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .offer-body > * + * { margin-top: 20px; }
 .offer-meta { font-size: .95rem; }
 /* EU-AI-Act (KI-Kompetenz): abgesetzte Fläche vor den Angeboten */
-.offer-law { padding: 36px 48px; border-top: 0; border-radius: var(--radius); background: var(--green-soft); margin-bottom: 8px; }
+.offer-law, .offer-law:last-child { padding: 36px 48px; border-top: 0; border-radius: var(--radius); background: var(--green-soft); margin-bottom: 8px; } /* :last-child – jetzt letzte Tafel auf dem Europabild */
 .offer-law .offer-body a { color: var(--green-dark); }
 .offer-law .offer-body > * + * { margin-top: 14px; }
 .law-source { font-size: max(12px, .74rem); line-height: 1.5; }
@@ -1479,7 +1480,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .chain-info.is-visible { opacity: 1; }
   .chain.is-animated li + li::before { clip-path: inset(0 0 100% 0); }
   .offer { padding: 44px 0; }
-  .offer-law { padding: 32px 22px; }
+  .offer-law, .offer-law:last-child { padding: 32px 22px; }
   .card { padding: 28px 22px 22px; }
   .check-stage { padding: 28px 20px 24px; }
   .check-nav { flex-wrap: wrap; }
