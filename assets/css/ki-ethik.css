@@ -1,43 +1,37 @@
 /* =========================================================
-   KI & Ethik (ki-ethik.html) – ergänzt styles.css, im Stil der Startseite:
-   heller Kopf (Foto-Platz), Grundsätze auf einer Glas-Tafel (.hero-panel), Zitat
+   KI & Ethik (ki-ethik.html) – ergänzt styles.css, im Stil der Startseite.
+   Foto steht als Hintergrund der ganzen Seite (sticky), der gesamte Text
+   scrollt in hellen Glas-Tafeln (.hero-panel) darüber.
    ========================================================= */
 
-/* ---------- Kopf: hell, groß; Foto später über --eth-image einsetzen ----------
-   Beispiel: .eth-hero { --eth-image: url("../img/ki-ethik.jpg"); }
-   Der helle Verlauf links hält den Text lesbar (wie im Startbereich). */
-.eth-hero {
-  --eth-image: none;
-  position: relative; isolation: isolate; display: flex; align-items: center;
-  min-height: calc(78vh - 76px); min-height: calc(78svh - 76px); padding: 96px 0 200px;
-  background: var(--bg);
+/* ---------- Bühne: Foto klebt unter dem Header, Inhalt rückt um eine Bildhöhe nach oben ---------- */
+.eth-stage {
+  --eth-h: calc(100vh - 76px); --eth-h: calc(100svh - 76px);
+  position: relative; isolation: isolate;
 }
-.eth-hero::before, .eth-hero::after { content: ""; position: absolute; inset: 0; z-index: -1; }
-.eth-hero::before {
-  background: var(--eth-image) center / cover no-repeat,
-    radial-gradient(ellipse at 85% 30%, rgba(159, 208, 189, .45), transparent 55%),
-    linear-gradient(160deg, var(--white) 0%, var(--bg) 55%, var(--sand) 100%);
-  filter: saturate(.85);
+.eth-bg {
+  position: sticky; top: 76px; z-index: -1; height: var(--eth-h); /* kein negativer Abstand: sonst klebt es über das Seitenende hinaus */
+  background: var(--sand) url("../img/ki-ethik.jpg") 60% center / cover no-repeat;
 }
-.eth-hero::after {
-  background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .8) 40%, rgba(245, 243, 238, 0) 80%);
-}
-.eth-hero .container { width: 100%; }
-.eth-hero h1 { max-width: none; margin-bottom: 28px; font-size: clamp(2.4rem, 5.2vw, 4.4rem); }
-.eth-hero h1 em { font-style: normal; color: var(--green); }
-.eth-hero .lead { max-width: none; font-size: 1.25rem; color: var(--navy-80); }
 
-/* ---------- Grundsätze: eine Glas-Tafel, ragt in den Kopf hinein ---------- */
-.eth-body { padding-bottom: var(--section); }
-.eth-panel { position: relative; margin-top: -140px; }
+/* ---------- Kopf: Foto zuerst frei sichtbar, Tafel unten links ---------- */
+.eth-hero { display: flex; align-items: flex-end; min-height: var(--eth-h); margin-top: calc(-1 * var(--eth-h)); padding: 96px 0 72px; }
+.eth-hero .container { width: 100%; }
+.eth-intro { width: fit-content; max-width: 100%; padding: 40px 48px; }
+.eth-hero h1 { margin-bottom: 20px; font-size: clamp(2.2rem, 4.6vw, 4rem); }
+.eth-hero h1 em { font-style: normal; color: var(--green); }
+.eth-hero .lead { max-width: none; font-size: 1.2rem; color: var(--navy-80); }
+
+/* ---------- Grundsätze: Glas-Tafel ---------- */
+.eth-body { padding: 24px 0 var(--section); }
 .eth-grid { list-style: none; counter-reset: eth; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px 48px; }
 .eth-grid li { counter-increment: eth; padding-top: 20px; border-top: 2px solid var(--line); }
 .eth-grid li::before { content: "0" counter(eth); display: block; font-size: .8rem; font-weight: 700; letter-spacing: .12em; color: var(--green); }
 .eth-grid h3 { margin-top: 8px; font-size: 1.35rem; }
 .eth-grid p { margin-top: 8px; color: var(--muted); }
 
-/* ---------- Grundsatz als Zitat ---------- */
-.eth-quote { max-width: 880px; margin: 96px auto 0; padding-left: 32px; border-left: 3px solid var(--green); }
+/* ---------- Grundsatz als Zitat auf eigener Tafel, mit Abstand: Foto dazwischen frei ---------- */
+.eth-quote { max-width: 880px; margin: 40vh auto 0; border-left: 4px solid var(--green); }
 .eth-quote .kicker { margin-bottom: 16px; }
 .eth-quote blockquote { margin: 0; }
 .eth-quote blockquote p { font-size: clamp(1.5rem, 3vw, 2.25rem); font-weight: 600; line-height: 1.3; letter-spacing: -.01em; color: var(--navy); }
@@ -45,13 +39,10 @@
 
 /* ---------- Responsive ---------- */
 @media (max-width: 1180px) { .eth-grid { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 900px) {
-  .eth-hero { padding: 64px 0 160px; }
-  .eth-hero::after { background: linear-gradient(180deg, rgba(245, 243, 238, .9), rgba(245, 243, 238, .7)); }
-}
+@media (max-width: 900px) { .eth-bg { background-position: 55% center; } }
 @media (max-width: 600px) {
+  .eth-intro { padding: 28px 22px; }
   .eth-grid { grid-template-columns: 1fr; gap: 28px; }
-  .eth-panel { margin-top: -110px; }
-  .eth-quote { margin-top: 64px; padding-left: 20px; }
+  .eth-quote { margin-top: 30vh; }
   .eth-quote .btn { width: 100%; }
 }
