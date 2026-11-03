@@ -25,7 +25,7 @@
 .eth-hero .container { width: 100%; }
 .eth-hero h1 { max-width: 20ch; margin-bottom: 28px; font-size: clamp(2.4rem, 5.2vw, 4.4rem); }
 .eth-hero h1 em { font-style: normal; color: var(--green); }
-.eth-hero .lead { max-width: 60ch; font-size: 1.25rem; color: var(--navy-80); }
+.eth-hero .lead { max-width: none; font-size: 1.25rem; color: var(--navy-80); }
 
 /* ---------- Grundsätze: eine Glas-Tafel, ragt in den Kopf hinein ---------- */
 .eth-body { padding-bottom: var(--section); }
