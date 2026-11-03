@@ -23,7 +23,7 @@
   background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .8) 40%, rgba(245, 243, 238, 0) 80%);
 }
 .eth-hero .container { width: 100%; }
-.eth-hero h1 { max-width: 20ch; margin-bottom: 28px; font-size: clamp(2.4rem, 5.2vw, 4.4rem); }
+.eth-hero h1 { max-width: none; margin-bottom: 28px; font-size: clamp(2.4rem, 5.2vw, 4.4rem); }
 .eth-hero h1 em { font-style: normal; color: var(--green); }
 .eth-hero .lead { max-width: none; font-size: 1.25rem; color: var(--navy-80); }
 
