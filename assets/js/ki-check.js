@@ -311,7 +311,7 @@
       dialog.close();
       var topic = document.getElementById("f-topic");
       if (topic) {
-        topic.value = "mitarbeiter";
+        topic.value = "unternehmen";
         topic.dispatchEvent(new Event("change", { bubbles: true }));
       }
       location.hash = "kontakt";

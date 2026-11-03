@@ -409,7 +409,7 @@
   var company = form.elements.company;
   var companyHint = document.getElementById("company-required");
   var status = document.getElementById("form-status");
-  var B2B_TOPICS = ["mitarbeiter", "ki-modelle", "ki-sicherheit"];
+  var B2B_TOPICS = ["unternehmen"];
 
   function updateCompanyRequirement() {
     var required = B2B_TOPICS.indexOf(topic.value) !== -1;
