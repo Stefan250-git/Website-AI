@@ -439,7 +439,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .offer-law { padding: 36px 48px; border-top: 0; border-radius: var(--radius); background: var(--green-soft); margin-bottom: 8px; }
 .offer-law .offer-body a { color: var(--green-dark); }
 .offer-law .offer-body > * + * { margin-top: 14px; }
-.law-source { font-size: .74rem; line-height: 1.5; }
+.law-source { font-size: max(12px, .74rem); line-height: 1.5; }
 .law-logos { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 28px; }
 .eu-link {
   display: inline-flex; align-items: center; gap: 12px;
@@ -1444,6 +1444,12 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 
 @media (max-width: 600px) {
+  /* Handy: lange Wörter in Überschriften trennen (z. B. „Unternehmenswissen“, „Datenschutzerklärung“), sonst ragen sie über den Rand */
+  h1, h2, h3 { hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+  /* Rahmenseiten: Glas-Knopf „Zur Startseite“ neben dem Logo kompakter */
+  .header-inner > .text-link { min-height: 40px; padding: 6px 14px; font-size: .9rem; }
+  /* Fußzeile: Logo-Zeile darf umbrechen */
+  .site-footer .logo { white-space: normal; flex-shrink: 1; min-width: 0; }
   .hero-panel { padding: 28px 20px; }
   :root { --gutter: 16px; --section: 72px; }
   body { font-size: 1rem; }
