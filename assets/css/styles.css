@@ -1570,7 +1570,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   background: linear-gradient(180deg, rgba(13, 29, 55, .05), rgba(13, 29, 55, .35)), url("../img/netzwerk-hintergrund.jpg") center / cover;
 }
 .nw-close {
-  position: absolute; top: 20px; right: 24px; z-index: 2; display: grid; place-items: center;
+  position: absolute; top: 20px; right: 24px; z-index: 5; display: grid; place-items: center;
   width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(13, 29, 55, .2);
   background: var(--white); color: var(--navy); font: 400 2rem/1 var(--font); cursor: pointer;
   box-shadow: var(--glass-shadow);
@@ -1602,19 +1602,26 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 .nw-skills h3 { position: relative; margin: 0 0 16px; padding-bottom: 14px; border-bottom: 2px solid var(--green); font-size: clamp(1.05rem, 2cqi, 1.35rem); }
 .nw-tags { position: relative; list-style: none; display: grid; gap: 8px; color: #3f5468; font-size: clamp(.95rem, 1.8cqi, 1.15rem); line-height: 1.4; }
-.nw-people { margin-top: 88px; padding: 44px 56px 52px; background: rgba(255, 255, 255, .94); }
-.nw-gallery-label { margin: 0 0 24px; }
+.nw-people {
+  /* bleibt oben stehen; main.js setzt --nw-s (0 → 1) und schiebt den Rahmen dabei oben und unten zusammen */
+  --nw-pt: 44px; --nw-pb: 52px; --nw-av-max: 124px; --nw-av-min: 88px;
+  --nw-av: calc(var(--nw-av-max) - (var(--nw-av-max) - var(--nw-av-min)) * var(--nw-s, 0));
+  position: sticky; top: 0; z-index: 3; margin-top: 88px;
+  border-top-left-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); border-top-right-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); padding: calc(var(--nw-pt) - (var(--nw-pt) - 14px) * var(--nw-s, 0)) 56px calc(var(--nw-pb) - (var(--nw-pb) - 14px) * var(--nw-s, 0));
+  background: rgba(255, 255, 255, .985); backdrop-filter: none; -webkit-backdrop-filter: none;
+}
+.nw-gallery-label { max-height: calc(30px * (1 - var(--nw-s, 0))); margin: 0 0 calc(24px * (1 - var(--nw-s, 0))); overflow: hidden; opacity: calc(1 - 1.6 * var(--nw-s, 0)); }
 .nw-gallery { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap: 24px 12px; }
 .nw-person, .nw-person a { display: flex; flex-direction: column; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
 .nw-avatar {
-  width: min(100%, 124px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; overflow: hidden;
-  background: linear-gradient(145deg, #dbe6e0, #a5b9c5); color: #51697b; font-size: 1.25rem; font-weight: 500;
+  width: min(100%, var(--nw-av, 124px)); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; overflow: hidden;
+  background: linear-gradient(145deg, #dbe6e0, #a5b9c5); color: #51697b; font-size: calc(1.25rem - .25rem * var(--nw-s, 0)); font-weight: 500;
   transition: transform .18s ease, box-shadow .18s ease;
 }
 .nw-avatar img { width: 100%; height: 100%; object-fit: cover; }
 .nw-person a:not(.nw-flip):hover .nw-avatar { box-shadow: 0 0 0 4px var(--green-soft), 0 10px 20px rgba(13, 29, 55, .08); transform: translateY(-2px); }
 /* Foto dreht sich um die senkrechte Mittelachse, Rückseite zeigt den Vornamen */
-.nw-person .nw-flip { display: block; width: min(100%, 124px); aspect-ratio: 1; border-radius: 50%; perspective: 700px; cursor: pointer; }
+.nw-person .nw-flip { display: block; width: min(100%, var(--nw-av, 124px)); aspect-ratio: 1; border-radius: 50%; perspective: 700px; cursor: pointer; }
 .nw-flip:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
 .nw-flip-inner { position: relative; display: block; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.3, .7, .3, 1); }
 .nw-flip:hover .nw-flip-inner, .nw-flip:focus-visible .nw-flip-inner { transform: rotateY(180deg); }
@@ -1623,7 +1630,6 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-flip .nw-front img { filter: grayscale(1); }
 .nw-meta { display: flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 600; letter-spacing: .03em; }
 .nw-in { display: inline-grid; place-items: center; width: 21px; height: 21px; border-radius: 4px; background: var(--navy); color: var(--white); font: 700 12px/1 Arial, sans-serif; }
-.nw-note { margin-top: 32px; font-size: .85rem; color: var(--muted); }
 @media (max-width: 900px) {
   .nw-dialog { width: 100vw; border-radius: 0; }
   .nw-skills { grid-template-columns: 1fr 1fr; }
@@ -1634,11 +1640,15 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .nw-body { margin-top: 16px; }
   .nw-skills { grid-template-columns: 1fr; gap: 14px; }
   .nw-skills > div { padding: 24px 22px; }
-  .nw-people { margin-top: 76px; padding: 32px 22px 40px; }
+  .nw-people { --nw-pt: 28px; --nw-pb: 28px; --nw-av-max: 84px; --nw-av-min: 64px; margin-top: 76px; padding-left: 22px; padding-right: 22px; }
+  /* Handy: Personen in einer Reihe, seitlich wischbar */
+  .nw-gallery { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: max-content; gap: 12px; margin: -8px -22px; padding: 8px 22px 10px; overflow-x: auto; scrollbar-width: none; }
+  .nw-gallery::-webkit-scrollbar { display: none; }
+  .nw-gallery .nw-avatar, .nw-person .nw-flip { width: var(--nw-av); }
   .nw-close { top: 14px; right: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar, .nw-flip-inner { transition: none; } }
 /* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld, Foto steht hinter der ganzen Seite */
 .nw-page { background-attachment: fixed; padding-bottom: 64px; }
-.nw-page .nw-people { margin-top: 40px; }
+.nw-page .nw-people { top: 88px; margin-top: 40px; }
 .nw-page h1.nw-title { margin-bottom: 0; font-size: clamp(2.2rem, 9.6cqi, 7.5rem); }

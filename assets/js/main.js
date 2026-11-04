@@ -401,6 +401,38 @@
     // Klick auf den abgedunkelten Bereich links schließt ebenfalls (Esc schließt der Dialog selbst)
     nwDialog.addEventListener("click", function (e) { if (e.target === nwDialog) nwDialog.close(); });
     nwDialog.addEventListener("close", function () { nwOpener.focus(); });
+
+    // Fotorahmen bleibt oben stehen und schiebt sich beim Weiterscrollen zusammen (--nw-s 0 → 1);
+    // Platz am Ende, damit die drei Kacheln vollständig unter den Fotos stehen bleiben
+    var nwScroll = nwDialog.querySelector(".nw-scroll");
+    var nwPeople = nwDialog.querySelector(".nw-people");
+    var nwBody = nwDialog.querySelector(".nw-body");
+    var nwTicking = false;
+    var nwShrink = function () {
+      nwTicking = false;
+      var cs = getComputedStyle(nwPeople);
+      var start = parseFloat(cs.marginTop) - parseFloat(cs.top);
+      var s = Math.min(1, Math.max(0, (nwScroll.scrollTop - start) / 160));
+      nwPeople.style.setProperty("--nw-s", s.toFixed(3));
+    };
+    var nwFit = function () {
+      var keep = nwPeople.style.getPropertyValue("--nw-s");
+      nwPeople.style.setProperty("--nw-s", "1");
+      var top = parseFloat(getComputedStyle(nwPeople).top);
+      var gap = parseFloat(getComputedStyle(nwBody).marginTop);
+      var room = nwScroll.clientHeight - top - nwPeople.offsetHeight - gap - nwBody.offsetHeight;
+      nwPeople.style.setProperty("--nw-s", keep || "0");
+      nwScroll.style.paddingBottom = Math.max(24, room) + "px";
+    };
+    nwScroll.addEventListener("scroll", function () {
+      if (!nwTicking) { nwTicking = true; requestAnimationFrame(nwShrink); }
+    }, { passive: true });
+    nwOpener.addEventListener("click", function () { nwFit(); nwShrink(); });
+    if (window.ResizeObserver) {
+      new ResizeObserver(function () { if (nwDialog.open) { nwFit(); nwShrink(); } }).observe(nwScroll);
+    } else {
+      window.addEventListener("resize", function () { if (nwDialog.open) { nwFit(); nwShrink(); } });
+    }
   }
 
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
