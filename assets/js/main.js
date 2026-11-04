@@ -388,6 +388,21 @@
     stFade();
   }
 
+  /* ---------- Mein Netzwerk: Seitenfeld statt eigener Seite (ohne JS/Dialog: netzwerk.html) ---------- */
+  var nwDialog = document.getElementById("nw-dialog");
+  var nwOpener = document.querySelector("[data-open-netzwerk]");
+  if (nwDialog && nwOpener && typeof nwDialog.showModal === "function") {
+    nwOpener.addEventListener("click", function (e) {
+      e.preventDefault();
+      nwDialog.showModal();
+      nwDialog.querySelector(".nw-scroll").scrollTop = 0;
+    });
+    nwDialog.querySelector(".nw-close").addEventListener("click", function () { nwDialog.close(); });
+    // Klick auf den abgedunkelten Bereich links schließt ebenfalls (Esc schließt der Dialog selbst)
+    nwDialog.addEventListener("click", function (e) { if (e.target === nwDialog) nwDialog.close(); });
+    nwDialog.addEventListener("close", function () { nwOpener.focus(); });
+  }
+
   /* ---------- Grafiken bauen sich beim Hineinscrollen auf ---------- */
   var reveals = document.querySelectorAll("[data-reveal]");
   if (reveals.length && "IntersectionObserver" in window &&
