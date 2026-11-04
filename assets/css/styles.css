@@ -1612,7 +1612,15 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   transition: transform .18s ease, box-shadow .18s ease;
 }
 .nw-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.nw-person a:hover .nw-avatar { box-shadow: 0 0 0 4px var(--green-soft), 0 10px 20px rgba(13, 29, 55, .08); transform: translateY(-2px); }
+.nw-person a:not(.nw-flip):hover .nw-avatar { box-shadow: 0 0 0 4px var(--green-soft), 0 10px 20px rgba(13, 29, 55, .08); transform: translateY(-2px); }
+/* Foto dreht sich um die senkrechte Mittelachse, Rückseite zeigt den Vornamen */
+.nw-person .nw-flip { display: block; width: min(100%, 124px); aspect-ratio: 1; border-radius: 50%; perspective: 700px; cursor: pointer; }
+.nw-flip:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
+.nw-flip-inner { position: relative; display: block; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.3, .7, .3, 1); }
+.nw-flip:hover .nw-flip-inner, .nw-flip:focus-visible .nw-flip-inner { transform: rotateY(180deg); }
+.nw-flip .nw-avatar { position: absolute; inset: 0; width: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 8px 18px rgba(13, 29, 55, .14); }
+.nw-flip .nw-back { transform: rotateY(180deg); }
+.nw-flip .nw-front img { filter: grayscale(1); }
 .nw-meta { display: flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 600; letter-spacing: .03em; }
 .nw-in { display: inline-grid; place-items: center; width: 21px; height: 21px; border-radius: 4px; background: var(--navy); color: var(--white); font: 700 12px/1 Arial, sans-serif; }
 .nw-note { margin-top: 32px; font-size: .85rem; color: var(--muted); }
@@ -1629,7 +1637,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .nw-people { margin-top: 16px; padding: 32px 22px 40px; }
   .nw-close { top: 14px; right: 14px; }
 }
-@media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar, .nw-flip-inner { transition: none; } }
 /* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld, Foto steht hinter der ganzen Seite */
 .nw-page { background-attachment: fixed; padding-bottom: 64px; }
 .nw-page .nw-hero { margin-top: 30vh; }

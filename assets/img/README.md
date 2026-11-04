@@ -33,6 +33,7 @@ JPG, komprimiert auf unter 300 KB.
 | team-tablet.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
 | wissensbasis-hintergrund.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
 | ki-ethik.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
+| netzwerk/person-1.jpg … person-5.jpg | vom Auftraggeber bereitgestellt, Porträts „Mein Netzwerk“ (Fotograf ergänzen; Einwilligung der abgebildeten Personen einholen) | | | | 04.11.2026 |
 | netzwerk-hintergrund.jpg | vom Auftraggeber bereitgestellt, Hintergrund „Mein Netzwerk“ (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 04.11.2026 |
 | ki-sicherheit.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 04.11.2026 |
 | einsteiger-raum.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
