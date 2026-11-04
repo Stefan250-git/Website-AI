@@ -262,7 +262,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   --eu-h: calc(100vh - 76px); --eu-h: calc(100svh - 76px);
   --eu-overlap: clamp(120px, 18vw, 280px);
   position: relative; isolation: isolate; margin-top: calc(-1 * var(--eu-overlap));
+  pointer-events: none; /* die Überlappung verdeckt sonst den unteren Rand des Startfotos (KI-Kennzeichnung) */
 }
+.eu-content > * { pointer-events: auto; }
 .eu-media {
   position: sticky; top: 76px; z-index: -1; height: var(--eu-h);
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
@@ -364,10 +366,16 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .ai-note svg { flex: none; }
 /* Wassertropfen (main.js): Buchstaben unter der Maus wölben sich auf, Glanzpunkt folgt dem Zeiger */
 .ai-ch { display: inline-block; transition: transform .18s ease-out; transform-origin: 50% 70%; }
+.ai-note { cursor: none; }
 .ai-note::after {
-  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
-  background: radial-gradient(circle 18px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .7), rgba(200, 220, 255, .25) 60%, rgba(255, 255, 255, 0) 100%);
-  opacity: var(--drop, 0); transition: opacity .25s ease-out;
+  content: ""; position: absolute; left: var(--mx, 50%); top: var(--my, 50%); width: 26px; height: 26px;
+  border-radius: 50%; pointer-events: none;
+  background:
+    radial-gradient(circle at 34% 28%, rgba(255, 255, 255, .95) 0 9%, rgba(255, 255, 255, 0) 24%),
+    radial-gradient(circle at 50% 50%, rgba(255, 255, 255, .06) 52%, rgba(110, 140, 210, .28) 78%, rgba(255, 255, 255, .7) 100%);
+  box-shadow: 0 3px 5px rgba(13, 29, 55, .18), inset 0 -3px 4px rgba(255, 255, 255, .55), inset 0 2px 3px rgba(13, 29, 55, .12);
+  opacity: var(--drop, 0); transform: translate(-50%, -50%) scale(calc(.4 + .6 * var(--drop, 0)));
+  transition: opacity .2s ease-out, transform .25s ease-out;
 }
 /* CI-Farben halbdurchsichtig, damit die Schrift glasartig bleibt */
 .ai-note-human { color: rgba(47, 114, 93, .7); }  /* --green */

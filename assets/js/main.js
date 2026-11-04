@@ -608,7 +608,7 @@
      dazu ein heller Glanzpunkt (--mx/--my/--drop in styles.css). Bei „reduzierte Bewegung“ aus. */
   var aiNote = document.querySelector(".ai-note");
   if (aiNote && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
-    var DROP_RADIUS = 26, DROP_SCALE = 0.45;
+    var DROP_RADIUS = 15, DROP_SCALE = 0.6; /* passend zum Tropfen (26 px, styles.css .ai-note::after) */
     var aiChars = [];
     aiNote.querySelectorAll("span").forEach(function (part) {
       var text = part.textContent;
