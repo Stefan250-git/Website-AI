@@ -351,6 +351,27 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   opacity: calc(1 - .8 * var(--hero-veil, 0));
 }
 .hero-full .split { min-height: var(--hero-h); align-content: center; }
+/* KI-Kennzeichnung: sehr kleine Glas-Pille unten links im ersten Bildschirm (fest über dem unteren Fotorand) */
+.ai-note-wrap { position: absolute; left: 0; right: 0; top: calc(var(--hero-h) - 72px); }
+.ai-note {
+  display: inline-flex; align-items: center; gap: 5px; margin: 0; position: relative;
+  padding: 3px 9px; border-radius: 999px; font-size: .6875rem; line-height: 1.4;
+  text-shadow: 0 1px 0 rgba(255, 255, 255, .8), 0 0 6px rgba(120, 150, 240, .35);
+  background: linear-gradient(90deg, rgba(255, 255, 255, .55), rgba(235, 240, 255, .45) 50%, rgba(245, 235, 255, .5));
+  border: 1px solid rgba(255, 255, 255, .7); box-shadow: 0 2px 8px rgba(91, 141, 239, .15);
+  backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+}
+.ai-note svg { flex: none; }
+/* Wassertropfen (main.js): Buchstaben unter der Maus wölben sich auf, Glanzpunkt folgt dem Zeiger */
+.ai-ch { display: inline-block; transition: transform .18s ease-out; transform-origin: 50% 70%; }
+.ai-note::after {
+  content: ""; position: absolute; inset: 0; border-radius: inherit; pointer-events: none;
+  background: radial-gradient(circle 18px at var(--mx, 50%) var(--my, 50%), rgba(255, 255, 255, .7), rgba(200, 220, 255, .25) 60%, rgba(255, 255, 255, 0) 100%);
+  opacity: var(--drop, 0); transition: opacity .25s ease-out;
+}
+/* CI-Farben halbdurchsichtig, damit die Schrift glasartig bleibt */
+.ai-note-human { color: rgba(47, 114, 93, .7); }  /* --green */
+.ai-note-ai { color: rgba(13, 29, 55, .6); }      /* --navy */
 
 /* Übersicht und „KI im Unternehmen“ im Startbereich: helle Tafeln, gleiten über dem stehenden Startfoto nach oben
    und blendet sich ein (data-reveal, Einträge nacheinander) */

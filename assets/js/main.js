@@ -602,4 +602,43 @@
   });
 
   updateCompanyRequirement();
+
+  /* ---------- KI-Kennzeichnung: Wassertropfen unter der Maus ----------
+     Buchstaben werden einzeln gekapselt; nahe am Mauszeiger wölben sie sich auf (Lupe),
+     dazu ein heller Glanzpunkt (--mx/--my/--drop in styles.css). Bei „reduzierte Bewegung“ aus. */
+  var aiNote = document.querySelector(".ai-note");
+  if (aiNote && !window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    var DROP_RADIUS = 26, DROP_SCALE = 0.45;
+    var aiChars = [];
+    aiNote.querySelectorAll("span").forEach(function (part) {
+      var text = part.textContent;
+      part.textContent = "";
+      text.split("").forEach(function (ch) {
+        if (ch === " ") { part.appendChild(document.createTextNode(" ")); return; }
+        var span = document.createElement("span");
+        span.className = "ai-ch";
+        span.textContent = ch;
+        part.appendChild(span);
+        aiChars.push(span);
+      });
+    });
+
+    aiNote.addEventListener("mousemove", function (e) {
+      var box = aiNote.getBoundingClientRect();
+      var x = e.clientX - box.left, y = e.clientY - box.top;
+      aiNote.style.setProperty("--mx", x + "px");
+      aiNote.style.setProperty("--my", y + "px");
+      aiNote.style.setProperty("--drop", "1");
+      aiChars.forEach(function (span) {
+        var cx = span.offsetLeft + span.offsetWidth / 2, cy = span.offsetTop + span.offsetHeight / 2;
+        var d = Math.sqrt((cx - x) * (cx - x) + (cy - y) * (cy - y));
+        var k = d < DROP_RADIUS ? Math.cos((d / DROP_RADIUS) * Math.PI / 2) : 0;
+        span.style.transform = k ? "translateY(" + (-1.5 * k) + "px) scale(" + (1 + DROP_SCALE * k * k) + ")" : "";
+      });
+    });
+    aiNote.addEventListener("mouseleave", function () {
+      aiNote.style.setProperty("--drop", "0");
+      aiChars.forEach(function (span) { span.style.transform = ""; });
+    });
+  }
 })();
