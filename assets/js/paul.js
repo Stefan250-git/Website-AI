@@ -753,8 +753,12 @@
   root.insertBefore(light, catBtn);
 
   // Erste sichtbare Hintergrundfarbe hinter einem Punkt; Paul selbst wird übersprungen
+  // .paul-probe macht durchklickbare Bildflächen (pointer-events: none, z. B. Europabild) kurz treffbar
   function backgroundAt(x, y) {
+    var html = document.documentElement;
+    html.classList.add("paul-probe");
     var stack = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [];
+    html.classList.remove("paul-probe");
     for (var i = 0; i < stack.length; i++) {
       if (root.contains(stack[i])) continue;
       var m = getComputedStyle(stack[i]).backgroundColor.match(/[\d.]+/g);

@@ -265,6 +265,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   pointer-events: none; /* die Überlappung verdeckt sonst den unteren Rand des Startfotos (KI-Kennzeichnung) */
 }
 .eu-content > * { pointer-events: auto; }
+/* nur während Pauls Helligkeitsprüfung: Europabild zählt als dunkler Hintergrund, aber erst wenn es eingeblendet ist
+   (main.js setzt .is-shown) – im ausgeblendeten Überlappungsbereich am Startfoto bleibt es hell */
+.paul-probe .eu-stage.is-shown { pointer-events: auto; }
 .eu-media {
   position: sticky; top: 76px; z-index: -1; height: var(--eu-h);
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
