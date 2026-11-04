@@ -1552,3 +1552,59 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* ---------- Mein Netzwerk: Seitenfeld von rechts (Dialog #nw-dialog) und Ausweichseite netzwerk.html ----------
+   Feld deckt etwa 65 % der Breite ab, links bleibt „Über mich“ abgedunkelt sichtbar; × oben rechts schließt. */
+.nw-dialog {
+  position: fixed; inset: 0 0 0 auto; width: min(65vw, 1100px); max-width: 100vw; height: 100dvh; max-height: none;
+  margin: 0; padding: 0; border: 0; border-radius: var(--radius) 0 0 var(--radius);
+  background: var(--bg); color: var(--navy); box-shadow: -24px 0 60px rgba(13, 29, 55, .25);
+}
+.nw-dialog::backdrop { background: rgba(13, 29, 55, .45); backdrop-filter: blur(2px); }
+.nw-dialog[open] { animation: nw-in .35s ease-out; }
+@keyframes nw-in { from { transform: translateX(40px); opacity: 0; } }
+.nw-scroll { height: 100%; overflow-y: auto; }
+.nw-close {
+  position: absolute; top: 20px; right: 24px; z-index: 2; display: grid; place-items: center;
+  width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(13, 29, 55, .2);
+  background: var(--white); color: var(--navy); font: 400 2rem/1 var(--font); cursor: pointer;
+  box-shadow: var(--glass-shadow);
+}
+.nw-close:hover { background: var(--navy); color: var(--white); }
+
+.nw-hero { padding: 88px 56px 56px; }
+.nw-title { margin: 0; font-size: clamp(2.4rem, 4.6vw, 4.4rem); line-height: 1.06; letter-spacing: -.035em; color: var(--navy); }
+.nw-title em { font-style: normal; color: var(--green); }
+.nw-claim { margin-top: 28px; font-size: clamp(1.1rem, 1.6vw, 1.4rem); font-weight: 600; color: var(--navy); }
+.nw-intro { max-width: 640px; margin-top: 12px; color: var(--muted); }
+.nw-body { padding: 56px 56px 72px; background: var(--white); }
+.nw-skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
+.nw-skills h3 { margin: 0 0 10px; font-size: 1.05rem; }
+.nw-skills p { color: var(--muted); font-size: .95rem; line-height: 1.8; }
+.nw-gallery-label { margin: 48px 0 24px; }
+.nw-gallery { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 32px 18px; }
+.nw-person, .nw-person a { display: flex; flex-direction: column; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
+.nw-avatar {
+  width: min(100%, 124px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; overflow: hidden;
+  background: linear-gradient(145deg, #dbe6e0, #a5b9c5); color: #51697b; font-size: 1.25rem; font-weight: 500;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.nw-avatar img { width: 100%; height: 100%; object-fit: cover; }
+.nw-person a:hover .nw-avatar { box-shadow: 0 0 0 4px var(--green-soft), 0 10px 20px rgba(13, 29, 55, .08); transform: translateY(-2px); }
+.nw-meta { display: flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 600; letter-spacing: .03em; }
+.nw-in { display: inline-grid; place-items: center; width: 21px; height: 21px; border-radius: 4px; background: var(--navy); color: var(--white); font: 700 12px/1 Arial, sans-serif; }
+.nw-note { margin-top: 32px; font-size: .85rem; color: var(--muted); }
+@media (max-width: 900px) {
+  .nw-dialog { width: 100vw; border-radius: 0; }
+  .nw-skills { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 600px) {
+  .nw-hero { padding: 80px 22px 40px; }
+  .nw-body { padding: 40px 22px 56px; }
+  .nw-skills { grid-template-columns: 1fr; gap: 24px; }
+  .nw-close { top: 14px; right: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar { transition: none; } }
+/* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld */
+.nw-page .nw-hero, .nw-page .nw-body { padding-left: 0; padding-right: 0; }
+.nw-page .nw-body { background: transparent; }

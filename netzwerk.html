@@ -5,7 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Mein Netzwerk – AI Work Lab · Stefan Hansen</title>
   <meta name="robots" content="noindex, nofollow">
-  <link rel="stylesheet" href="assets/css/styles.css?v=117">
+  <meta name="description" content="Ein Netzwerk. Viele Perspektiven. Menschen aus Wirtschaft, Beratung und Kreativität.">
+  <link rel="stylesheet" href="assets/css/styles.css?v=118">
 </head>
 <body>
   <header class="site-header">
@@ -21,16 +22,38 @@
     </div>
   </header>
 
-  <!-- Infoseite „Mein Netzwerk“: erreichbar über die Pille unter „Über mich“ – Inhalt folgt -->
-  <main class="page-simple" style="min-height: calc(100vh - 76px - 161px)">
-    <div class="container prose">
-      <p class="kicker">Über mich</p>
-      <h1>Mein Netzwerk</h1>
-      <p class="lead">Hier stelle ich in Kürze Partnerinnen und Partner vor, mit denen ich zusammenarbeite.</p>
-      <div class="hero-actions">
-        <a class="btn btn-secondary" href="index.html#ueber-mich">Zurück zu Über mich</a>
-        <a class="btn btn-primary" href="index.html#kontakt">Kontakt aufnehmen</a>
-      </div>
+  <!-- Ausweichseite für das Seitenfeld „Mein Netzwerk“ (#nw-dialog in index.html) – Inhalt gleich halten -->
+  <main class="page-simple nw-page" id="inhalt">
+    <div class="container">
+      <section class="nw-hero" aria-labelledby="nw-title">
+        <p class="kicker">Mein Netzwerk</p>
+        <h1 class="nw-title" id="nw-title">Ein Netzwerk.<br>Viele <em>Perspektiven</em>.</h1>
+        <p class="nw-claim">Gut, wenn nicht alle gleich denken.</p>
+        <p class="nw-intro">Erfahrung und neue Ideen aus Wirtschaft, Beratung und Kreativität. KI als Impulsgeber über alle Bereiche hinweg.</p>
+      </section>
+      <section class="nw-body" aria-label="Kompetenzen und Menschen">
+        <div class="nw-skills">
+          <div><h3>Business &amp; Management</h3><p>Leadership · Sales · Finance · Commercial Operations</p></div>
+          <div><h3>People &amp; Transformation</h3><p>Human Resources · Consulting · Coaching · Change Management · Systemische Organisationsberatung</p></div>
+          <div><h3>Creativity &amp; Innovation</h3><p>Creative Leadership · Innovation</p></div>
+        </div>
+        <p class="kicker nw-gallery-label">Menschen &amp; Perspektiven</p>
+        <!-- DEMO-PROFILE: Platzhalter, nicht unverändert veröffentlichen. Echte Person:
+        <li class="nw-person"><a href="https://www.linkedin.com/in/PROFIL" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn-Profil von Vorname Nachname öffnen">
+          <span class="nw-avatar"><img src="assets/img/netzwerk/vorname-nachname.webp" alt="Porträt von Vorname Nachname" loading="lazy" width="136" height="136"></span>
+          <span class="nw-meta"><span>V.N.</span><span class="nw-in" aria-hidden="true">in</span></span>
+        </a></li> -->
+        <ul class="nw-gallery" aria-label="Netzwerkprofile – Platzhalter">
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">A.B.</span><span class="nw-meta">A.B.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">C.D.</span><span class="nw-meta">C.D.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">E.F.</span><span class="nw-meta">E.F.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">G.H.</span><span class="nw-meta">G.H.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">J.K.</span><span class="nw-meta">J.K.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">L.M.</span><span class="nw-meta">L.M.</span></li>
+        </ul>
+        <p class="nw-note">Entwurf: Porträts, Initialen und LinkedIn-Links werden erst mit echten, freigegebenen Profilen ergänzt.</p>
+      </section>
+      <div class="hero-actions"><a class="btn btn-secondary" href="index.html#ueber-mich">Zurück zu Über mich</a></div>
     </div>
   </main>
 

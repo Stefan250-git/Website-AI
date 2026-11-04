@@ -16,7 +16,7 @@
   <meta property="og:description" content="KI verstehen und selbst einsetzen. Mit einem Einstieg, der zu Ihrem Team passt.">
 
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%230d1d37'/%3E%3Ccircle cx='16' cy='16' r='9' fill='none' stroke='%239fd0bd' stroke-width='2'/%3E%3Ccircle cx='16' cy='16' r='3' fill='%23ffffff'/%3E%3C/svg%3E">
-  <link rel="stylesheet" href="assets/css/styles.css?v=117">
+  <link rel="stylesheet" href="assets/css/styles.css?v=118">
 
   <script type="application/ld+json">
   {
@@ -365,7 +365,7 @@
           </div>
           <div class="hero-actions">
             <a class="btn btn-secondary" href="#kontakt">Kontakt aufnehmen</a>
-            <a class="btn btn-secondary" href="netzwerk.html">Neugierig auf mein Netzwerk?</a>
+            <a class="btn btn-secondary" href="netzwerk.html" data-open-netzwerk aria-haspopup="dialog">Neugierig auf mein Netzwerk?</a>
           </div>
         </div>
       </div>
@@ -454,6 +454,43 @@
       </div>
     </section>
   </main>
+
+  <!-- ===================== Mein Netzwerk (Seitenfeld) =====================
+       Öffnet über die Pille unter „Über mich“ (data-open-netzwerk, main.js), deckt rechts etwa 65 % ab.
+       Inhalt gleich halten mit netzwerk.html (Ausweichseite ohne JavaScript). -->
+  <dialog class="nw-dialog" id="nw-dialog" aria-labelledby="nw-title">
+    <button class="nw-close" type="button" aria-label="Netzwerk schließen">×</button>
+    <div class="nw-scroll">
+      <section class="nw-hero" aria-labelledby="nw-title">
+        <p class="kicker">Mein Netzwerk</p>
+        <h2 class="nw-title" id="nw-title">Ein Netzwerk.<br>Viele <em>Perspektiven</em>.</h2>
+        <p class="nw-claim">Gut, wenn nicht alle gleich denken.</p>
+        <p class="nw-intro">Erfahrung und neue Ideen aus Wirtschaft, Beratung und Kreativität. KI als Impulsgeber über alle Bereiche hinweg.</p>
+      </section>
+      <section class="nw-body" aria-label="Kompetenzen und Menschen">
+        <div class="nw-skills">
+          <div><h3>Business &amp; Management</h3><p>Leadership · Sales · Finance · Commercial Operations</p></div>
+          <div><h3>People &amp; Transformation</h3><p>Human Resources · Consulting · Coaching · Change Management · Systemische Organisationsberatung</p></div>
+          <div><h3>Creativity &amp; Innovation</h3><p>Creative Leadership · Innovation</p></div>
+        </div>
+        <p class="kicker nw-gallery-label">Menschen &amp; Perspektiven</p>
+        <!-- DEMO-PROFILE: Platzhalter, nicht unverändert veröffentlichen. Echte Person:
+        <li class="nw-person"><a href="https://www.linkedin.com/in/PROFIL" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn-Profil von Vorname Nachname öffnen">
+          <span class="nw-avatar"><img src="assets/img/netzwerk/vorname-nachname.webp" alt="Porträt von Vorname Nachname" loading="lazy" width="136" height="136"></span>
+          <span class="nw-meta"><span>V.N.</span><span class="nw-in" aria-hidden="true">in</span></span>
+        </a></li> -->
+        <ul class="nw-gallery" aria-label="Netzwerkprofile – Platzhalter">
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">A.B.</span><span class="nw-meta">A.B.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">C.D.</span><span class="nw-meta">C.D.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">E.F.</span><span class="nw-meta">E.F.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">G.H.</span><span class="nw-meta">G.H.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">J.K.</span><span class="nw-meta">J.K.</span></li>
+          <li class="nw-person"><span class="nw-avatar" aria-hidden="true">L.M.</span><span class="nw-meta">L.M.</span></li>
+        </ul>
+        <p class="nw-note">Entwurf: Porträts, Initialen und LinkedIn-Links werden erst mit echten, freigegebenen Profilen ergänzt.</p>
+      </section>
+    </div>
+  </dialog>
 
   <!-- ===================== Unternehmens-KI-Check (Dialog) ===================== -->
   <dialog class="check-dialog" id="ki-check" aria-labelledby="check-title">
@@ -569,7 +606,7 @@
   </footer>
 
   <script src="assets/js/config.js?v=16"></script>
-  <script src="assets/js/main.js?v=34"></script>
+  <script src="assets/js/main.js?v=35"></script>
   <script src="assets/js/ki-check.js?v=18"></script>
   <script src="assets/js/glossar.js?v=15"></script>
   <script src="assets/js/termine.js?v=2"></script>
