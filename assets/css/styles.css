@@ -1577,7 +1577,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 .nw-close:hover { background: var(--navy); color: var(--white); }
 
-.nw-hero, .nw-body {
+.nw-hero, .nw-people {
   border-radius: var(--radius); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
@@ -1586,11 +1586,24 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-title em { font-style: normal; color: var(--green); }
 .nw-claim { margin-top: 28px; font-size: clamp(1.15rem, 3.4cqi, 2.2rem); font-weight: 600; line-height: 1.25; color: var(--navy); }
 .nw-intro { margin-top: 14px; font-size: clamp(1rem, 2.1cqi, 1.4rem); color: var(--muted); }
-.nw-body { margin-top: 24px; padding: 52px 56px 64px; background: rgba(255, 255, 255, .96); }
-.nw-skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
-.nw-skills h3 { margin: 0 0 10px; font-size: clamp(1.05rem, 2cqi, 1.35rem); }
-.nw-skills p { color: var(--muted); font-size: clamp(.95rem, 1.8cqi, 1.2rem); line-height: 1.8; }
-.nw-gallery-label { margin: 48px 0 24px; }
+.nw-body { margin-top: 24px; }
+/* Kompetenzen: je ein Liquid-Glas-Rahmen direkt über dem Foto, Begriffe untereinander (kein Umbruch mitten in der Aufzählung) */
+.nw-skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.nw-skills > div {
+  position: relative; overflow: hidden; padding: 30px 30px 32px; border-radius: 22px;
+  background: linear-gradient(160deg, rgba(255, 255, 255, .72), rgba(255, 255, 255, .5));
+  border: 1px solid rgba(255, 255, 255, .75);
+  backdrop-filter: blur(18px) saturate(1.5); -webkit-backdrop-filter: blur(18px) saturate(1.5);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, .9), inset 0 -2px 8px rgba(13, 29, 55, .06), 0 18px 40px rgba(13, 29, 55, .16);
+}
+.nw-skills > div::before {
+  content: ""; position: absolute; inset: 0 0 auto; height: 48%; pointer-events: none;
+  background: linear-gradient(180deg, rgba(255, 255, 255, .45), rgba(255, 255, 255, 0));
+}
+.nw-skills h3 { position: relative; margin: 0 0 16px; padding-bottom: 14px; border-bottom: 2px solid var(--green); font-size: clamp(1.05rem, 2cqi, 1.35rem); }
+.nw-tags { position: relative; list-style: none; display: grid; gap: 8px; color: #3f5468; font-size: clamp(.95rem, 1.8cqi, 1.15rem); line-height: 1.4; }
+.nw-people { margin-top: 24px; padding: 44px 56px 52px; background: rgba(255, 255, 255, .94); }
+.nw-gallery-label { margin: 0 0 24px; }
 .nw-gallery { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap: 24px 12px; }
 .nw-person, .nw-person a { display: flex; flex-direction: column; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
 .nw-avatar {
@@ -1606,11 +1619,14 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 @media (max-width: 900px) {
   .nw-dialog { width: 100vw; border-radius: 0; }
   .nw-skills { grid-template-columns: 1fr 1fr; }
+  .nw-skills > div:last-child { grid-column: 1 / -1; }
 }
 @media (max-width: 600px) {
   .nw-hero { margin-top: 28dvh; padding: 28px 22px 32px; }
-  .nw-body { margin-top: 16px; padding: 32px 22px 40px; }
-  .nw-skills { grid-template-columns: 1fr; gap: 24px; }
+  .nw-body { margin-top: 16px; }
+  .nw-skills { grid-template-columns: 1fr; gap: 14px; }
+  .nw-skills > div { padding: 24px 22px; }
+  .nw-people { margin-top: 16px; padding: 32px 22px 40px; }
   .nw-close { top: 14px; right: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar { transition: none; } }
