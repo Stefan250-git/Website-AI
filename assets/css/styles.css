@@ -1564,6 +1564,11 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-dialog[open] { animation: nw-in .35s ease-out; }
 @keyframes nw-in { from { transform: translateX(40px); opacity: 0; } }
 .nw-scroll { height: 100%; overflow-y: auto; }
+/* Foto steht (Hintergrund des Scroll-Containers scrollt nicht mit), Text läuft in Rahmen darüber */
+.nw-scroll, .nw-page {
+  container-type: inline-size; padding: 0 clamp(16px, 3.5cqi, 40px) clamp(16px, 3.5cqi, 40px);
+  background: linear-gradient(180deg, rgba(13, 29, 55, .05), rgba(13, 29, 55, .35)), url("../img/netzwerk-hintergrund.jpg") center / cover;
+}
 .nw-close {
   position: absolute; top: 20px; right: 24px; z-index: 2; display: grid; place-items: center;
   width: 48px; height: 48px; border-radius: 50%; border: 1px solid rgba(13, 29, 55, .2);
@@ -1572,17 +1577,21 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 .nw-close:hover { background: var(--navy); color: var(--white); }
 
-.nw-hero { padding: 88px 56px 56px; }
-.nw-title { margin: 0; font-size: clamp(2.4rem, 4.6vw, 4.4rem); line-height: 1.06; letter-spacing: -.035em; color: var(--navy); }
+.nw-hero, .nw-body {
+  border-radius: var(--radius); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
+  backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+}
+.nw-hero { margin-top: 34dvh; padding: 48px 56px 52px; background: rgba(255, 255, 255, .88); }
+.nw-title { margin: 0; font-size: clamp(2.2rem, 9.6cqi, 7.5rem); line-height: 1.02; letter-spacing: -.035em; color: var(--navy); }
 .nw-title em { font-style: normal; color: var(--green); }
-.nw-claim { margin-top: 28px; font-size: clamp(1.1rem, 1.6vw, 1.4rem); font-weight: 600; color: var(--navy); }
-.nw-intro { max-width: 640px; margin-top: 12px; color: var(--muted); }
-.nw-body { padding: 56px 56px 72px; background: var(--white); }
+.nw-claim { margin-top: 28px; font-size: clamp(1.15rem, 3.4cqi, 2.2rem); font-weight: 600; line-height: 1.25; color: var(--navy); }
+.nw-intro { margin-top: 14px; font-size: clamp(1rem, 2.1cqi, 1.4rem); color: var(--muted); }
+.nw-body { margin-top: 24px; padding: 52px 56px 64px; background: rgba(255, 255, 255, .96); }
 .nw-skills { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 32px; padding-bottom: 48px; border-bottom: 1px solid var(--line); }
-.nw-skills h3 { margin: 0 0 10px; font-size: 1.05rem; }
-.nw-skills p { color: var(--muted); font-size: .95rem; line-height: 1.8; }
+.nw-skills h3 { margin: 0 0 10px; font-size: clamp(1.05rem, 2cqi, 1.35rem); }
+.nw-skills p { color: var(--muted); font-size: clamp(.95rem, 1.8cqi, 1.2rem); line-height: 1.8; }
 .nw-gallery-label { margin: 48px 0 24px; }
-.nw-gallery { list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 32px 18px; }
+.nw-gallery { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap: 24px 12px; }
 .nw-person, .nw-person a { display: flex; flex-direction: column; align-items: center; gap: 10px; color: inherit; text-decoration: none; }
 .nw-avatar {
   width: min(100%, 124px); aspect-ratio: 1; border-radius: 50%; display: grid; place-items: center; overflow: hidden;
@@ -1599,12 +1608,13 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .nw-skills { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 600px) {
-  .nw-hero { padding: 80px 22px 40px; }
-  .nw-body { padding: 40px 22px 56px; }
+  .nw-hero { margin-top: 28dvh; padding: 28px 22px 32px; }
+  .nw-body { margin-top: 16px; padding: 32px 22px 40px; }
   .nw-skills { grid-template-columns: 1fr; gap: 24px; }
   .nw-close { top: 14px; right: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar { transition: none; } }
-/* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld */
-.nw-page .nw-hero, .nw-page .nw-body { padding-left: 0; padding-right: 0; }
-.nw-page .nw-body { background: transparent; }
+/* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld, Foto steht hinter der ganzen Seite */
+.nw-page { background-attachment: fixed; padding-bottom: 64px; }
+.nw-page .nw-hero { margin-top: 30vh; }
+.nw-page h1.nw-title { margin-bottom: 0; font-size: clamp(2.2rem, 9.6cqi, 7.5rem); }
