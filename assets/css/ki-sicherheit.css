@@ -5,6 +5,14 @@
 
 /* ---------- Unterseite: ein blauer Bereich ---------- */
 .sec-page { min-height: calc(100vh - 76px - 170px); display: flex; align-items: center; padding: 96px 0; }
+/* Rechenzentrum als Hintergrund, steht beim Scrollen still (fixed im zugeschnittenen Bereich, geht auch auf iOS) */
+.sec-page { position: relative; isolation: isolate; clip-path: inset(0); }
+.sec-page::before {
+  content: ""; position: fixed; inset: 0; z-index: -1;
+  background:
+    linear-gradient(90deg, rgba(13, 29, 55, .88) 0%, rgba(13, 29, 55, .72) 55%, rgba(13, 29, 55, .45) 100%),
+    var(--navy) url("../img/ki-sicherheit.jpg") 70% center / cover no-repeat;
+}
 .sec-grid { display: grid; grid-template-columns: 7fr 4fr; gap: 48px 64px; align-items: center; }
 .sec-page .kicker { color: var(--green-light); }
 .sec-page h1 { color: var(--white); font-size: clamp(2.2rem, 5vw, 3.4rem); }
