@@ -313,6 +313,14 @@
     observer.observe(stage);
   }
 
+  // CSS-Variable nur schreiben, wenn sich der Wert ändert (spart Stil-Neuberechnung beim Scrollen)
+  var setVarC = function (el, name, v) {
+    var key = "_v" + name;
+    if (el[key] === v) return;
+    el[key] = v;
+    el.style.setProperty(name, v);
+  };
+
   /* ---------- Startseite: Foto bleibt stehen, Verläufe beim Scrollen ---------- */
   var hero = document.querySelector(".hero-full");
   var heroMedia = hero && hero.querySelector(".hero-media");
@@ -322,13 +330,14 @@
     var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
     var heroMix = function () {
       heroTicking = false;
+      if (window.scrollY > hero.offsetTop + hero.offsetHeight + window.innerHeight) return; // weit unterhalb: nichts zu tun
       var mediaTop = heroMedia.getBoundingClientRect().top;
       // Heller Verlauf bleibt, solange Text da ist; tritt zurück, wenn der Text oben verschwindet
       var textLeft = (heroText.getBoundingClientRect().bottom - mediaTop) / (heroMedia.offsetHeight * 0.4);
-      hero.style.setProperty("--hero-veil", clamp01(1 - textLeft).toFixed(3));
+      setVarC(hero, "--hero-veil", clamp01(1 - textLeft).toFixed(3));
       // Kurz bevor das Foto freigegeben wird: nach unten weich ins Weiß auslaufen
       var holdLeft = hero.getBoundingClientRect().bottom - heroMedia.getBoundingClientRect().bottom;
-      hero.style.setProperty("--hero-out", clamp01(1 - holdLeft / (heroMedia.offsetHeight * 0.6)).toFixed(3));
+      setVarC(hero, "--hero-out", clamp01(1 - holdLeft / (heroMedia.offsetHeight * 0.6)).toFixed(3));
     };
     var heroRequest = function () {
       if (heroTicking) return;
@@ -349,15 +358,16 @@
       euTicking = false;
       var h = euMedia.offsetHeight;
       var stage = euStage.getBoundingClientRect();
+      if (stage.bottom < -h || stage.top > window.innerHeight + h) return; // weit außerhalb: Werte bleiben, wie sie sind
       var top = euMedia.getBoundingClientRect().top;
       var line = parseFloat(getComputedStyle(euMedia).top) || 0; // Klebelinie unter dem Header
       var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
       // 0, solange die Bühne von unten hereinkommt (oberer Verlauf über dem Startfoto), 1, sobald das Foto steht
       var euIn = fit(1 - (stage.top - line) / (h * 0.7));
-      euStage.style.setProperty("--eu-in", euIn);
+      setVarC(euStage, "--eu-in", euIn);
       // Erst am Ende (Tafeln durchgelaufen): auf der letzten Viertel-Bildhöhe nach unten ins Weiß auslaufen
       var euOut = fit(1 - (stage.bottom - (top + h)) / (h * 0.25));
-      euStage.style.setProperty("--eu-out", euOut);
+      setVarC(euStage, "--eu-out", euOut);
       // Foto deckt den unteren Bildschirmrand (Pauls Platz): nur dann zählt es für Pauls Lampe als dunkel
       euStage.classList.toggle("is-shown", euIn > 0.5 && euOut < 0.3);
     };
@@ -385,8 +395,8 @@
         var top = media.getBoundingClientRect().top;
         var line = parseFloat(getComputedStyle(media).top) || 0;
         var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
-        st.style.setProperty("--st-in", fit(1 - (box.top - line) / (h * 0.6)));
-        st.style.setProperty("--st-out", fit(1 - (box.bottom - (top + h)) / (h * 0.3)));
+        setVarC(st, "--st-in", fit(1 - (box.top - line) / (h * 0.6)));
+        setVarC(st, "--st-out", fit(1 - (box.bottom - (top + h)) / (h * 0.3)));
       });
     };
     var stRequest = function () {
@@ -444,45 +454,53 @@
     nwScroll.appendChild(nwEnd);
     var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
     var px = function (el, prop) { return parseFloat(getComputedStyle(el)[prop]) || 0; };
-    var nwSet = function (s, h, j) {
-      nwPeople.style.setProperty("--nw-s", s.toFixed(3));
-      nwHero.style.setProperty("--nw-h1", clamp01(h / 0.5).toFixed(3));          // ausblenden
-      nwHero.style.setProperty("--nw-h2", clamp01((h - 0.4) / 0.6).toFixed(3));  // zusammenziehen
-      nwHero.style.setProperty("--nw-t", clamp01((h - 0.4) / 0.3).toFixed(3));    // Titelschrift kleiner
-      nwHero.style.setProperty("--nw-mx", clamp01((h - 0.7) / 0.15).toFixed(3));  // zweite Zeile nach rechts …
-      nwHero.style.setProperty("--nw-my", clamp01((h - 0.85) / 0.15).toFixed(3)); // … und hoch neben die erste
-      nwScroll.style.setProperty("--nw-j", j.toFixed(3));
+    // Werte nur schreiben, wenn sie sich ändern (jede Änderung lässt den Browser Stile neu berechnen)
+    var nwVar = function (el, name, v) {
+      var key = "_nw" + name;
+      if (el[key] === v) return;
+      el[key] = v;
+      el.style.setProperty(name, v);
     };
+    var nwPx = function (el, prop, v) {
+      var val = Math.round(v * 10) / 10 + "px";
+      if (el.style[prop] !== val) el.style[prop] = val;
+    };
+    var nwSet = function (s, h, j) {
+      nwVar(nwPeople, "--nw-s", s.toFixed(3));
+      nwVar(nwHero, "--nw-h1", clamp01(h / 0.5).toFixed(3));          // ausblenden
+      nwVar(nwHero, "--nw-h2", clamp01((h - 0.4) / 0.6).toFixed(3));  // zusammenziehen
+      nwVar(nwHero, "--nw-t", clamp01((h - 0.4) / 0.3).toFixed(3));    // Titelschrift kleiner
+      nwVar(nwHero, "--nw-mx", clamp01((h - 0.7) / 0.15).toFixed(3));  // zweite Zeile nach rechts …
+      nwVar(nwHero, "--nw-my", clamp01((h - 0.85) / 0.15).toFixed(3)); // … und hoch neben die erste
+      nwVar(nwScroll, "--nw-j", j.toFixed(3));
+    };
+    var nwStart = 88, nwHeroGap = 24, nwBondGap = 24, nwSafe = 0;
+    // Pro Bild nur eine Layout-Berechnung: erst alle Werte aus der Scrollposition schreiben, dann einmal Höhen lesen,
+    // dann Lagen schreiben. Lage des Kopfes: Er dockt an, sobald scrollTop die Strecke bis unter die Fotos zurückgelegt hat.
     var nwUpdate = function () {
       nwTicking = false;
-      var start = px(nwPeople, "marginTop") - px(nwPeople, "top");
-      var s = clamp01((nwScroll.scrollTop - start) / 160);
+      var st = nwScroll.scrollTop;
+      var s = clamp01((st - nwStart) / 160);
       if (nwMode === "none") { nwSet(s, 0, 0); return; }
-      var keep = nwScroll.scrollTop; // Zwischenlayout beim Schrumpfen darf die Scrollposition nicht kürzen
-      nwPeople.style.setProperty("--nw-s", s.toFixed(3));
-      var base = nwScroll.getBoundingClientRect().top;
-      var heroTop = nwPeople.getBoundingClientRect().bottom - base;
-      nwHero.style.top = heroTop + "px";
-      // natürliche Lage des Kopfes im Fluss (gemessen am nicht stehenden Ende darunter); wie weit ist er über
-      // seine Haltelinie hinaus gescrollt? Der Abstand vor den Kacheln gleicht das Schrumpfen des Kopfes aus,
-      // dadurch bleibt die Gesamthöhe gleich und große Sprünge (Ende-Taste) landen sicher im Endzustand.
-      var natural = nwEnd.getBoundingClientRect().top - base - px(nwBond, "marginTop") - nwBond.offsetHeight
-        - nwBody.offsetHeight - px(nwBody, "marginTop") - nwHero.offsetHeight;
-      var h = clamp01((heroTop - natural - NW_HOLD) / NW_RUN);
-      var gap = nwHero.getBoundingClientRect().top - base - heroTop;
-      nwSet(s, h, 1 - clamp01(gap / 24));
-      nwBody.style.marginTop = nwRunway() + "px";
+      var d = Math.max(-nwHeroGap, st - nwStart - nwHeroGap);   // wie weit der Kopf über seine Haltelinie gescrollt ist
+      nwSet(s, clamp01((d - NW_HOLD) / NW_RUN), 1 - clamp01(-d / nwHeroGap));
+      var peopleH = nwPeople.offsetHeight, heroH = nwHero.offsetHeight, bodyH = nwBody.offsetHeight;
+      nwPx(nwHero, "top", peopleH);
+      // Abstand vor den Kacheln gleicht das Schrumpfen von Fotos und Kopf aus – die Gesamthöhe bleibt gleich
+      nwPx(nwBody, "marginTop", NW_HOLD + NW_RUN + 24 + nwHeroFull - heroH + nwPeopleFull - peopleH);
       if (nwMode === "stack") {
-        var bodyTop = heroTop + nwHero.offsetHeight + NW_GAP;
-        nwBody.style.top = bodyTop + "px";
-        nwBond.style.top = (bodyTop + nwBody.offsetHeight + px(nwBond, "marginTop")) + "px";
+        var bodyTop = peopleH + heroH + NW_GAP;
+        nwPx(nwBody, "top", bodyTop);
+        nwPx(nwBond, "top", bodyTop + bodyH + nwBondGap);
       }
-      if (nwScroll.scrollTop !== keep) nwScroll.scrollTop = keep;
+      // nur am Ende nötig: ein Zwischenlayout kann die Scrollposition gekürzt haben
+      if (st > nwSafe && nwScroll.scrollTop !== st) nwScroll.scrollTop = st;
     };
     var nwFit = function () {
       nwScroll.classList.remove("nw-stack", "nw-unit", "nw-tight");
       nwScroll.style.paddingBottom = "0px";
       nwHero.style.top = ""; nwBody.style.top = ""; nwBond.style.top = ""; nwBody.style.marginTop = "";
+      [nwPeople, nwHero, nwScroll].forEach(function (el) { Object.keys(el).forEach(function (k) { if (k.indexOf("_nw") === 0) delete el[k]; }); });
       // Endzustand messen: alles zusammengeschoben
       nwSet(0, 0, 1);
       // Breite der ersten Titelzeile plus Wortabstand, in em (für das Nebeneinander im zusammengezogenen Kopf)
@@ -523,6 +541,10 @@
         nwEnd.style.height = Math.max(24, view - peopleH - NW_GAP - bodyH - bondGap - bondH) + "px";
       }
       if (nwMode !== "none") nwBody.style.marginTop = nwRunway() + "px";
+      nwStart = px(nwPeople, "marginTop") - px(nwPeople, "top");
+      nwHeroGap = px(nwHero, "marginTop") || 24;
+      nwBondGap = px(nwBond, "marginTop");
+      nwSafe = nwScroll.scrollHeight - view - 700;
       nwUpdate();
     };
     nwScroll.addEventListener("scroll", function () {
