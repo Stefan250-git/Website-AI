@@ -415,73 +415,96 @@
 
     // Ablauf beim Scrollen:
     // 1. Fotorahmen bleibt oben stehen und schiebt sich zusammen (--nw-s 0 → 1).
-    // 2. Kopf läuft darunter und bleibt direkt unter den Fotos stehen; beim Weiterscrollen blenden
-    //    Kicker und Einleitung aus (--nw-h1), dann wird der Kopf kleiner (--nw-h2).
-    // 3. Die drei Kacheln kommen von unten und bleiben unter dem Kopf stehen, darunter „Uns verbindet“.
-    // Der Stapel gilt nur, wenn alles in die Höhe passt (sonst laufen Kopf und Kacheln normal durch).
+    // 2. Kopf läuft darunter und verschmilzt mit dem Fotorahmen zu einer Einheit (--nw-j: Ecken und Schatten
+    //    an der Naht verschwinden); beim Weiterscrollen blenden Kicker und Einleitung aus (--nw-h1),
+    //    dann wird der Kopf kleiner (--nw-h2).
+    // 3. Darunter kommen die drei Kacheln und „Uns verbindet“.
+    // Modus „stack“: alles passt in die Höhe → Kacheln und „Uns verbindet“ bleiben unter der Einheit stehen.
+    // Modus „unit“: nur die Einheit bleibt stehen, Kacheln und „Uns verbindet“ laufen darunter durch.
+    // Modus „none“ (Handy): nur der Fotorahmen bleibt stehen.
     var nwScroll = nwDialog.querySelector(".nw-scroll");
     var nwPeople = nwDialog.querySelector(".nw-people");
     var nwHero = nwDialog.querySelector(".nw-hero");
     var nwBody = nwDialog.querySelector(".nw-body");
     var nwBond = nwDialog.querySelector(".nw-bond");
-    var NW_GAP = 16;     // Abstand zwischen den stehenden Rahmen
+    var NW_GAP = 16;     // Abstand unter der Einheit und zwischen den Rahmen
     var NW_RUN = 280;    // Scrollstrecke, auf der der Kopf ausblendet und kleiner wird
-    var nwStack = false;
+    var nwMode = "none";
+    var nwHeroFull = 0;
+    var nwPeopleFull = 0;
+    // Abstand vor den Kacheln: Scrollstrecke plus das, was Fotorahmen und Kopf beim Schrumpfen verlieren –
+    // so bleibt die Gesamthöhe gleich und auch große Sprünge (Ende-Taste) landen im Endzustand
+    var nwRunway = function () { return NW_RUN + 24 + nwHeroFull - nwHero.offsetHeight + nwPeopleFull - nwPeople.offsetHeight; };
+    var nwTicking = false;
     // Platz am Ende als eigenes Element (nicht als Innenabstand): stehende Rahmen bleiben nur innerhalb
     // des Inhalts stehen, im Innenabstand würden sie wieder nach oben wandern
     var nwEnd = document.createElement("div");
     nwEnd.setAttribute("aria-hidden", "true");
     nwScroll.appendChild(nwEnd);
-    var nwTicking = false;
     var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
-    var nwSet = function (s, h) {
+    var px = function (el, prop) { return parseFloat(getComputedStyle(el)[prop]) || 0; };
+    var nwSet = function (s, h, j) {
       nwPeople.style.setProperty("--nw-s", s.toFixed(3));
       nwHero.style.setProperty("--nw-h1", clamp01(h / 0.45).toFixed(3));
       nwHero.style.setProperty("--nw-h2", clamp01((h - 0.3) / 0.7).toFixed(3));
+      nwScroll.style.setProperty("--nw-j", j.toFixed(3));
     };
     var nwUpdate = function () {
       nwTicking = false;
-      var cs = getComputedStyle(nwPeople);
-      var start = parseFloat(cs.marginTop) - parseFloat(cs.top);
+      var start = px(nwPeople, "marginTop") - px(nwPeople, "top");
       var s = clamp01((nwScroll.scrollTop - start) / 160);
-      if (!nwStack) { nwSet(s, 0); return; }
+      if (nwMode === "none") { nwSet(s, 0, 0); return; }
+      var keep = nwScroll.scrollTop; // Zwischenlayout beim Schrumpfen darf die Scrollposition nicht kürzen
       nwPeople.style.setProperty("--nw-s", s.toFixed(3));
       var base = nwScroll.getBoundingClientRect().top;
-      var heroTop = nwPeople.getBoundingClientRect().bottom - base + NW_GAP;
+      var heroTop = nwPeople.getBoundingClientRect().bottom - base;
       nwHero.style.top = heroTop + "px";
-      // natürliche Lage des Kopfes im Fluss; wie weit ist er über seine Haltelinie hinaus gescrollt?
-      // (gemessen am nicht stehenden Block „Uns verbindet“ darunter, weil stehende Rahmen ihre Lage verschieben)
-      var natural = nwBond.getBoundingClientRect().top - base - parseFloat(getComputedStyle(nwBond).marginTop)
-        - nwBody.offsetHeight - parseFloat(nwBody.style.marginTop) - nwHero.offsetHeight;
-      nwSet(s, clamp01((heroTop - natural) / NW_RUN));
-      var bodyTop = heroTop + nwHero.offsetHeight + NW_GAP;
-      nwBody.style.top = bodyTop + "px";
-      nwBond.style.top = (bodyTop + nwBody.offsetHeight + parseFloat(getComputedStyle(nwBond).marginTop)) + "px";
+      // natürliche Lage des Kopfes im Fluss (gemessen am nicht stehenden Ende darunter); wie weit ist er über
+      // seine Haltelinie hinaus gescrollt? Der Abstand vor den Kacheln gleicht das Schrumpfen des Kopfes aus,
+      // dadurch bleibt die Gesamthöhe gleich und große Sprünge (Ende-Taste) landen sicher im Endzustand.
+      var natural = nwEnd.getBoundingClientRect().top - base - px(nwBond, "marginTop") - nwBond.offsetHeight
+        - nwBody.offsetHeight - px(nwBody, "marginTop") - nwHero.offsetHeight;
+      var h = clamp01((heroTop - natural) / NW_RUN);
+      var gap = nwHero.getBoundingClientRect().top - base - heroTop;
+      nwSet(s, h, 1 - clamp01(gap / 24));
+      nwBody.style.marginTop = nwRunway() + "px";
+      if (nwMode === "stack") {
+        var bodyTop = heroTop + nwHero.offsetHeight + NW_GAP;
+        nwBody.style.top = bodyTop + "px";
+        nwBond.style.top = (bodyTop + nwBody.offsetHeight + px(nwBond, "marginTop")) + "px";
+      }
+      if (nwScroll.scrollTop !== keep) nwScroll.scrollTop = keep;
     };
     var nwFit = function () {
-      // Endzustand messen: alles zusammengeschoben
-      nwScroll.classList.remove("nw-stack");
+      nwScroll.classList.remove("nw-stack", "nw-unit");
       nwScroll.style.paddingBottom = "0px";
       nwHero.style.top = ""; nwBody.style.top = ""; nwBond.style.top = ""; nwBody.style.marginTop = "";
-      nwSet(1, 0);
-      var heroFull = nwHero.offsetHeight;
-      nwSet(1, 1);
+      // Endzustand messen: alles zusammengeschoben
+      nwSet(0, 0, 1);
+      nwPeopleFull = nwPeople.offsetHeight;
+      nwSet(1, 0, 1);
+      nwHeroFull = nwHero.offsetHeight;
+      nwSet(1, 1, 1);
       var peopleH = nwPeople.offsetHeight, heroH = nwHero.offsetHeight, bodyH = nwBody.offsetHeight, bondH = nwBond.offsetHeight;
-      var bondGap = parseFloat(getComputedStyle(nwBond).marginTop);
+      var bondGap = px(nwBond, "marginTop");
       var view = nwScroll.clientHeight;
-      var bondTop = peopleH + NW_GAP + heroH + NW_GAP + bodyH + bondGap;
-      nwStack = window.innerWidth > 600 && bondTop + bondH + NW_GAP <= view;
-      if (nwStack) {
+      var unitH = peopleH + heroH;
+      var bondTop = unitH + NW_GAP + bodyH + bondGap;
+      if (window.innerWidth <= 600) nwMode = "none";
+      else if (bondTop + bondH + NW_GAP <= view) nwMode = "stack";
+      else if (unitH <= view * 0.55) nwMode = "unit";
+      else nwMode = "none";
+      if (nwMode === "stack") {
         nwScroll.classList.add("nw-stack");
-        // Strecke vor den Kacheln: erst blendet der Kopf aus und wird kleiner, dann kommen die Kacheln
-        nwBody.style.marginTop = (NW_RUN + 24) + "px";
-        // Platz am Ende plus die Höhe, um die der Kopf schrumpft – so endet die Scrollstrecke nie vor dem Endzustand
-        // (alle Rahmen stehen, auch „Uns verbindet“; überzähliger Weg bewegt nichts mehr)
-        nwEnd.style.height = (Math.max(24, view - bondTop - bondH) + heroFull - heroH) + "px";
+        nwEnd.style.height = Math.max(24, view - bondTop - bondH) + "px";
+      } else if (nwMode === "unit") {
+        nwScroll.classList.add("nw-unit");
+        // am Ende steht „Uns verbindet“ vollständig unter der Einheit
+        nwEnd.style.height = Math.max(24, view - unitH - NW_GAP - bondH) + "px";
       } else {
-        // Platz am Ende, damit Kacheln und „Uns verbindet“ vollständig unter den Fotos stehen
         nwEnd.style.height = Math.max(24, view - peopleH - NW_GAP - bodyH - bondGap - bondH) + "px";
       }
+      if (nwMode !== "none") nwBody.style.marginTop = nwRunway() + "px";
       nwUpdate();
     };
     nwScroll.addEventListener("scroll", function () {
