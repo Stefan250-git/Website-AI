@@ -428,13 +428,14 @@
     var nwBody = nwDialog.querySelector(".nw-body");
     var nwBond = nwDialog.querySelector(".nw-bond");
     var NW_GAP = 16;     // Abstand unter der Einheit und zwischen den Rahmen
-    var NW_RUN = 280;    // Scrollstrecke, auf der der Kopf ausblendet und kleiner wird
+    var NW_HOLD = 220;   // Scrollstrecke nach dem Andocken, auf der die Einleitung noch ganz lesbar stehen bleibt
+    var NW_RUN = 300;    // danach: Einleitung blendet aus, Kopf wird kleiner
     var nwMode = "none";
     var nwHeroFull = 0;
     var nwPeopleFull = 0;
     // Abstand vor den Kacheln: Scrollstrecke plus das, was Fotorahmen und Kopf beim Schrumpfen verlieren –
     // so bleibt die Gesamthöhe gleich und auch große Sprünge (Ende-Taste) landen im Endzustand
-    var nwRunway = function () { return NW_RUN + 24 + nwHeroFull - nwHero.offsetHeight + nwPeopleFull - nwPeople.offsetHeight; };
+    var nwRunway = function () { return NW_HOLD + NW_RUN + 24 + nwHeroFull - nwHero.offsetHeight + nwPeopleFull - nwPeople.offsetHeight; };
     var nwTicking = false;
     // Platz am Ende als eigenes Element (nicht als Innenabstand): stehende Rahmen bleiben nur innerhalb
     // des Inhalts stehen, im Innenabstand würden sie wieder nach oben wandern
@@ -445,8 +446,11 @@
     var px = function (el, prop) { return parseFloat(getComputedStyle(el)[prop]) || 0; };
     var nwSet = function (s, h, j) {
       nwPeople.style.setProperty("--nw-s", s.toFixed(3));
-      nwHero.style.setProperty("--nw-h1", clamp01(h / 0.45).toFixed(3));
-      nwHero.style.setProperty("--nw-h2", clamp01((h - 0.3) / 0.7).toFixed(3));
+      nwHero.style.setProperty("--nw-h1", clamp01(h / 0.5).toFixed(3));          // ausblenden
+      nwHero.style.setProperty("--nw-h2", clamp01((h - 0.4) / 0.6).toFixed(3));  // zusammenziehen
+      nwHero.style.setProperty("--nw-t", clamp01((h - 0.4) / 0.3).toFixed(3));    // Titelschrift kleiner
+      nwHero.style.setProperty("--nw-mx", clamp01((h - 0.7) / 0.15).toFixed(3));  // zweite Zeile nach rechts …
+      nwHero.style.setProperty("--nw-my", clamp01((h - 0.85) / 0.15).toFixed(3)); // … und hoch neben die erste
       nwScroll.style.setProperty("--nw-j", j.toFixed(3));
     };
     var nwUpdate = function () {
@@ -464,7 +468,7 @@
       // dadurch bleibt die Gesamthöhe gleich und große Sprünge (Ende-Taste) landen sicher im Endzustand.
       var natural = nwEnd.getBoundingClientRect().top - base - px(nwBond, "marginTop") - nwBond.offsetHeight
         - nwBody.offsetHeight - px(nwBody, "marginTop") - nwHero.offsetHeight;
-      var h = clamp01((heroTop - natural) / NW_RUN);
+      var h = clamp01((heroTop - natural - NW_HOLD) / NW_RUN);
       var gap = nwHero.getBoundingClientRect().top - base - heroTop;
       nwSet(s, h, 1 - clamp01(gap / 24));
       nwBody.style.marginTop = nwRunway() + "px";
@@ -481,6 +485,10 @@
       nwHero.style.top = ""; nwBody.style.top = ""; nwBond.style.top = ""; nwBody.style.marginTop = "";
       // Endzustand messen: alles zusammengeschoben
       nwSet(0, 0, 1);
+      // Breite der ersten Titelzeile plus Wortabstand, in em (für das Nebeneinander im zusammengezogenen Kopf)
+      var nwTitle = nwHero.querySelector(".nw-title");
+      var l1 = nwHero.querySelector(".nw-l1");
+      if (l1) nwHero.style.setProperty("--nw-l1", (l1.offsetWidth / px(nwTitle, "fontSize") + 0.28).toFixed(3));
       nwPeopleFull = nwPeople.offsetHeight;
       nwSet(1, 0, 1);
       nwHeroFull = nwHero.offsetHeight;
