@@ -363,6 +363,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
    daher Versatz = max(5,1vw, 9,05 % der Fotohöhe) und Breite = max(22,3vw, 39,6 % der Fotohöhe). */
 @media (min-width: 901px) {
   .hero-cta { --cta-shift: max(5.1vw, calc(var(--hero-h) * .0905)); }
+  /* senkrecht: Knopfmitte genau auf der Tischvorderkante (Bild-y 678 von 941 → 207,5 px unter der Bildmitte) */
+  .hero-main { position: relative; }
+  .hero-cta { position: absolute; left: 0; right: 0; margin-top: 0; top: calc(var(--hero-h) * .5 + max(12.42vw, calc(var(--hero-h) * .2205)) - 31px); }
   .hero-cta > * { translate: var(--cta-shift) 0; } /* eigene Eigenschaft: der Hover-Effekt der Knöpfe (transform) überschreibt sie nicht */
   .btn.btn-hero-check { width: max(18vw, calc(var(--hero-h) * .32)); padding-left: 16px; padding-right: 16px; } /* etwa Tischbreite (Tischplatte, etwas schmaler als die Vorderkante) */
 }
