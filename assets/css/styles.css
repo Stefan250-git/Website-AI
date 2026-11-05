@@ -180,6 +180,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .nav-list > li > a { font-weight: 400; }
 .nav-list > li.has-sub > a { font-weight: 700; }
 .nav-cta { margin-left: 12px; }
+.header-cta { display: none; }
 .nav-list .nav-cta a { color: var(--white); padding: 10px 20px; }
 .nav-list .nav-cta a:hover { color: var(--white); }
 
@@ -475,7 +476,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .offer-law, .offer-law:last-child { padding: 36px 48px; border-top: 0; border-radius: var(--radius); background: var(--green-soft); margin-bottom: 8px; } /* :last-child – jetzt letzte Tafel auf dem Europabild */
 .offer-law .offer-body a { color: var(--green-dark); }
 .offer-law .offer-body > * + * { margin-top: 14px; }
-.law-source { font-size: max(12px, .74rem); line-height: 1.5; }
+.law-source { font-size: max(13px, .78rem); line-height: 1.5; }
 .law-logos { display: flex; flex-direction: column; align-items: flex-start; gap: 16px; margin-top: 28px; }
 .eu-link {
   display: inline-flex; align-items: center; gap: 12px;
@@ -1425,6 +1426,12 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 
 @media (max-width: 1180px) {
   .nav-toggle { display: inline-flex; }
+  /* Anfrage-Knopf im (klebenden) Kopf: immer sichtbar, beim Scrollen etwas kompakter (html.is-scrolled aus main.js) */
+  .header-cta {
+    display: inline-flex; margin-left: auto; margin-right: -12px; min-height: 42px; padding: 8px 20px; font-size: .95rem; white-space: nowrap;
+    transition: min-height .25s, padding .25s, font-size .25s;
+  }
+  .is-scrolled .header-cta { min-height: 36px; padding: 6px 16px; font-size: .88rem; }
   .site-nav {
     display: none; position: absolute; top: 100%; left: 0; right: 0;
     background: var(--bg); border-bottom: 1px solid var(--line);
@@ -1451,6 +1458,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   :root { --section: 88px; --gutter: 24px; }
   .split > [class*="span-"] { grid-column: 1 / -1; }
   .hero { padding: 56px 0 80px; }
+  .hero.hero-full { padding: 0; } /* sonst weißer Streifen über dem Startfoto */
   .hero-panel-wrap { margin-top: 20vh; margin-top: 20svh; }
   .hero-img-a { background-image: url("../img/start-buero-900.jpg?v=2"); background-position: center; }
   .hero-media::after { background: linear-gradient(180deg, rgba(245, 243, 238, .92) 0%, rgba(245, 243, 238, .82) 60%, rgba(245, 243, 238, .55) 100%); }
@@ -1492,6 +1500,9 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .logo { gap: 10px; }
   .logo-mark { font-size: 2rem; padding-right: 10px; }
   .logo-name { font-size: .78rem; letter-spacing: .16em; }
+  .header-inner { gap: 12px; }
+  .header-cta { margin-right: -4px; padding: 7px 16px; font-size: .9rem; }
+  .is-scrolled .header-cta { padding: 5px 13px; font-size: .84rem; }
   .site-header .logo-tag { display: none; }
   .hero .lead { font-size: 1.12rem; }
   .hero-actions .btn { width: 100%; }
@@ -1576,13 +1587,17 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   box-shadow: var(--glass-shadow);
 }
 .nw-close:hover { background: var(--navy); color: var(--white); }
-/* X aus zwei Linien statt Schriftzeichen – steht unabhängig von der Schrift genau in der Mitte */
-.nw-close { position: absolute; font-size: 0; }
-.nw-close::before, .nw-close::after {
+/* X aus zwei Linien statt Schriftzeichen – steht unabhängig von der Schrift genau in der Mitte
+   (gilt für alle Schließen-Knöpfe: Netzwerk, Dialoge, Paul-Chat); Fokusring liegt innen, damit er nicht abgeschnitten wird */
+.nw-close, .check-close, .paul-close { font-size: 0; }
+.nw-close::before, .nw-close::after, .check-close::before, .check-close::after, .paul-close::before, .paul-close::after {
   content: ""; position: absolute; top: 50%; left: 50%; width: 20px; height: 2px; margin: -1px 0 0 -10px;
   border-radius: 1px; background: currentColor; transform: rotate(45deg);
 }
-.nw-close::after { transform: rotate(-45deg); }
+.check-close::before, .check-close::after { width: 18px; margin-left: -9px; }
+.paul-close::before, .paul-close::after { width: 15px; margin-left: -7.5px; }
+.nw-close::after, .check-close::after, .paul-close::after { transform: rotate(-45deg); }
+.nw-close:focus-visible, .check-close:focus-visible, .paul-close:focus-visible { outline-offset: -3px; }
 
 .nw-hero, .nw-people {
   border-radius: var(--radius); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
@@ -1615,7 +1630,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   --nw-av: calc(var(--nw-av-max) - (var(--nw-av-max) - var(--nw-av-min)) * var(--nw-s, 0));
   position: sticky; top: 0; z-index: 3; margin-top: 88px;
   border-top-left-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); border-top-right-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); padding: calc(var(--nw-pt) - (var(--nw-pt) - 14px) * var(--nw-s, 0)) 56px calc(var(--nw-pb) - (var(--nw-pb) - 14px) * var(--nw-s, 0));
-  background: rgba(255, 255, 255, .985); backdrop-filter: none; -webkit-backdrop-filter: none;
+  background: var(--white); backdrop-filter: none; -webkit-backdrop-filter: none;
 }
 .nw-gallery-label { max-height: calc(30px * (1 - var(--nw-s, 0))); margin: 0 0 calc(24px * (1 - var(--nw-s, 0))); overflow: hidden; opacity: calc(1 - 1.6 * var(--nw-s, 0)); }
 .nw-gallery { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap: 24px 12px; }
@@ -1657,5 +1672,5 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 @media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar, .nw-flip-inner { transition: none; } }
 /* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld, Foto steht hinter der ganzen Seite */
 .nw-page { background-attachment: fixed; padding-bottom: 64px; }
-.nw-page .nw-people { top: 88px; margin-top: 40px; }
+.nw-page .nw-people { top: 77px; margin-top: 40px; }
 .nw-page h1.nw-title { margin-bottom: 0; font-size: clamp(2.2rem, 9.6cqi, 7.5rem); }

@@ -3,6 +3,17 @@
 
   var config = window.SITE_CONFIG || {};
 
+  /* ---------- Kopf: nach dem ersten Scrollen kompakter Anfrage-Knopf (html.is-scrolled) ---------- */
+  var scrollTick = false;
+  var markScrolled = function () {
+    scrollTick = false;
+    document.documentElement.classList.toggle("is-scrolled", window.scrollY > 60);
+  };
+  window.addEventListener("scroll", function () {
+    if (!scrollTick) { scrollTick = true; requestAnimationFrame(markScrolled); }
+  }, { passive: true });
+  markScrolled();
+
   /* ---------- Navigation ---------- */
   var navToggle = document.querySelector(".nav-toggle");
   var nav = document.getElementById("main-nav");
