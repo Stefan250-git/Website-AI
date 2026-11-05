@@ -413,36 +413,85 @@
     nwDialog.addEventListener("click", function (e) { if (e.target === nwDialog) nwDialog.close(); });
     nwDialog.addEventListener("close", function () { nwOpener.focus(); });
 
-    // Fotorahmen bleibt oben stehen und schiebt sich beim Weiterscrollen zusammen (--nw-s 0 → 1);
-    // Platz am Ende, damit die drei Kacheln vollständig unter den Fotos stehen bleiben
+    // Ablauf beim Scrollen:
+    // 1. Fotorahmen bleibt oben stehen und schiebt sich zusammen (--nw-s 0 → 1).
+    // 2. Kopf läuft darunter und bleibt direkt unter den Fotos stehen; beim Weiterscrollen blenden
+    //    Kicker und Einleitung aus (--nw-h1), dann wird der Kopf kleiner (--nw-h2).
+    // 3. Die drei Kacheln kommen von unten und bleiben unter dem Kopf stehen, darunter „Uns verbindet“.
+    // Der Stapel gilt nur, wenn alles in die Höhe passt (sonst laufen Kopf und Kacheln normal durch).
     var nwScroll = nwDialog.querySelector(".nw-scroll");
     var nwPeople = nwDialog.querySelector(".nw-people");
+    var nwHero = nwDialog.querySelector(".nw-hero");
     var nwBody = nwDialog.querySelector(".nw-body");
+    var nwBond = nwDialog.querySelector(".nw-bond");
+    var NW_GAP = 16;     // Abstand zwischen den stehenden Rahmen
+    var NW_RUN = 280;    // Scrollstrecke, auf der der Kopf ausblendet und kleiner wird
+    var nwStack = false;
+    // Platz am Ende als eigenes Element (nicht als Innenabstand): stehende Rahmen bleiben nur innerhalb
+    // des Inhalts stehen, im Innenabstand würden sie wieder nach oben wandern
+    var nwEnd = document.createElement("div");
+    nwEnd.setAttribute("aria-hidden", "true");
+    nwScroll.appendChild(nwEnd);
     var nwTicking = false;
-    var nwShrink = function () {
+    var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };
+    var nwSet = function (s, h) {
+      nwPeople.style.setProperty("--nw-s", s.toFixed(3));
+      nwHero.style.setProperty("--nw-h1", clamp01(h / 0.45).toFixed(3));
+      nwHero.style.setProperty("--nw-h2", clamp01((h - 0.3) / 0.7).toFixed(3));
+    };
+    var nwUpdate = function () {
       nwTicking = false;
       var cs = getComputedStyle(nwPeople);
       var start = parseFloat(cs.marginTop) - parseFloat(cs.top);
-      var s = Math.min(1, Math.max(0, (nwScroll.scrollTop - start) / 160));
+      var s = clamp01((nwScroll.scrollTop - start) / 160);
+      if (!nwStack) { nwSet(s, 0); return; }
       nwPeople.style.setProperty("--nw-s", s.toFixed(3));
+      var base = nwScroll.getBoundingClientRect().top;
+      var heroTop = nwPeople.getBoundingClientRect().bottom - base + NW_GAP;
+      nwHero.style.top = heroTop + "px";
+      // natürliche Lage des Kopfes im Fluss; wie weit ist er über seine Haltelinie hinaus gescrollt?
+      // (gemessen am nicht stehenden Block „Uns verbindet“ darunter, weil stehende Rahmen ihre Lage verschieben)
+      var natural = nwBond.getBoundingClientRect().top - base - parseFloat(getComputedStyle(nwBond).marginTop)
+        - nwBody.offsetHeight - parseFloat(nwBody.style.marginTop) - nwHero.offsetHeight;
+      nwSet(s, clamp01((heroTop - natural) / NW_RUN));
+      var bodyTop = heroTop + nwHero.offsetHeight + NW_GAP;
+      nwBody.style.top = bodyTop + "px";
+      nwBond.style.top = (bodyTop + nwBody.offsetHeight + parseFloat(getComputedStyle(nwBond).marginTop)) + "px";
     };
     var nwFit = function () {
-      var keep = nwPeople.style.getPropertyValue("--nw-s");
-      nwPeople.style.setProperty("--nw-s", "1");
-      var top = parseFloat(getComputedStyle(nwPeople).top);
-      var gap = parseFloat(getComputedStyle(nwBody).marginTop);
-      var room = nwScroll.clientHeight - top - nwPeople.offsetHeight - gap - nwBody.offsetHeight;
-      nwPeople.style.setProperty("--nw-s", keep || "0");
-      nwScroll.style.paddingBottom = Math.max(24, room) + "px";
+      // Endzustand messen: alles zusammengeschoben
+      nwScroll.classList.remove("nw-stack");
+      nwScroll.style.paddingBottom = "0px";
+      nwHero.style.top = ""; nwBody.style.top = ""; nwBond.style.top = ""; nwBody.style.marginTop = "";
+      nwSet(1, 0);
+      var heroFull = nwHero.offsetHeight;
+      nwSet(1, 1);
+      var peopleH = nwPeople.offsetHeight, heroH = nwHero.offsetHeight, bodyH = nwBody.offsetHeight, bondH = nwBond.offsetHeight;
+      var bondGap = parseFloat(getComputedStyle(nwBond).marginTop);
+      var view = nwScroll.clientHeight;
+      var bondTop = peopleH + NW_GAP + heroH + NW_GAP + bodyH + bondGap;
+      nwStack = window.innerWidth > 600 && bondTop + bondH + NW_GAP <= view;
+      if (nwStack) {
+        nwScroll.classList.add("nw-stack");
+        // Strecke vor den Kacheln: erst blendet der Kopf aus und wird kleiner, dann kommen die Kacheln
+        nwBody.style.marginTop = (NW_RUN + 24) + "px";
+        // Platz am Ende plus die Höhe, um die der Kopf schrumpft – so endet die Scrollstrecke nie vor dem Endzustand
+        // (alle Rahmen stehen, auch „Uns verbindet“; überzähliger Weg bewegt nichts mehr)
+        nwEnd.style.height = (Math.max(24, view - bondTop - bondH) + heroFull - heroH) + "px";
+      } else {
+        // Platz am Ende, damit Kacheln und „Uns verbindet“ vollständig unter den Fotos stehen
+        nwEnd.style.height = Math.max(24, view - peopleH - NW_GAP - bodyH - bondGap - bondH) + "px";
+      }
+      nwUpdate();
     };
     nwScroll.addEventListener("scroll", function () {
-      if (!nwTicking) { nwTicking = true; requestAnimationFrame(nwShrink); }
+      if (!nwTicking) { nwTicking = true; requestAnimationFrame(nwUpdate); }
     }, { passive: true });
-    nwOpener.addEventListener("click", function () { nwFit(); nwShrink(); });
+    nwOpener.addEventListener("click", nwFit);
     if (window.ResizeObserver) {
-      new ResizeObserver(function () { if (nwDialog.open) { nwFit(); nwShrink(); } }).observe(nwScroll);
+      new ResizeObserver(function () { if (nwDialog.open) nwFit(); }).observe(nwScroll);
     } else {
-      window.addEventListener("resize", function () { if (nwDialog.open) { nwFit(); nwShrink(); } });
+      window.addEventListener("resize", function () { if (nwDialog.open) nwFit(); });
     }
   }
 
