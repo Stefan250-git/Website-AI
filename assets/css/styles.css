@@ -836,6 +836,10 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .about-more-tip strong { color: var(--white); }
 .about-more-tip ul { margin: 6px 0 0 1.1em; padding: 0; list-style: disc; }
 .about-more-tip li::marker { color: var(--green-light); }
+/* drei Schwerpunkte: Titel fett, Erläuterung darunter, grüne Linie links */
+.about-more-tip ul.about-focus { display: grid; gap: 10px; margin: 12px 0 0; list-style: none; }
+.about-focus li { padding-left: 12px; border-left: 2px solid var(--green-light); color: #d6dbe5; line-height: 1.45; }
+.about-focus strong, .about-focus span { display: block; }
 .about-more:has(.about-more-btn:hover) .about-more-tip, .about-more-tip:hover,
 .about-more:has(.about-more-btn:focus-visible) .about-more-tip, .about-more.is-open .about-more-tip {
   opacity: 1; visibility: visible; transform: translateY(0);
