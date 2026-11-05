@@ -190,7 +190,7 @@ window.PAUL_WISSEN = {
       match: "ki-?check|unternehmens-?check|selbsttest|ki-?reife|sechs fragen|sieben fragen|ob ki bei uns sinn",
       keywords: ["check", "test", "selbsttest", "potenzial", "reifegrad", "einschätz", "quiz", "fragebogen"],
       answer: "Der Unternehmens-KI-Check besteht aus sieben kurzen Fragen und dauert etwa zwei Minuten. Er hilft, unnötige Reibung im Arbeitsalltag zu erkennen und erste mögliche KI-Anwendungen zu betrachten. Er ist eine Orientierung, keine vollständige technische oder rechtliche Prüfung.",
-      links: [{ label: "KI-Check starten", url: "index.html#ki-start" }],
+      links: [{ label: "KI-Check starten", url: "index.html#top" }],
     },
     {
       id: "W08", title: "Technische Umsetzung",

@@ -324,7 +324,7 @@
   /* ---------- Startseite: Foto bleibt stehen, Verläufe beim Scrollen ---------- */
   var hero = document.querySelector(".hero-full");
   var heroMedia = hero && hero.querySelector(".hero-media");
-  var heroText = hero && hero.querySelector(".split");
+  var heroText = hero && (hero.querySelector(".hero-cta") || hero.querySelector(".split")); // unterster Text im Startbild
   if (heroMedia && heroText) {
     var heroTicking = false;
     var clamp01 = function (v) { return Math.min(1, Math.max(0, v)); };

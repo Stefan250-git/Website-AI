@@ -354,7 +354,12 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background: linear-gradient(90deg, rgba(245, 243, 238, .95) 0%, rgba(245, 243, 238, .85) 32%, rgba(245, 243, 238, .2) 62%, rgba(245, 243, 238, 0) 80%);
   opacity: calc(1 - .8 * var(--hero-veil, 0));
 }
-.hero-full .split { min-height: var(--hero-h); align-content: center; }
+.hero-main { display: flex; flex-direction: column; justify-content: center; min-height: var(--hero-h); padding: 24px 0 72px; }
+/* Unternehmens-KI-Check im Startbereich: prominent, mittig auf dem Bildschirm unter dem Text */
+.hero-cta { display: flex; flex-direction: column; align-items: center; text-align: center; margin-top: clamp(32px, 7svh, 80px); }
+.btn.btn-hero-check { min-height: 62px; padding: 16px 44px; font-size: 1.2rem; box-shadow: 0 16px 36px rgba(31, 107, 79, .32), var(--glass-shadow); }
+.hero-cta p { margin-top: 12px; font-size: .95rem; color: var(--navy-80); }
+@media (max-width: 600px) { .btn.btn-hero-check { min-height: 56px; padding: 14px 32px; font-size: 1.08rem; } }
 /* KI-Kennzeichnung: sehr kleine Glas-Pille unten links im ersten Bildschirm (fest über dem unteren Fotorand) */
 .ai-note-wrap { position: absolute; left: 0; right: 0; top: calc(var(--hero-h) - 72px); }
 .ai-note {
@@ -485,6 +490,26 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 /* Bundesnetzagentur: Leiste in Schwarz-Rot-Gold vor dem Namen */
 .bnetza-bar { width: 6px; height: 48px; flex: none; }
 @media (max-width: 900px) { .law-logos { margin-top: 20px; } }
+/* KI-Kompetenz zurückhaltend: eine Spalte, Überschrift kleiner und in einer Zeile, Details aufklappbar (<details>) */
+.offer.law-compact { display: block; }
+.offer-law.law-compact, .offer-law.law-compact:last-child { padding: 30px 40px 26px; }
+.offer .law-title { font-size: clamp(1.25rem, 2vw, 1.6rem); line-height: 1.25; letter-spacing: -.01em; white-space: nowrap; }
+.law-lead { margin-top: 10px; max-width: 86ch; font-size: .95rem; line-height: 1.6; color: var(--muted); }
+.law-more { margin-top: 16px; }
+.law-more summary {
+  display: inline-flex; align-items: center; gap: 10px; list-style: none; cursor: pointer;
+  font-weight: 700; color: var(--navy); border-radius: 6px;
+}
+.law-more summary::-webkit-details-marker { display: none; }
+.law-more summary:hover { color: var(--green-dark); }
+.law-arrow { display: inline-block; color: var(--green); transition: transform .25s ease; }
+.law-more[open] .law-arrow { transform: rotate(90deg); }
+.law-more-body { margin-top: 18px; padding-top: 18px; border-top: 1px solid rgba(13, 29, 55, .1); }
+.law-more-body .law-logos { flex-direction: row; flex-wrap: wrap; align-items: center; gap: 16px 32px; margin: 0 0 18px; }
+.law-more-body .offer-body > * + * { margin-top: 14px; }
+.law-more-body .offer-body a { color: var(--green-dark); }
+@media (max-width: 760px) { .offer .law-title { white-space: normal; } }
+@media (max-width: 600px) { .offer-law.law-compact, .offer-law.law-compact:last-child { padding: 24px 22px 22px; } }
 
 .steps-compact { list-style: none; counter-reset: step; display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
 .steps-compact li {
