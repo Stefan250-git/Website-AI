@@ -266,9 +266,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   pointer-events: none; /* die Überlappung verdeckt sonst den unteren Rand des Startfotos (KI-Kennzeichnung) */
 }
 .eu-content > * { pointer-events: auto; }
-/* nur während Pauls Helligkeitsprüfung: Europabild zählt als dunkler Hintergrund, aber erst wenn es eingeblendet ist
-   (main.js setzt .is-shown) – im ausgeblendeten Überlappungsbereich am Startfoto bleibt es hell */
-.paul-probe .eu-stage.is-shown { pointer-events: auto; }
+/* Pauls Helligkeitsprüfung macht das Europabild kurz treffbar (paul.js, nur wenn main.js .is-shown gesetzt hat) */
 .eu-media {
   position: sticky; top: 76px; z-index: -1; height: var(--eu-h);
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
@@ -1092,7 +1090,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   box-shadow: 0 24px 60px rgba(13, 29, 55, .3); overflow: hidden;
 }
 .check-dialog[open] { display: flex; flex-direction: column; animation: paul-pop .3s ease-out; }
-.check-dialog::backdrop { background: rgba(13, 29, 55, .45); backdrop-filter: blur(2px); }
+.check-dialog::backdrop { background: rgba(13, 29, 55, .5); } /* ohne Weichzeichner: der würde beim Scrollen jedes Bild neu berechnet */
 .check-close {
   position: absolute; top: 12px; right: 12px; z-index: 1; width: 40px; height: 40px; padding: 0;
   border: 0; border-radius: 50%; background: none; color: var(--muted); font-size: 1.5rem; line-height: 1; cursor: pointer;
@@ -1571,7 +1569,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   margin: 0; padding: 0; border: 0; border-radius: var(--radius) 0 0 var(--radius);
   background: var(--bg); color: var(--navy); box-shadow: -24px 0 60px rgba(13, 29, 55, .25);
 }
-.nw-dialog::backdrop { background: rgba(13, 29, 55, .45); backdrop-filter: blur(2px); }
+.nw-dialog::backdrop { background: rgba(13, 29, 55, .5); }
 .nw-dialog[open] { animation: nw-in .35s ease-out; }
 @keyframes nw-in { from { transform: translateX(40px); opacity: 0; } }
 .nw-scroll { height: 100%; overflow-y: auto; }
@@ -1600,7 +1598,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-close:focus-visible, .check-close:focus-visible, .paul-close:focus-visible { outline-offset: -3px; }
 
 .nw-hero, .nw-people {
-  border-radius: var(--radius); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
+  border-radius: var(--radius); box-shadow: 0 16px 36px rgba(13, 29, 55, .16);
   backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
 }
 .nw-hero, .nw-people { background: rgba(255, 255, 255, .88); }
@@ -1623,7 +1621,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 /* Fotorahmen und Kopf verschmelzen beim Andocken zu einer Einheit (--nw-j 0 → 1 aus main.js) */
 .nw-people {
   border-bottom-left-radius: calc(var(--radius) * (1 - var(--nw-j, 0))); border-bottom-right-radius: calc(var(--radius) * (1 - var(--nw-j, 0)));
-  box-shadow: 0 24px 60px rgba(13, 29, 55, calc(.18 * (1 - var(--nw-j, 0))));
+  box-shadow: 0 16px 36px rgba(13, 29, 55, calc(.16 * (1 - var(--nw-j, 0))));
 }
 .nw-hero { border-top-left-radius: calc(var(--radius) * (1 - var(--nw-j, 0))); border-top-right-radius: calc(var(--radius) * (1 - var(--nw-j, 0))); }
 .nw-bond { margin-top: 24px; padding: 30px 36px 32px; font-size: clamp(1rem, 1.9cqi, 1.3rem); line-height: 1.55; color: #3f5468; }
@@ -1700,6 +1698,12 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .nw-gallery::-webkit-scrollbar { display: none; }
   .nw-gallery .nw-avatar, .nw-person .nw-flip { width: var(--nw-av); }
   .nw-close { top: 14px; right: 14px; }
+}
+/* Tablet und Handy: Rahmen ohne Echtzeit-Weichzeichner (kostet dort beim Scrollen spürbar Bildrate), dafür etwas deckender;
+   der Desktop behält das volle Liquid-Glas */
+@media (max-width: 1180px) {
+  .nw-hero, .nw-people { backdrop-filter: none; -webkit-backdrop-filter: none; background: rgba(255, 255, 255, .95); }
+  .nw-skills > div, .nw-bond { backdrop-filter: none; -webkit-backdrop-filter: none; background: linear-gradient(160deg, rgba(255, 255, 255, .88), rgba(255, 255, 255, .76)); }
 }
 @media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar, .nw-flip-inner { transition: none; } }
 /* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld, Foto steht hinter der ganzen Seite */

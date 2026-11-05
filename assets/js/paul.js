@@ -753,12 +753,16 @@
   root.insertBefore(light, catBtn);
 
   // Erste sichtbare Hintergrundfarbe hinter einem Punkt; Paul selbst wird übersprungen
-  // .paul-probe macht durchklickbare Bildflächen (pointer-events: none, z. B. Europabild) kurz treffbar
+  // Durchklickbare Bildflächen (pointer-events: none, z. B. Europabild) werden kurz treffbar gemacht –
+  // nur diese Elemente, nicht die ganze Seite (sonst rechnet der Browser bei jedem Scrollschritt alle Stile neu)
+  var probeTargets = document.querySelectorAll(".eu-stage");
   function backgroundAt(x, y) {
-    var html = document.documentElement;
-    html.classList.add("paul-probe");
+    var on = [];
+    Array.prototype.forEach.call(probeTargets, function (el) {
+      if (el.classList.contains("is-shown")) { el.style.pointerEvents = "auto"; on.push(el); }
+    });
     var stack = document.elementsFromPoint ? document.elementsFromPoint(x, y) : [];
-    html.classList.remove("paul-probe");
+    on.forEach(function (el) { el.style.pointerEvents = ""; });
     for (var i = 0; i < stack.length; i++) {
       if (root.contains(stack[i])) continue;
       var m = getComputedStyle(stack[i]).backgroundColor.match(/[\d.]+/g);
@@ -805,12 +809,18 @@
     save("sessionStorage", "paul-lamp", on ? null : "off");
     switchLamp(on);
   });
+  // beim Scrollen höchstens alle 200 ms prüfen (das Licht reagiert ohnehin erst nach LIGHT_DELAY)
+  var lightWait = null;
   function scheduleLight() {
-    if (!checkFrame) checkFrame = requestAnimationFrame(checkLight);
+    if (lightWait || checkFrame) return;
+    lightWait = setTimeout(function () {
+      lightWait = null;
+      checkFrame = requestAnimationFrame(checkLight);
+    }, 200);
   }
   window.addEventListener("scroll", scheduleLight, { passive: true });
   window.addEventListener("resize", scheduleLight);
-  setInterval(checkLight, 1000); // auch ohne Scrollen, z. B. nach Wegklicken oder geöffneten Bereichen
+  setInterval(function () { if (!document.hidden) checkLight(); }, 1000); // auch ohne Scrollen, z. B. nach Wegklicken oder geöffneten Bereichen
   setTimeout(scheduleLight, 600);
 
   /* ---------- Start ---------- */
