@@ -1577,7 +1577,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-scroll { height: 100%; overflow-y: auto; }
 /* Foto steht (Hintergrund des Scroll-Containers scrollt nicht mit), Text läuft in Rahmen darüber */
 .nw-scroll, .nw-page {
-  container-type: inline-size; padding: 0 clamp(16px, 3.5cqi, 40px) clamp(16px, 3.5cqi, 40px);
+  container-type: inline-size; overflow-anchor: none; /* keine automatische Scroll-Korrektur, wenn der Kopf beim Scrollen schrumpft */ padding: 0 clamp(16px, 3.5cqi, 40px) clamp(16px, 3.5cqi, 40px);
   background: linear-gradient(180deg, rgba(13, 29, 55, .05), rgba(13, 29, 55, .35)), url("../img/netzwerk-hintergrund.jpg") center / cover;
 }
 .nw-close {
@@ -1613,7 +1613,13 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-intro { max-height: calc(8em * (1 - var(--nw-h1, 0))); margin-top: calc(14px * (1 - var(--nw-h1, 0))); overflow: hidden; opacity: calc(1 - 1.4 * var(--nw-h1, 0)); font-size: clamp(1rem, 2.1cqi, 1.4rem); color: var(--muted); }
 .nw-body { position: relative; z-index: 1; margin-top: 24px; }
 /* Stapel (main.js, nur wenn alles in die Höhe passt): Kopf und Kacheln bleiben unter den Fotos stehen; Lage und Abstände setzt main.js */
-.nw-stack .nw-hero, .nw-stack .nw-body, .nw-stack .nw-bond { position: sticky; }
+.nw-stack .nw-hero, .nw-stack .nw-body, .nw-stack .nw-bond, .nw-unit .nw-hero { position: sticky; }
+/* Fotorahmen und Kopf verschmelzen beim Andocken zu einer Einheit (--nw-j 0 → 1 aus main.js) */
+.nw-people {
+  border-bottom-left-radius: calc(var(--radius) * (1 - var(--nw-j, 0))); border-bottom-right-radius: calc(var(--radius) * (1 - var(--nw-j, 0)));
+  box-shadow: 0 24px 60px rgba(13, 29, 55, calc(.18 * (1 - var(--nw-j, 0))));
+}
+.nw-hero { border-top-left-radius: calc(var(--radius) * (1 - var(--nw-j, 0))); border-top-right-radius: calc(var(--radius) * (1 - var(--nw-j, 0))); }
 .nw-bond { margin-top: 24px; padding: 30px 36px 32px; font-size: clamp(1rem, 1.9cqi, 1.3rem); line-height: 1.55; color: #3f5468; }
 .nw-bond p { position: relative; margin: 0; }
 .nw-bond strong { color: var(--navy); }
