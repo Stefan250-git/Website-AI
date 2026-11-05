@@ -274,7 +274,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 45% * var(--eu-out, 0)), transparent 100%);
   mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 45% * var(--eu-out, 0)), transparent 100%);
 }
-.eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 40vh; padding-top: 40svh; padding-bottom: 25vh; padding-bottom: 25svh; }
+.eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 33vh; padding-top: 33svh; padding-bottom: 12vh; padding-bottom: 12svh; }
 .eu-head { margin-bottom: 32px; text-shadow: 0 2px 18px rgba(5, 8, 20, .55); }
 .eu-head h2 { color: var(--white); }
 .eu-head .kicker { color: var(--green-light); }
@@ -305,12 +305,41 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 44%, rgba(255, 255, 255, .72) 56%, rgba(255, 255, 255, .82) 100%);
 }
 .photo-team .photo-stage-media { background-image: url("../img/team-tablet.jpg"); background-position: 30% center; }
-.photo-stage-content { margin-top: calc(-1 * var(--st-h)); padding-top: 30vh; padding-top: 30svh; padding-bottom: 15vh; padding-bottom: 15svh; }
+.photo-stage-content { margin-top: calc(-1 * var(--st-h)); padding-top: 20vh; padding-top: 20svh; padding-bottom: 15vh; padding-bottom: 15svh; }
 /* Angebote einspaltig in der rechten Bildhälfte */
 .photo-stage-content .offer { grid-template-columns: 1fr; gap: 20px; margin-left: 54%; container-type: inline-size; }
 /* schmale rechte Spalte: Überschrift so groß wie möglich, „KI-Einstieg für Auszubildende“ bleibt einzeilig */
 .photo-stage-content .offer h3 { font-size: clamp(1.75rem, 6.6cqi, 2.6rem); }
 .photo-stage-content .offer + .offer { border-top-color: rgba(13, 29, 55, .14); }
+/* Zwischenbereich „Erst die Aufgabe verstehen.“ zwischen Startbild und Angeboten: eigene Foto-Bühne, Tafel mittig.
+   Bühne hält länger als die Tafel (min-height), damit das Bild steht, während die Tafel durchläuft. Bis das Foto
+   (assets/img/zwischen.jpg) da ist, trägt ein ruhiger CI-Verlauf. */
+.section-bridge { background: var(--white); }
+.photo-bridge { margin-top: 0; }
+.photo-bridge .photo-stage-media { background-image: url("../img/zwischen.jpg"); background-position: right center; }
+/* heller Schleier links über der freien Wand (dort steht die Tafel), die Personen rechts bleiben frei */
+.photo-bridge .photo-stage-media::after { background: linear-gradient(90deg, rgba(255, 255, 255, .72) 0%, rgba(255, 255, 255, .45) 34%, rgba(255, 255, 255, 0) 56%); }
+.photo-bridge .photo-stage-content {
+  display: flex; align-items: flex-start; justify-content: flex-start;
+  min-height: var(--st-h);
+  padding-top: 14vh; padding-top: 14svh; padding-bottom: 10vh; padding-bottom: 10svh;
+}
+.bridge-panel {
+  max-width: 470px; padding: 40px 44px 44px; border-radius: var(--radius);
+  background: rgba(255, 255, 255, .9); box-shadow: 0 16px 40px rgba(13, 29, 55, .14);
+  transition: opacity .9s ease-out, transform .9s ease-out;
+}
+.bridge-panel.is-armed:not(.is-visible) { opacity: 0; transform: translateY(48px); }
+.bridge-panel h2 { margin: 0; font-size: clamp(1.9rem, 2.8vw, 2.5rem); line-height: 1.12; }
+.bridge-claim { margin-top: 14px; font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 700; line-height: 1.3; color: var(--green); }
+.bridge-text { margin: 18px 0 0; max-width: 60ch; font-size: 1rem; line-height: 1.7; color: var(--muted); }
+@media (max-width: 900px) {
+  .photo-bridge .photo-stage-media { background-image: url("../img/zwischen-900.jpg"); background-position: center; }
+  .photo-bridge .photo-stage-media::after { background: rgba(255, 255, 255, .35); }
+  /* Hochformat: Bühne kürzer, damit nach der Tafel nicht lange nur Bild kommt (Bild läuft unten ohnehin ins Weiß aus) */
+  .photo-bridge .photo-stage-content { justify-content: center; min-height: calc(var(--st-h) * .7); padding-top: 12vh; padding-top: 12svh; padding-bottom: 6vh; padding-bottom: 6svh; }
+}
+@media (max-width: 600px) { .bridge-panel { padding: 32px 22px 36px; } .bridge-text { font-size: 1rem; } }
 @media (max-width: 900px) {
   .photo-stage-content .offer { margin-left: 0; }
   .photo-stage-media::after { background: rgba(255, 255, 255, .86); }
@@ -332,7 +361,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
    Ohne JS bleibt Foto A. */
 .hero-full {
   --hero-h: calc(100vh - 76px); --hero-h: calc(100svh - 76px);
-  --hero-hold: 20vh; --hero-hold: 20svh;
+  --hero-hold: 8vh; --hero-hold: 8svh; /* kurz: das Bild soll nach dem Text nicht lange allein stehen */
   position: relative; isolation: isolate; padding: 0; background: var(--white);
 }
 /* Foto behält seine volle Höhe (sonst klebt es eine Bildhöhe zu lang und verdeckt den
@@ -586,8 +615,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .section-bildungstraeger::before {
   content: ""; position: absolute; inset: 0; z-index: -1;
   background: var(--bg) url("../img/einsteiger-raum.jpg?v=2") center bottom / cover no-repeat;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 var(--fade));
-  mask-image: linear-gradient(180deg, transparent 0, #000 var(--fade));
+  /* unten weich auslaufen: kein harter Rand zum Foto „Über mich“ */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 var(--fade), #000 calc(100% - 200px), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 var(--fade), #000 calc(100% - 200px), transparent 100%);
 }
 .section-bildungstraeger .section-head .lead { color: var(--navy-80); }
 .section-bildungstraeger .card { box-shadow: 0 18px 44px rgba(13, 29, 55, .12); }
@@ -848,6 +878,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   position: absolute; inset: 0; z-index: -2;
   width: 100%; height: 100%; max-width: none; aspect-ratio: auto;
   object-fit: cover; object-position: 20% 25%; border-radius: 0; /* breite Bildschirme schneiden vor allem unten ab: Kopf bleibt vollständig */
+  /* oben und unten weich in den hellen Grund: keine harten Kanten zu „Für Bildungsträger“ und „Kontakt“ */
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 200px, #000 calc(100% - 160px), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 200px, #000 calc(100% - 160px), transparent 100%);
 }
 
 /* ---------- Formular ---------- */
@@ -880,7 +913,12 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .required-note { font-size: .9rem; color: var(--muted); margin-bottom: 24px; }
 
 /* ---------- Footer ---------- */
-.site-footer { background: var(--navy); color: #c3cad7; padding: 56px 0; }
+.site-footer { position: relative; background: var(--navy); color: #c3cad7; padding: 56px 0; }
+/* weicher Übergang in die dunkle Fußzeile statt harter Kante (auf allen Seiten) */
+.site-footer::before {
+  content: ""; position: absolute; left: 0; right: 0; bottom: 100%; height: 64px; pointer-events: none;
+  background: linear-gradient(180deg, rgba(13, 29, 55, 0), rgba(13, 29, 55, .55));
+}
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 10px 12px; list-style: none; }
 .footer-links a {
@@ -1508,7 +1546,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .offer { grid-template-columns: 1fr; }
   .about .portrait { max-width: 320px; }
   .about-full { display: block; padding-top: 0; }
-  .about-full .portrait { position: relative; width: 100%; max-width: none; height: 62vh; height: 62svh; -webkit-mask-image: linear-gradient(180deg, #000 75%, transparent 100%); mask-image: linear-gradient(180deg, #000 75%, transparent 100%); }
+  .about-full .portrait { position: relative; width: 100%; max-width: none; height: 46vh; height: 46svh; -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 75%, transparent 100%); mask-image: linear-gradient(180deg, transparent 0, #000 14%, #000 75%, transparent 100%); }
   .about-full .split { margin-top: -48px; }
   .about-full .split > .span-7 { grid-column: 1 / -1; padding-left: 0; }
   .about-full::after { background: linear-gradient(180deg, rgba(255, 255, 255, 0) 40%, rgba(255, 255, 255, .85) 60%); }

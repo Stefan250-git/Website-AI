@@ -35,6 +35,7 @@ JPG, komprimiert auf unter 300 KB.
 | ki-ethik.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
 | netzwerk/person-1.jpg … person-7.jpg | vom Auftraggeber bereitgestellt, Porträts „Mein Netzwerk“ (Fotograf ergänzen; Einwilligung der abgebildeten Personen einholen) | | | | 04.11.2026 |
 | netzwerk-hintergrund.jpg | vom Auftraggeber bereitgestellt, Hintergrund „Mein Netzwerk“ (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 04.11.2026 |
+| zwischen.jpg, zwischen-900.jpg | vom Auftraggeber bereitgestellt, Hintergrund Zwischenbereich „Erst die Aufgabe verstehen.“ (Startseite); -900 = Ausschnitt mit den Personen für Handy/Tablet (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 05.11.2026 |
 | ki-sicherheit.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 04.11.2026 |
 | einsteiger-raum.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
 | buero-ki.jpg | vom Auftraggeber bereitgestellt, KI-generiert (Generator ergänzen) | | Nutzungsbedingungen des Generators prüfen | | 21.10.2026 |
