@@ -480,7 +480,7 @@
       if (nwScroll.scrollTop !== keep) nwScroll.scrollTop = keep;
     };
     var nwFit = function () {
-      nwScroll.classList.remove("nw-stack", "nw-unit");
+      nwScroll.classList.remove("nw-stack", "nw-unit", "nw-tight");
       nwScroll.style.paddingBottom = "0px";
       nwHero.style.top = ""; nwBody.style.top = ""; nwBond.style.top = ""; nwBody.style.marginTop = "";
       // Endzustand messen: alles zusammengeschoben
@@ -493,13 +493,23 @@
       nwSet(1, 0, 1);
       nwHeroFull = nwHero.offsetHeight;
       nwSet(1, 1, 1);
-      var peopleH = nwPeople.offsetHeight, heroH = nwHero.offsetHeight, bodyH = nwBody.offsetHeight, bondH = nwBond.offsetHeight;
-      var bondGap = px(nwBond, "marginTop");
+      var peopleH = nwPeople.offsetHeight, heroH = nwHero.offsetHeight, bodyH, bondH, bondGap, bondTop;
       var view = nwScroll.clientHeight;
       var unitH = peopleH + heroH;
-      var bondTop = unitH + NW_GAP + bodyH + bondGap;
+      var measure = function () {
+        bodyH = nwBody.offsetHeight; bondH = nwBond.offsetHeight; bondGap = px(nwBond, "marginTop");
+        bondTop = unitH + NW_GAP + bodyH + bondGap;
+        return bondTop + bondH + NW_GAP <= view;
+      };
+      var fits = measure();
+      // wenig Höhe: Kacheln und „Uns verbindet“ enger setzen, damit sie trotzdem unter der Einheit stehen bleiben
+      if (!fits && window.innerWidth > 600) {
+        nwScroll.classList.add("nw-tight");
+        fits = measure();
+        if (!fits) { nwScroll.classList.remove("nw-tight"); measure(); }
+      }
       if (window.innerWidth <= 600) nwMode = "none";
-      else if (bondTop + bondH + NW_GAP <= view) nwMode = "stack";
+      else if (fits) nwMode = "stack";
       else if (unitH <= view * 0.55) nwMode = "unit";
       else nwMode = "none";
       if (nwMode === "stack") {
