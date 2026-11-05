@@ -1605,12 +1605,18 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 }
 .nw-hero, .nw-people { background: rgba(255, 255, 255, .88); }
 /* Kopf: main.js setzt --nw-h1 (Kicker und Einleitung blenden aus) und --nw-h2 (Rahmen und Schrift werden kleiner), beide 0 → 1 */
-.nw-hero { position: relative; z-index: 2; margin-top: 24px; padding: calc(48px - 24px * var(--nw-h2, 0)) 56px calc(52px - 26px * var(--nw-h2, 0)); }
-.nw-hero > .kicker { max-height: calc(2em * (1 - var(--nw-h1, 0))); margin-bottom: calc(18px * (1 - var(--nw-h1, 0))); overflow: hidden; opacity: calc(1 - 1.4 * var(--nw-h1, 0)); }
-.nw-title { margin: 0; font-size: calc(clamp(2.2rem, 9.6cqi, 7.5rem) * (1 - .5 * var(--nw-h2, 0))); line-height: 1.02; letter-spacing: -.035em; color: var(--navy); }
+.nw-hero { position: relative; z-index: 2; margin-top: 24px; padding: calc(48px - 34px * var(--nw-h2, 0)) 56px calc(52px - 34px * var(--nw-h2, 0)); }
+.nw-hero > .kicker { max-height: calc(2em * (1 - var(--nw-h2, 0))); margin-bottom: calc(18px * (1 - var(--nw-h2, 0))); overflow: hidden; opacity: calc(1 - var(--nw-h1, 0)); }
+.nw-title { margin: 0; font-size: calc(clamp(2.2rem, 9.6cqi, 7.5rem) * (1 - .6 * var(--nw-t, 0))); line-height: 1.02; letter-spacing: -.035em; color: var(--navy); }
 .nw-title em { font-style: normal; color: var(--green); }
-.nw-claim { margin-top: calc(28px - 14px * var(--nw-h2, 0)); font-size: calc(clamp(1.15rem, 3.4cqi, 2.2rem) * (1 - .25 * var(--nw-h2, 0))); font-weight: 600; line-height: 1.25; color: var(--navy); }
-.nw-intro { max-height: calc(8em * (1 - var(--nw-h1, 0))); margin-top: calc(14px * (1 - var(--nw-h1, 0))); overflow: hidden; opacity: calc(1 - 1.4 * var(--nw-h1, 0)); font-size: clamp(1rem, 2.1cqi, 1.4rem); color: var(--muted); }
+/* Titel: zwei Zeilen; erst wird die Schrift kleiner (--nw-t), dann gleitet die zweite Zeile nach rechts (--nw-mx)
+   und anschließend hoch neben die erste (--nw-my) – so kreuzt sie die erste Zeile nie. Werte aus main.js;
+   --nw-l1 = Breite von „Ein Netzwerk. “ in em. Ohne JS bleibt es bei zwei Zeilen. */
+.nw-title { margin-bottom: calc(-1.02em * var(--nw-my, 0)); }
+.nw-l1 { display: table; }
+.nw-l2 { display: inline-block; transform: translate(calc(var(--nw-l1, 0) * 1em * var(--nw-mx, 0)), calc(-1.02em * var(--nw-my, 0))); }
+.nw-claim { margin-top: calc(28px - 20px * var(--nw-h2, 0)); font-size: calc(clamp(1.15rem, 3.4cqi, 2.2rem) * (1 - .3 * var(--nw-h2, 0))); font-weight: 600; line-height: 1.25; color: var(--navy); }
+.nw-intro { max-height: calc(8em * (1 - var(--nw-h2, 0))); margin-top: calc(14px * (1 - var(--nw-h2, 0))); overflow: hidden; opacity: calc(1 - var(--nw-h1, 0)); font-size: clamp(1rem, 2.1cqi, 1.4rem); color: var(--muted); }
 .nw-body { position: relative; z-index: 1; margin-top: 24px; }
 /* Stapel (main.js, nur wenn alles in die Höhe passt): Kopf und Kacheln bleiben unter den Fotos stehen; Lage und Abstände setzt main.js */
 .nw-stack .nw-hero, .nw-stack .nw-body, .nw-stack .nw-bond, .nw-unit .nw-hero { position: sticky; }
@@ -1640,10 +1646,10 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-tags { position: relative; list-style: none; display: grid; gap: 8px; color: #3f5468; font-size: clamp(.95rem, 1.8cqi, 1.15rem); line-height: 1.4; }
 .nw-people {
   /* bleibt oben stehen; main.js setzt --nw-s (0 → 1) und schiebt den Rahmen dabei oben und unten zusammen */
-  --nw-pt: 44px; --nw-pb: 52px; --nw-av-max: 124px; --nw-av-min: 88px;
+  --nw-pt: 44px; --nw-pb: 52px; --nw-av-max: 124px; --nw-av-min: 68px;
   --nw-av: calc(var(--nw-av-max) - (var(--nw-av-max) - var(--nw-av-min)) * var(--nw-s, 0));
   position: sticky; top: 0; z-index: 3; margin-top: 88px;
-  border-top-left-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); border-top-right-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); padding: calc(var(--nw-pt) - (var(--nw-pt) - 14px) * var(--nw-s, 0)) 56px calc(var(--nw-pb) - (var(--nw-pb) - 14px) * var(--nw-s, 0));
+  border-top-left-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); border-top-right-radius: calc(var(--radius) * (1 - var(--nw-s, 0))); padding: calc(var(--nw-pt) - (var(--nw-pt) - 12px) * var(--nw-s, 0)) 56px calc(var(--nw-pb) - (var(--nw-pb) - 10px) * var(--nw-s, 0));
 }
 .nw-gallery-label { max-height: calc(30px * (1 - var(--nw-s, 0))); margin: 0 0 calc(24px * (1 - var(--nw-s, 0))); overflow: hidden; opacity: calc(1 - 1.6 * var(--nw-s, 0)); }
 .nw-gallery { list-style: none; display: grid; grid-template-columns: repeat(auto-fit, minmax(84px, 1fr)); gap: 24px 12px; }
