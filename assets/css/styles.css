@@ -3,6 +3,7 @@
    ========================================================= */
 
 :root {
+  --fade-edge: clamp(70px, 11vh, 130px); /* kurze weiche Kante, mit der sich ein Foto über das vorige schiebt */
   --navy: #0d1d37;
   --navy-80: #2a3a55;
   --green: #2f725d;
@@ -261,7 +262,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .section-eu { padding-top: 0; padding-bottom: 0; } /* endet mit der Foto-Bühne „Kollegen am Tablet“, die selbst ins Weiß ausläuft */
 .eu-stage {
   --eu-h: calc(100vh - 76px); --eu-h: calc(100svh - 76px);
-  --eu-overlap: clamp(120px, 18vw, 280px);
+  --eu-overlap: var(--fade-edge);
   position: relative; isolation: isolate; margin-top: calc(-1 * var(--eu-overlap));
   pointer-events: none; /* die Überlappung verdeckt sonst den unteren Rand des Startfotos (KI-Kennzeichnung) */
 }
@@ -271,8 +272,8 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   position: sticky; top: 76px; z-index: -1; height: var(--eu-h);
   background: #0c0d1e url("../img/band-europa.jpg") center / cover no-repeat;
   filter: saturate(.85) brightness(1.45) contrast(.88);
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 45% * var(--eu-out, 0)), transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 calc(55% * (1 - var(--eu-in, 1))), #000 calc(100% - 45% * var(--eu-out, 0)), transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--fade-edge) * (1 - var(--eu-in, 1))));
+  mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--fade-edge) * (1 - var(--eu-in, 1))));
 }
 .eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 33vh; padding-top: 33svh; padding-bottom: 12vh; padding-bottom: 12svh; }
 .eu-head { margin-bottom: 32px; text-shadow: 0 2px 18px rgba(5, 8, 20, .55); }
@@ -296,14 +297,15 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .photo-stage-media {
   position: sticky; top: 76px; z-index: -1; height: var(--st-h);
   background: var(--white) center / cover no-repeat;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0%, #000 calc(40% * (1 - var(--st-in, 1))), #000 calc(100% - 45% * var(--st-out, 0)), transparent 100%);
-  mask-image: linear-gradient(180deg, transparent 0%, #000 calc(40% * (1 - var(--st-in, 1))), #000 calc(100% - 45% * var(--st-out, 0)), transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--fade-edge) * (1 - var(--st-in, 1))), #000 calc(100% - var(--fade-edge) * var(--st-out, 0)), transparent 100%);
+  mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--fade-edge) * (1 - var(--st-in, 1))), #000 calc(100% - var(--fade-edge) * var(--st-out, 0)), transparent 100%);
 }
 /* heller Schleier ab der Bildmitte: Text bleibt auf jedem Bildausschnitt lesbar, die Personen links frei */
 .photo-stage-media::after {
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0) 44%, rgba(255, 255, 255, .72) 56%, rgba(255, 255, 255, .82) 100%);
 }
+.photo-team { margin-top: calc(-1 * var(--fade-edge)); } /* schiebt sich mit kurzer weicher Kante direkt über das Europabild */
 .photo-team .photo-stage-media { background-image: url("../img/team-tablet.jpg"); background-position: 30% center; }
 .photo-stage-content { margin-top: calc(-1 * var(--st-h)); padding-top: 20vh; padding-top: 20svh; padding-bottom: 15vh; padding-bottom: 15svh; }
 /* Angebote einspaltig in der rechten Bildhälfte */
@@ -314,32 +316,36 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 /* Zwischenbereich „Erst die Aufgabe verstehen.“ zwischen Startbild und Angeboten: eigene Foto-Bühne, Tafel mittig.
    Bühne hält länger als die Tafel (min-height), damit das Bild steht, während die Tafel durchläuft. Bis das Foto
    (assets/img/zwischen.jpg) da ist, trägt ein ruhiger CI-Verlauf. */
-.section-bridge { background: var(--white); }
+.section-bridge { position: relative; margin-top: calc(-1 * var(--fade-edge)); } /* schiebt sich direkt über das Startfoto */
+.photo-bridge .photo-stage-media { --st-out: 0; } /* unten kein Weiß: das Europabild schiebt sich darüber */
 .photo-bridge { margin-top: 0; }
 .photo-bridge .photo-stage-media { background-image: url("../img/zwischen.jpg"); background-position: right center; }
 /* heller Schleier links über der freien Wand (dort steht die Tafel), die Personen rechts bleiben frei */
 .photo-bridge .photo-stage-media::after { background: linear-gradient(90deg, rgba(255, 255, 255, .72) 0%, rgba(255, 255, 255, .45) 34%, rgba(255, 255, 255, 0) 56%); }
 .photo-bridge .photo-stage-content {
   display: flex; align-items: flex-start; justify-content: flex-start;
-  min-height: var(--st-h);
+  min-height: calc(var(--st-h) + 32vh); min-height: calc(var(--st-h) + 32svh); /* Bild steht, bis die Tafel oben hinaus ist – erst dann schiebt sich Europa darüber */
   padding-top: 14vh; padding-top: 14svh; padding-bottom: 10vh; padding-bottom: 10svh;
 }
 .bridge-panel {
-  max-width: 470px; padding: 40px 44px 44px; border-radius: var(--radius);
+  width: 100%; padding: 40px 48px 44px; border-radius: var(--radius);
   background: rgba(255, 255, 255, .9); box-shadow: 0 16px 40px rgba(13, 29, 55, .14);
   transition: opacity .9s ease-out, transform .9s ease-out;
 }
 .bridge-panel.is-armed:not(.is-visible) { opacity: 0; transform: translateY(48px); }
-.bridge-panel h2 { margin: 0; font-size: clamp(1.9rem, 2.8vw, 2.5rem); line-height: 1.12; }
+.bridge-panel h2 { margin: 0; font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1.12; }
 .bridge-claim { margin-top: 14px; font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 700; line-height: 1.3; color: var(--green); }
-.bridge-text { margin: 18px 0 0; max-width: 60ch; font-size: 1rem; line-height: 1.7; color: var(--muted); }
+.bridge-text { margin: 18px 0 0; max-width: none; font-size: 1rem; line-height: 1.7; color: var(--muted); }
 @media (max-width: 900px) {
   .photo-bridge .photo-stage-media { background-image: url("../img/zwischen-900.jpg"); background-position: center; }
   .photo-bridge .photo-stage-media::after { background: rgba(255, 255, 255, .35); }
-  /* Hochformat: Bühne kürzer, damit nach der Tafel nicht lange nur Bild kommt (Bild läuft unten ohnehin ins Weiß aus) */
-  .photo-bridge .photo-stage-content { justify-content: center; min-height: calc(var(--st-h) * .7); padding-top: 12vh; padding-top: 12svh; padding-bottom: 6vh; padding-bottom: 6svh; }
+  /* Hochformat: Tafel ist höher – Bild steht, bis sie oben hinaus ist, dann schiebt sich Europa darüber */
+  .photo-bridge .photo-stage-content { min-height: calc(var(--st-h) + 28vh); min-height: calc(var(--st-h) + 28svh); padding-top: 12vh; padding-top: 12svh; padding-bottom: 6vh; padding-bottom: 6svh; }
 }
-@media (max-width: 600px) { .bridge-panel { padding: 32px 22px 36px; } .bridge-text { font-size: 1rem; } }
+@media (max-width: 600px) {
+  .bridge-panel { padding: 32px 22px 36px; } .bridge-text { font-size: 1rem; }
+  .photo-bridge .photo-stage-content { min-height: calc(var(--st-h) + 45vh); min-height: calc(var(--st-h) + 45svh); } /* Tafel ist hier am höchsten */
+}
 @media (max-width: 900px) {
   .photo-stage-content .offer { margin-left: 0; }
   .photo-stage-media::after { background: rgba(255, 255, 255, .86); }
@@ -369,8 +375,6 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
    Die Haltestrecke ist Innenabstand von .hero-content – nur dort klebt das Foto. */
 .hero-media {
   position: sticky; top: 76px; z-index: -1; overflow: hidden; height: var(--hero-h);
-  -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 75% * var(--hero-out, 0)), transparent 100%);
-  mask-image: linear-gradient(180deg, #000 calc(100% - 75% * var(--hero-out, 0)), transparent 100%);
 }
 .hero-content { margin-top: calc(-1 * var(--hero-h)); padding-bottom: var(--hero-hold); }
 .hero-img {

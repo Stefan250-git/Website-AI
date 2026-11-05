@@ -363,7 +363,7 @@
       var line = parseFloat(getComputedStyle(euMedia).top) || 0; // Klebelinie unter dem Header
       var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
       // 0, solange die Bühne von unten hereinkommt (oberer Verlauf über dem Startfoto), 1, sobald das Foto steht
-      var euIn = fit(1 - (stage.top - line) / (h * 0.7));
+      var euIn = fit(1 - (stage.top - line) / (h * 0.35));
       setVarC(euStage, "--eu-in", euIn);
       // Erst am Ende (Tafeln durchgelaufen): auf der letzten Viertel-Bildhöhe nach unten ins Weiß auslaufen
       var euOut = fit(1 - (stage.bottom - (top + h)) / (h * 0.25));
@@ -395,8 +395,9 @@
         var top = media.getBoundingClientRect().top;
         var line = parseFloat(getComputedStyle(media).top) || 0;
         var fit = function (v) { return Math.min(1, Math.max(0, v)).toFixed(3); };
-        setVarC(st, "--st-in", fit(1 - (box.top - line) / (h * 0.6)));
-        setVarC(st, "--st-out", fit(1 - (box.bottom - (top + h)) / (h * 0.3)));
+        setVarC(st, "--st-in", fit(1 - (box.top - line) / (h * 0.35)));
+        // erst nach dem Freigeben (Foto scrollt weg) kurz ins Weiß auslaufen, nicht schon, solange es steht
+        setVarC(st, "--st-out", fit((line - top) / (h * 0.25)));
       });
     };
     var stRequest = function () {
