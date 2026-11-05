@@ -1576,6 +1576,13 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   box-shadow: var(--glass-shadow);
 }
 .nw-close:hover { background: var(--navy); color: var(--white); }
+/* X aus zwei Linien statt Schriftzeichen – steht unabhängig von der Schrift genau in der Mitte */
+.nw-close { position: absolute; font-size: 0; }
+.nw-close::before, .nw-close::after {
+  content: ""; position: absolute; top: 50%; left: 50%; width: 20px; height: 2px; margin: -1px 0 0 -10px;
+  border-radius: 1px; background: currentColor; transform: rotate(45deg);
+}
+.nw-close::after { transform: rotate(-45deg); }
 
 .nw-hero, .nw-people {
   border-radius: var(--radius); box-shadow: 0 24px 60px rgba(13, 29, 55, .18);
