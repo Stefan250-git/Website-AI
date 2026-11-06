@@ -1773,15 +1773,29 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   transition: transform .18s ease, box-shadow .18s ease;
 }
 .nw-avatar img { width: 100%; height: 100%; object-fit: cover; }
-.nw-person a:not(.nw-flip):hover .nw-avatar { box-shadow: 0 0 0 4px var(--green-soft), 0 10px 20px rgba(13, 29, 55, .08); transform: translateY(-2px); }
-/* Foto dreht sich um die senkrechte Mittelachse, Rückseite zeigt den Vornamen */
-.nw-person .nw-flip { display: block; width: min(100%, var(--nw-av, 124px)); aspect-ratio: 1; border-radius: 50%; perspective: 700px; cursor: pointer; }
-.nw-flip:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
-.nw-flip-inner { position: relative; display: block; width: 100%; height: 100%; transform-style: preserve-3d; transition: transform .6s cubic-bezier(.3, .7, .3, 1); }
-.nw-flip:hover .nw-flip-inner, .nw-flip:focus-visible .nw-flip-inner { transform: rotateY(180deg); }
-.nw-flip .nw-avatar { position: absolute; inset: 0; width: 100%; backface-visibility: hidden; -webkit-backface-visibility: hidden; box-shadow: 0 8px 18px rgba(13, 29, 55, .14); }
-.nw-flip .nw-back { transform: rotateY(180deg); }
-.nw-flip .nw-front img { filter: grayscale(1); }
+.nw-person a:not(.nw-pic):hover .nw-avatar { box-shadow: 0 0 0 4px var(--green-soft), 0 10px 20px rgba(13, 29, 55, .08); transform: translateY(-2px); }
+/* Foto ohne Effekt; Vorname erscheint bei Mouseover/Fokus dezent darunter (absolut, ändert die Rahmenhöhe nicht);
+   LinkedIn-Logo klein unten rechts, leicht über den Rand des Fotos auf den weißen Grund */
+.nw-person { position: relative; }
+.nw-person .nw-pic { position: relative; display: block; width: min(100%, var(--nw-av, 124px)); aspect-ratio: 1; border-radius: 50%; }
+.nw-pic .nw-avatar { width: 100%; box-shadow: 0 8px 18px rgba(13, 29, 55, .14); }
+.nw-pic img { filter: grayscale(1); }
+a.nw-pic:focus-visible { outline: 3px solid var(--green); outline-offset: 4px; }
+.nw-li {
+  position: absolute; right: 2%; bottom: 2%; width: 24%; min-width: 18px; max-width: 26px; aspect-ratio: 1;
+  display: grid; place-items: center; border-radius: 5px; background: var(--white); box-shadow: 0 0 0 2px var(--white), 0 2px 6px rgba(13, 29, 55, .18);
+}
+.nw-li svg { width: 100%; height: 100%; display: block; }
+.nw-name {
+  position: absolute; left: 50%; top: calc(min(100%, var(--nw-av, 124px)) + 6px); transform: translate(-50%, -3px);
+  padding: 1px 8px; border-radius: 999px; background: rgba(255, 255, 255, .92);
+  font-size: .8rem; font-weight: 500; letter-spacing: .02em; color: var(--muted); white-space: nowrap; pointer-events: none;
+  opacity: 0; transition: opacity .25s ease-out, transform .25s ease-out;
+}
+.nw-person:hover .nw-name, .nw-person:focus-within .nw-name { opacity: 1; transform: translate(-50%, 0); }
+@media (hover: none) {
+  .nw-name { opacity: 1; transform: translate(-50%, 0); } /* Touch: kein Mouseover, Namen stehen fest */
+}
 .nw-meta { display: flex; align-items: center; gap: 8px; font-size: .88rem; font-weight: 600; letter-spacing: .03em; }
 .nw-in { display: inline-grid; place-items: center; width: 21px; height: 21px; border-radius: 4px; background: var(--navy); color: var(--white); font: 700 12px/1 Arial, sans-serif; }
 @media (max-width: 900px) {
@@ -1805,7 +1819,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   /* Handy: Personen in einer Reihe, seitlich wischbar */
   .nw-gallery { grid-auto-flow: column; grid-template-columns: none; grid-auto-columns: max-content; gap: 12px; margin: -8px -22px; padding: 8px 22px 10px; overflow-x: auto; scrollbar-width: none; }
   .nw-gallery::-webkit-scrollbar { display: none; }
-  .nw-gallery .nw-avatar, .nw-person .nw-flip { width: var(--nw-av); }
+  .nw-gallery .nw-avatar, .nw-person .nw-pic { width: var(--nw-av); }
+  .nw-gallery .nw-pic .nw-avatar { width: 100%; }
   .nw-close { top: 14px; right: 14px; }
 }
 /* Tablet und Handy: Rahmen ohne Echtzeit-Weichzeichner (kostet dort beim Scrollen spürbar Bildrate), dafür etwas deckender;
@@ -1815,7 +1830,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   .nw-people { background: #fbfbfa; } /* deckend: sonst scheint der darunter durchlaufende Titel durch */
   .nw-skills > div, .nw-bond { backdrop-filter: none; -webkit-backdrop-filter: none; background: linear-gradient(160deg, rgba(255, 255, 255, .88), rgba(255, 255, 255, .76)); }
 }
-@media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar, .nw-flip-inner { transition: none; } }
+@media (prefers-reduced-motion: reduce) { .nw-dialog[open] { animation: none; } .nw-avatar, .nw-name { transition: none; } }
 /* Beim Zusammenschieben der Fotoreihe ändert sich Bild für Bild die Höhe: Teilbereiche getrennt berechnen (Handy/Tablet deutlich flüssiger) */
 .nw-person, .nw-hero, .nw-skills > div, .nw-bond { contain: layout; }
 /* Ausweichseite netzwerk.html: dieselben Blöcke ohne Feld, Foto steht hinter der ganzen Seite */
@@ -1829,3 +1844,4 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   nav[aria-label="Inhalt dieser Seite"] a { display: inline-block; padding: 6px 0; }
   .law-more summary { padding: 8px 0; }
 }
+@media (hover: none) and (max-width: 600px) { .nw-gallery { padding-bottom: 30px; } } /* Netzwerk: Platz für die festen Namen, die wischbare Reihe schneidet sonst ab */
