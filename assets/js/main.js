@@ -594,6 +594,17 @@
   }
   topic.addEventListener("change", updateCompanyRequirement);
 
+  // Telefon: Sternchen erscheint, sobald ein Rückruftermin gewählt ist (termine.js blendet #termin-chosen ein)
+  var terminChosen = document.getElementById("termin-chosen");
+  var phoneHint = document.getElementById("phone-required");
+  function updatePhoneRequirement() {
+    var needed = !!form.elements.termin.value;
+    form.elements.phone.required = needed;
+    phoneHint.hidden = !needed;
+    if (!needed) clearError(form.elements.phone);
+  }
+  if (terminChosen && window.MutationObserver) new MutationObserver(updatePhoneRequirement).observe(terminChosen, { attributes: true, childList: true, subtree: true });
+
   // CTA-Links mit data-topic wählen das passende Thema vor
   document.querySelectorAll("a[data-topic]").forEach(function (link) {
     link.addEventListener("click", function () {
@@ -607,7 +618,7 @@
     email: "Bitte geben Sie eine gültige E-Mail-Adresse an, z. B. name@firma.de.",
     topic: "Bitte wählen Sie ein Thema aus.",
     company: "Für Unternehmensangebote benötigen wir den Namen Ihres Unternehmens.",
-    phone: "Bitte geben Sie eine Telefonnummer an, unter der ich Sie erreiche.",
+    phone: "Für den gewählten Rückruftermin benötige ich Ihre Telefonnummer.",
     privacy: "Bitte bestätigen Sie den Datenschutzhinweis.",
   };
 
@@ -639,7 +650,7 @@
     status.className = "form-status" + (type ? " is-" + type : "");
   }
 
-  /* ---------- Ergebnis des Unternehmens-KI-Checks als sichtbarer Anhang (ki-check.js) ---------- */
+  /* ---------- Ergebnis des KI-Checks als sichtbarer Anhang (ki-check.js) ---------- */
   var attach = document.getElementById("check-attach");
   var attachBody = document.getElementById("check-attach-body");
   var attachToggle = document.getElementById("f-check");
@@ -712,6 +723,8 @@
     e.preventDefault();
     setStatus("");
 
+    updatePhoneRequirement(); // Telefon nur Pflicht, wenn ein Rückruftermin gewählt ist
+
     var firstInvalid = null;
     VALIDATED.forEach(function (name) {
       var field = form.elements[name];
@@ -760,12 +773,12 @@
         "E-Mail: " + data.get("email"),
         "Thema: " + data.get("topic"),
         "Unternehmen: " + (data.get("company") || "–"),
-        "Telefon: " + data.get("phone"),
+        "Telefon: " + (data.get("phone") || "–"),
         "Wunschtermin Screening: " + (data.get("termin") || "–"),
         "",
         data.get("message") || "",
       ];
-      if (checkText) lines.push("", "Unternehmens-KI-Check:", checkText);
+      if (checkText) lines.push("", "KI-Check:", checkText);
       window.location.href = "mailto:" + contact.email +
         "?subject=" + encodeURIComponent("Anfrage Erstgespräch: " + data.get("topic")) +
         "&body=" + encodeURIComponent(lines.join("\n"));

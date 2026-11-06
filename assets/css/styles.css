@@ -918,19 +918,31 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .required-note { font-size: .9rem; color: var(--muted); margin-bottom: 24px; }
 .field textarea::placeholder { color: var(--muted); opacity: .8; }
 /* Kontakt kompakt (Wunsch Auftraggeber 06.11.2026): passt auf dem Desktop mit Formular in eine Bildschirmhöhe */
-#kontakt { padding: clamp(48px, 7vh, 72px) 0; }
+#kontakt { position: relative; isolation: isolate; padding: clamp(40px, 6vh, 64px) 0; }
+/* Startfoto als ruhiger Hintergrund (heller Schleier), oben weich aus dem Abschnitt davor */
+#kontakt::before {
+  content: ""; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(180deg, rgba(245, 243, 238, .72), rgba(245, 243, 238, .6)), url("../img/start-buero.jpg?v=2") center / cover no-repeat;
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 140px); mask-image: linear-gradient(180deg, transparent 0, #000 140px);
+}
+@media (max-width: 900px) { #kontakt::before { background-image: linear-gradient(180deg, rgba(245, 243, 238, .72), rgba(245, 243, 238, .6)), url("../img/start-buero-900.jpg?v=2"); } }
+#kontakt .contact-panel { box-shadow: 0 18px 44px rgba(13, 29, 55, .14); }
+#kontakt .field input::placeholder { color: var(--muted); opacity: .8; font-size: .9rem; }
+/* Telefon-Hinweis: im Feld; auf dem Handy passt er dort nicht und steht klein neben der Beschriftung */
+#kontakt .phone-hint { display: none; font-size: .8rem; }
+@media (max-width: 600px) { #kontakt .phone-hint { display: inline; } #kontakt #f-phone::placeholder { color: transparent; } }
 #kontakt h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
 #kontakt .termin-panel { margin-top: 16px; padding: 20px 24px; }
-#kontakt .contact-panel { padding: 28px 36px 30px; }
-#kontakt .required-note { margin-bottom: 16px; font-size: .85rem; }
-#kontakt .form-grid { gap: 12px 20px; }
+#kontakt .contact-panel { padding: 24px 32px 26px; }
+#kontakt .required-note { margin-bottom: 12px; font-size: .82rem; }
+#kontakt .form-grid { gap: 10px 18px; }
 #kontakt .field { gap: 4px; }
 #kontakt .field input, #kontakt .field select { min-height: 42px; padding: 8px 12px; }
-#kontakt .field textarea { min-height: 64px; padding: 8px 12px; }
+#kontakt .field textarea { min-height: 58px; padding: 8px 12px; }
 #kontakt .check-attach { padding: 8px 16px; font-size: .95rem; }
 #kontakt .checkbox label { font-size: .88rem; line-height: 1.5; }
 #kontakt .field label { font-size: .95rem; }
-#kontakt .form-footer { margin-top: 18px; }
+#kontakt .form-footer { margin-top: 14px; }
 @media (max-width: 600px) { #kontakt .contact-panel { padding: 24px 20px; } }
 
 /* ---------- Footer ---------- */
