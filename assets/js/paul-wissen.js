@@ -119,7 +119,7 @@ window.PAUL_WISSEN = {
       id: "W31", title: "Hilfe bei der Wahl einer KI-Plattform",
       match: "helft ihr bei der (tool-?)?auswahl|hilfst du bei der (tool-?)?auswahl|welche ki passt zu unserem team|(könnt|koennt) ihr .* vergleichen|wie entscheiden wir uns f(ü|ue)r eine plattform|fehlkauf|ist der (ki-?)?kompass eine beratung",
       keywords: ["tool-auswahl", "auswahl", "fehlkauf", "plattformwahl"],
-      answer: "Der Unternehmens-KI-Check und das kostenlose Screening helfen, die Ausgangslage einzugrenzen. Der KI-Kompass bietet eine erste fachliche und technische Orientierung. Für eine verbindliche Tool-Auswahl solltet Ihr Aufgaben, erwartete Ergebnisse, Kosten, Schnittstellen, Betrieb, Daten und Freigaben gemeinsam prüfen.",
+      answer: "Der KI-Check und das kostenlose Screening helfen, die Ausgangslage einzugrenzen. Der KI-Kompass bietet eine erste fachliche und technische Orientierung. Für eine verbindliche Tool-Auswahl solltet Ihr Aufgaben, erwartete Ergebnisse, Kosten, Schnittstellen, Betrieb, Daten und Freigaben gemeinsam prüfen.",
       links: [{ label: "KI-Check und Einstieg", url: "index.html#ki-start" }, { label: "KI-Kompass", url: "ki-kompass.html" }],
     },
     {
@@ -182,14 +182,14 @@ window.PAUL_WISSEN = {
       id: "W23", title: "Passt das Angebot zu meinem Unternehmen?",
       match: "(sind wir|ist unser unternehmen|ist unsere firma) zu klein|passenden einstieg (auswählen|auswaehlen|finden)|grosses budget|team ist skeptisch|(noch )?kein ki-?projekt|passt (das|euer angebot) zu (meinem|unserem) (unternehmen|betrieb)",
       keywords: ["zu klein", "skeptisch", "passend"],
-      answer: "Ein sinnvoller Ausgangspunkt ist eine konkrete Aufgabe, bei der Informationen fehlen, Abläufe Zeit kosten oder Mitarbeitende Unterstützung brauchen. Der Unternehmens-KI-Check und das kostenlose Screening helfen, den passenden Einstieg zu klären – auch ohne fertiges KI-Projekt.",
+      answer: "Ein sinnvoller Ausgangspunkt ist eine konkrete Aufgabe, bei der Informationen fehlen, Abläufe Zeit kosten oder Mitarbeitende Unterstützung brauchen. Der KI-Check und das kostenlose Screening helfen, den passenden Einstieg zu klären – auch ohne fertiges KI-Projekt.",
       links: [{ label: "KI-Check und Einstieg", url: "index.html#ki-start" }],
     },
     {
-      id: "W05", title: "Unternehmens-KI-Check",
+      id: "W05", title: "KI-Check",
       match: "ki-?check|unternehmens-?check|selbsttest|ki-?reife|sechs fragen|sieben fragen|ob ki bei uns sinn",
       keywords: ["check", "test", "selbsttest", "potenzial", "reifegrad", "einschätz", "quiz", "fragebogen"],
-      answer: "Der Unternehmens-KI-Check besteht aus sieben kurzen Fragen und dauert etwa zwei Minuten. Er hilft, unnötige Reibung im Arbeitsalltag zu erkennen und erste mögliche KI-Anwendungen zu betrachten. Er ist eine Orientierung, keine vollständige technische oder rechtliche Prüfung.",
+      answer: "Der KI-Check besteht aus sieben kurzen Fragen und dauert etwa zwei Minuten. Er hilft, unnötige Reibung im Arbeitsalltag zu erkennen und erste mögliche KI-Anwendungen zu betrachten. Er ist eine Orientierung, keine vollständige technische oder rechtliche Prüfung.",
       links: [{ label: "KI-Check starten", url: "index.html#top" }],
     },
     {

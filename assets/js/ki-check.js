@@ -1,7 +1,7 @@
 (function () {
   "use strict";
 
-  /* ---------- Unternehmens-KI-Check: sieben Fragen im Dialog, Ergebnis Newbie / Basic / Expert ----------
+  /* ---------- KI-Check: sieben Fragen im Dialog, Ergebnis Newbie / Basic / Expert ----------
      Inhalte unten anpassen. „score“ (0–3) fließt in die Einstufung ein; ohne „score“ zählt eine
      Antwort neutral. „tip“ ergänzt die Empfehlung. Speicherung nur in der Sitzung (sessionStorage). */
   var CHECK = {
@@ -192,7 +192,7 @@
     progress(0);
     swap(
       '<div class="check-step">' +
-      '<p class="kicker">Unternehmens-KI-Check</p>' +
+      '<p class="kicker">KI-Check</p>' +
       '<h2 id="check-title" tabindex="-1">' + esc(CHECK.title) + '</h2>' +
       '<p class="check-lead">' + esc(CHECK.intro) + '</p>' +
       '<p class="check-how"><strong>So funktioniert es:</strong></p>' +
