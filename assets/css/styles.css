@@ -916,6 +916,22 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .form-status.is-success { color: var(--green-dark); }
 .form-status.is-error { color: #b42318; }
 .required-note { font-size: .9rem; color: var(--muted); margin-bottom: 24px; }
+.field textarea::placeholder { color: var(--muted); opacity: .8; }
+/* Kontakt kompakt (Wunsch Auftraggeber 06.11.2026): passt auf dem Desktop mit Formular in eine Bildschirmhöhe */
+#kontakt { padding: clamp(48px, 7vh, 72px) 0; }
+#kontakt h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
+#kontakt .termin-panel { margin-top: 16px; padding: 20px 24px; }
+#kontakt .contact-panel { padding: 28px 36px 30px; }
+#kontakt .required-note { margin-bottom: 16px; font-size: .85rem; }
+#kontakt .form-grid { gap: 12px 20px; }
+#kontakt .field { gap: 4px; }
+#kontakt .field input, #kontakt .field select { min-height: 42px; padding: 8px 12px; }
+#kontakt .field textarea { min-height: 64px; padding: 8px 12px; }
+#kontakt .check-attach { padding: 8px 16px; font-size: .95rem; }
+#kontakt .checkbox label { font-size: .88rem; line-height: 1.5; }
+#kontakt .field label { font-size: .95rem; }
+#kontakt .form-footer { margin-top: 18px; }
+@media (max-width: 600px) { #kontakt .contact-panel { padding: 24px 20px; } }
 
 /* ---------- Footer ---------- */
 .site-footer { position: relative; background: var(--navy); color: #c3cad7; padding: 56px 0; }
@@ -1335,6 +1351,8 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .paul.is-away .pose-peek * { pointer-events: visiblePainted; cursor: pointer; }
 .paul.is-away .paul-cat:hover, .paul.is-away .paul-cat:focus-visible { transform: translateY(calc(var(--paul-bottom) - 6px)); }
 .paul.is-away .paul-hide, .paul.is-away .paul-bubble, .paul.is-diving .paul-hide { display: none; }
+/* Blase offen: nur deren × zeigen, das × zum Ausblenden neben Paul tritt zurück (sonst zwei × gleichzeitig) */
+.paul:has(.paul-bubble:not([hidden])) .paul-hide { opacity: 0; visibility: hidden; pointer-events: none; }
 
 .paul-bubble[hidden] { display: none; }
 @keyframes paul-pop { from { opacity: 0; transform: translateY(8px) scale(.96); } }
