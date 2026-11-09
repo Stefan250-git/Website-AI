@@ -275,7 +275,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--fade-edge) * (1 - var(--eu-in, 1))));
   mask-image: linear-gradient(180deg, transparent 0, #000 calc(var(--fade-edge) * (1 - var(--eu-in, 1))));
 }
-.eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 33vh; padding-top: 33svh; padding-bottom: 16vh; padding-bottom: 16svh; }
+.eu-content { margin-top: calc(-1 * var(--eu-h)); padding-top: 33vh; padding-top: 33svh; padding-bottom: 30vh; padding-bottom: 30svh; } /* nach der letzten Tafel steht Europa kurz allein, erst dann kommt das Teamfoto */
 .eu-head { margin-bottom: 32px; text-shadow: 0 2px 18px rgba(5, 8, 20, .55); }
 .eu-head h2 { color: var(--white); }
 .eu-head .kicker { color: var(--green-light); }
@@ -285,6 +285,8 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .offer.eu-card-light, .offer.eu-card-light:last-child { padding: 40px 48px 48px; border-top: 0; border-radius: var(--radius); background: rgba(255, 255, 255, .96); } /* :last-child – sonst setzt .offer:last-child den unteren Abstand auf 0 */
 .offer.offer-first { border-top: 0; }
 @media (max-width: 600px) { .offer.eu-card-light, .offer.eu-card-light:last-child { padding: 28px 22px 32px; } }
+#ki-start.offer.eu-card-light { padding-bottom: 20px; } /* endet mit dem letzten Modul – kein großer Leerraum */
+@media (max-width: 600px) { #ki-start.offer.eu-card-light { padding-bottom: 12px; } }
 
 /* Foto-Bühne „Kollegen am Tablet“ (KI-Einstieg für Mitarbeitende und Auszubildende): Foto über die volle
    Bildschirmfläche, bleibt stehen, während die Angebote in der hellen rechten Bildhälfte darüber laufen.
@@ -308,7 +310,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .photo-team { margin-top: calc(-1 * var(--fade-edge)); } /* schiebt sich mit kurzer weicher Kante direkt über das Europabild */
 .photo-team .photo-stage-media { background-image: url("../img/team-tablet.jpg"); background-position: 30% center; }
 /* Teamfoto steht erst kurz allein, bevor „Mitarbeitende“ darüber läuft (Text-Pause ≤ 50 % Bildschirmhöhe) */
-.photo-team .photo-stage-content { padding-top: 36vh; padding-top: 36svh; }
+.photo-team .photo-stage-content { padding-top: 24vh; padding-top: 24svh; }
 .photo-stage-content { margin-top: calc(-1 * var(--st-h)); padding-top: 20vh; padding-top: 20svh; padding-bottom: 15vh; padding-bottom: 15svh; }
 /* Angebote einspaltig in der rechten Bildhälfte */
 .photo-stage-content .offer { grid-template-columns: 1fr; gap: 20px; margin-left: 54%; container-type: inline-size; }
@@ -534,26 +536,26 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .entry-program-body { container-type: inline-size; }
 .offer-body.entry-program-body > * + * { margin-top: 0; }
 @media (min-width: 901px) { .entry-program-head { position: sticky; top: 100px; align-self: start; } } /* Titel und „Anfragen“ bleiben beim Lesen der Module stehen */
-.entry-intro { padding-bottom: 24px; }
+.entry-intro { padding-bottom: 20px; }
 .entry-intro-title { font-size: clamp(1.15rem, 1.7vw, 1.35rem); font-weight: 700; line-height: 1.3; color: var(--navy); }
 .entry-intro p:not(.entry-intro-title) { margin-top: 8px; font-size: .95rem; color: var(--muted); }
 .entry-module { border-top: 1px solid var(--line); }
 .entry-module summary {
-  position: relative; display: block; padding: 22px 48px 21px 0; list-style: none; cursor: pointer; border-radius: 6px; /* Modulhöhe 1 + 22 + 40 + 4 + 24 + 21 = 112 px: auch bei 125/150 % ganze Bildpunkte */
+  position: relative; display: block; padding: 14px 48px 13px 0; list-style: none; cursor: pointer; border-radius: 6px; /* Modulhöhe 1 + 14 + 40 + 4 + 24 + 13 = 96 px */
 }
 .entry-module summary::-webkit-details-marker { display: none; }
 .entry-module summary:focus-visible { outline: 2px solid var(--green); outline-offset: 2px; }
 .entry-module-name { display: block; font-size: clamp(1.7rem, 2.6vw, 2.2rem); font-weight: 700; line-height: 40px; letter-spacing: .08em; color: var(--green); }
-.entry-module-title { display: block; margin-top: 4px; font-size: 1.0625rem; font-weight: 600; line-height: 24px; color: var(--navy); } /* Zeilenhöhen in ganzen px: zugeklappte Module sind gleich hoch, das Plus liegt bei allen gleich auf dem Pixelraster */
-/* Plus → Minus rechts */
-.entry-module-toggle { position: absolute; right: 6px; top: 33px; width: 18px; height: 18px; } /* fest auf Höhe des Namens (22 + 40/2 − 9) */
-.entry-module summary:hover .entry-module-toggle::before, .entry-module summary:hover .entry-module-toggle::after { background: var(--green-dark); }
-.entry-module-toggle::before, .entry-module-toggle::after {
-  content: ""; position: absolute; left: 0; top: 8px; width: 18px; height: 2px; background: var(--green); transition: transform .25s ease;
+.entry-module-title { display: block; margin-top: 4px; font-size: 1.0625rem; font-weight: 600; line-height: 24px; color: var(--navy); }
+/* Plus → Minus rechts als Schriftzeichen: Schrift setzt der Browser immer auf ganze Bildpunkte – gezeichnete Linien
+   lagen je nach Skalierung/Zoom halb auf dem Raster und wirkten unterschiedlich dick */
+.entry-module-toggle { position: absolute; right: 2px; top: 14px; width: 24px; height: 40px; }
+.entry-module-toggle::before {
+  content: "+"; display: block; font-family: var(--font); font-size: 32px; font-weight: 400; line-height: 40px; text-align: center; color: var(--green);
 }
-.entry-module-toggle::after { transform: rotate(90deg); }
-.entry-module[open] .entry-module-toggle::after { transform: rotate(0deg); }
-.entry-module-body { padding: 0 0 30px; }
+.entry-module[open] .entry-module-toggle::before { content: "\2212"; }
+.entry-module summary:hover .entry-module-toggle::before { color: var(--green-dark); }
+.entry-module-body { padding: 0 0 22px; }
 .entry-module-main { display: grid; grid-template-columns: minmax(0, 1fr) 56px; gap: 16px 32px; align-items: start; }
 .entry-module-content p { font-size: .92rem; line-height: 1.6; color: var(--muted); }
 .entry-module-content p + p { margin-top: 10px; }
