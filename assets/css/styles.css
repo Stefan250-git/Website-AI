@@ -845,6 +845,8 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 .about-full .prose p { color: var(--navy-80); }
 /* „Mehr über mich“: Quickinfo unter der Zeile, bei Mouseover/Fokus oder per Klick (.is-open, main.js) */
 .about-more { position: relative; }
+#ueber-mich { z-index: 2; background: transparent; }
+#ueber-mich::after { -webkit-mask-image: linear-gradient(180deg, #000 calc(100% - 160px), transparent); mask-image: linear-gradient(180deg, #000 calc(100% - 160px), transparent); } /* durchlässig: kein harter Wechsel Weiß → Kontaktfoto */ /* Blase „Mehr über mich“ ragt in den Kontaktbereich (eigene Ebene wegen Hintergrundfoto): Über mich liegt darüber */
 .about-more-btn {
   padding: 0; border: 0; background: none; font: inherit; font-weight: 600; color: var(--green-dark); cursor: help;
   text-decoration: underline dotted; text-decoration-thickness: 1.5px; text-underline-offset: 3px;
@@ -921,9 +923,9 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 #kontakt { position: relative; isolation: isolate; padding: clamp(40px, 6vh, 64px) 0; }
 /* Startfoto als ruhiger Hintergrund (heller Schleier), oben weich aus dem Abschnitt davor */
 #kontakt::before {
-  content: ""; position: absolute; inset: 0; z-index: -1;
+  content: ""; position: absolute; inset: -180px 0 0; z-index: -1; /* reicht unter den Auslauf von „Über mich“: weicher Übergang statt Kante */
   background: linear-gradient(180deg, rgba(245, 243, 238, .72), rgba(245, 243, 238, .6)), url("../img/start-buero.jpg?v=2") center / cover no-repeat;
-  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 140px); mask-image: linear-gradient(180deg, transparent 0, #000 140px);
+  -webkit-mask-image: linear-gradient(180deg, transparent 0, #000 260px); mask-image: linear-gradient(180deg, transparent 0, #000 260px);
 }
 @media (max-width: 900px) { #kontakt::before { background-image: linear-gradient(180deg, rgba(245, 243, 238, .72), rgba(245, 243, 238, .6)), url("../img/start-buero-900.jpg?v=2"); } }
 #kontakt .contact-panel { box-shadow: 0 18px 44px rgba(13, 29, 55, .14); }
