@@ -164,7 +164,7 @@
     (endpoint ? '<p class="paul-ai">Paul antwortet mit Hilfe von KI und kann sich irren. Bitte gib keine persönlichen Daten ein. <a href="datenschutz.html#paul">Mehr dazu</a></p>' : '') +
     '</div>' +
     '<button type="button" class="paul-cat" data-pose="front" aria-expanded="false" aria-controls="paul-bubble" aria-label="Paul fragen – Chat öffnen">' + CAT_SVG + '</button>' +
-    '<button type="button" class="paul-hide" aria-label="Paul ausblenden">×</button>';
+    '<button type="button" class="paul-hide" aria-label="Paul ausblenden" title="Paul ausblenden">×</button>';
   document.body.appendChild(root);
 
   var bubble = root.querySelector(".paul-bubble");
@@ -494,9 +494,12 @@
     }, delay || LEAVE_DELAY);
   }
 
-  root.addEventListener("pointerenter", function (e) {
+  root.addEventListener("pointerenter", function () {
     inside = true;
     clearTimeout(leaveTimer);
+  });
+  // Blase nur über der Katze selbst öffnen – nicht über dem × daneben, sonst ist es nicht erreichbar
+  catBtn.addEventListener("pointerenter", function (e) {
     if (e.pointerType !== "mouse") return;
     var busyJumping = root.classList.contains("is-exit") || root.classList.contains("is-enter");
     if (root.classList.contains("is-away") || busyJumping) return;

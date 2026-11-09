@@ -315,6 +315,8 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 /* schmale rechte Spalte: Überschrift so groß wie möglich, „KI-Einstieg für Auszubildende“ bleibt einzeilig */
 .photo-stage-content .offer h3 { font-size: clamp(1.75rem, 6.6cqi, 2.6rem); }
 .photo-stage-content .offer + .offer { border-top-color: rgba(13, 29, 55, .14); }
+/* Tablet/Handy: Angebote einspaltig über die volle Breite – Überschrift so groß wie die übrigen Angebotsnamen */
+@media (max-width: 900px) { .photo-stage-content .offer h3 { font-size: clamp(1.75rem, 3vw, 2.6rem); } }
 /* Zwischenbereich „Erst die Aufgabe verstehen.“ zwischen Startbild und Angeboten: eigene Foto-Bühne, Tafel mittig.
    Bühne hält länger als die Tafel (min-height), damit das Bild steht, während die Tafel durchläuft. Bis das Foto
    (assets/img/zwischen.jpg) da ist, trägt ein ruhiger CI-Verlauf. */
@@ -336,7 +338,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
   transition: opacity .9s ease-out, transform .9s ease-out;
 }
 .bridge-panel.is-armed:not(.is-visible) { opacity: 0; transform: translateY(48px); }
-.bridge-panel h2 { margin: 0; font-size: clamp(1.9rem, 3.2vw, 2.9rem); line-height: 1.12; }
+.bridge-panel h2 { margin: 0; } /* Abschnittsüberschriften überall gleich groß (h2-Grundregel) */
 .bridge-claim { margin-top: 14px; font-size: clamp(1.1rem, 1.6vw, 1.3rem); font-weight: 700; line-height: 1.3; color: var(--green); }
 .bridge-text { margin: 18px 0 0; max-width: none; font-size: 1rem; line-height: 1.7; color: var(--muted); }
 @media (max-width: 900px) {
@@ -946,7 +948,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 }
 .about-full .container { width: 100%; }
 .about-full .split > .span-7 { grid-column: 6 / span 7; padding-left: 24px; }
-.about-full h2 { font-size: clamp(2.2rem, 3.6vw, 3.4rem); } /* Spalte neben dem Foto: Überschrift bleibt zweizeilig */
+/* .about-full h2: Größe aus der h2-Grundregel (alle Abschnittsüberschriften gleich) */
 .about-full .prose p { color: var(--navy-80); }
 /* „Mehr über mich“: Quickinfo unter der Zeile, bei Mouseover/Fokus oder per Klick (.is-open, main.js) */
 .about-more { position: relative; }
@@ -1038,7 +1040,7 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 /* Telefon-Hinweis: im Feld; auf dem Handy passt er dort nicht und steht klein neben der Beschriftung */
 #kontakt .phone-hint { display: none; font-size: .8rem; }
 @media (max-width: 600px) { #kontakt .phone-hint { display: inline; } #kontakt #f-phone::placeholder { color: transparent; } }
-#kontakt h2 { font-size: clamp(2rem, 3.4vw, 3rem); }
+/* #kontakt h2: Größe aus der h2-Grundregel */
 #kontakt .termin-panel { margin-top: 16px; padding: 20px 24px; }
 #kontakt .contact-panel { padding: 24px 32px 26px; }
 #kontakt .required-note { margin-bottom: 12px; font-size: .82rem; }
@@ -1486,8 +1488,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .paul.is-away .pose-peek * { pointer-events: visiblePainted; cursor: pointer; }
 .paul.is-away .paul-cat:hover, .paul.is-away .paul-cat:focus-visible { transform: translateY(calc(var(--paul-bottom) - 6px)); }
 .paul.is-away .paul-hide, .paul.is-away .paul-bubble, .paul.is-diving .paul-hide { display: none; }
-/* Blase offen: nur deren × zeigen, das × zum Ausblenden neben Paul tritt zurück (sonst zwei × gleichzeitig) */
-.paul:has(.paul-bubble:not([hidden])) .paul-hide { opacity: 0; visibility: hidden; pointer-events: none; }
+/* Das × zum Ausblenden bleibt auch bei offener Blase erreichbar (paul.js öffnet die Blase nur über der Katze, nicht über dem ×) */
 
 .paul-bubble[hidden] { display: none; }
 @keyframes paul-pop { from { opacity: 0; transform: translateY(8px) scale(.96); } }
@@ -1861,7 +1862,7 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
 .nw-close:hover { background: var(--navy); color: var(--white); }
 /* X aus zwei Linien statt Schriftzeichen – steht unabhängig von der Schrift genau in der Mitte
    (gilt für alle Schließen-Knöpfe: Netzwerk, Dialoge, Paul-Chat); Fokusring liegt innen, damit er nicht abgeschnitten wird */
-.nw-close, .check-close, .paul-close { font-size: 0; }
+.nw-close, .check-close, .paul .paul-close { font-size: 0; } /* .paul-close mit .paul: sonst setzt „.paul button { font: inherit }“ das Schriftzeichen × wieder sichtbar – doppeltes × */
 .nw-close::before, .nw-close::after, .check-close::before, .check-close::after, .paul-close::before, .paul-close::after {
   content: ""; position: absolute; top: 50%; left: 50%; width: 20px; height: 2px; margin: -1px 0 0 -10px;
   border-radius: 1px; background: currentColor; transform: rotate(45deg);
