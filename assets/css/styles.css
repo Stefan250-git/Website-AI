@@ -1498,6 +1498,36 @@ button.tip:focus-visible { outline: 2px solid var(--green); outline-offset: 2px;
   50% { transform: scaleY(.08); }
 }
 
+/* Blumentopf: Paul tippt ihn zweimal mit der Pfote an (.is-swat), Pfote schwingt zur Seite (zum Topf links) */
+.paul.is-swat .paul-paw { animation: paul-swat .7s ease-in-out; }
+.paul.is-swat .paul-paw rect { stroke: #3a3e47; }
+.paul.is-swat .paul-toes { opacity: 1; }
+@keyframes paul-swat {
+  0%, 100% { transform: none; }
+  35% { transform: translate(-2px, -12px) rotate(62deg); }
+  55% { transform: translate(-10px, -8px) rotate(100deg); }
+  72% { transform: translate(-6px, -10px) rotate(84deg); }
+}
+/* Auf der Fußzeile: Paul steht auf ihrer Oberkante (bottom aus paul.js), × wandert nach rechts neben ihn, damit links der Topf Platz hat */
+.paul.is-ledge .paul-hide { left: auto; right: -16px; bottom: 2px; }
+@media (max-width: 600px) { .paul.is-ledge .paul-hide { right: -6px; bottom: -26px; color: #d6dbe5; } } /* Handy: rechts zu wenig Platz (Schwanz) – unter der rechten Seite auf dem Blau */
+.paul-pot, .paul-debris { position: absolute; z-index: 1; pointer-events: none; }
+.paul-pot { right: 103px; bottom: 100%; width: 40px; height: 64px; transform-origin: 50% 70%; }
+.paul-pot svg, .paul-debris svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.paul-pot.is-wobble { animation: pot-wobble .9s ease-in-out; transform-origin: 10% 100%; }
+@keyframes pot-wobble { 20% { transform: rotate(-9deg); } 45% { transform: rotate(5deg); } 70% { transform: rotate(-3deg); } 100% { transform: none; } }
+.paul-debris { right: 96px; bottom: 12px; width: 128px; height: 40px; }
+.pd-shard { transform-box: fill-box; transform-origin: center; animation: pd-burst .45s cubic-bezier(.2, .8, .3, 1) both; }
+.pd-s1 { --dx: -14px; --dy: -10px; --r: -40deg; } .pd-s2 { --dx: 8px; --dy: -12px; --r: 30deg; }
+.pd-s3 { --dx: 16px; --dy: -6px; --r: 55deg; } .pd-s4 { --dx: -4px; --dy: -14px; --r: -20deg; }
+@keyframes pd-burst { 0% { transform: translate(calc(-1 * var(--dx)), 0) scale(.6); opacity: 0; } 50% { transform: translate(0, var(--dy)) rotate(var(--r)); opacity: 1; } 100% { transform: rotate(var(--r)); } }
+.pd-flower { transform-box: fill-box; transform-origin: 70% 80%; animation: pd-flop .5s ease-out both; }
+@keyframes pd-flop { from { transform: translateY(-14px) rotate(70deg); } }
+@media (max-width: 600px) {
+  .paul-pot { right: 74px; width: 30px; height: 48px; }
+  .paul-debris { right: 70px; width: 96px; height: 30px; }
+}
+
 /* Haltungen (paul.js setzt data-pose): Vorderansicht in Ruhe, Seite/geduckt/gestreckt beim Springen */
 .paul-svg > g { display: none; }
 .paul-cat[data-pose="front"] .pose-front, .paul-cat[data-pose="side"] .pose-side,

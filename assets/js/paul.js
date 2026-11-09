@@ -634,22 +634,24 @@
     });
   }
 
-  /* ---------- Putzen: nach längerer Ruhe leckt Paul sich die Pfote (dezent, selten) ---------- */
+  /* ---------- Putzen: nach längerer Ruhe leckt Paul sich die Pfote (lautlos, selten) ---------- */
   var LICK = 2800;              // Dauer, abgestimmt auf die CSS-Animationen „paul-lick-…“
-  var LICK_STROKES = [.24, .44, .64]; // Zeitpunkte, an denen die Zunge die Pfote berührt
   var idleTimer = null;
 
   function scheduleLick(first) {
     clearTimeout(idleTimer);
-    idleTimer = setTimeout(lick, first ? 30000 : 45000 + Math.random() * 30000);
+    idleTimer = setTimeout(lick, first ? 60000 : 120000 + Math.random() * 60000);
+  }
+
+  function resting() {
+    return bubble.hidden && !document.hidden && catBtn.getAttribute("data-pose") === "front" &&
+      !root.classList.contains("is-away") && !root.classList.contains("is-exit") && !root.classList.contains("is-enter") &&
+      !root.classList.contains("is-licking") && !root.classList.contains("is-throwing");
   }
 
   function lick() {
-    var resting = bubble.hidden && !document.hidden && catBtn.getAttribute("data-pose") === "front" &&
-      !root.classList.contains("is-away") && !root.classList.contains("is-exit") && !root.classList.contains("is-enter");
-    if (!resting) return scheduleLick();
+    if (!resting()) return scheduleLick();
     root.classList.add("is-licking");
-    LICK_STROKES.forEach(function (at) { lickSound(at * LICK / 1000); });
     wait(LICK).then(function () {
       root.classList.remove("is-licking");
       scheduleLick();
@@ -662,44 +664,6 @@
     scheduleLick(true);
   }
 
-  /* Leises Schlecken, im Browser erzeugt (keine Audiodatei). Erst nach der ersten Nutzer-Aktion
-     möglich – Browser spielen vorher keinen Ton ab. Abschaltbar über SITE_CONFIG.paul.sound = false. */
-  var audio = null, noise = null;
-  function unlockAudio() {
-    if (audio || (config.paul || {}).sound === false) return;
-    var Ctx = window.AudioContext || window.webkitAudioContext;
-    if (!Ctx) return;
-    try {
-      audio = new Ctx();
-      noise = audio.createBuffer(1, Math.round(audio.sampleRate * .09), audio.sampleRate);
-      var data = noise.getChannelData(0);
-      for (var i = 0; i < data.length; i++) data[i] = Math.random() * 2 - 1;
-    } catch (e) { audio = null; }
-  }
-  document.addEventListener("pointerdown", unlockAudio, { once: true });
-  document.addEventListener("keydown", unlockAudio, { once: true });
-
-  function lickSound(delay) {
-    if (!audio || audio.state !== "running") return;
-    var t = audio.currentTime + delay;
-    var src = audio.createBufferSource();
-    var filter = audio.createBiquadFilter();
-    var gain = audio.createGain();
-    src.buffer = noise;
-    filter.type = "bandpass";
-    filter.frequency.setValueAtTime(2600, t);
-    filter.frequency.linearRampToValueAtTime(3600, t + .07);
-    filter.Q.value = 1.4;
-    gain.gain.setValueAtTime(0, t);
-    gain.gain.linearRampToValueAtTime(.022, t + .012);
-    gain.gain.exponentialRampToValueAtTime(.0005, t + .085);
-    src.connect(filter);
-    filter.connect(gain);
-    gain.connect(audio.destination);
-    src.start(t);
-    src.stop(t + .09);
-  }
-
   if (!reduceMotion) {
     scheduleLick(true);
     [catBtn, input].forEach(function (el) {
@@ -708,10 +672,132 @@
     });
   }
 
+  /* ---------- Paul steht auf der blauen Fußzeile ----------
+     Kommt die Fußzeile ins Bild, bleibt Paul auf ihrer Oberkante stehen (nicht davor). Daneben steht ein
+     Blumentopf (.paul-pot, in der Fußzeile). Ganz unten und 60 s ohne Scrollen schubst Paul ihn wie eine
+     Katze herunter: zweimal antippen, dann fällt er in den blauen Bereich, zerbricht unten, die Blume liegt
+     auf dem Boden, Paul schaut hinterher. Einmal pro Seitenaufruf; bei „reduzierte Bewegung“ nicht. */
+  var footer = document.querySelector(".site-footer");
+  var lift = -1, ledgeFrame = null;
+  function ledge() {
+    ledgeFrame = null;
+    var l = 0;
+    if (footer && !root.classList.contains("is-away")) {
+      var base = parseFloat(getComputedStyle(root).getPropertyValue("--paul-bottom")) || 12;
+      l = Math.round(window.innerHeight - footer.getBoundingClientRect().top);
+      if (l <= base) l = 0;
+    }
+    if (l === lift) return;
+    lift = l;
+    root.style.bottom = l ? l + "px" : "";
+    root.classList.toggle("is-ledge", l > 0);
+  }
+  function scheduleLedge() { if (!ledgeFrame) ledgeFrame = requestAnimationFrame(ledge); }
+  window.addEventListener("scroll", scheduleLedge, { passive: true });
+  window.addEventListener("resize", scheduleLedge);
+  setInterval(function () { if (!document.hidden) scheduleLedge(); }, 1000); // auch nach Wegklicken/Zurückholen und Größenänderungen der Seite
+  scheduleLedge();
+
+  var POT_SVG =
+    '<svg viewBox="0 0 40 64" aria-hidden="true">' +
+    '<g class="pp-flower">' +
+    '<path d="M20 40V15" stroke="#3f8f45" stroke-width="2.4" stroke-linecap="round"/>' +
+    '<path d="M20 31c-3-6-8-8-12-7 1 5 6 8 12 7z" fill="#4caf50"/>' +
+    '<g fill="#d9363e"><circle cx="20" cy="7" r="4.6"/><circle cx="26.2" cy="11.5" r="4.6"/><circle cx="23.8" cy="18.6" r="4.6"/><circle cx="16.2" cy="18.6" r="4.6"/><circle cx="13.8" cy="11.5" r="4.6"/></g>' +
+    '<circle cx="20" cy="13" r="3.4" fill="#f6c026"/>' +
+    '</g>' +
+    '<rect x="6" y="38" width="28" height="7" rx="2" fill="#f6c026"/>' +
+    '<path d="M9 45h22l-3.2 18h-15.6z" fill="#e9b11a"/>' +
+    '<path d="M12 48l2 13" stroke="#f8d35b" stroke-width="2" stroke-linecap="round"/>' +
+    '</svg>';
+  // Nach dem Aufprall: Scherben, Erde und die liegende Blume (Stängel waagerecht, Blüte links)
+  var DEBRIS_SVG =
+    '<svg viewBox="0 0 96 30" aria-hidden="true">' +
+    '<ellipse cx="50" cy="26" rx="20" ry="4" fill="#5a3b24"/>' +
+    '<g class="pd-shard pd-s1"><path d="M30 27l7-9 6 3-2 6z" fill="#e9b11a"/></g>' +
+    '<g class="pd-shard pd-s2"><path d="M58 27l3-10 9 2-1 8z" fill="#f6c026"/></g>' +
+    '<g class="pd-shard pd-s3"><path d="M74 28l5-6 7 4-3 2z" fill="#e9b11a"/></g>' +
+    '<g class="pd-shard pd-s4"><path d="M44 28l4-5 5 5z" fill="#f6c026"/></g>' +
+    '<g class="pd-flower">' +
+    '<path d="M22 22h28" stroke="#3f8f45" stroke-width="2.4" stroke-linecap="round"/>' +
+    '<path d="M38 22c5-3 7-8 6-12-5 1-8 6-6 12z" fill="#4caf50"/>' +
+    '<g fill="#d9363e"><circle cx="9" cy="22" r="4.6"/><circle cx="13.5" cy="15.8" r="4.6"/><circle cx="20.6" cy="18.2" r="4.6"/><circle cx="20.6" cy="25.8" r="4.6"/><circle cx="13.5" cy="28" r="4.6"/></g>' +
+    '<circle cx="15" cy="22" r="3.4" fill="#f6c026"/>' +
+    '</g>' +
+    '</svg>';
+
+  var pot = null, debris = null, thrown = false, lastMove = Date.now();
+  if (footer) {
+    pot = document.createElement("div");
+    pot.className = "paul-pot";
+    pot.setAttribute("aria-hidden", "true");
+    pot.innerHTML = POT_SVG;
+    footer.appendChild(pot);
+  }
+  ["scroll", "wheel", "touchmove", "keydown"].forEach(function (type) {
+    window.addEventListener(type, function () { lastMove = Date.now(); }, { passive: true });
+  });
+  document.addEventListener("visibilitychange", function () { lastMove = Date.now(); });
+
+  function atBottom() {
+    return window.innerHeight + window.scrollY >= document.documentElement.scrollHeight - 4;
+  }
+
+  function lookAt(dx, dy) {
+    var move = "translate(" + dx + " " + dy + ")";
+    pupils.forEach(function (g) { g.setAttribute("transform", move); });
+  }
+
+  function throwPot() {
+    thrown = true;
+    root.classList.add("is-throwing");
+    var fall = footer.getBoundingClientRect().height - 24; // bis knapp über den unteren Rand der Fußzeile
+    lookAt(-2.4, 1.2);
+    return wait(700).then(function () {
+      // erstes Antippen: der Topf wackelt
+      return play("is-swat", 700);
+    }).then(function () {
+      pot.classList.add("is-wobble");
+      return wait(900);
+    }).then(function () {
+      pot.classList.remove("is-wobble");
+      lookAt(-1.6, 2);
+      return wait(500);
+    }).then(function () {
+      // zweites Antippen, kräftiger: der Topf kippt nach vorn und fällt
+      return play("is-swat", 700);
+    }).then(function () {
+      lookAt(-1.2, 2.6);
+      place({ r: -7 }, 1); // Paul beugt sich vor und schaut hinterher
+      return phase(620, function (t) {
+        var y = fall * t * t; // beschleunigt wie ein fallender Gegenstand
+        pot.style.transform = "translate(" + (-14 * t) + "px," + y + "px) rotate(" + (-160 * t) + "deg) scale(" + (1 + .12 * t) + ")";
+      });
+    }).then(function () {
+      pot.hidden = true;
+      debris = document.createElement("div");
+      debris.className = "paul-debris";
+      debris.setAttribute("aria-hidden", "true");
+      debris.innerHTML = DEBRIS_SVG;
+      footer.appendChild(debris);
+      return wait(4000);
+    }).then(function () {
+      svg.style.transform = "";
+      root.classList.remove("is-throwing");
+    });
+  }
+
+  if (!reduceMotion && pot) {
+    setInterval(function () {
+      if (thrown || lift <= 0 || !atBottom() || Date.now() - lastMove < 60000 || !resting()) return;
+      throwPot();
+    }, 1000);
+  }
+
   /* ---------- Freundlicher Blick: Pupillen folgen leicht dem Mauszeiger ---------- */
   var frame = null;
   document.addEventListener("mousemove", function (e) {
-    if (frame || reduceMotion) return;
+    if (frame || reduceMotion || root.classList.contains("is-throwing")) return;
     frame = requestAnimationFrame(function () {
       frame = null;
       var r = catBtn.getBoundingClientRect();

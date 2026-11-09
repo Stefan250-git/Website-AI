@@ -47,7 +47,5 @@ window.SITE_CONFIG = {
     // { answer: "…", links?: [{ label, url }] }. API-Schlüssel nie hier eintragen!
     // Vor Aktivierung Datenschutzerklärung ergänzen.
     endpoint: "https://paul-proxy.biese250.workers.dev",
-    // Leises Schlecken, wenn Paul sich die Pfote leckt (false = stumm)
-    sound: true,
   },
 };
