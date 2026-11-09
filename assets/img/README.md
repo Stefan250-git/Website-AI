@@ -34,6 +34,7 @@ JPG, komprimiert auf unter 300 KB.
 | wissensbasis-hintergrund.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
 | ki-ethik.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 03.11.2026 |
 | netzwerk/person-1.jpg … person-7.jpg | vom Auftraggeber bereitgestellt, Porträts „Mein Netzwerk“ (Fotograf ergänzen; Einwilligung der abgebildeten Personen einholen); person-1 (Jonas) am 06.11.2026 ersetzt | | | | 04.11.2026 |
+| badges/badge-ki-consultant.png, badge-ki-unternehmen.png, badge-changemanagement.png | Zertifikats-Badges der Business Trends Academy, vom Auftraggeber bereitgestellt (auf das Badge zugeschnitten, 400 px hoch), Fußzeile aller Seiten | | | | 09.11.2026 |
 | netzwerk-hintergrund.jpg | vom Auftraggeber bereitgestellt, Hintergrund „Mein Netzwerk“ (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 04.11.2026 |
 | zwischen.jpg, zwischen-900.jpg | vom Auftraggeber bereitgestellt, Hintergrund Zwischenbereich „Erst die Aufgabe verstehen.“ (Startseite); -900 = Ausschnitt mit den Personen für Handy/Tablet (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 05.11.2026 |
 | ki-sicherheit.jpg | vom Auftraggeber bereitgestellt (Herkunft ergänzen; falls KI-generiert: Generator und Nutzungsbedingungen) | | | | 04.11.2026 |
