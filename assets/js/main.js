@@ -829,4 +829,16 @@
       aiChars.forEach(function (span) { span.style.transform = ""; });
     });
   }
+
+  // KI-Einstieg für Unternehmen: Module als Akkordeon (<details name="entry-module">). Schließt sich dabei ein
+  // Modul darüber, rutscht das geöffnete nach oben aus dem Bild – dann unter die Kopfzeile zurückholen.
+  document.querySelectorAll(".entry-module").forEach(function (mod) {
+    mod.addEventListener("toggle", function () {
+      if (!mod.open) return;
+      var head = document.querySelector(".site-header");
+      var top = (head ? head.getBoundingClientRect().bottom : 0) + 16;
+      var y = mod.getBoundingClientRect().top;
+      if (y < top) window.scrollBy({ top: y - top, behavior: "instant" });
+    });
+  });
 })();
