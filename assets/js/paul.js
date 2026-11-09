@@ -207,7 +207,11 @@
   function show(answer) {
     pin.hidden = false;  // ab der ersten Antwort bleibt der EU-AI-Act-Hinweis oben angepinnt
     introOpen = false;   // wer fragt, hat die Infoblase gesehen – ab jetzt normales Verhalten
-    var links = (answer.links || []).slice(0, 2);
+    // Nur Links dieser Website oder https – nie javascript:, data: o. Ä. (auch falls eine Antwort manipuliert wäre)
+    var links = (answer.links || []).filter(function (l) {
+      try { var u = new URL(l.url, location.href); return u.origin === location.origin || u.protocol === "https:"; }
+      catch (e) { return false; }
+    }).slice(0, 2);
     var paragraphs = String(answer.text).split(/\n\n+/).map(function (part) { return '<p>' + text(part) + '</p>'; }).join("");
     say.innerHTML = paragraphs + (links.length ? '<ul class="paul-links">' + links.map(function (l) {
       // Quellen anderer Websites (z. B. tagesschau.de) im neuen Tab, Paul bleibt hier
