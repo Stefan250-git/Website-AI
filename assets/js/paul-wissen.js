@@ -67,7 +67,7 @@ window.PAUL_WISSEN = {
   ],
 
   // Feste Antworten aus den Wissensdokumenten von AI Work Lab (Stand 28.10.2026):
-  // „Webseiten-Wissen“ (W01–W33) und „Basiswissen“ (B01–B45). Paul spricht in Du-Form.
+  // „Webseiten-Wissen“ (W01–W36) und „Basiswissen“ (B01–B45). Paul spricht in Du-Form.
   // match: regulärer Ausdruck auf die Frage (kleingeschrieben, ohne Satzzeichen, ß als „ss“);
   // passt er, antwortet Paul wörtlich – ohne Sprachmodell. Sonst helfen keywords beim
   // Zuordnen, und die passenden Antworten gehen dem Sprachmodell als Grundlage mit.
@@ -203,14 +203,21 @@ window.PAUL_WISSEN = {
       id: "W06", title: "Wie beginnt die Zusammenarbeit?",
       match: "wie (kann ich|können wir|koennen wir) (starten|anfangen|beginnen|loslegen)|wie (läuft|laeuft) (ein |der |die )?(erstkontakt|ablauf|zusammenarbeit)|wie beginnt (die|eine) zusammenarbeit|was passiert nach (meiner|der) anfrage|gibt es (erst|zuerst) ein gespr(ä|ae)ch|wie komme ich zum workshop|wie geht es los",
       keywords: ["zusammenarbeit", "erstkontakt", "loslegen", "starten", "ablauf"],
-      answer: "Am Anfang steht ein kostenloses Screening, ein Telefonat von etwa 10 Minuten. Danach können eine 45-minütige Auftragsklärung und ein Workshop mit drei Einheiten à 45 Minuten folgen. Ob und wie es weitergeht, wird für Deinen konkreten Bedarf geklärt.",
+      answer: "Jedes Modul des KI-Einstiegs für Unternehmen läuft in drei Schritten: Im Screening wird die Ausgangslage eingeordnet, in der Inhaltsklärung legt Ihr Schwerpunkte und Rahmenbedingungen fest, im Workshop wird gemeinsam gearbeitet. Den Anfang machst Du am einfachsten über das Kontaktformular – dort kannst Du auch einen Termin für ein kurzes Telefonat wählen.",
       links: [{ label: "Anfragen", url: "index.html#kontakt" }, { label: "KI-Einstieg für Unternehmen", url: "index.html#ki-start" }],
+    },
+    {
+      id: "W36", title: "Module ROOT, BASIS und PRO",
+      match: "(^| )root( |$)|(^| )(root|basis|pro)[- ]?modul|modul (root|basis|pro)( |$)|was (ist|bedeutet|beinhaltet|lerne ich in|passiert (in|bei)) (root|basis|pro)( |$)|root,? basis|basis (und|oder) pro|welches modul|welche module|inhaltskl(ä|ae)rung",
+      keywords: ["root", "modul", "module", "inhaltsklärung", "orientierung", "weiterentwickeln"],
+      answer: "ROOT schafft Orientierung: Ziele, Werte, Datenschutz, Verantwortlichkeiten und Grenzen des KI-Einsatzes. BASIS baut grundlegende KI-Kompetenz auf – KI verstehen, Aufgaben formulieren, Ergebnisse prüfen, Regeln beachten – und unterstützt die KI-Kompetenz nach Artikel 4 EU AI Act. PRO baut darauf auf, mit Prompt Engineering, Workflows, KI-Agenten, RAG und Automatisierung. Jedes Modul läuft über Screening, Inhaltsklärung und Workshop.",
+      links: [{ label: "KI-Einstieg für Unternehmen", url: "index.html#ki-start" }],
     },
     {
       id: "W07", title: "KI-Einstieg für Unternehmen",
       match: "ki[ -]?einstieg f(ü|ue)r unternehmen|angebote? f(ü|ue)r unternehmen|unternehmensworkshop|was passiert im (unternehmens)?workshop|anwendungsf(ä|ae)lle finden|format f(ü|ue)r (die )?gesch(ä|ae)ftsf(ü|ue)hrung|prozesse oder (um )?software",
-      keywords: ["unternehmen", "firma", "betrieb", "geschäftsführ", "beratung", "einstieg", "workshop", "auftragsklärung", "screening", "mittelstand", "chef"],
-      answer: "Der Einstieg beginnt bei realen Arbeitsaufgaben: Wo entstehen Reibungsverluste, welche Daten werden verwendet und wer ist für Ergebnisse verantwortlich? Nach Screening und Auftragsklärung dient ein strukturierter Workshop dazu, mögliche nächste Schritte zu bewerten.",
+      keywords: ["unternehmen", "firma", "betrieb", "geschäftsführ", "beratung", "einstieg", "workshop", "inhaltsklärung", "screening", "mittelstand", "chef", "modul"],
+      answer: "Der KI-Einstieg für Unternehmen ist ein modulares Programm für Geschäftsführung, Fachverantwortliche und Teams: ROOT schafft Orientierung, BASIS baut grundlegende KI-Kompetenz auf, PRO entwickelt konkrete Anwendungen weiter. Die Module bauen aufeinander auf und werden an Eure Situation angepasst – jedes läuft über Screening, Inhaltsklärung und Workshop.",
       links: [{ label: "KI-Einstieg für Unternehmen", url: "index.html#ki-start" }],
     },
     {
@@ -287,7 +294,7 @@ window.PAUL_WISSEN = {
       id: "W19", title: "Was kostet das Angebot?",
       match: "was kostet (das|ein workshop|eine schulung|ein training|die beratung|das angebot|euer|eure|der kurs|das screening)|^was kostet$|^kosten$|^preise?$|preisliste|wie teuer ist (eine|die|das|euer) (schulung|workshop|training|beratung|angebot)|erstgespr(ä|ae)ch (gratis|kostenlos)|ist das erstgespr(ä|ae)ch|was verlangt ihr|was nehmt ihr",
       keywords: ["preis", "kost", "euro", "teuer", "günstig", "honorar", "gebühr"],
-      answer: "Das Screening von etwa 10 Minuten ist kostenlos. Für weitere Workshops und Schulungen steht auf der Website kein verbindlicher Preis. Ein konkretes Angebot hängt vom gewählten Format und Umfang ab – Du kannst es gern anfragen.",
+      answer: "Das Screening ist kostenlos. Für weitere Workshops und Schulungen steht auf der Website kein verbindlicher Preis. Ein konkretes Angebot hängt vom gewählten Format und Umfang ab – Du kannst es gern anfragen.",
       links: [{ label: "Anfragen", url: "index.html#kontakt" }],
     },
     {
