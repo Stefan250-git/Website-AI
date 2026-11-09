@@ -970,6 +970,22 @@ h3 { font-size: 1.3rem; line-height: 1.3; letter-spacing: -0.005em; }
 }
 .footer-inner { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 24px; }
 .footer-links { display: flex; flex-wrap: wrap; gap: 10px 12px; list-style: none; }
+/* Zertifikate in der Fußzeile: kleine Symbole auf weißer Karte, Klick vergrößert per Popover (max. 5 × 5 cm) */
+.footer-badges { display: flex; align-items: center; gap: 12px; }
+.badge-btn {
+  display: block; padding: 4px; border: 0; border-radius: 8px; background: var(--white); line-height: 0; cursor: zoom-in;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, .25); transition: transform .2s ease-out, box-shadow .2s ease-out;
+}
+.badge-btn img { display: block; width: auto; height: 44px; }
+.badge-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 18px rgba(0, 0, 0, .35); }
+.badge-btn:focus-visible { outline: 2px solid var(--green-light); outline-offset: 3px; }
+.badge-pop { padding: 14px; border: 0; border-radius: 14px; background: var(--white); box-shadow: 0 24px 60px rgba(0, 0, 0, .45); }
+.badge-pop::backdrop { background: rgba(13, 29, 55, .55); }
+.badge-pop button { display: block; padding: 0; border: 0; background: none; line-height: 0; cursor: zoom-out; }
+.badge-pop img { display: block; width: auto; height: auto; max-width: 5cm; max-height: 5cm; }
+.badge-pop:popover-open { animation: badge-in .2s ease-out; }
+@keyframes badge-in { from { opacity: 0; transform: scale(.94); } }
+@media (prefers-reduced-motion: reduce) { .badge-btn { transition: none; } .badge-pop:popover-open { animation: none; } }
 .footer-links a {
   display: inline-block; padding: 8px 18px; border-radius: 999px; color: #e3e7ee; text-decoration: none;
   border: 1px solid rgba(255, 255, 255, .22); background: rgba(255, 255, 255, .06);
