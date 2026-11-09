@@ -706,23 +706,25 @@
     '<g fill="#d9363e"><circle cx="20" cy="7" r="4.6"/><circle cx="26.2" cy="11.5" r="4.6"/><circle cx="23.8" cy="18.6" r="4.6"/><circle cx="16.2" cy="18.6" r="4.6"/><circle cx="13.8" cy="11.5" r="4.6"/></g>' +
     '<circle cx="20" cy="13" r="3.4" fill="#f6c026"/>' +
     '</g>' +
-    '<rect x="6" y="38" width="28" height="7" rx="2" fill="#f6c026"/>' +
-    '<path d="M9 45h22l-3.2 18h-15.6z" fill="#e9b11a"/>' +
-    '<path d="M12 48l2 13" stroke="#f8d35b" stroke-width="2" stroke-linecap="round"/>' +
+    '<rect x="6" y="38" width="28" height="7" rx="2" fill="#2f725d"/>' +
+    '<path d="M9 45h22l-3.2 18h-15.6z" fill="#245a49"/>' +
+    '<path d="M12 48l2 13" stroke="#9fd0bd" stroke-opacity=".55" stroke-width="2" stroke-linecap="round"/>' +
     '</svg>';
   // Nach dem Aufprall: Scherben, Erde und die liegende Blume (Stängel waagerecht, Blüte links)
   var DEBRIS_SVG =
     '<svg viewBox="0 0 96 30" aria-hidden="true">' +
     '<ellipse cx="50" cy="26" rx="20" ry="4" fill="#5a3b24"/>' +
-    '<g class="pd-shard pd-s1"><path d="M30 27l7-9 6 3-2 6z" fill="#e9b11a"/></g>' +
-    '<g class="pd-shard pd-s2"><path d="M58 27l3-10 9 2-1 8z" fill="#f6c026"/></g>' +
-    '<g class="pd-shard pd-s3"><path d="M74 28l5-6 7 4-3 2z" fill="#e9b11a"/></g>' +
-    '<g class="pd-shard pd-s4"><path d="M44 28l4-5 5 5z" fill="#f6c026"/></g>' +
+    '<g class="pd-shard pd-s1"><path d="M30 27l7-9 6 3-2 6z" fill="#245a49"/></g>' +
+    '<g class="pd-shard pd-s2"><path d="M58 27l3-10 9 2-1 8z" fill="#2f725d"/></g>' +
+    '<g class="pd-shard pd-s3"><path d="M74 28l5-6 7 4-3 2z" fill="#245a49"/></g>' +
+    '<g class="pd-shard pd-s4"><path d="M44 28l4-5 5 5z" fill="#2f725d"/></g>' +
     '<g class="pd-flower">' +
-    '<path d="M22 22h28" stroke="#3f8f45" stroke-width="2.4" stroke-linecap="round"/>' +
+    '<path d="M50 22H32l-8-7" stroke="#3f8f45" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" fill="none"/>' + // Stängel mit Knick
     '<path d="M38 22c5-3 7-8 6-12-5 1-8 6-6 12z" fill="#4caf50"/>' +
+    '<g transform="rotate(-38 15 22) translate(5 -7)">' + // Blüte hängt nach dem Knick schräg
     '<g fill="#d9363e"><circle cx="9" cy="22" r="4.6"/><circle cx="13.5" cy="15.8" r="4.6"/><circle cx="20.6" cy="18.2" r="4.6"/><circle cx="20.6" cy="25.8" r="4.6"/><circle cx="13.5" cy="28" r="4.6"/></g>' +
     '<circle cx="15" cy="22" r="3.4" fill="#f6c026"/>' +
+    '</g>' +
     '</g>' +
     '</svg>';
 
@@ -767,11 +769,11 @@
       // zweites Antippen, kräftiger: der Topf kippt nach vorn und fällt
       return play("is-swat", 700);
     }).then(function () {
-      lookAt(-1.2, 2.6);
+      lookAt(0.8, 2.8);
       place({ r: -7 }, 1); // Paul beugt sich vor und schaut hinterher
       return phase(620, function (t) {
         var y = fall * t * t; // beschleunigt wie ein fallender Gegenstand
-        pot.style.transform = "translate(" + (-14 * t) + "px," + y + "px) rotate(" + (-160 * t) + "deg) scale(" + (1 + .12 * t) + ")";
+        pot.style.transform = "translate(" + (70 * t) + "px," + y + "px) rotate(" + (150 * t) + "deg) scale(" + (1 + .12 * t) + ")"; // kippt nach rechts
       });
     }).then(function () {
       pot.hidden = true;
