@@ -200,10 +200,12 @@ export default {
         (m.content || []).forEach((part) => {
           (part.annotations || []).forEach((a) => {
             if (a.type !== "url_citation" || !a.url) return;
-            const url = new URL(a.url);
+            let url;
+            try { url = new URL(a.url); } catch { return; }
+            if (url.protocol !== "https:") return;  // nur sichere Quellen-Links, nie javascript: o. Ä.
             url.searchParams.delete("utm_source");  // Zusatz „utm_source=openai“
             if (links.length < MAX_LINKS && !links.some((l) => l.url === url.href)) {
-              links.push({ label: a.title || url.hostname, url: url.href });
+              links.push({ label: String(a.title || url.hostname).slice(0, 120), url: url.href });
             }
           });
         });

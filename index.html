@@ -2,6 +2,10 @@
 <html lang="de">
 <head>
   <meta charset="utf-8">
+  <!-- Sicherheit: Browser führt nur Skripte dieser Website aus und spricht nur mit ihr und Pauls Worker.
+       Neue externe Dienste (Formular-Endpoint, Schriften, Bilder) hier ergänzen. style-src 'unsafe-inline': Skripte setzen style-Attribute. -->
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://paul-proxy.biese250.workers.dev; media-src 'self'; object-src 'none'; frame-src 'none'; base-uri 'self'; form-action 'self' mailto:; upgrade-insecure-requests">
+  <meta name="referrer" content="strict-origin-when-cross-origin">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Testumgebung: nicht in Suchmaschinen aufnehmen (vor dem Launch entfernen) -->
   <meta name="robots" content="noindex, nofollow">
@@ -729,6 +733,6 @@
   <script src="assets/js/termine.js?v=2"></script>
   <script src="assets/js/wissensfluss.js?v=4"></script>
   <script src="assets/js/paul-wissen.js?v=34"></script>
-  <script src="assets/js/paul.js?v=29"></script>
+  <script src="assets/js/paul.js?v=30"></script>
 </body>
 </html>
